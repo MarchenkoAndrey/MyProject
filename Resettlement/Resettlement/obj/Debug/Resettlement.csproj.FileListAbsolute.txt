@@ -1,0 +1,9 @@
+c:\users\marchenko.a\documents\visual studio 2012\Projects\Resettlement\Resettlement\bin\Debug\Resettlement.exe.config
+c:\users\marchenko.a\documents\visual studio 2012\Projects\Resettlement\Resettlement\bin\Debug\Resettlement.exe
+c:\users\marchenko.a\documents\visual studio 2012\Projects\Resettlement\Resettlement\bin\Debug\Resettlement.pdb
+c:\users\marchenko.a\documents\visual studio 2012\Projects\Resettlement\Resettlement\obj\Debug\Resettlement.csprojResolveAssemblyReference.cache
+c:\users\marchenko.a\documents\visual studio 2012\Projects\Resettlement\Resettlement\obj\Debug\Resettlement.exe
+c:\users\marchenko.a\documents\visual studio 2012\Projects\Resettlement\Resettlement\obj\Debug\Resettlement.pdb
+D:\MyProject\MyProject\Resettlement\Resettlement\bin\Debug\Resettlement.exe.config
+D:\MyProject\MyProject\Resettlement\Resettlement\obj\Debug\Resettlement.exe
+D:\MyProject\MyProject\Resettlement\Resettlement\obj\Debug\Resettlement.pdb
