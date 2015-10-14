@@ -21,7 +21,6 @@ namespace Resettlement
 			foreach (var i in squareOfAppartments)
 			{		
 				lengthApartmentsWithAdditive.Add(Math.Round(Math.Ceiling(i/delta)*delta,1));
-//				lengthApartmentsWithAdditive.Add(Math.Ceiling(i/delta)*delta);
 			}
 			return lengthApartmentsWithAdditive;
 		}

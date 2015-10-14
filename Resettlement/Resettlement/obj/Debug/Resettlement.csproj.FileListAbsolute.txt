@@ -7,3 +7,6 @@ c:\users\marchenko.a\documents\visual studio 2012\Projects\Resettlement\Resettle
 D:\MyProject\MyProject\Resettlement\Resettlement\bin\Debug\Resettlement.exe.config
 D:\MyProject\MyProject\Resettlement\Resettlement\obj\Debug\Resettlement.exe
 D:\MyProject\MyProject\Resettlement\Resettlement\obj\Debug\Resettlement.pdb
+D:\MyProject\MyProject\Resettlement\Resettlement\bin\Debug\Resettlement.exe
+D:\MyProject\MyProject\Resettlement\Resettlement\bin\Debug\Resettlement.pdb
+D:\MyProject\MyProject\Resettlement\Resettlement\obj\Debug\Resettlement.csprojResolveAssemblyReference.cache

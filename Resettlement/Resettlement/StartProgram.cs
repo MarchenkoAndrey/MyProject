@@ -30,9 +30,6 @@ namespace Resettlement
 				twoRoom[i] = enterDataTwoRoomFlat[i];
 			}
 
-			var l = 23.04;
-			l = Math.Ceiling(l);
-
 			var lengthOneRoomFlat = PreparationSquares.CalculateLengthOfFlat(squareOneRoomFlat, widthOfApartment);
 			var lengthTwoRoomFlat = PreparationSquares.CalculateLengthOfFlat(twoRoom, widthOfApartment);
 			var newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(lengthOneRoomFlat);
@@ -41,6 +38,7 @@ namespace Resettlement
 			var deltaOfTwoRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthTwoRoomFlat, newLengthTwoRoomFlat);
 
 			var resultMethode = FullSearch.MethodeFullSearch(enterDataOneRoomFlat, enterDataTwoRoomFlat, step, widthOfApartment, entryway);
+			Console.ReadKey();
 		}
 	}
 }
