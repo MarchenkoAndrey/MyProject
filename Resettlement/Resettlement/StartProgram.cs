@@ -37,7 +37,7 @@ namespace Resettlement
 			var deltaOfOneRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthOneRoomFlat, newLengthOneRoomFlat);
 			var deltaOfTwoRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthTwoRoomFlat, newLengthTwoRoomFlat);
 
-			var resultMethode = FullSearch.MethodeFullSearch(enterDataOneRoomFlat, enterDataTwoRoomFlat, step, widthOfApartment, entryway);
+			var resultMethode = FullSearch.MethodeFullSearch(newLengthOneRoomFlat, newLengthTwoRoomFlat, step, widthOfApartment, entryway);
 			Console.ReadKey();
 		}
 	}

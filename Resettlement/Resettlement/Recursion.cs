@@ -4,12 +4,11 @@ using System.Linq;
 
 namespace Resettlement
 {
-	class Program
+	static class Resursion
 	{
-		public static void Man()
+		public static List<int[]> Data(int n)
 		{
 			var result = new List<int[]>();
-			var n = 6;
 			Do(n, n, new bool[n], new int[n], result);
 			foreach (var list in result)
 			{
@@ -17,6 +16,7 @@ namespace Resettlement
 					Console.Write(string.Format("{0} ", x));
 				Console.WriteLine();
 			}
+			return result;
 		}
 
 		private static void Do(int n, int k, bool[] used, int[] current, List<int[]> result)
