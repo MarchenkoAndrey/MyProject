@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections;
 
 namespace Resettlement
 {
 	static class StartProgram
 	{
 		static void Main()
-		{
-			
-			const double thicknessChiefWall = 0.15;
+		{		
 			const double entryway = 2.7;
 			const double widthOfApartment = 5.7;
 			const double step = 0.3;
@@ -37,7 +32,23 @@ namespace Resettlement
 			var deltaOfOneRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthOneRoomFlat, newLengthOneRoomFlat);
 			var deltaOfTwoRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthTwoRoomFlat, newLengthTwoRoomFlat);
 
-			var resultMethode = FullSearch.MethodeFullSearch(newLengthOneRoomFlat, newLengthTwoRoomFlat, step, widthOfApartment, entryway);
+			var resultMethode = FullSearch.MethodeFullSearch(newLengthOneRoomFlat, newLengthTwoRoomFlat, step, entryway);
+
+			Console.WriteLine();
+			Console.WriteLine(string.Format("Минимальный штраф {0}", resultMethode[0]));
+			//Console.WriteLine(resultMethode);
+			Console.Write("Оптимальная расстановка однокомнатных квартир");
+			foreach (var i in (IEnumerable) resultMethode[1])
+			{
+				Console.Write(string.Format(" {0} ",i));
+			}
+			Console.WriteLine();
+			Console.Write("Оптимальная расстановка двухкомнатных квартир");
+			foreach (var i in (IEnumerable)resultMethode[2])
+			{
+				Console.Write(string.Format(" {0} ", i));
+			}
+			//Todo Умножить на 5.7 чтобы получить площади квартир
 			Console.ReadKey();
 		}
 	}

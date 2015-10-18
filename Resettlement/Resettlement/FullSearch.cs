@@ -1,23 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Resettlement
 {
 	static class FullSearch
 	{
-		public static double MethodeFullSearch(List<double> newLengthOneFlat, List<double> newLengthTwoFlat,double step,double widthOfAppartment, double entryway)
+		public static List<object> MethodeFullSearch(List<double> newLengthOneFlat, List<double> newLengthTwoFlat,double step, double entryway)
 		{
-			double minCost = 10000;
-			var permListOneFlat = new List<int[]>();
-			var permListTwoFlat = new List<int[]>();
-			permListOneFlat = Resursion.Data(newLengthOneFlat.Count); //gereration permutations
+			var resultList = new List<object>();
+			var optimalLocationOneFlat = new double[newLengthOneFlat.Count];
+			var optimalLocationTwoFlat = new double[newLengthTwoFlat.Count];
+
+//			var optimalLocationOneFlat = new List<double>();
+//			var optimalLocationTwoFlat = new List<double>();
+
+			var permListOneFlat = Resursion.Data(newLengthOneFlat.Count); //gereration permutations
 		
 			//Todo перестановок для двухкомнатных больше, можно пары менять местами 
-			permListTwoFlat = permListOneFlat;
+			var permListTwoFlat = permListOneFlat;
 
 			if (newLengthOneFlat.Count != newLengthTwoFlat.Count)
 			{
@@ -28,28 +29,40 @@ namespace Resettlement
 			listOneFlats = VariantsFlats.VariantsFlat(listOneFlats, permListOneFlat, newLengthOneFlat);
 			var listTwoFlats = new List<double[]>();
 			listTwoFlats = VariantsFlats.VariantsFlat(listTwoFlats, permListTwoFlat, newLengthTwoFlat);
+			var minExtraSquare = 10000.0;
 
-			foreach (var i in permListOneFlat)
+			foreach (var i in listOneFlats)
 			{
-				var variantPermOneFlat = i;
-				for (var l = 0; l < variantPermOneFlat.Length; ++ l)
+				var squareSectionsOneFlats = new List<double>();
+				for (var k = 0; k < i.Length; k=k+2)
 				{
-
+					squareSectionsOneFlats.Add(Math.Round(i[k] + i[k + 1] + entryway + 3*step,1));
 				}
-				var squareSectionsOneFlat = new List<double>();
-				for (var k = 0; k < variantPermOneFlat.Length; k=k+2)
+				foreach (var j in listTwoFlats)
 				{
-					squareSectionsOneFlat.Add(variantPermOneFlat[k] + variantPermOneFlat[k + 1] + entryway + 2*step);
-				}
-
-				foreach (var j in permListTwoFlat)
-				{
-					var variantPermTwoFlat = permListOneFlat[0];
-
+					var currentExtraSquare = 0.0;
+					var squareSectionsTwoFlats = new List<double>();
+					for (var k = 0; k < j.Length; k = k + 2)
+					{
+						squareSectionsTwoFlats.Add(Math.Round(j[k] + j[k + 1] + 2 * step, 1));       // delta1 + delta2
+					}
+					for (var s = 0; s < squareSectionsOneFlats.Count; ++s)
+					{
+						var h = squareSectionsTwoFlats[s] - squareSectionsOneFlats[s];
+							currentExtraSquare += Math.Abs(h);
+					}
+					if (currentExtraSquare < minExtraSquare)
+					{
+						minExtraSquare = Math.Round(currentExtraSquare,1);
+						optimalLocationOneFlat=i;
+						optimalLocationTwoFlat=j;
+					}
 				}
 			}
-
-			return minCost;
+			resultList.Add(minExtraSquare);
+			resultList.Add(optimalLocationOneFlat.ToArray());
+			resultList.Add(optimalLocationTwoFlat.ToArray());
+			return resultList;
 		}
 	}
 }
