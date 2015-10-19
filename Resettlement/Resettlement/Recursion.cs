@@ -6,24 +6,29 @@ namespace Resettlement
 {
 	static class Resursion
 	{
-		public static List<int[]> Data(int n)
+		public static List<int[]> Data(int n,bool flag)
 		{
 			var result = new List<int[]>();
-			Do(n, n, new bool[n], new int[n], result);
-			foreach (var list in result)
-			{
-				foreach (var x in list)
-					Console.Write(string.Format("{0} ", x));
-				Console.WriteLine();
-			}
+			Do(n, n, new bool[n], new int[n], result, flag);
 			return result;
 		}
 
-		private static void Do(int n, int k, bool[] used, int[] current, List<int[]> result)
+		private static void Do(int n, int k, bool[] used, int[] current, List<int[]> result,bool flag)
 		{
 			if (k == 0)
 			{
-				result.Add(current.ToArray());
+				if (!flag)
+				{
+					var res = FullRecursion.Data(current.Length/2);
+					foreach (int[] i in res)
+					{
+						result.Add(CreatePairPerm.PairPerm(i, current).ToArray()); //perestanovka for 2flat
+					}
+				}
+				else
+				{
+					result.Add(current.ToArray());
+				}
 				return;
 			}
 			int s;
@@ -38,7 +43,7 @@ namespace Resettlement
 					continue;
 				current[k - 2] = t;
 				used[t - 1] = true;
-				Do(n, k - 2, used, current, result);
+				Do(n, k - 2, used, current, result,flag);
 				used[t - 1] = false;
 			}
 			used[s - 1] = false;

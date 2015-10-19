@@ -15,15 +15,9 @@ namespace Resettlement
 //			var optimalLocationOneFlat = new List<double>();
 //			var optimalLocationTwoFlat = new List<double>();
 
-			var permListOneFlat = Resursion2.Data(newLengthOneFlat.Count); //gereration permutations for 1flat
-			var p2 = Resursion.Data(newLengthTwoFlat.Count);              // generation perm for 2flat
-			//Todo перестановок для двухкомнатных больше, можно пары менять местами 
-			var permListTwoFlat = permListOneFlat;
-
-			if (newLengthOneFlat.Count != newLengthTwoFlat.Count)
-			{
-				permListTwoFlat = Resursion.Data(newLengthTwoFlat.Count);
-			}  
+			var permListOneFlat = Resursion.Data(newLengthOneFlat.Count,true); //gereration permutations for Oneflat
+			var permListTwoFlat = Resursion.Data(newLengthTwoFlat.Count, false); //gereration permutations for Twoflat
+			 
 
 			var listOneFlats = new List<double[]>();
 			listOneFlats = VariantsFlats.VariantsFlat(listOneFlats, permListOneFlat, newLengthOneFlat);
