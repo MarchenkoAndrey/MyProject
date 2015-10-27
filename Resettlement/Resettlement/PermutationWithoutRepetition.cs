@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Resettlement
 {
-	static class FullRecursion
+	static class PermutationWithoutRepetition
 	{
 		public static List<int[]> Data(int n)
 		{

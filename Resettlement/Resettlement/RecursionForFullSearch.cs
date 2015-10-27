@@ -19,10 +19,10 @@ namespace Resettlement
 			{
 				if (!flag)
 				{
-					var res = FullRecursion.Data(current.Length/2);
+					var res = PermutationWithoutRepetition.Data(current.Length/2);
 					foreach (int[] i in res)
 					{
-						result.Add(CreatePairPerm.PairPerm(i, current).ToArray()); //perestanovka for 2flat
+						result.Add(BuildingPermutationPairs.PairPerm(i, current).ToArray()); //perestanovka for 2flat
 					}
 				}
 				else

@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace Resettlement
 {
-	static class FullSearch
+	static class MethodeFullSearch
 	{
-		public static List<object> MethodeFullSearch(List<double> newLengthOneFlat, List<double> newLengthTwoFlat,double step, double entryway)
+		public static List<object> FullSearch(List<double> newLengthOneFlat, List<double> newLengthTwoFlat,double step, double entryway)
 		{
 			var resultList = new List<object>();
 			var optimalLocationOneFlat = new double[newLengthOneFlat.Count];

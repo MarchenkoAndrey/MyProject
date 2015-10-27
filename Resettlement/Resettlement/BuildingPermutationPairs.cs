@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Resettlement
 {
-	class CreatePairPerm
+	static class BuildingPermutationPairs
 	{
 		public static List<int> PairPerm(int[] r, int[] current)
 		{

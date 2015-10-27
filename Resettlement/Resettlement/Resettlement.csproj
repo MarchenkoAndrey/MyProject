@@ -41,18 +41,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CreatePairPerm.cs" />
+    <Compile Include="BuildingPermutationPairs.cs" />
+    <Compile Include="GreedyAlcorithm.cs" />
+    <Compile Include="InsertionSort.cs" />
     <Compile Include="PreparationSquares.cs" />
-    <Compile Include="FullSearch.cs" />
+    <Compile Include="MethodeFullSearch.cs" />
     <Compile Include="ReadFromText.cs" />
-    <Compile Include="Recursion.cs" />
-    <Compile Include="FullRecursion.cs" />
-    <Compile Include="StartProgram.cs" />
+    <Compile Include="RecursionForFullSearch.cs" />
+    <Compile Include="PermutationWithoutRepetition.cs" />
+    <Compile Include="StartAndFinishProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VariantsFlats.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="InputData\OneRoom.txt" />
+    <Content Include="InputData\OneRoomMax.txt" />
+    <Content Include="InputData\TwoRoom.txt" />
+    <Content Include="InputData\TwoRoomMax.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

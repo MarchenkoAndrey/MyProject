@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
+using System.Diagnostics;
+using System.Globalization;
 
 namespace Resettlement
 {
-	static class StartProgram
+	static class StartAndFinishProgram
 	{
 		static void Main()
 		{		
@@ -32,23 +34,36 @@ namespace Resettlement
 			var deltaOfOneRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthOneRoomFlat, newLengthOneRoomFlat);
 			var deltaOfTwoRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthTwoRoomFlat, newLengthTwoRoomFlat);
 
-			var resultMethode = FullSearch.MethodeFullSearch(newLengthOneRoomFlat, newLengthTwoRoomFlat, step, entryway);
+			var myStopWatch = new Stopwatch();
+			myStopWatch.Start();
 
-			Console.WriteLine();
-			Console.WriteLine(string.Format("Минимальный штраф {0}", resultMethode[0]));
+			var fullSearch = MethodeFullSearch.FullSearch(newLengthOneRoomFlat, newLengthTwoRoomFlat, step, entryway);
+			myStopWatch.Stop();
+			Console.WriteLine((myStopWatch.ElapsedMilliseconds/1000.0).ToString(CultureInfo.InvariantCulture));
+
+
+			Console.WriteLine("Итог полного перебора");
+			Console.WriteLine(string.Format("Минимальный штраф {0}", fullSearch[0]));
 			//Console.WriteLine(resultMethode);
-			Console.Write("Оптимальная расстановка однокомнатных квартир");
-			foreach (var i in (IEnumerable) resultMethode[1])
+			Console.WriteLine("Оптимальная расстановка однокомнатных квартир");
+			foreach (var i in (IEnumerable) fullSearch[1])
 			{
 				Console.Write(string.Format(" {0} ",i));
 			}
 			Console.WriteLine();
-			Console.Write("Оптимальная расстановка двухкомнатных квартир");
-			foreach (var i in (IEnumerable)resultMethode[2])
+			Console.WriteLine("Оптимальная расстановка двухкомнатных квартир");
+			foreach (var i in (IEnumerable)fullSearch[2])
 			{
 				Console.Write(string.Format(" {0} ", i));
 			}
 			//Todo Умножить на 5.7 чтобы получить площади квартир
+			//6*2 квартир 0.02 секунды
+			//8*2 квартир 0.052 секунды
+			//10*2 квартир 26.576 секунд
+			//12*2 квартир 5.5 часов и еще не закончился
+
+			var greedyAlhorithm = GreedyAlcorithm.GreedyMethode(newLengthOneRoomFlat, newLengthTwoRoomFlat, step, entryway);
+
 			Console.ReadKey();
 		}
 	}
