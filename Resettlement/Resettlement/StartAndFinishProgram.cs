@@ -66,7 +66,7 @@ namespace Resettlement
 			var myStopWatchGreedy = new Stopwatch();
 			myStopWatchGreedy.Start();
 			
-			var greedyAlhorithm = GreedyAlcorithm.GreedyMethode(newLengthOneRoomFlat, newLengthTwoRoomFlat, step, entryway);
+			var greedyAlhorithm = GreedyAlcorithmSection.GreedyMethode(newLengthOneRoomFlat, newLengthTwoRoomFlat, step, entryway);
 			myStopWatchGreedy.Stop();
 			Console.WriteLine(); Console.WriteLine();
 			Console.WriteLine("Время работы жадного алгоритма");

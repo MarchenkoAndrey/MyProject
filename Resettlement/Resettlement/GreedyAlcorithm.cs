@@ -26,7 +26,7 @@ namespace Resettlement
 			{
 				averageSectionTwoFlat.Add(groupingAverageTwoFlat[k] + groupingAverageTwoFlat[k + 1] + 2*step);
 			}
-			var arrangementOneFlat = new double[sortedListOneFlat.Count];
+			var arrangementOneFlat = new double[sortedListOneFlat.Count]; //расстановка 1-квартирных
 			var maxOneFlatToAverageSectionTwoFlat = new List<double>();
 			for (var j=0; j<averageSectionTwoFlat.Count;++j)
 			{
@@ -48,7 +48,7 @@ namespace Resettlement
 				arrangementOneFlat[2*(c+1) - 1] = remainingVariantsOneFlat[c];
 			}
 
-			var finishFine =0.0;
+			var finishFine = 0.0;
 			
 			for (var i = 0; i < fineWithSection.Length; ++i)
 			{
@@ -56,7 +56,7 @@ namespace Resettlement
 			}
 			list.Add(finishFine);
 			list.Add(arrangementOneFlat);
-			list.Add(sortedListTwoFlat);
+			list.Add(groupingAverageTwoFlat);
 		
 			return list;
 		}
