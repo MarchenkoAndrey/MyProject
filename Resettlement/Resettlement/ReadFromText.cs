@@ -9,7 +9,7 @@ namespace Resettlement
 	{
 		public static List<double> ReadFileOneRoom()
 		{
-			var str = File.ReadAllLines("OneRoom.txt"); // построчно
+			var str = File.ReadAllLines("OneRoom10.txt"); // построчно
 			var enterData = new List<double>();
 			if (str.Length != 0)
 			{
@@ -24,7 +24,7 @@ namespace Resettlement
 		}
 		public static List<double> ReadFileTwoRoom()
 		{
-			var str = File.ReadAllLines("TwoRoom.txt"); // построчно
+			var str = File.ReadAllLines("TwoRoom10.txt"); // построчно
 			var enterData = new List<double>();
 			if (str.Length != 0)
 			{

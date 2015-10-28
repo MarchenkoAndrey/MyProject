@@ -39,16 +39,17 @@ namespace Resettlement
 
 			var fullSearch = MethodeFullSearch.FullSearch(newLengthOneRoomFlat, newLengthTwoRoomFlat, step, entryway);
 			myStopWatch.Stop();
-			Console.WriteLine((myStopWatch.ElapsedMilliseconds/1000.0).ToString(CultureInfo.InvariantCulture));
+			Console.WriteLine("Время работы полного перебора");
+			Console.WriteLine((myStopWatch.ElapsedMilliseconds / 1000.0).ToString(CultureInfo.InvariantCulture));
 
 
 			Console.WriteLine("Итог полного перебора");
 			Console.WriteLine(string.Format("Минимальный штраф {0}", fullSearch[0]));
 			//Console.WriteLine(resultMethode);
 			Console.WriteLine("Оптимальная расстановка однокомнатных квартир");
-			foreach (var i in (IEnumerable) fullSearch[1])
+			foreach (var i in (IEnumerable)fullSearch[1])
 			{
-				Console.Write(string.Format(" {0} ",i));
+				Console.Write(string.Format(" {0} ", i));
 			}
 			Console.WriteLine();
 			Console.WriteLine("Оптимальная расстановка двухкомнатных квартир");
@@ -62,8 +63,28 @@ namespace Resettlement
 			//10*2 квартир 26.576 секунд
 			//12*2 квартир 5.5 часов и еще не закончился
 
+			var myStopWatchGreedy = new Stopwatch();
+			myStopWatchGreedy.Start();
+			
 			var greedyAlhorithm = GreedyAlcorithm.GreedyMethode(newLengthOneRoomFlat, newLengthTwoRoomFlat, step, entryway);
+			myStopWatchGreedy.Stop();
+			Console.WriteLine(); Console.WriteLine();
+			Console.WriteLine("Время работы жадного алгоритма");
+			Console.WriteLine((myStopWatchGreedy.ElapsedMilliseconds / 1000.0).ToString(CultureInfo.InvariantCulture));
 
+			Console.WriteLine("Итог жадного алгоритма");
+			Console.WriteLine(string.Format("Минимальный штраф {0}", greedyAlhorithm[0]));
+			Console.WriteLine("Оптимальная расстановка однокомнатных квартир");
+			foreach (var i in (IEnumerable)greedyAlhorithm[1])
+			{
+				Console.Write(string.Format(" {0} ", i));
+			}
+			Console.WriteLine();
+			Console.WriteLine("Оптимальная расстановка двухкомнатных квартир");
+			foreach (var i in (IEnumerable)greedyAlhorithm[2])
+			{
+				Console.Write(string.Format(" {0} ", i));
+			}
 			Console.ReadKey();
 		}
 	}

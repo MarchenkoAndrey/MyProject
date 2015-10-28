@@ -26,7 +26,7 @@ namespace Resettlement
 				}
 				list[j + 1] = key; // возвращаем i-1 элемент
 			}
-
+			list.Reverse();
 			return list;
 		}
 
