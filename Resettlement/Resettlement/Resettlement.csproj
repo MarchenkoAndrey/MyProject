@@ -42,7 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BuildingPermutationPairs.cs" />
-    <Compile Include="GreedyAlcorithm.cs" />
     <Compile Include="GreedyAlcorithmSection.cs" />
     <Compile Include="InsertionSort.cs" />
     <Compile Include="PreparationSquares.cs" />
@@ -58,8 +57,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="InputData\OneRoom10.txt" />
-    <Content Include="InputData\TwoRoom10.txt" />
+    <Folder Include="InputData\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
