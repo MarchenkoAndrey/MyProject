@@ -6,7 +6,7 @@ namespace Resettlement
 	static class GreedyAlcorithmSection
 	{
 		public static List<object> GreedyMethode(List<double> newLengthOneFlat, List<double> newLengthTwoFlat, double step,
-			double entryway)
+			double entryway, double newFirstOneF)
 		{
 			var list = new List<object>();
 			var sortedListOneFlat = InsertionSort.InsertSort(newLengthOneFlat);
@@ -16,13 +16,32 @@ namespace Resettlement
 			var finalPlacementTwoFlat = new double[numberOfApartments];
 			
 			var itogFine = 0.0;
+            var maxFine = 0.0;
+            double newFirstOneFlat=0.0;
 			for (int n = 0; n < numberOfApartments; n=n+2)             // цикл заполнения секций
 			{
-				var choiceMinOneFlat = sortedListOneFlat[0];
+                double choiceMinOneFlat;
+                if (newFirstOneF!= 0)
+                {
+                     choiceMinOneFlat = newFirstOneF;
+                }
+                else 
+                {
+                     choiceMinOneFlat = sortedListOneFlat[0];
+                }
+				
 				var newSortedListOneFlat = new List<double>();
-				for (var i = 1; i < sortedListOneFlat.Count; ++i)
+                var a = 0;
+				for (var i = 0; i < sortedListOneFlat.Count; ++i)
 				{
-					newSortedListOneFlat.Add(sortedListOneFlat[i]);
+                    if (sortedListOneFlat[i] == choiceMinOneFlat && a == 0)
+                    {
+                        a++;
+                    }
+                    else
+                    {
+                        newSortedListOneFlat.Add(sortedListOneFlat[i]);
+                    }
 				}
 				var fine = 10000.0;
 				
@@ -50,6 +69,13 @@ namespace Resettlement
 				}
 				//удаление занятых вариантов из списка и суммирование штрафа
 				itogFine+=Math.Abs(fine);
+                if(maxFine<Math.Abs(fine))
+                {
+                    maxFine = Math.Abs(fine);
+                    newFirstOneFlat = finalPlacementOneFlat[n];
+                }
+               
+
 				sortedListOneFlat.Remove(finalPlacementOneFlat[n]);
 				sortedListOneFlat.Remove(finalPlacementOneFlat[n+1]);
 				sortedListTwoFlat.Remove(finalPlacementTwoFlat[n]);
@@ -58,6 +84,7 @@ namespace Resettlement
 			list.Add(itogFine);
 			list.Add(finalPlacementOneFlat);
 			list.Add(finalPlacementTwoFlat);
+            list.Add(newFirstOneFlat);
 			return list;
 		}
 	}
