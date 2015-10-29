@@ -34,13 +34,16 @@ namespace Resettlement
 			var deltaOfOneRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthOneRoomFlat, newLengthOneRoomFlat);
 			var deltaOfTwoRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthTwoRoomFlat, newLengthTwoRoomFlat);
 
+			Console.WriteLine("Реализация для " +newLengthOneRoomFlat.Count*2 + " квартир");
+			Console.WriteLine();
+
 //			var myStopWatch = new Stopwatch();
 //			myStopWatch.Start();
 //
 //			var fullSearch = MethodeFullSearch.FullSearch(newLengthOneRoomFlat, newLengthTwoRoomFlat, step, entryway);
 //			myStopWatch.Stop();
 //			Console.WriteLine("Время работы полного перебора");
-//			Console.WriteLine((myStopWatch.ElapsedMilliseconds / 1000.0).ToString(CultureInfo.InvariantCulture));
+//			Console.WriteLine((myStopWatch.ElapsedMilliseconds / 1000.0).ToString(CultureInfo.InvariantCulture) + " секунд");
 //
 //
 //			Console.WriteLine("Итог полного перебора");
@@ -71,7 +74,7 @@ namespace Resettlement
 			myStopWatchGreedy.Stop();
 			Console.WriteLine(); Console.WriteLine();
 			Console.WriteLine("Время работы жадного алгоритма");
-			Console.WriteLine((myStopWatchGreedy.ElapsedMilliseconds / 1000.0).ToString(CultureInfo.InvariantCulture));
+			Console.WriteLine((myStopWatchGreedy.ElapsedMilliseconds / 1000.0).ToString(CultureInfo.InvariantCulture) + " секунд");
 
 			Console.WriteLine("Итог жадного алгоритма");
 			Console.WriteLine(string.Format("Минимальный штраф {0}", greedyAlhorithm[0]));
