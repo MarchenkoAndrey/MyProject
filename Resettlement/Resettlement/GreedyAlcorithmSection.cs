@@ -18,10 +18,11 @@ namespace Resettlement
 			var itogFine = 0.0;
             var maxFine = 0.0;
             double newFirstOneFlat=0.0;
+			var b = 0;
 			for (int n = 0; n < numberOfApartments; n=n+2)             // цикл заполнения секций
 			{
                 double choiceMinOneFlat;
-                if (newFirstOneF!= 0)
+                if (newFirstOneF!= 0 && b==0)
                 {
                      choiceMinOneFlat = newFirstOneF;
                 }
@@ -29,7 +30,7 @@ namespace Resettlement
                 {
                      choiceMinOneFlat = sortedListOneFlat[0];
                 }
-				
+				b++;
 				var newSortedListOneFlat = new List<double>();
                 var a = 0;
 				for (var i = 0; i < sortedListOneFlat.Count; ++i)
