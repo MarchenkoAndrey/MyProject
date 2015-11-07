@@ -22,7 +22,7 @@ namespace Resettlement
 			for (int n = 0; n < numberOfApartments; n=n+2)             // цикл заполнения секций
 			{
                 double choiceMinOneFlat;
-                if (newFirstOneF!= 0 && b==0)
+                if (newFirstOneF!=0 && b==0)
                 {
                      choiceMinOneFlat = newFirstOneF;
                 }
@@ -55,10 +55,10 @@ namespace Resettlement
 						for (var h = 0; h < newSortedListOneFlat.Count; ++h)
 						{
 							var currentFine =
-								Math.Round(
+								Math.Abs(Math.Round(
 									sortedListTwoFlat[i] + sortedListTwoFlat[j] + 2*step - choiceMinOneFlat - entryway - 3*step -
-									newSortedListOneFlat[h], 1);
-							if (currentFine > -1 && currentFine < fine)
+									newSortedListOneFlat[h], 1));
+							if (currentFine < fine)
 							{
 								fine = currentFine;
 								finalPlacementTwoFlat[n] = (sortedListTwoFlat[i]);
@@ -69,10 +69,10 @@ namespace Resettlement
 					}
 				}
 				//удаление занятых вариантов из списка и суммирование штрафа
-				itogFine+=Math.Abs(fine);
-                if(maxFine<Math.Abs(fine))
+				itogFine+=fine;
+                if(maxFine<fine)
                 {
-                    maxFine = Math.Abs(fine);
+                    maxFine = fine;
                     newFirstOneFlat = finalPlacementOneFlat[n];
                 }
                

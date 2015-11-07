@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Diagnostics;
 using System.Globalization;
+using System.Linq;
 
 namespace Resettlement
 {
@@ -83,8 +84,8 @@ namespace Resettlement
                 
                 newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(lengthOneRoomFlat);
                 newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(lengthTwoRoomFlat);
+            
                 Console.WriteLine(); Console.WriteLine();
-      
 			    Console.WriteLine("Итог "+ a + "-й итерации жадного алгоритма");
 			    Console.WriteLine(string.Format("Штраф {0}", greedyAlhorithm[0]));
 			    Console.WriteLine("Оптимальная расстановка однокомнатных квартир");
@@ -95,10 +96,11 @@ namespace Resettlement
 			    Console.WriteLine();
 			    Console.WriteLine("Оптимальная расстановка двухкомнатных квартир");
 			    foreach (var i in (IEnumerable)greedyAlhorithm[2])
-			    {
+			    {  
 				    Console.Write(string.Format(" {0} ", i));
 			    }
-                
+                //var f = Math.Round(s1 + 0.3*newLengthOneRoomFlat.Count - s - 1.8*newLengthOneRoomFlat.Count,2);
+               
             }
             myStopWatchGreedy.Stop();
             Console.WriteLine(); Console.WriteLine();
