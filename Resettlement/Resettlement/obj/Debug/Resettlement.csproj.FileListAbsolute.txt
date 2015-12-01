@@ -16,3 +16,5 @@ D:\_MyProject\MyProject\Resettlement\Resettlement\obj\Debug\Resettlement.pdb
 D:\_MyProject\MyProject\Resettlement\Resettlement\bin\Debug\Resettlement.exe
 D:\_MyProject\MyProject\Resettlement\Resettlement\bin\Debug\Resettlement.pdb
 D:\_MyProject\MyProject\Resettlement\Resettlement\obj\Debug\Resettlement.csprojResolveAssemblyReference.cache
+D:\MyProject\MyProject\Resettlement\Resettlement\obj\Debug\Resettlement.csproj.GenerateResource.Cache
+D:\MyProject\MyProject\Resettlement\Resettlement\obj\Debug\Resettlement.UserInterface.resources
