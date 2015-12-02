@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Diagnostics;
+using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
 
@@ -19,14 +20,16 @@ namespace Resettlement
         const double Entryway = 2.7;
         const double WidthOfApartment = 5.7;
         const double Step = 0.3;
-
+        
 	    public static void Program(string[] l1, string[] l2, bool flag)
-        { 
-            //flag = true fullSearch
+	    {
+
+
+	        //flag = true fullSearch
 			var enterDataOneRoomFlat = ReadFromFile.ReadFileOneRoom(l1);
 			var enterDataTwoRoomFlat = ReadFromFile.ReadFileTwoRoom(l2);
 			var squareOneRoomFlat = new double[enterDataOneRoomFlat.Count];
-			var twoRoom = new double[enterDataTwoRoomFlat.Count];
+			var squareTwoRoomFlat = new double[enterDataTwoRoomFlat.Count];
 
 			//запись в массив
 			for (var i = 0; i < enterDataOneRoomFlat.Count; ++i)
@@ -35,23 +38,24 @@ namespace Resettlement
 			}
 			for (var i = 0; i < enterDataTwoRoomFlat.Count; ++i)
 			{
-				twoRoom[i] = enterDataTwoRoomFlat[i];
+				squareTwoRoomFlat[i] = enterDataTwoRoomFlat[i];
 			}
 
 			var lengthOneRoomFlat = PreparationSquares.CalculateLengthOfFlat(squareOneRoomFlat, WidthOfApartment);
-			var lengthTwoRoomFlat = PreparationSquares.CalculateLengthOfFlat(twoRoom, WidthOfApartment);
+			var lengthTwoRoomFlat = PreparationSquares.CalculateLengthOfFlat(squareTwoRoomFlat, WidthOfApartment);
 			var newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(lengthOneRoomFlat);
 			var newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(lengthTwoRoomFlat);
 			var deltaOfOneRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthOneRoomFlat, newLengthOneRoomFlat);
 			var deltaOfTwoRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthTwoRoomFlat, newLengthTwoRoomFlat);
 
-
             Console.WriteLine("Реализация для " + newLengthOneRoomFlat.Count * 2 + " квартир");
             Console.WriteLine();
+ 
             Console.WriteLine("Потери при округлении длин однокомнатных квартир до числа, кратного 0.3: " + deltaOfOneRoomFlat);
             Console.WriteLine("Потери при округлении длин двухкомнатных квартир до числа, кратного 0.3: " + deltaOfTwoRoomFlat);
 			Console.WriteLine();
-	        if (flag == true)
+ /*
+	        if (flag)
 	        {
                 if (lengthOneRoomFlat.Count >= 12 || lengthTwoRoomFlat.Count >= 12)
                 {
@@ -83,6 +87,7 @@ namespace Resettlement
 	                Console.Write(string.Format(" {0} ", i));
 	            }
 	        }
+ * */
 	        //Todo Умножить на 5.7 чтобы получить площади квартир
 			//6*2 квартир 0.02 секунды
 			//8*2 квартир 0.052 секунды
