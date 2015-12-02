@@ -53,6 +53,12 @@ namespace Resettlement
 			Console.WriteLine();
 	        if (flag == true)
 	        {
+                if (lengthOneRoomFlat.Count >= 12 || lengthTwoRoomFlat.Count >= 12)
+                {
+                    MessageBox.Show("Для 12-ти и более вариантов используйте только жадный алгоритм");
+                    Program(l1, l2, false);
+                    return;
+                }
 	            var myStopWatch = new Stopwatch();
 	            myStopWatch.Start();
 
@@ -130,7 +136,7 @@ namespace Resettlement
 	            Console.WriteLine((myStopWatchGreedy.ElapsedMilliseconds/1000.0).ToString(CultureInfo.InvariantCulture) +
 	                              " секунд");
 	        }
-	        Console.ReadKey();
+//	        Console.ReadKey();
 		}
 	}
 }

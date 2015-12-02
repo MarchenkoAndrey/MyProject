@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace Resettlement
 {
@@ -22,7 +24,7 @@ namespace Resettlement
            
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void greedy_btn_Click(object sender, EventArgs e)
         {
             var strOne = new string[1]
             {
@@ -33,8 +35,6 @@ namespace Resettlement
                 squareTwo_input.Text.ToString(CultureInfo.InvariantCulture)
             };
             StartAndFinishProgram.Program(strOne,strTwo, false); 
-//            var s1 = ReadFromFile.ReadFileOneRoom(strOne);
-//            var s2 = ReadFromFile.ReadFileTwoRoom(strTwo);
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -44,7 +44,7 @@ namespace Resettlement
 
         private void countFloor_input_TextChanged(object sender, EventArgs e)
         {
-            if (int.Parse(countFloor_input.Text) != 0)
+            if (int.Parse(countFloor_input.Text) != 1)
             {
                 MessageBox.Show("Реализован расчет пока только для 1-го этажа");
             }
@@ -60,9 +60,8 @@ namespace Resettlement
             {
                 squareTwo_input.Text.ToString(CultureInfo.InvariantCulture)
             };
+            
             StartAndFinishProgram.Program(strOne, strTwo, true);
-            //            var s1 = ReadFromFile.ReadFileOneRoom(strOne);
-            //            var s2 = ReadFromFile.ReadFileTwoRoom(strTwo);
         }
     }
 }

@@ -46,7 +46,7 @@
             this.greedy_btn.TabIndex = 0;
             this.greedy_btn.Text = "Жадный алгоритм";
             this.greedy_btn.UseVisualStyleBackColor = true;
-            this.greedy_btn.Click += new System.EventHandler(this.button1_Click);
+            this.greedy_btn.Click += new System.EventHandler(this.greedy_btn_Click);
             // 
             // fullSearch_btn
             // 

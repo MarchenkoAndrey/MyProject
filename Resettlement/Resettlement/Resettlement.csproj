@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BuildingPermutationPairs.cs" />
+    <Compile Include="CreatePermWithOddParam.cs" />
     <Compile Include="GreedyAlcorithmSection.cs" />
     <Compile Include="InsertionSort.cs" />
     <Compile Include="PreparationSquares.cs" />

@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Windows.Forms.VisualStyles;
 
 namespace Resettlement
 {
@@ -11,15 +9,7 @@ namespace Resettlement
 	{
 		public static List<double> ReadFileOneRoom(string[] l)
 		{
-		    String[] str;
-		    if (l == null)
-		    {
-		      str = File.ReadAllLines("OneRoom8.txt"); // построчно
-		    }
-		    else
-		    {
-		       str = l;
-		    }
+		    string[] str = l[0] == "" ? File.ReadAllLines("OneRoom.txt") : l;
 		    var enterData = new List<double>();
 			if (str.Length != 0)
 			{
@@ -34,15 +24,7 @@ namespace Resettlement
 		}
 		public static List<double> ReadFileTwoRoom(string[] l)
 		{
-            String[] str;
-		    if (l == null)
-		    {
-		         str = File.ReadAllLines("TwoRoom8.txt"); // построчно
-		    }
-		    else
-		    {
-                str = l;
-		    }
+		    string[] str = l[0] == "" ? File.ReadAllLines("TwoRoom.txt") : l;
 			var enterData = new List<double>();
 			if (str.Length != 0)
 			{

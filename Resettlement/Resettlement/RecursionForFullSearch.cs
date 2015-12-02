@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,8 +9,18 @@ namespace Resettlement
 		public static List<int[]> Data(int n,bool flag)
 		{
 			var result = new List<int[]>();
-			Do(n, n, new bool[n], new int[n], result, flag);
-			return result;
+		    var used = false;
+		    if (n%2 != 0)   //Если нечетное количество входных параметров
+		    {
+		        --n;
+		        used = true;
+		    }
+		    Do(n, n, new bool[n], new int[n], result, flag);
+		    if (used) //перестановка для нечетного числа
+		    {
+                result.AddRange(CreatePermWithOddParam.MethodeCreatePermWithOddParam(result, n));
+		    }
+		    return result;
 		}
 
 		private static void Do(int n, int k, bool[] used, int[] current, List<int[]> result,bool flag)
@@ -22,7 +32,7 @@ namespace Resettlement
 					var res = PermutationWithoutRepetition.Data(current.Length/2);
 					foreach (int[] i in res)
 					{
-						result.Add(BuildingPermutationPairs.PairPerm(i, current).ToArray()); //perestanovka for 2flat
+						result.Add(BuildingPermutationPairs.PairPerm(i, current).ToArray()); //perestanovka for TwoFlat
 					}
 				}
 				else
@@ -43,7 +53,7 @@ namespace Resettlement
 					continue;
 				current[k - 2] = t;
 				used[t - 1] = true;
-				Do(n, k - 2, used, current, result,flag);
+			    Do(n, k - 2, used, current, result,flag);
 				used[t - 1] = false;
 			}
 			used[s - 1] = false;

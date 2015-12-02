@@ -76,7 +76,6 @@ namespace Resettlement
                     newFirstOneFlat = finalPlacementOneFlat[n];
                 }
                
-
 				sortedListOneFlat.Remove(finalPlacementOneFlat[n]);
 				sortedListOneFlat.Remove(finalPlacementOneFlat[n+1]);
 				sortedListTwoFlat.Remove(finalPlacementTwoFlat[n]);
