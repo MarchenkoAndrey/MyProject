@@ -1,24 +1,28 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Resettlement
 {
 	static class Resursion
 	{
-		public static List<int[]> Data(int n,bool flag)
+		public static List<int[]> Data(int n, int optN,bool flag)
 		{
 			var result = new List<int[]>();
-		    var used = false;
-		    if (n%2 != 0)   //Если нечетное количество входных параметров
+		    var countExcessNumber=0;
+            //Todo Сюда вставить ограничение на 3 и доработать код, чтобы считал все варианты до оптимального
+		    if (n > optN)
 		    {
-		        --n;
-		        used = true;
+		        countExcessNumber = n - optN;
+		        n = optN;
 		    }
 		    Do(n, n, new bool[n], new int[n], result, flag);
-		    if (used) //перестановка для нечетного числа
+		    if (countExcessNumber==1)
 		    {
-                result.AddRange(CreatePermWithOddParam.MethodeCreatePermWithOddParam(result, n));
+                result.AddRange(CreatePermWithExcessParam.MethodeCreatePermWithOddParam(result, n));
+		    }
+		    if (countExcessNumber == 2)
+		    {
+                result.AddRange(CreatePermWithExcessParam.MethodeCreatePermWithTwoExcessParam(result,n));
 		    }
 		    return result;
 		}

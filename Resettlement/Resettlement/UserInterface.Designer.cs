@@ -45,6 +45,8 @@
             this.minFine_label = new System.Windows.Forms.Label();
             this.optArrangeOne_label = new System.Windows.Forms.Label();
             this.optArrangeTwo_label = new System.Windows.Forms.Label();
+            this.pleaseWaiting_label = new System.Windows.Forms.Label();
+            this.resultGreedy_label = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // greedy_btn
@@ -191,11 +193,29 @@
             this.optArrangeTwo_label.Size = new System.Drawing.Size(0, 13);
             this.optArrangeTwo_label.TabIndex = 15;
             // 
+            // pleaseWaiting_label
+            // 
+            this.pleaseWaiting_label.AutoSize = true;
+            this.pleaseWaiting_label.Location = new System.Drawing.Point(625, 45);
+            this.pleaseWaiting_label.Name = "pleaseWaiting_label";
+            this.pleaseWaiting_label.Size = new System.Drawing.Size(0, 13);
+            this.pleaseWaiting_label.TabIndex = 16;
+            // 
+            // resultGreedy_label
+            // 
+            this.resultGreedy_label.AutoSize = true;
+            this.resultGreedy_label.Location = new System.Drawing.Point(565, 182);
+            this.resultGreedy_label.Name = "resultGreedy_label";
+            this.resultGreedy_label.Size = new System.Drawing.Size(0, 13);
+            this.resultGreedy_label.TabIndex = 17;
+            // 
             // UserInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1086, 556);
+            this.Controls.Add(this.resultGreedy_label);
+            this.Controls.Add(this.pleaseWaiting_label);
             this.Controls.Add(this.optArrangeTwo_label);
             this.Controls.Add(this.optArrangeOne_label);
             this.Controls.Add(this.minFine_label);
@@ -240,5 +260,7 @@
         private System.Windows.Forms.Label minFine_label;
         private System.Windows.Forms.Label optArrangeOne_label;
         private System.Windows.Forms.Label optArrangeTwo_label;
+        private System.Windows.Forms.Label pleaseWaiting_label;
+        private System.Windows.Forms.Label resultGreedy_label;
     }
 }

@@ -9,14 +9,13 @@ namespace Resettlement
 		public static List<object> FullSearch(List<double> newLengthOneFlat, List<double> newLengthTwoFlat,double step, double entryway)
 		{
 			var resultList = new List<object>();
-            var totalNumberOptimalLocationFlat = Math.Min(newLengthOneFlat.Count / 4 * 4, newLengthOneFlat.Count / 4 * 4);
+            var totalNumberOptimalLocationFlat = Math.Min(newLengthOneFlat.Count / 2 * 2, newLengthTwoFlat.Count / 2 * 2);
 			var optimalLocationOneFlat = new double[totalNumberOptimalLocationFlat];
 			var optimalLocationTwoFlat = new double[totalNumberOptimalLocationFlat];
 
-			var permListOneFlat = Resursion.Data(newLengthOneFlat.Count,true); //gereration permutations for Oneflat
-			var permListTwoFlat = Resursion.Data(newLengthTwoFlat.Count, false); //gereration permutations for Twoflat
+			var permListOneFlat = Resursion.Data(newLengthOneFlat.Count,totalNumberOptimalLocationFlat,true); //gereration permutations for Oneflat
+			var permListTwoFlat = Resursion.Data(newLengthTwoFlat.Count,totalNumberOptimalLocationFlat, false); //gereration permutations for Twoflat
 			 
-
 			var listOneFlats = new List<double[]>();
 			listOneFlats = VariantsFlats.VariantsFlat(listOneFlats, permListOneFlat, newLengthOneFlat);
 			var listTwoFlats = new List<double[]>();
