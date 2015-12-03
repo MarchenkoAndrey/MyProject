@@ -11,7 +11,7 @@ namespace Resettlement
 			var list = new List<object>();
 			var sortedListOneFlat = InsertionSort.InsertSort(newLengthOneFlat);
 			var sortedListTwoFlat = InsertionSort.InsertSort(newLengthTwoFlat);
-			var numberOfApartments = sortedListOneFlat.Count;
+            var numberOfApartments = Math.Min(newLengthOneFlat.Count / 2 * 2, newLengthTwoFlat.Count / 2 * 2);
 			var finalPlacementOneFlat = new double[numberOfApartments];
 			var finalPlacementTwoFlat = new double[numberOfApartments];
 			

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Forms;
@@ -60,6 +61,12 @@ namespace Resettlement
             var newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(lengthTwoRoomFlat);
             var deltaOfOneRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthOneRoomFlat, newLengthOneRoomFlat);
             var deltaOfTwoRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthTwoRoomFlat, newLengthTwoRoomFlat);
+
+            var countFloor = 0;
+            if (int.Parse(countFloor_input.Text).ToString(CultureInfo.InvariantCulture) != "")
+            {
+                countFloor = int.Parse(countFloor_input.Text);
+            }
 
             realizat_label.Text = "".ToString(CultureInfo.InvariantCulture);
             lossesOne_label.Text = "".ToString(CultureInfo.InvariantCulture);
@@ -133,9 +140,9 @@ namespace Resettlement
 
         private void countFloor_input_TextChanged(object sender, EventArgs e)
         {
-            if (int.Parse(countFloor_input.Text) != 1)
+            if (int.Parse(countFloor_input.Text) != 1 && int.Parse(countFloor_input.Text) != 2)
             {
-                MessageBox.Show("Реализован расчет пока только для 1-го этажа");
+                MessageBox.Show("Реализован расчет только для одного- и двухэтажного дома");
             }
         }
 
@@ -175,6 +182,13 @@ namespace Resettlement
             var newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(lengthTwoRoomFlat);
             var deltaOfOneRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthOneRoomFlat, newLengthOneRoomFlat);
             var deltaOfTwoRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthTwoRoomFlat, newLengthTwoRoomFlat);
+
+            var countFloor = 0;
+            if (int.Parse(countFloor_input.Text).ToString(CultureInfo.InvariantCulture) != "")
+            {
+                countFloor = int.Parse(countFloor_input.Text);
+            }
+
 
             realizat_label.Text = "".ToString(CultureInfo.InvariantCulture);
             lossesOne_label.Text = "".ToString(CultureInfo.InvariantCulture);
@@ -217,22 +231,36 @@ namespace Resettlement
                                  " секунд";
             timeFullSearch_label.Text += timeFullSearch.ToString(CultureInfo.InvariantCulture);
 
-            const string resultFullSearch = "Итог полного перебора:";
-            resultFullSearch_label.Text += resultFullSearch.ToString(CultureInfo.InvariantCulture);
-            var minFine = string.Format("Минимальный штраф {0}", fullSearch[0]);
-            minFine_label.Text += minFine.ToString(CultureInfo.InvariantCulture);
+            //todo second floor
 
-            const string optArrangeOne = "Оптимальная расстановка однокомнатных квартир";
-            optArrangeOne_label.Text += optArrangeOne.ToString(CultureInfo.InvariantCulture);
-            foreach (var i in (IEnumerable)fullSearch[1])
+            if (countFloor == 2)
             {
-                optArrangeOne_label.Text+=(string.Format(" {0} ", i));
+               var optArrangeSecondFloorResult = CreateSecondFloor.MethodeCreateSecondFloor(fullSearch[1],fullSearch[2],entryway,step);
             }
-            const string optArrangeTwo = "Оптимальная расстановка однокомнатных квартир";
-            optArrangeTwo_label.Text += optArrangeTwo.ToString(CultureInfo.InvariantCulture);
-            foreach (var i in (IEnumerable)fullSearch[2])
+            else if (countFloor == 1 || countFloor.ToString(CultureInfo.InvariantCulture) == "")
             {
-                optArrangeTwo_label.Text += (string.Format(" {0} ", i));
+                
+                const string resultFullSearch = "Итог полного перебора:";
+                resultFullSearch_label.Text += resultFullSearch.ToString(CultureInfo.InvariantCulture);
+                var minFine = string.Format("Минимальный штраф {0}", fullSearch[0]);
+                minFine_label.Text += minFine.ToString(CultureInfo.InvariantCulture);
+
+                const string optArrangeOne = "Оптимальная расстановка однокомнатных квартир";
+                optArrangeOne_label.Text += optArrangeOne.ToString(CultureInfo.InvariantCulture);
+                foreach (var i in (IEnumerable) fullSearch[1])
+                {
+                    optArrangeOne_label.Text += (string.Format(" {0} ", i));
+                }
+                const string optArrangeTwo = "Оптимальная расстановка однокомнатных квартир";
+                optArrangeTwo_label.Text += optArrangeTwo.ToString(CultureInfo.InvariantCulture);
+                foreach (var i in (IEnumerable) fullSearch[2])
+                {
+                    optArrangeTwo_label.Text += (string.Format(" {0} ", i));
+                }
+            }
+            else
+            {
+                minFine_label.Text += ("Поломан инпут этажа").ToString(CultureInfo.InvariantCulture);
             }
         }
 

@@ -54,7 +54,7 @@ namespace Resettlement
                     {
                         int[] currentMassiv;
                         Array.Copy(result[numberRow], currentMassiv = new int[result[numberRow].Length], result[numberRow].Length);
-                        currentMassiv[Array.IndexOf(currentMassiv, elemInRowNext)] = a1;
+                        currentMassiv[Array.IndexOf(currentMassiv, elemInRow)] = a1;
                         currentMassiv[Array.IndexOf(currentMassiv, elemInRowNext)] = a2;
                         newResultList.Add(currentMassiv);
                     }
