@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Forms;
@@ -231,11 +230,34 @@ namespace Resettlement
                                  " секунд";
             timeFullSearch_label.Text += timeFullSearch.ToString(CultureInfo.InvariantCulture);
 
-            //todo second floor
-
             if (countFloor == 2)
             {
                var optArrangeSecondFloorResult = CreateSecondFloor.MethodeCreateSecondFloor(fullSearch[1],fullSearch[2],entryway,step);
+               foreach (var i in (IEnumerable)optArrangeSecondFloorResult[0])
+               {
+                   resultFullSearch_label.Text += (string.Format(" {0} ", i));
+               }
+               resultFullSearch_label.Text += "\r\n";
+
+               foreach (var i in (IEnumerable)optArrangeSecondFloorResult[1])
+               {
+                   resultFullSearch_label.Text += (string.Format(" {0} ", i));
+               }
+               resultFullSearch_label.Text += "\r\n";
+
+               resultFullSearch_label.Text +=  "_____________________\r\n";
+
+               foreach (var i in (IEnumerable)optArrangeSecondFloorResult[2])
+               {
+                   resultFullSearch_label.Text += (string.Format(" {0} ", i));
+               }
+               resultFullSearch_label.Text += "\r\n";
+
+               foreach (var i in (IEnumerable)optArrangeSecondFloorResult[3])
+               {
+                   resultFullSearch_label.Text += (string.Format(" {0} ", i));
+               }
+//               resultFullSearch_label.Text += "\r\n";
             }
             else if (countFloor == 1 || countFloor.ToString(CultureInfo.InvariantCulture) == "")
             {

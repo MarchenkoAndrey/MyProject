@@ -14,8 +14,8 @@ namespace Resettlement
             {
                 for (var numberRow = 0; numberRow < totCountRow; ++numberRow)
                 {
-                    int[] currentMassiv; 
-                    Array.Copy(result[0], currentMassiv = new int[result[0].Length], result[0].Length);
+                    int[] currentMassiv;
+                    Array.Copy(result[numberRow], currentMassiv = new int[result[numberRow].Length], result[numberRow].Length);
                     currentMassiv[Array.IndexOf(currentMassiv, countElemInRow)] = addNewNumberInPerm;
                     newResultList.Add(currentMassiv);   
                 }
