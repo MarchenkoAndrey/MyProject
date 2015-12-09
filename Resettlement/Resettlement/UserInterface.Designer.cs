@@ -40,11 +40,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lossesOne_label = new System.Windows.Forms.Label();
             this.realizat_label = new System.Windows.Forms.Label();
-            this.timeFullSearch_label = new System.Windows.Forms.Label();
             this.resultFullSearch_label = new System.Windows.Forms.Label();
-            this.minFine_label = new System.Windows.Forms.Label();
-            this.optArrangeOne_label = new System.Windows.Forms.Label();
-            this.optArrangeTwo_label = new System.Windows.Forms.Label();
             this.pleaseWaiting_label = new System.Windows.Forms.Label();
             this.resultGreedy_label = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -125,7 +121,7 @@
             // lossesTwo_label
             // 
             this.lossesTwo_label.AutoSize = true;
-            this.lossesTwo_label.Location = new System.Drawing.Point(23, 231);
+            this.lossesTwo_label.Location = new System.Drawing.Point(23, 229);
             this.lossesTwo_label.Name = "lossesTwo_label";
             this.lossesTwo_label.Size = new System.Drawing.Size(0, 13);
             this.lossesTwo_label.TabIndex = 9;
@@ -140,7 +136,7 @@
             // lossesOne_label
             // 
             this.lossesOne_label.AutoSize = true;
-            this.lossesOne_label.Location = new System.Drawing.Point(23, 209);
+            this.lossesOne_label.Location = new System.Drawing.Point(23, 207);
             this.lossesOne_label.Name = "lossesOne_label";
             this.lossesOne_label.Size = new System.Drawing.Size(0, 13);
             this.lossesOne_label.TabIndex = 8;
@@ -148,50 +144,18 @@
             // realizat_label
             // 
             this.realizat_label.AutoSize = true;
-            this.realizat_label.Location = new System.Drawing.Point(23, 182);
+            this.realizat_label.Location = new System.Drawing.Point(23, 180);
             this.realizat_label.Name = "realizat_label";
             this.realizat_label.Size = new System.Drawing.Size(0, 13);
             this.realizat_label.TabIndex = 10;
             // 
-            // timeFullSearch_label
-            // 
-            this.timeFullSearch_label.AutoSize = true;
-            this.timeFullSearch_label.Location = new System.Drawing.Point(23, 260);
-            this.timeFullSearch_label.Name = "timeFullSearch_label";
-            this.timeFullSearch_label.Size = new System.Drawing.Size(0, 13);
-            this.timeFullSearch_label.TabIndex = 11;
-            // 
             // resultFullSearch_label
             // 
             this.resultFullSearch_label.AutoSize = true;
-            this.resultFullSearch_label.Location = new System.Drawing.Point(23, 281);
+            this.resultFullSearch_label.Location = new System.Drawing.Point(23, 261);
             this.resultFullSearch_label.Name = "resultFullSearch_label";
             this.resultFullSearch_label.Size = new System.Drawing.Size(0, 13);
             this.resultFullSearch_label.TabIndex = 12;
-            // 
-            // minFine_label
-            // 
-            this.minFine_label.AutoSize = true;
-            this.minFine_label.Location = new System.Drawing.Point(23, 305);
-            this.minFine_label.Name = "minFine_label";
-            this.minFine_label.Size = new System.Drawing.Size(0, 13);
-            this.minFine_label.TabIndex = 13;
-            // 
-            // optArrangeOne_label
-            // 
-            this.optArrangeOne_label.AutoSize = true;
-            this.optArrangeOne_label.Location = new System.Drawing.Point(23, 327);
-            this.optArrangeOne_label.Name = "optArrangeOne_label";
-            this.optArrangeOne_label.Size = new System.Drawing.Size(0, 13);
-            this.optArrangeOne_label.TabIndex = 14;
-            // 
-            // optArrangeTwo_label
-            // 
-            this.optArrangeTwo_label.AutoSize = true;
-            this.optArrangeTwo_label.Location = new System.Drawing.Point(23, 340);
-            this.optArrangeTwo_label.Name = "optArrangeTwo_label";
-            this.optArrangeTwo_label.Size = new System.Drawing.Size(0, 13);
-            this.optArrangeTwo_label.TabIndex = 15;
             // 
             // pleaseWaiting_label
             // 
@@ -216,11 +180,7 @@
             this.ClientSize = new System.Drawing.Size(1086, 556);
             this.Controls.Add(this.resultGreedy_label);
             this.Controls.Add(this.pleaseWaiting_label);
-            this.Controls.Add(this.optArrangeTwo_label);
-            this.Controls.Add(this.optArrangeOne_label);
-            this.Controls.Add(this.minFine_label);
             this.Controls.Add(this.resultFullSearch_label);
-            this.Controls.Add(this.timeFullSearch_label);
             this.Controls.Add(this.realizat_label);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lossesTwo_label);
@@ -255,11 +215,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lossesOne_label;
         private System.Windows.Forms.Label realizat_label;
-        private System.Windows.Forms.Label timeFullSearch_label;
         private System.Windows.Forms.Label resultFullSearch_label;
-        private System.Windows.Forms.Label minFine_label;
-        private System.Windows.Forms.Label optArrangeOne_label;
-        private System.Windows.Forms.Label optArrangeTwo_label;
         private System.Windows.Forms.Label pleaseWaiting_label;
         private System.Windows.Forms.Label resultGreedy_label;
     }

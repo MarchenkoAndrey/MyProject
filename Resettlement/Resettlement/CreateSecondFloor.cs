@@ -5,11 +5,11 @@ namespace Resettlement
 {
     static class CreateSecondFloor
     {
-        public static List<double[]> MethodeCreateSecondFloor(object optArrangeOne, object optArrangeTwo, double entryway, double step)
+        public static List<object> MethodeCreateSecondFloor(object optArrangeOne, object optArrangeTwo, double entryway, double step)
         {
             var optArrangeOneArray = (double[]) optArrangeOne;
             var optArrangeTwoArray = (double[]) optArrangeTwo;
-            var result = new List<double[]>();
+            var result = new List<object>();
 			var listSquareOneFlat = new List<double>();
             var listSquareTwoFlat = new List<double>();
 			for (var i = 0; i < optArrangeOneArray.Length; i=i+2)
@@ -20,7 +20,6 @@ namespace Resettlement
             {
                 listSquareTwoFlat.Add(Math.Round(optArrangeTwoArray[j] + optArrangeTwoArray[j + 1] + 2*step, 1));
             }
-
             var listFineSection = new List<double>();
             for (var s = 0; s < listSquareOneFlat.Count; ++s)
             {
@@ -35,7 +34,6 @@ namespace Resettlement
                     permutationVariants[i][j]--;
                 }
             }
-
             var totalFineSection = 1000.0;
             var optimalVariant = 0;
             for (var numberRowVariant = 0; numberRowVariant < permutationVariants.Count; ++numberRowVariant)
@@ -64,8 +62,6 @@ namespace Resettlement
                     totalFineSection = currentFineSection;
                 }
             }
-
-            //Todo Прописать итоговый вариант расстановки
             var optimalPermutation = permutationVariants[optimalVariant];
             var optVarOneflatOneFloor = new double[optimalPermutation.Length];
             var optVarTwoflatOneFloor = new double[optimalPermutation.Length];
@@ -99,7 +95,7 @@ namespace Resettlement
             }
             result.Add(optVarOneflatTwoFloor);
             result.Add(optVarTwoflatTwoFloor);
-
+            result.Add(totalFineSection);
             return result;
         }
     }

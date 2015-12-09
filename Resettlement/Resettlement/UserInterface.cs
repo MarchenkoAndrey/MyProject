@@ -61,10 +61,11 @@ namespace Resettlement
             var deltaOfOneRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthOneRoomFlat, newLengthOneRoomFlat);
             var deltaOfTwoRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthTwoRoomFlat, newLengthTwoRoomFlat);
 
+            //var countFloor = 0;
             var countFloor = 0;
-            if (int.Parse(countFloor_input.Text).ToString(CultureInfo.InvariantCulture) != "")
+            if (countFloor_input.Text.ToString(CultureInfo.InvariantCulture) != "".ToString())
             {
-                countFloor = int.Parse(countFloor_input.Text);
+              countFloor = int.Parse(countFloor_input.Text);
             }
 
             realizat_label.Text = "".ToString(CultureInfo.InvariantCulture);
@@ -80,7 +81,6 @@ namespace Resettlement
             lossesOne_label.Text += lossesOne.ToString(CultureInfo.InvariantCulture);
             //lossesOne_label.Font = new Font("Calibri", 14);
             lossesTwo_label.Text += lossesTwo.ToString(CultureInfo.InvariantCulture);
-
 
             var myStopWatchGreedy = new Stopwatch();
             myStopWatchGreedy.Start();
@@ -104,32 +104,78 @@ namespace Resettlement
                 newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(lengthOneRoomFlat);
                 newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(lengthTwoRoomFlat);
 
-                resultGreedy_label.Text += ("Итог " + a + "-й итерации жадного алгоритма:" + "\r\n").ToString(CultureInfo.InvariantCulture);
-                resultGreedy_label.Text += (string.Format("Штраф {0}", greedyAlhorithm[0]) + "\r\n").ToString(CultureInfo.InvariantCulture);
 
-                resultGreedy_label.Text +=
-                    ("Оптимальная расстановка однокомнатных квартир: ").ToString(CultureInfo.InvariantCulture);
-                foreach (var i in (IEnumerable)greedyAlhorithm[1])
+                //Todo второй этаж для жадного алгоритма
+                if (countFloor == 2)
                 {
-                    resultGreedy_label.Text += (string.Format(" {0} ", i));
+
+                    resultGreedy_label.Text += ("Итог " + a + "-й итерации жадного алгоритма:" + "\r\n").ToString(CultureInfo.InvariantCulture);
+                    resultGreedy_label.Text += (string.Format("Штраф {0}", greedyAlhorithm[0]) + "\r\n").ToString(CultureInfo.InvariantCulture);
+                    resultGreedy_label.Text += "\r\n";
+                    var optArrangeSecondFloorResult = CreateSecondFloor.MethodeCreateSecondFloor(greedyAlhorithm[1], greedyAlhorithm[2], entryway, step);
+                    foreach (var i in (IEnumerable)optArrangeSecondFloorResult[0])
+                    {
+                        resultGreedy_label.Text += (string.Format(" {0} ", i));
+                    }
+                    resultGreedy_label.Text += "\r\n";
+
+                    foreach (var i in (IEnumerable)optArrangeSecondFloorResult[1])
+                    {
+                        resultGreedy_label.Text += (string.Format(" {0} ", i));
+                    }
+                    resultGreedy_label.Text += "\r\n";
+
+                    resultGreedy_label.Text += "_____________________\r\n";
+
+                    foreach (var i in (IEnumerable)optArrangeSecondFloorResult[2])
+                    {
+                        resultGreedy_label.Text += (string.Format(" {0} ", i));
+                    }
+                    resultGreedy_label.Text += "\r\n";
+
+                    foreach (var i in (IEnumerable)optArrangeSecondFloorResult[3])
+                    {
+                        resultGreedy_label.Text += (string.Format(" {0} ", i));
+                    }
+                    resultGreedy_label.Text += "\r\n";
+                    resultGreedy_label.Text += (string.Format("Штраф от этажей {0} \r\n",optArrangeSecondFloorResult[4]));
+                    resultGreedy_label.Text += "\r\n";
+                    resultGreedy_label.Text += "\r\n";
+
                 }
-                resultGreedy_label.Text += ("\r\n").ToString(CultureInfo.InvariantCulture);
-                resultGreedy_label.Text +=
-                    ("Оптимальная расстановка двухкомнатных квартир: ").ToString(CultureInfo.InvariantCulture);
-                foreach (var i in (IEnumerable)greedyAlhorithm[2])
+                else if (countFloor == 1 || countFloor.ToString(CultureInfo.InvariantCulture) == "")
                 {
-                    resultGreedy_label.Text += (string.Format(" {0} ", i));
+                    resultGreedy_label.Text += ("Итог " + a + "-й итерации жадного алгоритма:" + "\r\n").ToString(CultureInfo.InvariantCulture);
+                    resultGreedy_label.Text += (string.Format("Штраф {0}", greedyAlhorithm[0]) + "\r\n").ToString(CultureInfo.InvariantCulture);
+
+                    resultGreedy_label.Text +=
+                        ("Оптимальная расстановка однокомнатных квартир: ").ToString(CultureInfo.InvariantCulture);
+                    foreach (var i in (IEnumerable)greedyAlhorithm[1])
+                    {
+                        resultGreedy_label.Text += (string.Format(" {0} ", i));
+                    }
+                    resultGreedy_label.Text += ("\r\n").ToString(CultureInfo.InvariantCulture);
+                    resultGreedy_label.Text +=
+                        ("Оптимальная расстановка двухкомнатных квартир: ").ToString(CultureInfo.InvariantCulture);
+                    foreach (var i in (IEnumerable)greedyAlhorithm[2])
+                    {
+                        resultGreedy_label.Text += (string.Format(" {0} ", i));
+                    }
+                    resultGreedy_label.Text += ("\r\n").ToString(CultureInfo.InvariantCulture);
+                    resultGreedy_label.Text += ("\r\n").ToString(CultureInfo.InvariantCulture);
+                    //var f = Math.Round(s1 + 0.3*newLengthOneRoomFlat.Count - s - 1.8*newLengthOneRoomFlat.Count,2);
                 }
-                resultGreedy_label.Text += ("\r\n").ToString(CultureInfo.InvariantCulture);
-                resultGreedy_label.Text += ("\r\n").ToString(CultureInfo.InvariantCulture);
-                //var f = Math.Round(s1 + 0.3*newLengthOneRoomFlat.Count - s - 1.8*newLengthOneRoomFlat.Count,2);
+                else 
+                {
+                    MessageBox.Show("Некорректное значение в поле 'Этаж'");
+                    return;
+                }
+                myStopWatchGreedy.Stop();
             }
-            myStopWatchGreedy.Stop();
             resultGreedy_label.Text +=
-                ("Время работы жадного алгоритма: " +
-                 (myStopWatchGreedy.ElapsedMilliseconds/1000.0).ToString(CultureInfo.InvariantCulture) +
-                 " секунд").ToString(CultureInfo.InvariantCulture);
-           
+                  ("Время работы жадного алгоритма: " +
+                   (myStopWatchGreedy.ElapsedMilliseconds / 1000.0).ToString(CultureInfo.InvariantCulture) +
+                   " секунд").ToString(CultureInfo.InvariantCulture);
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -139,10 +185,10 @@ namespace Resettlement
 
         private void countFloor_input_TextChanged(object sender, EventArgs e)
         {
-            if (int.Parse(countFloor_input.Text) != 1 && int.Parse(countFloor_input.Text) != 2)
-            {
-                MessageBox.Show("Реализован расчет только для одного- и двухэтажного дома");
-            }
+            //if (int.Parse(countFloor_input.Text) != 1 && int.Parse(countFloor_input.Text) != 2)
+            //{
+            //    MessageBox.Show("Реализован расчет только для одного- и двухэтажного дома");
+            //}
         }
 
         private void fullSearch_btn_Click(object sender, EventArgs e)
@@ -183,15 +229,15 @@ namespace Resettlement
             var deltaOfTwoRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthTwoRoomFlat, newLengthTwoRoomFlat);
 
             var countFloor = 0;
-            if (int.Parse(countFloor_input.Text).ToString(CultureInfo.InvariantCulture) != "")
+            if (countFloor_input.Text.ToString(CultureInfo.InvariantCulture) != "")
             {
-                countFloor = int.Parse(countFloor_input.Text);
+               countFloor = int.Parse(countFloor_input.Text);
             }
-
 
             realizat_label.Text = "".ToString(CultureInfo.InvariantCulture);
             lossesOne_label.Text = "".ToString(CultureInfo.InvariantCulture);
             lossesTwo_label.Text = "".ToString(CultureInfo.InvariantCulture);
+            resultFullSearch_label.Text = "".ToString(CultureInfo.InvariantCulture);
 
             var realizateLabel = "Реализация для " + newLengthOneRoomFlat.Count * 2 + " квартир";
             realizat_label.Text += (realizateLabel).ToString(CultureInfo.InvariantCulture);
@@ -224,11 +270,7 @@ namespace Resettlement
             myStopWatch.Start();
 
             var fullSearch = MethodeFullSearch.FullSearch(newLengthOneRoomFlat, newLengthTwoRoomFlat, step, entryway);
-            myStopWatch.Stop();
-            var timeFullSearch = "Время работы полного перебора " +
-                                 (myStopWatch.ElapsedMilliseconds/1000.0).ToString(CultureInfo.InvariantCulture) +
-                                 " секунд";
-            timeFullSearch_label.Text += timeFullSearch.ToString(CultureInfo.InvariantCulture);
+            //myStopWatch.Stop();
 
             if (countFloor == 2)
             {
@@ -257,33 +299,44 @@ namespace Resettlement
                {
                    resultFullSearch_label.Text += (string.Format(" {0} ", i));
                }
+               resultFullSearch_label.Text += "\r\n";
+               resultFullSearch_label.Text += (string.Format("Штраф от этажей {0} \r\n", optArrangeSecondFloorResult[4]));
 //               resultFullSearch_label.Text += "\r\n";
             }
             else if (countFloor == 1 || countFloor.ToString(CultureInfo.InvariantCulture) == "")
             {
                 
                 const string resultFullSearch = "Итог полного перебора:";
-                resultFullSearch_label.Text += resultFullSearch.ToString(CultureInfo.InvariantCulture);
-                var minFine = string.Format("Минимальный штраф {0}", fullSearch[0]);
-                minFine_label.Text += minFine.ToString(CultureInfo.InvariantCulture);
+                resultFullSearch_label.Text += resultFullSearch.ToString(CultureInfo.InvariantCulture)+"\r\n";
+                var minFine = string.Format("Штраф {0}", fullSearch[0]);
+                resultFullSearch_label.Text += minFine.ToString(CultureInfo.InvariantCulture)+"\r\n";
 
                 const string optArrangeOne = "Оптимальная расстановка однокомнатных квартир";
-                optArrangeOne_label.Text += optArrangeOne.ToString(CultureInfo.InvariantCulture);
+                resultFullSearch_label.Text += optArrangeOne.ToString(CultureInfo.InvariantCulture);
                 foreach (var i in (IEnumerable) fullSearch[1])
                 {
-                    optArrangeOne_label.Text += (string.Format(" {0} ", i));
+                    resultFullSearch_label.Text += (string.Format(" {0} ", i));
                 }
+                resultFullSearch_label.Text += "\r\n";
                 const string optArrangeTwo = "Оптимальная расстановка однокомнатных квартир";
-                optArrangeTwo_label.Text += optArrangeTwo.ToString(CultureInfo.InvariantCulture);
+                resultFullSearch_label.Text += optArrangeTwo.ToString(CultureInfo.InvariantCulture);
                 foreach (var i in (IEnumerable) fullSearch[2])
                 {
-                    optArrangeTwo_label.Text += (string.Format(" {0} ", i));
+                    resultFullSearch_label.Text += (string.Format(" {0} ", i));
                 }
+                resultFullSearch_label.Text += "\r\n";
             }
             else
             {
-                minFine_label.Text += ("Поломан инпут этажа").ToString(CultureInfo.InvariantCulture);
+                MessageBox.Show("Некорректное значение в поле 'Этаж'");
+                return;
             }
+            myStopWatch.Stop();
+            resultFullSearch_label.Text += "\r\n";
+            var timeFullSearch = "Время работы полного перебора " +
+                                 (myStopWatch.ElapsedMilliseconds / 1000.0).ToString(CultureInfo.InvariantCulture) +
+                                 " секунд";
+            resultFullSearch_label.Text += timeFullSearch.ToString(CultureInfo.InvariantCulture);
         }
 
         private void labelOne_Click(object sender, EventArgs e)
