@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Forms;
@@ -33,7 +34,6 @@ namespace Resettlement
             {
                 squareTwo_input.Text.ToString(CultureInfo.InvariantCulture)
             };
-            //StartAndFinishProgram.Program(strOne,strTwo, false); 
 
             const double entryway = 2.7;
             const double widthOfApartment = 5.7;
@@ -61,20 +61,31 @@ namespace Resettlement
             var deltaOfOneRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthOneRoomFlat, newLengthOneRoomFlat);
             var deltaOfTwoRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthTwoRoomFlat, newLengthTwoRoomFlat);
 
-            //var countFloor = 0;
             var countFloor = 0;
-            if (countFloor_input.Text.ToString(CultureInfo.InvariantCulture) != "".ToString())
+            if (radioButton1.Checked)
             {
-              countFloor = int.Parse(countFloor_input.Text);
+                countFloor = 1;
             }
-
+            if (radioButton2.Checked)
+            {
+                countFloor = 2;
+            }
+            if (radioButton3.Checked)
+            {
+                countFloor = 3;
+            }
+            if (countFloor == 0)
+            {
+                MessageBox.Show("Необходимо выбрать значение 'Этаж'");
+                return;
+            }
             realizat_label.Text = "".ToString(CultureInfo.InvariantCulture);
             lossesOne_label.Text = "".ToString(CultureInfo.InvariantCulture);
             lossesTwo_label.Text = "".ToString(CultureInfo.InvariantCulture);
             resultGreedy_label.Text = "".ToString(CultureInfo.InvariantCulture);
 
-            var realizateLabel = "Реализация для " + newLengthOneRoomFlat.Count * 2 + " квартир";
-            realizat_label.Text += (realizateLabel).ToString(CultureInfo.InvariantCulture);
+            var realFlat = newLengthOneRoomFlat.Count + newLengthTwoRoomFlat.Count;
+            realizat_label.Text += ("Реализация для " + realFlat + " квартир").ToString(CultureInfo.InvariantCulture);
 
             var lossesOne = "Потери при округлении длин однокомнатных квартир до числа, кратного 0.3: " + deltaOfOneRoomFlat.ToString(CultureInfo.InvariantCulture);
             var lossesTwo = "Потери при округлении длин двухкомнатных квартир до числа, кратного 0.3: " + deltaOfTwoRoomFlat.ToString(CultureInfo.InvariantCulture);
@@ -88,6 +99,8 @@ namespace Resettlement
             var currentTotalFine = 10000.0;
             var minTotalFine = 100000.0;
             var a = 0;
+            var totalOptimalResult = new List<object>();
+
             while (minTotalFine > currentTotalFine)
             {
                 if (a > 0)
@@ -101,77 +114,28 @@ namespace Resettlement
                 firstOneFlat = (double)greedyAlhorithm[3];
                 currentTotalFine = (double)greedyAlhorithm[0];
 
+                //Todo Общий итог жадного алгоритма
+                if (totalOptimalResult.Count == greedyAlhorithm.Count)
+                {
+                    if ((double)totalOptimalResult[0]<(double)greedyAlhorithm[0])
+                    {
+                        totalOptimalResult = greedyAlhorithm;
+                    }
+                }
+                else
+                {
+                    totalOptimalResult = greedyAlhorithm;
+                }
+
                 newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(lengthOneRoomFlat);
                 newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(lengthTwoRoomFlat);
 
-
-                //Todo второй этаж для жадного алгоритма
-                if (countFloor == 2)
-                {
-
-                    resultGreedy_label.Text += ("Итог " + a + "-й итерации жадного алгоритма:" + "\r\n").ToString(CultureInfo.InvariantCulture);
-                    resultGreedy_label.Text += (string.Format("Штраф {0}", greedyAlhorithm[0]) + "\r\n").ToString(CultureInfo.InvariantCulture);
-                    resultGreedy_label.Text += "\r\n";
-                    var optArrangeSecondFloorResult = CreateSecondFloor.MethodeCreateSecondFloor(greedyAlhorithm[1], greedyAlhorithm[2], entryway, step);
-                    foreach (var i in (IEnumerable)optArrangeSecondFloorResult[0])
-                    {
-                        resultGreedy_label.Text += (string.Format(" {0} ", i));
-                    }
-                    resultGreedy_label.Text += "\r\n";
-
-                    foreach (var i in (IEnumerable)optArrangeSecondFloorResult[1])
-                    {
-                        resultGreedy_label.Text += (string.Format(" {0} ", i));
-                    }
-                    resultGreedy_label.Text += "\r\n";
-
-                    resultGreedy_label.Text += "_____________________\r\n";
-
-                    foreach (var i in (IEnumerable)optArrangeSecondFloorResult[2])
-                    {
-                        resultGreedy_label.Text += (string.Format(" {0} ", i));
-                    }
-                    resultGreedy_label.Text += "\r\n";
-
-                    foreach (var i in (IEnumerable)optArrangeSecondFloorResult[3])
-                    {
-                        resultGreedy_label.Text += (string.Format(" {0} ", i));
-                    }
-                    resultGreedy_label.Text += "\r\n";
-                    resultGreedy_label.Text += (string.Format("Штраф от этажей {0} \r\n",optArrangeSecondFloorResult[4]));
-                    resultGreedy_label.Text += "\r\n";
-                    resultGreedy_label.Text += "\r\n";
-
-                }
-                else if (countFloor == 1 || countFloor.ToString(CultureInfo.InvariantCulture) == "")
-                {
-                    resultGreedy_label.Text += ("Итог " + a + "-й итерации жадного алгоритма:" + "\r\n").ToString(CultureInfo.InvariantCulture);
-                    resultGreedy_label.Text += (string.Format("Штраф {0}", greedyAlhorithm[0]) + "\r\n").ToString(CultureInfo.InvariantCulture);
-
-                    resultGreedy_label.Text +=
-                        ("Оптимальная расстановка однокомнатных квартир: ").ToString(CultureInfo.InvariantCulture);
-                    foreach (var i in (IEnumerable)greedyAlhorithm[1])
-                    {
-                        resultGreedy_label.Text += (string.Format(" {0} ", i));
-                    }
-                    resultGreedy_label.Text += ("\r\n").ToString(CultureInfo.InvariantCulture);
-                    resultGreedy_label.Text +=
-                        ("Оптимальная расстановка двухкомнатных квартир: ").ToString(CultureInfo.InvariantCulture);
-                    foreach (var i in (IEnumerable)greedyAlhorithm[2])
-                    {
-                        resultGreedy_label.Text += (string.Format(" {0} ", i));
-                    }
-                    resultGreedy_label.Text += ("\r\n").ToString(CultureInfo.InvariantCulture);
-                    resultGreedy_label.Text += ("\r\n").ToString(CultureInfo.InvariantCulture);
-                    //var f = Math.Round(s1 + 0.3*newLengthOneRoomFlat.Count - s - 1.8*newLengthOneRoomFlat.Count,2);
-                }
-                else 
-                {
-                    MessageBox.Show("Некорректное значение в поле 'Этаж'");
-                    return;
-                }
-                myStopWatchGreedy.Stop();
+               //Вывод результата по итерациям
+//              PrintResult.GreedyIterationPrintResult(greedyAlhorithm,countFloor,entryway,step,a, true);
             }
+            myStopWatchGreedy.Stop();
+            PrintResult.GreedyIterationPrintResult(totalOptimalResult, countFloor, entryway, step, a, false);
+
             resultGreedy_label.Text +=
                   ("Время работы жадного алгоритма: " +
                    (myStopWatchGreedy.ElapsedMilliseconds / 1000.0).ToString(CultureInfo.InvariantCulture) +
@@ -205,8 +169,6 @@ namespace Resettlement
                 squareTwo_input.Text.ToString(CultureInfo.InvariantCulture)
             };
 
-            //StartAndFinishProgram.Program(strOne, strTwo, true);
-
             var enterDataOneRoomFlat = ReadFromFile.ReadFileOneRoom(strOne); // если пуст, то по умолчанию берем данные из указанного файла
             var enterDataTwoRoomFlat = ReadFromFile.ReadFileTwoRoom(strTwo); // если пуст, то по умолчанию берем данные из указанного файла
             var squareOneRoomFlat = new double[enterDataOneRoomFlat.Count];
@@ -229,28 +191,40 @@ namespace Resettlement
             var deltaOfTwoRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthTwoRoomFlat, newLengthTwoRoomFlat);
 
             var countFloor = 0;
-            if (countFloor_input.Text.ToString(CultureInfo.InvariantCulture) != "")
-            {
-               countFloor = int.Parse(countFloor_input.Text);
-            }
 
+            if (radioButton1.Checked)
+            {
+                countFloor = 1;
+            }
+            if (radioButton2.Checked)
+            {
+                countFloor = 2;
+            }
+            if (radioButton3.Checked)
+            {
+                countFloor = 3;
+            }
+            if (countFloor == 0)
+            {
+                MessageBox.Show("Необходимо выбрать значение 'Этаж'");
+                return;
+            }
+            
             realizat_label.Text = "".ToString(CultureInfo.InvariantCulture);
             lossesOne_label.Text = "".ToString(CultureInfo.InvariantCulture);
             lossesTwo_label.Text = "".ToString(CultureInfo.InvariantCulture);
             resultFullSearch_label.Text = "".ToString(CultureInfo.InvariantCulture);
 
-            var realizateLabel = "Реализация для " + newLengthOneRoomFlat.Count * 2 + " квартир";
-            realizat_label.Text += (realizateLabel).ToString(CultureInfo.InvariantCulture);
+            var realCountFlat = newLengthOneRoomFlat.Count + newLengthTwoRoomFlat.Count;
+            realizat_label.Text += ("Реализация для " + realCountFlat + " квартир").ToString(CultureInfo.InvariantCulture);
 
             var lossesOne = "Потери при округлении длин однокомнатных квартир до числа, кратного 0.3: " + deltaOfOneRoomFlat.ToString(CultureInfo.InvariantCulture);
             var lossesTwo = "Потери при округлении длин двухкомнатных квартир до числа, кратного 0.3: " + deltaOfTwoRoomFlat.ToString(CultureInfo.InvariantCulture);
-            lossesOne_label.Text += lossesOne.ToString(CultureInfo.InvariantCulture);
-            //lossesOne_label.Font = new Font("Calibri", 14);
+            lossesOne_label.Text += lossesOne.ToString(CultureInfo.InvariantCulture); 
             lossesTwo_label.Text += lossesTwo.ToString(CultureInfo.InvariantCulture);
             if (lengthOneRoomFlat.Count >= 12 || lengthTwoRoomFlat.Count >= 12)
             {
-                MessageBox.Show("Для 12-ти и более вариантов используйте только жадный алгоритм");
-                //StartAndFinishProgram.Program(strOne, strTwo, false);
+                MessageBox.Show("Для 12-ти и более вариантов используйте только жадный алгоритм"); 
                 return;
             }
             /*
@@ -270,67 +244,9 @@ namespace Resettlement
             myStopWatch.Start();
 
             var fullSearch = MethodeFullSearch.FullSearch(newLengthOneRoomFlat, newLengthTwoRoomFlat, step, entryway);
-            //myStopWatch.Stop();
 
-            if (countFloor == 2)
-            {
-               var optArrangeSecondFloorResult = CreateSecondFloor.MethodeCreateSecondFloor(fullSearch[1],fullSearch[2],entryway,step);
-               foreach (var i in (IEnumerable)optArrangeSecondFloorResult[0])
-               {
-                   resultFullSearch_label.Text += (string.Format(" {0} ", i));
-               }
-               resultFullSearch_label.Text += "\r\n";
-
-               foreach (var i in (IEnumerable)optArrangeSecondFloorResult[1])
-               {
-                   resultFullSearch_label.Text += (string.Format(" {0} ", i));
-               }
-               resultFullSearch_label.Text += "\r\n";
-
-               resultFullSearch_label.Text +=  "_____________________\r\n";
-
-               foreach (var i in (IEnumerable)optArrangeSecondFloorResult[2])
-               {
-                   resultFullSearch_label.Text += (string.Format(" {0} ", i));
-               }
-               resultFullSearch_label.Text += "\r\n";
-
-               foreach (var i in (IEnumerable)optArrangeSecondFloorResult[3])
-               {
-                   resultFullSearch_label.Text += (string.Format(" {0} ", i));
-               }
-               resultFullSearch_label.Text += "\r\n";
-               resultFullSearch_label.Text += (string.Format("Штраф от этажей {0} \r\n", optArrangeSecondFloorResult[4]));
-//               resultFullSearch_label.Text += "\r\n";
-            }
-            else if (countFloor == 1 || countFloor.ToString(CultureInfo.InvariantCulture) == "")
-            {
-                
-                const string resultFullSearch = "Итог полного перебора:";
-                resultFullSearch_label.Text += resultFullSearch.ToString(CultureInfo.InvariantCulture)+"\r\n";
-                var minFine = string.Format("Штраф {0}", fullSearch[0]);
-                resultFullSearch_label.Text += minFine.ToString(CultureInfo.InvariantCulture)+"\r\n";
-
-                const string optArrangeOne = "Оптимальная расстановка однокомнатных квартир";
-                resultFullSearch_label.Text += optArrangeOne.ToString(CultureInfo.InvariantCulture);
-                foreach (var i in (IEnumerable) fullSearch[1])
-                {
-                    resultFullSearch_label.Text += (string.Format(" {0} ", i));
-                }
-                resultFullSearch_label.Text += "\r\n";
-                const string optArrangeTwo = "Оптимальная расстановка однокомнатных квартир";
-                resultFullSearch_label.Text += optArrangeTwo.ToString(CultureInfo.InvariantCulture);
-                foreach (var i in (IEnumerable) fullSearch[2])
-                {
-                    resultFullSearch_label.Text += (string.Format(" {0} ", i));
-                }
-                resultFullSearch_label.Text += "\r\n";
-            }
-            else
-            {
-                MessageBox.Show("Некорректное значение в поле 'Этаж'");
-                return;
-            }
+            PrintResult.FullSearchPrintResult(fullSearch,countFloor,entryway,step);
+            
             myStopWatch.Stop();
             resultFullSearch_label.Text += "\r\n";
             var timeFullSearch = "Время работы полного перебора " +
@@ -346,6 +262,11 @@ namespace Resettlement
         }
 
         private void UserInterface_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
 
         }

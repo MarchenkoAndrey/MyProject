@@ -50,6 +50,9 @@
     <Compile Include="InsertionSort.cs" />
     <Compile Include="PreparationSquares.cs" />
     <Compile Include="MethodeFullSearch.cs" />
+    <Compile Include="PrintResult.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ReadFromText.cs" />
     <Compile Include="RecursionForFullSearch.cs" />
     <Compile Include="PermutationWithoutRepetition.cs" />

@@ -54,7 +54,12 @@ namespace Resettlement
 					{
 						for (var h = 0; h < newSortedListOneFlat.Count; ++h)
 						{
-							var currentFine =
+						    //var s1 = false;
+						    if (sortedListTwoFlat[i] - choiceMinOneFlat < 1.25 || sortedListTwoFlat[j] - newSortedListOneFlat[h] < 1.25)
+						    {
+						        continue;
+						    }
+						    var currentFine =
 								Math.Abs(Math.Round(
 									sortedListTwoFlat[i] + sortedListTwoFlat[j] + 2*step - choiceMinOneFlat - entryway - 3*step -
 									newSortedListOneFlat[h], 1));

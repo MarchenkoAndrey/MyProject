@@ -31,13 +31,24 @@ namespace Resettlement
 				}
 				foreach (var j in listTwoFlats)
 				{
+                    //Todo Добавить ограничение на 1.25 для дверей
 					var currentExtraSquare = 0.0;
 					var squareSectionsTwoFlats = new List<double>();
+				    var s1 = false;
 					for (var k = 0; k < j.Length; k = k + 2)
 					{
+					    if (j[k] - i[k] < 1.25 || j[k + 1] - i[k + 1] < 1.25)
+					    {
+					        s1 = true;
+					    }
 						squareSectionsTwoFlats.Add(Math.Round(j[k] + j[k + 1] + 2 * step, 1));       // delta1 + delta2
 					}
-					for (var s = 0; s < squareSectionsOneFlats.Count; ++s)
+				    if (s1)
+				    {
+                        continue;
+				    }
+
+				    for (var s = 0; s < squareSectionsOneFlats.Count; ++s)
 					{
 						var h = squareSectionsTwoFlats[s] - squareSectionsOneFlats[s];
 							currentExtraSquare += Math.Abs(h);
