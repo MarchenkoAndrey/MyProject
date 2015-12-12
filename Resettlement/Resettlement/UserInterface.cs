@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -72,7 +71,7 @@ namespace Resettlement
             }
             if (radioButton3.Checked)
             {
-                countFloor = 3;
+                countFloor = 1;
             }
             if (countFloor == 0)
             {
@@ -101,7 +100,7 @@ namespace Resettlement
             var a = 0;
             var totalOptimalResult = new List<object>();
 
-            while (minTotalFine > currentTotalFine)
+            while (a<4)
             {
                 if (a > 0)
                 {
@@ -109,29 +108,29 @@ namespace Resettlement
                 }
                 a++;
 
-                var greedyAlhorithm = GreedyAlcorithmSection.GreedyMethode(newLengthOneRoomFlat, newLengthTwoRoomFlat,
+                var greedyAlgorithm = GreedyAlcorithmSection.GreedyMethode(newLengthOneRoomFlat, newLengthTwoRoomFlat,
                     step, entryway, firstOneFlat);
-                firstOneFlat = (double)greedyAlhorithm[3];
-                currentTotalFine = (double)greedyAlhorithm[0];
+                firstOneFlat = (double)greedyAlgorithm[3];
+                currentTotalFine = (double)greedyAlgorithm[0];
 
                 //Todo Общий итог жадного алгоритма
-                if (totalOptimalResult.Count == greedyAlhorithm.Count)
+                if (totalOptimalResult.Count == greedyAlgorithm.Count)
                 {
-                    if ((double)totalOptimalResult[0]<(double)greedyAlhorithm[0])
+                    if ((double)totalOptimalResult[0]<(double)greedyAlgorithm[0])
                     {
-                        totalOptimalResult = greedyAlhorithm;
+                        totalOptimalResult = greedyAlgorithm;
                     }
                 }
                 else
                 {
-                    totalOptimalResult = greedyAlhorithm;
+                    totalOptimalResult = greedyAlgorithm;
                 }
 
                 newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(lengthOneRoomFlat);
                 newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(lengthTwoRoomFlat);
 
                //Вывод результата по итерациям
-//              PrintResult.GreedyIterationPrintResult(greedyAlhorithm,countFloor,entryway,step,a, true);
+              PrintResult.GreedyIterationPrintResult(greedyAlgorithm,countFloor,entryway,step,a, true);
             }
             myStopWatchGreedy.Stop();
             PrintResult.GreedyIterationPrintResult(totalOptimalResult, countFloor, entryway, step, a, false);
@@ -145,14 +144,6 @@ namespace Resettlement
         private void label1_Click(object sender, EventArgs e)
         {
 
-        }
-
-        private void countFloor_input_TextChanged(object sender, EventArgs e)
-        {
-            //if (int.Parse(countFloor_input.Text) != 1 && int.Parse(countFloor_input.Text) != 2)
-            //{
-            //    MessageBox.Show("Реализован расчет только для одного- и двухэтажного дома");
-            //}
         }
 
         private void fullSearch_btn_Click(object sender, EventArgs e)
@@ -202,7 +193,7 @@ namespace Resettlement
             }
             if (radioButton3.Checked)
             {
-                countFloor = 3;
+                countFloor = 1;
             }
             if (countFloor == 0)
             {

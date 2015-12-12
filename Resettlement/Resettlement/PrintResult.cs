@@ -52,7 +52,6 @@ namespace Resettlement
                     resultGreedy_label.Text += "\r\n";
                     resultGreedy_label.Text += (string.Format("Штраф от этажей {0} \r\n",optArrangeSecondFloorResult[4]));
                     resultGreedy_label.Text += "\r\n";
-                    resultGreedy_label.Text += "\r\n";
                 }
                 else if (countFloor == 1 || countFloor.ToString(CultureInfo.InvariantCulture) == "")
                 {

@@ -12,14 +12,15 @@ namespace Resettlement
 			var sortedListOneFlat = InsertionSort.InsertSort(newLengthOneFlat);
 			var sortedListTwoFlat = InsertionSort.InsertSort(newLengthTwoFlat);
             var numberOfApartments = Math.Min(newLengthOneFlat.Count / 2 * 2, newLengthTwoFlat.Count / 2 * 2);
-			var finalPlacementOneFlat = new double[numberOfApartments];
-			var finalPlacementTwoFlat = new double[numberOfApartments];
-			
+//			var finalPlacementOneFlat = new double[numberOfApartments];
+//			var finalPlacementTwoFlat = new double[numberOfApartments];
+            var finalPlacementOneFlat = new double[numberOfApartments];
+            var finalPlacementTwoFlat = new double[numberOfApartments];
 			var itogFine = 0.0;
             var maxFine = 0.0;
-            double newFirstOneFlat=0.0;
+            var newFirstOneFlat=0.0;
 			var b = 0;
-			for (int n = 0; n < numberOfApartments; n=n+2)             // цикл заполнения секций
+			for (var n = 0; n < numberOfApartments; n=n+2)             // цикл заполнения секций
 			{
                 double choiceMinOneFlat;
                 if (newFirstOneF!=0 && b==0)
@@ -28,7 +29,8 @@ namespace Resettlement
                 }
                 else 
                 {
-                     choiceMinOneFlat = sortedListOneFlat[0];
+//                 choiceMinOneFlat = sortedListOneFlat[0];
+                   choiceMinOneFlat = sortedListOneFlat[sortedListOneFlat.Count/2];
                 }
 				b++;
 				var newSortedListOneFlat = new List<double>();
@@ -54,7 +56,6 @@ namespace Resettlement
 					{
 						for (var h = 0; h < newSortedListOneFlat.Count; ++h)
 						{
-						    //var s1 = false;
 						    if (sortedListTwoFlat[i] - choiceMinOneFlat < 1.25 || sortedListTwoFlat[j] - newSortedListOneFlat[h] < 1.25)
 						    {
 						        continue;
@@ -74,6 +75,7 @@ namespace Resettlement
 					}
 				}
 				//удаление занятых вариантов из списка и суммирование штрафа
+
 				itogFine+=fine;
                 if(maxFine<fine)
                 {
