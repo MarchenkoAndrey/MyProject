@@ -75,22 +75,23 @@ namespace Resettlement
                 }
         }
 
-        public static void FullSearchPrintResult(List<object> fullSearch, int countFloor, double entryway, double step)
+        public static void FullSearchPrintResult(List<object> fullSearch, int countFloor)
         {
             if (countFloor == 2)
             {
-                var optArrangeSecondFloorResult = CreateSecondFloor.MethodeCreateSecondFloor(fullSearch[1], fullSearch[2], entryway, step);
+                //var optArrangeSecondFloorResult = CreateSecondFloor.MethodeCreateSecondFloor(fullSearch[1], fullSearch[2], entryway, step);
+
                 const string resultFullSearch = "Итог полного перебора:";
                 resultFullSearch_label.Text += resultFullSearch.ToString(CultureInfo.InvariantCulture) + "\r\n";
                 var minFine = string.Format("Штраф {0}", fullSearch[0]);
                 resultFullSearch_label.Text += minFine.ToString(CultureInfo.InvariantCulture) + "\r\n" + "\r\n";
-                foreach (var i in (IEnumerable)optArrangeSecondFloorResult[0])
+                foreach (var i in (IEnumerable)fullSearch[1])
                 {
                     resultFullSearch_label.Text += (string.Format(" {0} ", i));
                 }
                 resultFullSearch_label.Text += "\r\n";
 
-                foreach (var i in (IEnumerable)optArrangeSecondFloorResult[1])
+                foreach (var i in (IEnumerable)fullSearch[2])
                 {
                     resultFullSearch_label.Text += (string.Format(" {0} ", i));
                 }
@@ -98,18 +99,18 @@ namespace Resettlement
 
                 resultFullSearch_label.Text += "-------------------------------\r\n";
 
-                foreach (var i in (IEnumerable)optArrangeSecondFloorResult[2])
+                foreach (var i in (IEnumerable)fullSearch[3])
                 {
                     resultFullSearch_label.Text += (string.Format(" {0} ", i));
                 }
                 resultFullSearch_label.Text += "\r\n";
 
-                foreach (var i in (IEnumerable)optArrangeSecondFloorResult[3])
+                foreach (var i in (IEnumerable)fullSearch[4])
                 {
                     resultFullSearch_label.Text += (string.Format(" {0} ", i));
                 }
                 resultFullSearch_label.Text += "\r\n";
-                resultFullSearch_label.Text += (string.Format("Штраф от этажей {0} \r\n", optArrangeSecondFloorResult[4]));
+                resultFullSearch_label.Text += (string.Format("Штраф от этажей {0} \r\n", fullSearch[5]));
             }
             else if (countFloor == 1 || countFloor.ToString(CultureInfo.InvariantCulture) == "")
             {

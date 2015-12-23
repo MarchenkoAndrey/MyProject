@@ -27,7 +27,7 @@ namespace Resettlement
             }
             var permutationVariants = Resursion.Data(listFineSection.Count, listFineSection.Count, true);
 
-            for (var i = 0; i < permutationVariants.Count; ++i)
+            for (var i = 0; i < permutationVariants.Count; ++i) // for index
             {
                 for (var j = 0; j < permutationVariants[0].Length; ++j)
                 {

@@ -234,9 +234,9 @@ namespace Resettlement
             var myStopWatch = new Stopwatch();
             myStopWatch.Start();
 
-            var fullSearch = MethodeFullSearch.FullSearch(newLengthOneRoomFlat, newLengthTwoRoomFlat, step, entryway);
+            var fullSearch = MethodeFullSearch.FullSearch(newLengthOneRoomFlat, newLengthTwoRoomFlat, step, entryway, countFloor);
 
-            PrintResult.FullSearchPrintResult(fullSearch,countFloor,entryway,step);
+            PrintResult.FullSearchPrintResult(fullSearch,countFloor);
             
             myStopWatch.Stop();
             resultFullSearch_label.Text += "\r\n";
