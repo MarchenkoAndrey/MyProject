@@ -20,12 +20,13 @@ namespace Resettlement
             {
                 listSquareTwoFlat.Add(Math.Round(optArrangeTwoArray[j] + optArrangeTwoArray[j + 1] + 2*step, 1));
             }
-            var listFineSection = new List<double>();
-            for (var s = 0; s < listSquareOneFlat.Count; ++s)
-            {
-              listFineSection.Add(Math.Abs(listSquareTwoFlat[s] - listSquareOneFlat[s])); 
-            }
-            var permutationVariants = Resursion.Data(listFineSection.Count, listFineSection.Count, true);
+
+
+            //штраф от наложения секций друг на друга
+            //из секции берем максимальную длину и сравниваем её с максимальной длиной другой секции
+            //разница = штраф
+
+            var permutationVariants = Resursion.Data(listSquareOneFlat.Count, listSquareTwoFlat.Count, true); // для индекса вычитаем 1
 
             for (var i = 0; i < permutationVariants.Count; ++i) // for index
             {
@@ -34,24 +35,25 @@ namespace Resettlement
                     permutationVariants[i][j]--;
                 }
             }
+          
             var totalFineSection = 1000.0;
             var optimalVariant = 0;
             for (var numberRowVariant = 0; numberRowVariant < permutationVariants.Count; ++numberRowVariant)
             {
-                int[] currentMassiv;
-                var currentFineSection = 0.0;
-                Array.Copy(permutationVariants[numberRowVariant], currentMassiv = new int[permutationVariants[numberRowVariant].Length], permutationVariants[numberRowVariant].Length);
+                  int[] currentMassiv;
+                  var currentFineSection = 0.0;
+                  Array.Copy(permutationVariants[numberRowVariant], currentMassiv = new int[permutationVariants[numberRowVariant].Length], permutationVariants[numberRowVariant].Length);
 
-                for (var i = 0; i < currentMassiv.Length; i = i + 2)
-                {
+                  for (var i = 0; i < currentMassiv.Length; i = i + 2)
+                  {
                     double f;
-                    if (listFineSection[currentMassiv[i]] > listFineSection[currentMassiv[i + 1]])
+                    if (Math.Max(listSquareOneFlat[i],listSquareTwoFlat[i]) > Math.Max(listSquareOneFlat[i+1],listSquareTwoFlat[i+1]))
                     {
-                        f = Math.Round(listFineSection[currentMassiv[i]] - listFineSection[currentMassiv[i + 1]],1);
+                        f = Math.Round(Math.Max(listSquareOneFlat[i], listSquareTwoFlat[i]) - Math.Max(listSquareOneFlat[i + 1], listSquareTwoFlat[i + 1]),1);
                     }
                     else
                     {
-                        f = Math.Round(listFineSection[currentMassiv[i + 1]] - listFineSection[currentMassiv[i]],1);
+                        f = Math.Round(Math.Max(listSquareOneFlat[i + 1], listSquareTwoFlat[i + 1]) - Math.Max(listSquareOneFlat[i], listSquareTwoFlat[i]), 1);
                     }
                     currentFineSection += f;
 
@@ -62,6 +64,7 @@ namespace Resettlement
                     totalFineSection = currentFineSection;
                 }
             }
+
             var optimalPermutation = permutationVariants[optimalVariant];
             var optVarOneflatOneFloor = new double[optimalPermutation.Length];
             var optVarTwoflatOneFloor = new double[optimalPermutation.Length];
