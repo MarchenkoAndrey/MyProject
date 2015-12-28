@@ -7,64 +7,165 @@ namespace Resettlement
     {
         public static List<object> MethodeCreateSecondFloor(object optArrangeOne, object optArrangeTwo, double entryway, double step)
         {
-            var optArrangeOneArray = (double[]) optArrangeOne;
+            var optArrangeOneArray = (double[]) optArrangeOne;          //переделывание в массив
             var optArrangeTwoArray = (double[]) optArrangeTwo;
-            var result = new List<object>();
+            var itogOptArrangeOneArray = new double[optArrangeOneArray.Length];
+            var itogOptArrangeTwoArray = new double[optArrangeTwoArray.Length];
+            var resultList = new List<object>();
 			var listSquareOneFlat = new List<double>();
             var listSquareTwoFlat = new List<double>();
-			for (var i = 0; i < optArrangeOneArray.Length; i=i+2)
-			{
-				listSquareOneFlat.Add(Math.Round(optArrangeOneArray[i] + optArrangeOneArray[i + 1] + entryway + 3*step,1));
-			}
-            for (var j = 0; j < optArrangeTwoArray.Length; j=j+2)
-            {
-                listSquareTwoFlat.Add(Math.Round(optArrangeTwoArray[j] + optArrangeTwoArray[j + 1] + 2*step, 1));
-            }
 
-
-            //штраф от наложения секций друг на друга
-            //из секции берем максимальную длину и сравниваем её с максимальной длиной другой секции
-            //разница = штраф
-
-            var permutationVariants = Resursion.Data(listSquareOneFlat.Count, listSquareTwoFlat.Count, true); // для индекса вычитаем 1
-
-            for (var i = 0; i < permutationVariants.Count; ++i) // for index
+            var permutationVariants = Resursion.Data(optArrangeOneArray.Length/2, optArrangeTwoArray.Length/2, true);
+            // для индекса вычитаем 1 из каждого элемента перестановки
+            foreach (var t in permutationVariants)
             {
                 for (var j = 0; j < permutationVariants[0].Length; ++j)
                 {
-                    permutationVariants[i][j]--;
+                    t[j]--;
                 }
             }
-          
-            var totalFineSection = 1000.0;
-            var optimalVariant = 0;
-            for (var numberRowVariant = 0; numberRowVariant < permutationVariants.Count; ++numberRowVariant)
-            {
-                  int[] currentMassiv;
-                  var currentFineSection = 0.0;
-                  Array.Copy(permutationVariants[numberRowVariant], currentMassiv = new int[permutationVariants[numberRowVariant].Length], permutationVariants[numberRowVariant].Length);
 
-                  for (var i = 0; i < currentMassiv.Length; i = i + 2)
-                  {
-                    double f;
-                    if (Math.Max(listSquareOneFlat[i],listSquareTwoFlat[i]) > Math.Max(listSquareOneFlat[i+1],listSquareTwoFlat[i+1]))
+            var totalFineSecondFloor = 1000.0;
+            var optimalVariant = 0;
+
+            for (var i = 0; i < permutationVariants.Count; ++i)
+            {
+                var currentInnerFineSect = 0.0;
+                double[] tempArrayArrangeOne;
+                Array.Copy(optArrangeOneArray, tempArrayArrangeOne = new double[optArrangeOneArray.Length],
+                    optArrangeOneArray.Length);
+
+                double[] tempArrayArrangeTwo;
+                Array.Copy(optArrangeTwoArray, tempArrayArrangeTwo = new double[optArrangeTwoArray.Length],
+                    optArrangeTwoArray.Length);
+
+                for (var h = 0; h < permutationVariants[i].Length; h = h + 2)
+                {
+                    double fine;
+//                    var a = optArrangeOneArray[2*permutationVariants[i][h]]; //МАЯКИ ДЛЯ ПРОВЕРКИ
+//                    var a1 = optArrangeOneArray[2*permutationVariants[i][h + 1]]; //МАЯКИ ДЛЯ ПРОВЕРКИ
+
+                    //1-ые однокомнатные
+                    if (optArrangeOneArray[2*permutationVariants[i][h]] >
+                        optArrangeOneArray[2*permutationVariants[i][h + 1]])
                     {
-                        f = Math.Round(Math.Max(listSquareOneFlat[i], listSquareTwoFlat[i]) - Math.Max(listSquareOneFlat[i + 1], listSquareTwoFlat[i + 1]),1);
+                        fine =
+                            Math.Round(optArrangeOneArray[2*permutationVariants[i][h]] -
+                                       optArrangeOneArray[2*permutationVariants[i][h + 1]], 1);
+                        tempArrayArrangeOne[2*permutationVariants[i][h + 1]] = tempArrayArrangeOne[2*permutationVariants[i][h]];
                     }
                     else
                     {
-                        f = Math.Round(Math.Max(listSquareOneFlat[i + 1], listSquareTwoFlat[i + 1]) - Math.Max(listSquareOneFlat[i], listSquareTwoFlat[i]), 1);
+                        fine =
+                            Math.Round(optArrangeOneArray[2*permutationVariants[i][h + 1]] -
+                                       optArrangeOneArray[2*permutationVariants[i][h]], 1);
+                        tempArrayArrangeOne[2*permutationVariants[i][h]] = tempArrayArrangeOne[2*permutationVariants[i][h + 1]];
                     }
-                    currentFineSection += f;
+                    currentInnerFineSect += fine;
+
+                    //2-ые однокомнатные
+                    if (optArrangeOneArray[2*permutationVariants[i][h] + 1] >
+                        optArrangeOneArray[2*permutationVariants[i][h + 1] + 1])
+                    {
+                        fine =
+                            Math.Round(optArrangeOneArray[2*permutationVariants[i][h] + 1] -
+                                       optArrangeOneArray[2*permutationVariants[i][h + 1] + 1], 1);
+                        tempArrayArrangeOne[2*permutationVariants[i][h + 1] + 1] =
+                            tempArrayArrangeOne[2*permutationVariants[i][h] + 1];
+                    }
+                    else
+                    {
+                        fine =
+                            Math.Round(optArrangeOneArray[2*permutationVariants[i][h + 1] + 1] -
+                                       optArrangeOneArray[2*permutationVariants[i][h] + 1], 1);
+                        tempArrayArrangeOne[2*permutationVariants[i][h] + 1] =
+                            tempArrayArrangeOne[2*permutationVariants[i][h + 1] + 1];
+                    }
+                    currentInnerFineSect += fine;
+
+                    //1-ые двухкомнатные
+                    if (optArrangeTwoArray[2*permutationVariants[i][h]] >
+                        optArrangeTwoArray[2*permutationVariants[i][h + 1]])
+                    {
+                        fine =
+                            Math.Round(optArrangeTwoArray[2*permutationVariants[i][h]] -
+                                       optArrangeTwoArray[2*permutationVariants[i][h + 1]], 1);
+                        tempArrayArrangeTwo[2*permutationVariants[i][h + 1]] = tempArrayArrangeTwo[2*permutationVariants[i][h]];
+                    }
+                    else
+                    {
+                        fine =
+                            Math.Round(optArrangeTwoArray[2*permutationVariants[i][h + 1]] -
+                                       optArrangeTwoArray[2*permutationVariants[i][h]], 1);
+                        tempArrayArrangeTwo[2*permutationVariants[i][h]] = tempArrayArrangeTwo[2*permutationVariants[i][h + 1]];
+                    }
+                    currentInnerFineSect += fine;
+
+                    //2-ые двухкомнатные
+                    if (optArrangeTwoArray[2*permutationVariants[i][h] + 1] >
+                        optArrangeTwoArray[2*permutationVariants[i][h + 1] + 1])
+                    {
+                        fine =
+                            Math.Round(optArrangeTwoArray[2*permutationVariants[i][h] + 1] -
+                                       optArrangeTwoArray[2*permutationVariants[i][h + 1] + 1], 1);
+                        tempArrayArrangeTwo[2*permutationVariants[i][h + 1] + 1] =
+                            tempArrayArrangeTwo[2*permutationVariants[i][h] + 1];
+                    }
+                    else
+                    {
+                        fine =
+                            Math.Round(optArrangeTwoArray[2*permutationVariants[i][h + 1] + 1] -
+                                       optArrangeTwoArray[2*permutationVariants[i][h] + 1], 1);
+                        tempArrayArrangeTwo[2*permutationVariants[i][h] + 1] =
+                            tempArrayArrangeTwo[2*permutationVariants[i][h + 1] + 1];
+                    }
+                    currentInnerFineSect += fine;
 
                 }
-                if (currentFineSection < totalFineSection)
+
+                for (var t = 0; t < tempArrayArrangeOne.Length; t = t + 2)
                 {
-                    optimalVariant = numberRowVariant;
-                    totalFineSection = currentFineSection;
+                    listSquareOneFlat.Add(Math.Round(tempArrayArrangeOne[t] + tempArrayArrangeOne[t + 1] + entryway + 3 * step, 1));
+                }
+                for (var t = 0; t < tempArrayArrangeTwo.Length; t = t + 2)
+                {
+                    listSquareTwoFlat.Add(Math.Round(tempArrayArrangeTwo[t] + tempArrayArrangeTwo[t + 1] + 2 * step, 1));
+                }
+
+                for (var numberRowVariant = 0; numberRowVariant < permutationVariants.Count; ++numberRowVariant)
+                {
+                    var currentOutFineSection = 0.0;
+                    for (var index = 0; index < permutationVariants[numberRowVariant].Length; index = index + 2)
+                    {
+                        double fine;
+                        if (Math.Max(listSquareOneFlat[index], listSquareTwoFlat[index]) >
+                            Math.Max(listSquareOneFlat[index + 1], listSquareTwoFlat[index + 1]))
+                        {
+                            fine =
+                                Math.Round(
+                                    Math.Max(listSquareOneFlat[index], listSquareTwoFlat[index]) -
+                                    Math.Max(listSquareOneFlat[index + 1], listSquareTwoFlat[index + 1]), 1);
+                        }
+                        else
+                        {
+                            fine =
+                                Math.Round(
+                                    Math.Max(listSquareOneFlat[index + 1], listSquareTwoFlat[index + 1]) -
+                                    Math.Max(listSquareOneFlat[index], listSquareTwoFlat[index]), 1);
+                        }
+                        currentOutFineSection += fine;
+
+                    }
+                    if (currentOutFineSection + currentInnerFineSect < totalFineSecondFloor)
+                    {
+                        optimalVariant = numberRowVariant;
+                        totalFineSecondFloor = currentOutFineSection+currentInnerFineSect;
+                        itogOptArrangeOneArray = tempArrayArrangeOne;
+                        itogOptArrangeTwoArray = tempArrayArrangeTwo;
+                    }
                 }
             }
-
+            
             var optimalPermutation = permutationVariants[optimalVariant];
             var optVarOneflatOneFloor = new double[optimalPermutation.Length];
             var optVarTwoflatOneFloor = new double[optimalPermutation.Length];
@@ -74,32 +175,32 @@ namespace Resettlement
             //первый этаж
             for (var i = 0; i < optimalPermutation.Length; i=i+2)
             {
-                optVarOneflatOneFloor[i] = (optArrangeOneArray[optimalPermutation[i]*2]);
-                optVarOneflatOneFloor[i + 1] = (optArrangeOneArray[optimalPermutation[i]*2 + 1]);
+                optVarOneflatOneFloor[i] = (itogOptArrangeOneArray[optimalPermutation[i]*2]);
+                optVarOneflatOneFloor[i + 1] = (itogOptArrangeOneArray[optimalPermutation[i]*2 + 1]);
             }
             for (var j = 0; j < optimalPermutation.Length; j=j+2)
             {
-                optVarTwoflatOneFloor[j] = (optArrangeTwoArray[optimalPermutation[j]*2]);
-                optVarTwoflatOneFloor[j + 1] = (optArrangeTwoArray[optimalPermutation[j]*2 + 1]);
+                optVarTwoflatOneFloor[j] = (itogOptArrangeTwoArray[optimalPermutation[j]*2]);
+                optVarTwoflatOneFloor[j + 1] = (itogOptArrangeTwoArray[optimalPermutation[j] * 2 + 1]);
             }
-            result.Add(optVarOneflatOneFloor);
-            result.Add(optVarTwoflatOneFloor);
+            resultList.Add(optVarOneflatOneFloor);
+            resultList.Add(optVarTwoflatOneFloor);
 
             //второй этаж
             for (var i = 1; i < optimalPermutation.Length; i = i + 2)
             {
-                optVarOneflatTwoFloor[i-1] = (optArrangeOneArray[optimalPermutation[i] * 2]);
-                optVarOneflatTwoFloor[i] = (optArrangeOneArray[optimalPermutation[i] * 2 + 1]);
+                optVarOneflatTwoFloor[i - 1] = (itogOptArrangeOneArray[optimalPermutation[i] * 2]);
+                optVarOneflatTwoFloor[i] = (itogOptArrangeOneArray[optimalPermutation[i] * 2 + 1]);
             }
             for (var j = 1; j < optimalPermutation.Length; j = j + 2)
             {
-                optVarTwoflatTwoFloor[j-1] = (optArrangeTwoArray[optimalPermutation[j] * 2]);
-                optVarTwoflatTwoFloor[j] = (optArrangeTwoArray[optimalPermutation[j] * 2 + 1]);
+                optVarTwoflatTwoFloor[j - 1] = (itogOptArrangeTwoArray[optimalPermutation[j] * 2]);
+                optVarTwoflatTwoFloor[j] = (itogOptArrangeTwoArray[optimalPermutation[j] * 2 + 1]);
             }
-            result.Add(optVarOneflatTwoFloor);
-            result.Add(optVarTwoflatTwoFloor);
-            result.Add(totalFineSection);
-            return result;
+            resultList.Add(optVarOneflatTwoFloor);
+            resultList.Add(optVarTwoflatTwoFloor);
+            resultList.Add(totalFineSecondFloor);
+            return resultList;
         }
     }
 }

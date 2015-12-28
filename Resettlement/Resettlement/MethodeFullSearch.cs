@@ -6,117 +6,111 @@ namespace Resettlement
 {
 	static class MethodeFullSearch
 	{
-		public static List<object> FullSearch(List<double> newLengthOneFlat, List<double> newLengthTwoFlat,double step, double entryway, int countFloor)
+		public static List<object> FullSearch(List<double> listLengthOneFlat, List<double> listLengthTwoFlat,double step, double entryway, int countFloor)
 		{
 			var resultList = new List<object>();
-            var totalNumberOptimalLocationFlat = Math.Min(newLengthOneFlat.Count / 2 * 2, newLengthTwoFlat.Count / 2 * 2);
+            var optimalLocationFlatTotalNumber = Math.Min(listLengthOneFlat.Count / 2 * 2, listLengthTwoFlat.Count / 2 * 2);
 
-			var optimalLocationOneFlat = new double[totalNumberOptimalLocationFlat];
-			var optimalLocationTwoFlat = new double[totalNumberOptimalLocationFlat];
+			var optimalLocationOneFlat = new double[optimalLocationFlatTotalNumber];
+			var optimalLocationTwoFlat = new double[optimalLocationFlatTotalNumber];
 
-			var permListOneFlat = Resursion.Data(newLengthOneFlat.Count,totalNumberOptimalLocationFlat,true); //gereration permutations for Oneflat
-			var permListTwoFlat = Resursion.Data(newLengthTwoFlat.Count,totalNumberOptimalLocationFlat, false); //gereration permutations for Twoflat
+			var permListOneFlat = Resursion.Data(listLengthOneFlat.Count,optimalLocationFlatTotalNumber,true); //gereration permutations for Oneflat
+			var permListTwoFlat = Resursion.Data(listLengthTwoFlat.Count,optimalLocationFlatTotalNumber, false); //gereration permutations for Twoflat
 			 
-			var listOneFlats = new List<double[]>();
-			listOneFlats = VariantsFlats.VariantsFlat(listOneFlats, permListOneFlat, newLengthOneFlat);
-			var listTwoFlats = new List<double[]>();
-			listTwoFlats = VariantsFlats.VariantsFlat(listTwoFlats, permListTwoFlat, newLengthTwoFlat);
+			var listVariantsOneFlat = new List<double[]>();
+			listVariantsOneFlat = VariantsFlats.VariantsFlat(listVariantsOneFlat, permListOneFlat, listLengthOneFlat);
+			var listVariantsTwoFlat = new List<double[]>();
+			listVariantsTwoFlat = VariantsFlats.VariantsFlat(listVariantsTwoFlat, permListTwoFlat, listLengthTwoFlat);
 
-		    var totalArrangeSecondFloorResult = new List<object>();
+		    var totalArrangementSecondFloorResult = new List<object>();
 
-			var minExtraSquare = 10000.0;
-		    double totFineOfFloor = 0; 
+			var minTotalExtraSquare = 10000.0;
 		    const double restrictionOnDoor = 1.25;
 
-		    foreach (var i in listOneFlats)
+		    foreach (var i in listVariantsOneFlat)
 			{
-				foreach (var j in listTwoFlats)
+				foreach (var j in listVariantsTwoFlat)
 				{
                     //копировать массив j
-                    double[] currentMassiv;
-                    Array.Copy(j, currentMassiv = new double[j.Length], j.Length);
+                    double[] tempArrayTwoFlat;
+                    Array.Copy(j, tempArrayTwoFlat = new double[j.Length], j.Length);
 
-					var currentExtraSquare = 0.0;
-               
-					var squareSectionsTwoFlats = new List<double>();
-                    var squareSectionsOneFlats = new List<double>();
+					var currentFineOneFloor = 0.0;
+                    var sectionsTwoFlatsSquare = new List<double>();
+                    var sectionsOneFlatsSquare = new List<double>();
 
                     //двигаем стены из-за 1.25
 				    for (var k = 0; k < j.Length; k = k + 2)
 					{
-                        if (currentMassiv[k] - i[k] < restrictionOnDoor)
+                        if (tempArrayTwoFlat[k] - i[k] < restrictionOnDoor)
 					    {
-                            var a1 = restrictionOnDoor - (currentMassiv[k] - i[k]);
-					        if (a1 < step)
+                            var leftAddition = restrictionOnDoor - (tempArrayTwoFlat[k] - i[k]);
+					        if (leftAddition < step)
 					        {  
-                                currentMassiv[k] = Math.Round(currentMassiv[k] + step, 1);
-                                currentExtraSquare = Math.Round(currentExtraSquare + step, 1);
+                                tempArrayTwoFlat[k] = Math.Round(tempArrayTwoFlat[k] + step, 1);
+                                currentFineOneFloor = Math.Round(currentFineOneFloor + step, 1);
 					        }
 					        else
 					        {
-                                currentMassiv[k] += Math.Round(Math.Ceiling(a1 / step) * step, 1);
-                                currentExtraSquare += Math.Round(Math.Ceiling(a1 / step) * step, 1);
+                                tempArrayTwoFlat[k] += Math.Round(Math.Ceiling(leftAddition / step) * step, 1);
+                                currentFineOneFloor += Math.Round(Math.Ceiling(leftAddition / step) * step, 1);
 					        }
 					    }
-                        if (currentMassiv[k + 1] - i[k + 1] < restrictionOnDoor)
+                        if (tempArrayTwoFlat[k + 1] - i[k + 1] < restrictionOnDoor)
 					    {
-                            var a2 = restrictionOnDoor - (currentMassiv[k + 1] - i[k + 1]);
-					        if (a2 < step)
+                            var rightAddition = restrictionOnDoor - (tempArrayTwoFlat[k + 1] - i[k + 1]);
+					        if (rightAddition < step)
                             {
-                                currentMassiv[k + 1] = Math.Round(currentMassiv[k+1] + step,1);
-                                currentExtraSquare = Math.Round(currentExtraSquare + step,1);
+                                tempArrayTwoFlat[k + 1] = Math.Round(tempArrayTwoFlat[k+1] + step,1);
+                                currentFineOneFloor = Math.Round(currentFineOneFloor + step,1);
                             }
                             else
                             {
-                                currentMassiv[k + 1] += Math.Round(Math.Ceiling(a2 / step) * step, 1);
-                                currentExtraSquare += Math.Round(Math.Ceiling(a2 / step) * step, 1);
+                                tempArrayTwoFlat[k + 1] += Math.Round(Math.Ceiling(rightAddition / step) * step, 1);
+                                currentFineOneFloor += Math.Round(Math.Ceiling(rightAddition / step) * step, 1);
                             }
 					    }
-					    squareSectionsOneFlats.Add(Math.Round(i[k] + i[k + 1] + entryway + 3 * step, 1));
-                        squareSectionsTwoFlats.Add(Math.Round(currentMassiv[k] + currentMassiv[k + 1] + 2 * step, 1));       // delta1 + delta2
+					    sectionsOneFlatsSquare.Add(Math.Round(i[k] + i[k + 1] + entryway + 3 * step, 1));
+                        sectionsTwoFlatsSquare.Add(Math.Round(tempArrayTwoFlat[k] + tempArrayTwoFlat[k + 1] + 2 * step, 1));       // delta1 + delta2
 					}
 
-				    for (var s = 0; s < squareSectionsOneFlats.Count; ++s)
+				    for (var s = 0; s < sectionsOneFlatsSquare.Count; ++s)
 					{
-						var h = squareSectionsTwoFlats[s] - squareSectionsOneFlats[s];
-							currentExtraSquare = Math.Round(currentExtraSquare + Math.Abs(h),1);
+						var h = sectionsTwoFlatsSquare[s] - sectionsOneFlatsSquare[s];
+							currentFineOneFloor = Math.Round(currentFineOneFloor + Math.Abs(h),1);
 					}
 
-
-                    //todo сразу делать второй этаж и считать общий штраф
-				    
 				    if (countFloor == 2)
 				    {
-				        var currentArrangeSecondFloorResult = CreateSecondFloor.MethodeCreateSecondFloor(i, currentMassiv, entryway, step);
-				        var fineOfFloor = (double) currentArrangeSecondFloorResult[4];
+				        var currentArrangementSecondFloorResult = CreateSecondFloor.MethodeCreateSecondFloor(i, tempArrayTwoFlat, entryway, step);
+				        var fineOfFloors = Math.Round((double) currentArrangementSecondFloorResult[4],1);  // равные квартиры друг под другом, равная длина этажей
 
-				        if (currentExtraSquare + fineOfFloor < minExtraSquare)
+                        //Todo вывести итог первого этажа отдельно, итог второго этажа отдельно
+				        if (currentFineOneFloor + fineOfFloors < minTotalExtraSquare)
 				        {
-				            minExtraSquare = Math.Round(currentExtraSquare, 1);
-				            totalArrangeSecondFloorResult = currentArrangeSecondFloorResult;
+				            minTotalExtraSquare = Math.Round(currentFineOneFloor + fineOfFloors, 1);
+				            totalArrangementSecondFloorResult = currentArrangementSecondFloorResult;
 				        }
 				    }
 				    else
 				    {
-				        //TODO При подсчете второго этажа двигать стены
-
-				        if (currentExtraSquare < minExtraSquare)
+				        if (currentFineOneFloor < minTotalExtraSquare)
 				        {
-				            minExtraSquare = Math.Round(currentExtraSquare, 1);
+				            minTotalExtraSquare = Math.Round(currentFineOneFloor, 1);
 				            optimalLocationOneFlat = i;
-				            optimalLocationTwoFlat = currentMassiv;
+				            optimalLocationTwoFlat = tempArrayTwoFlat;
 				        }
 				    }
 				}
 			}
 		    if (countFloor == 2)
 		    {
-                resultList.Add(minExtraSquare);
-                resultList.AddRange(totalArrangeSecondFloorResult);
+                resultList.Add(minTotalExtraSquare);
+                resultList.AddRange(totalArrangementSecondFloorResult);
 		        return resultList;
 		    }
 
-		    resultList.Add(minExtraSquare);
+		    resultList.Add(minTotalExtraSquare);
 			resultList.Add(optimalLocationOneFlat.ToArray());
 			resultList.Add(optimalLocationTwoFlat.ToArray());
 			return resultList;

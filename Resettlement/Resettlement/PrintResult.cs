@@ -55,7 +55,6 @@ namespace Resettlement
                 }
                 else if (countFloor == 1 || countFloor.ToString(CultureInfo.InvariantCulture) == "")
                 {
-                    
                     resultGreedy_label.Text +=
                         ("Оптимальная расстановка однокомнатных квартир: ").ToString(CultureInfo.InvariantCulture);
                     foreach (var i in (IEnumerable)greedyAlgorithm[1])
@@ -71,7 +70,6 @@ namespace Resettlement
                     }
                     resultGreedy_label.Text += ("\r\n").ToString(CultureInfo.InvariantCulture);
                     resultGreedy_label.Text += ("\r\n").ToString(CultureInfo.InvariantCulture);
-                    //var f = Math.Round(s1 + 0.3*newLengthOneRoomFlat.Count - s - 1.8*newLengthOneRoomFlat.Count,2);
                 }
         }
 
@@ -79,11 +77,9 @@ namespace Resettlement
         {
             if (countFloor == 2)
             {
-                //var optArrangeSecondFloorResult = CreateSecondFloor.MethodeCreateSecondFloor(fullSearch[1], fullSearch[2], entryway, step);
-
                 const string resultFullSearch = "Итог полного перебора:";
                 resultFullSearch_label.Text += resultFullSearch.ToString(CultureInfo.InvariantCulture) + "\r\n";
-                var minFine = string.Format("Штраф {0}", fullSearch[0]);
+                var minFine = string.Format("Суммарный штраф {0}", fullSearch[0]);
                 resultFullSearch_label.Text += minFine.ToString(CultureInfo.InvariantCulture) + "\r\n" + "\r\n";
                 foreach (var i in (IEnumerable)fullSearch[1])
                 {
@@ -110,7 +106,7 @@ namespace Resettlement
                     resultFullSearch_label.Text += (string.Format(" {0} ", i));
                 }
                 resultFullSearch_label.Text += "\r\n";
-                resultFullSearch_label.Text += (string.Format("Штраф от этажей {0} \r\n", fullSearch[5]));
+                resultFullSearch_label.Text += (string.Format("Штраф от этажности {0} \r\n", fullSearch[5]));
             }
             else if (countFloor == 1 || countFloor.ToString(CultureInfo.InvariantCulture) == "")
             {
