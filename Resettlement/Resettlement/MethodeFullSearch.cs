@@ -14,8 +14,9 @@ namespace Resettlement
 			var optimalLocationOneFlat = new double[optimalLocationFlatTotalNumber];
 			var optimalLocationTwoFlat = new double[optimalLocationFlatTotalNumber];
 
-			var permListOneFlat = Resursion.Data(listLengthOneFlat.Count,optimalLocationFlatTotalNumber,true); //gereration permutations for Oneflat
-			var permListTwoFlat = Resursion.Data(listLengthTwoFlat.Count,optimalLocationFlatTotalNumber, false); //gereration permutations for Twoflat
+		    const bool flagOneFloor = false;
+            var permListOneFlat = Resursion.Data(listLengthOneFlat.Count, optimalLocationFlatTotalNumber, true, flagOneFloor); //gereration permutations for Oneflat
+            var permListTwoFlat = Resursion.Data(listLengthTwoFlat.Count, optimalLocationFlatTotalNumber, false, flagOneFloor); //gereration permutations for Twoflat
 			 
 			var listVariantsOneFlat = new List<double[]>();
 			listVariantsOneFlat = VariantsFlats.VariantsFlat(listVariantsOneFlat, permListOneFlat, listLengthOneFlat);
@@ -25,6 +26,7 @@ namespace Resettlement
 		    var totalArrangementSecondFloorResult = new List<object>();
 
 			var minTotalExtraSquare = 10000.0;
+		    var minTotalExtraSquareOneFloor = 0.0;
 		    const double restrictionOnDoor = 1.25;
 
 		    foreach (var i in listVariantsOneFlat)
@@ -88,6 +90,7 @@ namespace Resettlement
                         //Todo вывести итог первого этажа отдельно, итог второго этажа отдельно
 				        if (currentFineOneFloor + fineOfFloors < minTotalExtraSquare)
 				        {
+				            minTotalExtraSquareOneFloor = currentFineOneFloor;
 				            minTotalExtraSquare = Math.Round(currentFineOneFloor + fineOfFloors, 1);
 				            totalArrangementSecondFloorResult = currentArrangementSecondFloorResult;
 				        }
@@ -105,7 +108,7 @@ namespace Resettlement
 			}
 		    if (countFloor == 2)
 		    {
-                resultList.Add(minTotalExtraSquare);
+                resultList.Add(minTotalExtraSquareOneFloor);
                 resultList.AddRange(totalArrangementSecondFloorResult);
 		        return resultList;
 		    }

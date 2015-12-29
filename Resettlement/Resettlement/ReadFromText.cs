@@ -10,7 +10,8 @@ namespace Resettlement
 		public static List<double> ReadFileOneRoom(string[] l)
 		{
 //            string[] str = l[0] == "" ? File.ReadAllLines("OneRoom4bug.txt") : l;
-            string[] str = l[0] == "" ? File.ReadAllLines("OneRoom8.txt") : l;
+//            string[] str = l[0] == "" ? File.ReadAllLines("OneRoom8.txt") : l;
+            string[] str = l[0] == "" ? File.ReadAllLines("OneRoom10.txt") : l;
 		    var enterData = new List<double>();
 			if (str.Length != 0)
 			{
@@ -26,7 +27,8 @@ namespace Resettlement
 		public static List<double> ReadFileTwoRoom(string[] l)
 		{
 //            string[] str = l[0] == "" ? File.ReadAllLines("TwoRoom4bug.txt") : l;
-          string[] str = l[0] == "" ? File.ReadAllLines("TwoRoom8.txt") : l;
+//          string[] str = l[0] == "" ? File.ReadAllLines("TwoRoom8.txt") : l;
+          string[] str = l[0] == "" ? File.ReadAllLines("TwoRoom10.txt") : l;
 			var enterData = new List<double>();
 			if (str.Length != 0)
 			{

@@ -79,7 +79,7 @@ namespace Resettlement
             {
                 const string resultFullSearch = "Итог полного перебора:";
                 resultFullSearch_label.Text += resultFullSearch.ToString(CultureInfo.InvariantCulture) + "\r\n";
-                var minFine = string.Format("Суммарный штраф {0}", fullSearch[0]);
+                var minFine = string.Format("Штраф 1-этажа {0}", fullSearch[0]);
                 resultFullSearch_label.Text += minFine.ToString(CultureInfo.InvariantCulture) + "\r\n" + "\r\n";
                 foreach (var i in (IEnumerable)fullSearch[1])
                 {

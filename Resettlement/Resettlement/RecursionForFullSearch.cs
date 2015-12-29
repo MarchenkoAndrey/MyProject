@@ -5,16 +5,26 @@ namespace Resettlement
 {
 	static class Resursion
 	{
-		public static List<int[]> Data(int n, int optN,bool flag)
+		public static List<int[]> Data(int n, int optN,bool flag,bool flagTwoFloor)
 		{
 			var result = new List<int[]>();
 		    var countExcessNumber=0;
-            //Todo Сюда вставить ограничение на 3 и доработать код, чтобы считал все варианты до оптимального
+            //Todo Сюда вставить ограничение на 3 и доработать код, чтобы считал все варианты до оптимального, а рассматривается n < optN ???
 		    if (n > optN)
 		    {
 		        countExcessNumber = n - optN;
 		        n = optN;
 		    }
+
+            //todo для второго этажа нечетное количество секций
+		    if (n%2 != 0 && flagTwoFloor)
+		    {
+		        countExcessNumber = 1;
+		        n--;
+		        flag = true;
+		    }
+
+
 		    Do(n, n, new bool[n], new int[n], result, flag);
 		    if (countExcessNumber==1)
 		    {
