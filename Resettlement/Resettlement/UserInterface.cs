@@ -218,19 +218,14 @@ namespace Resettlement
                 MessageBox.Show("Для 12-ти и более вариантов используйте только жадный алгоритм"); 
                 return;
             }
-            /*
-            if (lengthOneRoomFlat.Count >= 8 && lengthTwoRoomFlat.Count >= 8)
+
+            if (Math.Abs(lengthOneRoomFlat.Count - lengthTwoRoomFlat.Count) >= 3 ||
+                (Math.Abs(lengthOneRoomFlat.Count - lengthTwoRoomFlat.Count) == 2 && lengthOneRoomFlat.Count % 2 != 0))
             {
-                const string pleaseWaiting = "Пожалуйста подождите, идет расчет";
-                pleaseWaiting_label.Text += pleaseWaiting.ToString(CultureInfo.InvariantCulture);
-                pleaseWaiting_label.Font = new Font("Calibri",14);
-                pleaseWaiting_label.ForeColor = Color.FromArgb(39, 0, 255);
-                if (optArrangeOne_label.Text != "")
-                {
-                    pleaseWaiting_label.Text = "";
-                }
+                MessageBox.Show("Слишком много вариантов для перебора");
+                return;
             }
-            */
+
             var myStopWatch = new Stopwatch();
             myStopWatch.Start();
 

@@ -87,7 +87,6 @@ namespace Resettlement
 				        var currentArrangementSecondFloorResult = CreateSecondFloor.MethodeCreateSecondFloor(i, tempArrayTwoFlat, entryway, step);
 				        var fineOfFloors = Math.Round((double) currentArrangementSecondFloorResult[4],1);  // равные квартиры друг под другом, равная длина этажей
 
-                        //Todo вывести итог первого этажа отдельно, итог второго этажа отдельно
 				        if (currentFineOneFloor + fineOfFloors < minTotalExtraSquare)
 				        {
 				            minTotalExtraSquareOneFloor = currentFineOneFloor;
