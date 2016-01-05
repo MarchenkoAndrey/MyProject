@@ -78,6 +78,20 @@ namespace Resettlement
                 MessageBox.Show("Необходимо выбрать значение 'Этаж'");
                 return;
             }
+
+            if (countFloor == 2)
+            {
+                var newListOneFlatAfterGrouping = GroupingOnTheFloors.GroupingTwoFloors(newLengthOneRoomFlat, newLengthTwoRoomFlat);
+                //записать в переменные, которые дальше тащить
+
+            }
+            if (countFloor == 3)
+            {
+                var newListOneFlatAfterGrouping = GroupingOnTheFloors.GroupingThreeFloors(newLengthOneRoomFlat, newLengthTwoRoomFlat);
+                //записать в переменные, которые дальше тащить
+
+            }
+
             realizat_label.Text = "".ToString(CultureInfo.InvariantCulture);
             lossesOne_label.Text = "".ToString(CultureInfo.InvariantCulture);
             lossesTwo_label.Text = "".ToString(CultureInfo.InvariantCulture);
