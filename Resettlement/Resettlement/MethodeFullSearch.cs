@@ -23,10 +23,7 @@ namespace Resettlement
 			var listVariantsTwoFlat = new List<double[]>();
 			listVariantsTwoFlat = VariantsFlats.VariantsFlat(listVariantsTwoFlat, permListTwoFlat, listLengthTwoFlat);
 
-		    var totalArrangementSecondFloorResult = new List<object>();
-
 			var minTotalExtraSquare = 10000.0;
-		    var minTotalExtraSquareOneFloor = 0.0;
 		    const double restrictionOnDoor = 1.25;
 
 		    foreach (var i in listVariantsOneFlat)
@@ -81,36 +78,15 @@ namespace Resettlement
 						var h = sectionsTwoFlatsSquare[s] - sectionsOneFlatsSquare[s];
 							currentFineOneFloor = Math.Round(currentFineOneFloor + Math.Abs(h),1);
 					}
-
-				    if (countFloor == 2)
+				   
+				    if (currentFineOneFloor < minTotalExtraSquare)
 				    {
-				        var currentArrangementSecondFloorResult = CreateSecondFloor.MethodeCreateSecondFloor(i, tempArrayTwoFlat, entryway, step);
-				        var fineOfFloors = Math.Round((double) currentArrangementSecondFloorResult[4],1);  // равные квартиры друг под другом, равная длина этажей
-
-				        if (currentFineOneFloor + fineOfFloors < minTotalExtraSquare)
-				        {
-				            minTotalExtraSquareOneFloor = currentFineOneFloor;
-				            minTotalExtraSquare = Math.Round(currentFineOneFloor + fineOfFloors, 1);
-				            totalArrangementSecondFloorResult = currentArrangementSecondFloorResult;
-				        }
-				    }
-				    else
-				    {
-				        if (currentFineOneFloor < minTotalExtraSquare)
-				        {
-				            minTotalExtraSquare = Math.Round(currentFineOneFloor, 1);
-				            optimalLocationOneFlat = i;
-				            optimalLocationTwoFlat = tempArrayTwoFlat;
-				        }
+				        minTotalExtraSquare = Math.Round(currentFineOneFloor, 1);
+				        optimalLocationOneFlat = i;
+				        optimalLocationTwoFlat = tempArrayTwoFlat;
 				    }
 				}
 			}
-		    if (countFloor == 2)
-		    {
-                resultList.Add(minTotalExtraSquareOneFloor);
-                resultList.AddRange(totalArrangementSecondFloorResult);
-		        return resultList;
-		    }
 
 		    resultList.Add(minTotalExtraSquare);
 			resultList.Add(optimalLocationOneFlat.ToArray());

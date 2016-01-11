@@ -28,8 +28,7 @@ namespace Resettlement
                      choiceMinOneFlat = newFirstOneF;
                 }
                 else 
-                {
-//                 choiceMinOneFlat = sortedListOneFlat[0];
+                {                
                    choiceMinOneFlat = sortedListOneFlat[sortedListOneFlat.Count/2];
                 }
 				b++;

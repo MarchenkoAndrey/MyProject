@@ -71,25 +71,12 @@ namespace Resettlement
             }
             if (radioButton3.Checked)
             {
-                countFloor = 1;
+                countFloor = 3;
             }
             if (countFloor == 0)
             {
                 MessageBox.Show("Необходимо выбрать значение 'Этаж'");
                 return;
-            }
-
-            if (countFloor == 2)
-            {
-                var newListOneFlatAfterGrouping = GroupingOnTheFloors.GroupingTwoFloors(newLengthOneRoomFlat, newLengthTwoRoomFlat);
-                //записать в переменные, которые дальше тащить
-
-            }
-            if (countFloor == 3)
-            {
-                var newListOneFlatAfterGrouping = GroupingOnTheFloors.GroupingThreeFloors(newLengthOneRoomFlat, newLengthTwoRoomFlat);
-                //записать в переменные, которые дальше тащить
-
             }
 
             realizat_label.Text = "".ToString(CultureInfo.InvariantCulture);
@@ -103,8 +90,24 @@ namespace Resettlement
             var lossesOne = "Потери при округлении длин однокомнатных квартир до числа, кратного 0.3: " + deltaOfOneRoomFlat.ToString(CultureInfo.InvariantCulture);
             var lossesTwo = "Потери при округлении длин двухкомнатных квартир до числа, кратного 0.3: " + deltaOfTwoRoomFlat.ToString(CultureInfo.InvariantCulture);
             lossesOne_label.Text += lossesOne.ToString(CultureInfo.InvariantCulture);
-            //lossesOne_label.Font = new Font("Calibri", 14);
             lossesTwo_label.Text += lossesTwo.ToString(CultureInfo.InvariantCulture);
+
+            var newListFlatAfterGrouping = new List<object>();
+            var fineAfterGrouping = 0.0;
+            if (countFloor == 2)
+            {
+                newListFlatAfterGrouping = GroupingOnTheFloors.GroupingTwoFloors(newLengthOneRoomFlat, newLengthTwoRoomFlat);
+                newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>) newListFlatAfterGrouping[0]);
+                newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>) newListFlatAfterGrouping[1]);
+                fineAfterGrouping = (double) newListFlatAfterGrouping[2];
+            }
+            if (countFloor == 3)
+            {
+                newListFlatAfterGrouping = GroupingOnTheFloors.GroupingThreeFloors(newLengthOneRoomFlat, newLengthTwoRoomFlat);
+                newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListFlatAfterGrouping[0]);
+                newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListFlatAfterGrouping[1]);
+                fineAfterGrouping = (double) newListFlatAfterGrouping[2];
+            }
 
             var myStopWatchGreedy = new Stopwatch();
             myStopWatchGreedy.Start();
@@ -112,9 +115,10 @@ namespace Resettlement
             var currentTotalFine = 10000.0;
             var minTotalFine = 100000.0;
             var a = 0;
+            var a1 = 0;
             var totalOptimalResult = new List<object>();
 
-            while (a<4)
+            while (a<2)
             {
                 if (a > 0)
                 {
@@ -122,17 +126,31 @@ namespace Resettlement
                 }
                 a++;
 
+                // если минимальный штраф не уменьшается, заканчивать итерацию // альтернативная концовка
+
                 var greedyAlgorithm = GreedyAlcorithmSection.GreedyMethode(newLengthOneRoomFlat, newLengthTwoRoomFlat,
                     step, entryway, firstOneFlat);
                 firstOneFlat = (double)greedyAlgorithm[3];
-                currentTotalFine = (double)greedyAlgorithm[0];
+                if (countFloor == 2)
+                {
+                    greedyAlgorithm[0] = Math.Round((double) greedyAlgorithm[0] * 2.0,1);
+                }
+
+                if (countFloor == 3)
+                {
+                    greedyAlgorithm[0] = Math.Round((double) greedyAlgorithm[0] * 3.0,1);
+                }
+
+                greedyAlgorithm[0] = Math.Round((double) greedyAlgorithm[0] + fineAfterGrouping, 1);
+                currentTotalFine = Math.Round((double)greedyAlgorithm[0],1);
 
                 //Todo Общий итог жадного алгоритма
                 if (totalOptimalResult.Count == greedyAlgorithm.Count)
                 {
-                    if ((double)totalOptimalResult[0]<(double)greedyAlgorithm[0])
+                    if ((double)totalOptimalResult[0]>(double)greedyAlgorithm[0])
                     {
                         totalOptimalResult = greedyAlgorithm;
+                        a1 = a;
                     }
                 }
                 else
@@ -140,14 +158,21 @@ namespace Resettlement
                     totalOptimalResult = greedyAlgorithm;
                 }
 
-                newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(lengthOneRoomFlat);
-                newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(lengthTwoRoomFlat);
-
-               //Вывод результата по итерациям
+                if (countFloor != 1)
+                {
+                    newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListFlatAfterGrouping[0]);
+                    newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListFlatAfterGrouping[1]);
+                }
+                else
+                {
+                    newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(lengthOneRoomFlat);
+                    newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(lengthTwoRoomFlat);
+                }
+                //Вывод результата по итерациям
               PrintResult.GreedyIterationPrintResult(greedyAlgorithm,countFloor,entryway,step,a, true);
             }
             myStopWatchGreedy.Stop();
-            PrintResult.GreedyIterationPrintResult(totalOptimalResult, countFloor, entryway, step, a, false);
+            PrintResult.GreedyIterationPrintResult(totalOptimalResult, countFloor, entryway, step, a1, false);
 
             resultGreedy_label.Text +=
                   ("Время работы жадного алгоритма: " +
@@ -207,7 +232,7 @@ namespace Resettlement
             }
             if (radioButton3.Checked)
             {
-                countFloor = 1;
+                countFloor = 3;
             }
             if (countFloor == 0)
             {
@@ -227,7 +252,26 @@ namespace Resettlement
             var lossesTwo = "Потери при округлении длин двухкомнатных квартир до числа, кратного 0.3: " + deltaOfTwoRoomFlat.ToString(CultureInfo.InvariantCulture);
             lossesOne_label.Text += lossesOne.ToString(CultureInfo.InvariantCulture); 
             lossesTwo_label.Text += lossesTwo.ToString(CultureInfo.InvariantCulture);
-            if (lengthOneRoomFlat.Count >= 12 || lengthTwoRoomFlat.Count >= 12)
+
+            var newListFlatAfterGrouping = new List<object>();
+            var fineAfterGrouping = 0.0;
+            if (countFloor == 2)
+            {
+                newListFlatAfterGrouping = GroupingOnTheFloors.GroupingTwoFloors(newLengthOneRoomFlat, newLengthTwoRoomFlat);
+                newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListFlatAfterGrouping[0]);
+                newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListFlatAfterGrouping[1]);
+                fineAfterGrouping = (double)newListFlatAfterGrouping[2];
+            }
+            if (countFloor == 3)
+            {
+                newListFlatAfterGrouping = GroupingOnTheFloors.GroupingThreeFloors(newLengthOneRoomFlat, newLengthTwoRoomFlat);
+                newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListFlatAfterGrouping[0]);
+                newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListFlatAfterGrouping[1]);
+                fineAfterGrouping = (double)newListFlatAfterGrouping[2];
+            }
+
+
+            if (newLengthOneRoomFlat.Count >= 12 || newLengthTwoRoomFlat.Count >= 12)
             {
                 MessageBox.Show("Для 12-ти и более вариантов используйте только жадный алгоритм"); 
                 return;
@@ -244,6 +288,17 @@ namespace Resettlement
             myStopWatch.Start();
 
             var fullSearch = MethodeFullSearch.FullSearch(newLengthOneRoomFlat, newLengthTwoRoomFlat, step, entryway, countFloor);
+            if (countFloor == 2)
+            {
+                fullSearch[0] = Math.Round((double) fullSearch[0] * 2.0,1);
+            }
+
+            if (countFloor == 3)
+            {
+                fullSearch[0] = Math.Round((double)fullSearch[0] * 3.0,1);
+            }
+
+            fullSearch[0] = Math.Round((double)fullSearch[0] + fineAfterGrouping,1);
 
             PrintResult.FullSearchPrintResult(fullSearch,countFloor);
             
