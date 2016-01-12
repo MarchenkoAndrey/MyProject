@@ -109,6 +109,9 @@ namespace Resettlement
                 fineAfterGrouping = (double) newListFlatAfterGrouping[2];
             }
 
+            var excessDataOneFlat = new List<double>(); //  варианты однокомнатных, не попавших в ответ
+            var excessDataTwoFlat = new List<double>(); //  варианты двухкомнатных, не попавших в ответ
+
             var myStopWatchGreedy = new Stopwatch();
             myStopWatchGreedy.Start();
             var firstOneFlat = 0.0;
@@ -128,9 +131,12 @@ namespace Resettlement
 
                 // если минимальный штраф не уменьшается, заканчивать итерацию // альтернативная концовка
 
+                //TODO поменять название метода с=>g
                 var greedyAlgorithm = GreedyAlcorithmSection.GreedyMethode(newLengthOneRoomFlat, newLengthTwoRoomFlat,
                     step, entryway, firstOneFlat);
                 firstOneFlat = (double)greedyAlgorithm[3];
+                excessDataOneFlat = (List<double>)greedyAlgorithm[4];
+                excessDataTwoFlat = (List<double>)greedyAlgorithm[5];
                 if (countFloor == 2)
                 {
                     greedyAlgorithm[0] = Math.Round((double) greedyAlgorithm[0] * 2.0,1);

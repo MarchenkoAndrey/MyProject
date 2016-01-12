@@ -65,7 +65,7 @@ namespace Resettlement
                 }
             }
 
-                else if (countFloor == 1 || countFloor.ToString(CultureInfo.InvariantCulture) == "")
+                else if (countFloor == 1)
                 {
                     resultGreedy_label.Text +=
                         ("Оптимальная расстановка однокомнатных квартир: ").ToString(CultureInfo.InvariantCulture);
@@ -81,6 +81,28 @@ namespace Resettlement
                         resultGreedy_label.Text += (string.Format(" {0} ", i));
                     }
                     resultGreedy_label.Text += ("\r\n").ToString(CultureInfo.InvariantCulture);
+                    
+                    var ss1 = (List<double>)greedyAlgorithm[4];
+                    if (ss1.Count != 0)
+                    {
+                        resultGreedy_label.Text += "Варианты однокомнатных, не попавших в итоговый ответ";
+                        foreach (var i in (IEnumerable)ss1)
+                        {
+                            resultGreedy_label.Text += (string.Format(" {0} ", i));
+                        }
+                    }
+
+                    resultGreedy_label.Text += ("\r\n").ToString(CultureInfo.InvariantCulture);
+                    var ss2 = (List<double>)greedyAlgorithm[5];
+                    if (ss2.Count != 0)
+                    {
+                        resultGreedy_label.Text += "Варианты двухкомнатных, не попавших в итоговый ответ";
+                        foreach (var i in (IEnumerable)ss2)
+                        {
+                            resultGreedy_label.Text += (string.Format(" {0} ", i));
+                        }
+                    }
+
                     resultGreedy_label.Text += ("\r\n").ToString(CultureInfo.InvariantCulture);
                 }
         }

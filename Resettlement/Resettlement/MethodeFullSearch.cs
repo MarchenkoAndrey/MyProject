@@ -17,12 +17,14 @@ namespace Resettlement
 		    const bool flagOneFloor = false;
             var permListOneFlat = Resursion.Data(listLengthOneFlat.Count, optimalLocationFlatTotalNumber, true, flagOneFloor); //gereration permutations for Oneflat
             var permListTwoFlat = Resursion.Data(listLengthTwoFlat.Count, optimalLocationFlatTotalNumber, false, flagOneFloor); //gereration permutations for Twoflat
-			 
-			var listVariantsOneFlat = new List<double[]>();
-			listVariantsOneFlat = VariantsFlats.VariantsFlat(listVariantsOneFlat, permListOneFlat, listLengthOneFlat);
-			var listVariantsTwoFlat = new List<double[]>();
-			listVariantsTwoFlat = VariantsFlats.VariantsFlat(listVariantsTwoFlat, permListTwoFlat, listLengthTwoFlat);
 
+            var permListOneFlatWithExcessData = new List<object>();
+            permListOneFlatWithExcessData = VariantsFlats.VariantsFlat(permListOneFlat, listLengthOneFlat);
+            var permListTwoFlatWithExcessData = new List<object>();
+            permListTwoFlatWithExcessData = VariantsFlats.VariantsFlat(permListTwoFlat, listLengthTwoFlat);
+            
+            var listVariantsOneFlat = new List<double[]>();    //Список перестановок с числами
+			var listVariantsTwoFlat = new List<double[]>();
 			var minTotalExtraSquare = 10000.0;
 		    const double restrictionOnDoor = 1.25;
 

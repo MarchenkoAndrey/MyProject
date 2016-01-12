@@ -139,6 +139,8 @@ namespace Resettlement
 			list.Add(finalPlacementOneFlat);
 			list.Add(finalPlacementTwoFlat);
             list.Add(newFirstOneFlat);
+            list.Add(newLengthOneFlat);
+            list.Add(newLengthTwoFlat);
 			return list;
 		}
 	}
