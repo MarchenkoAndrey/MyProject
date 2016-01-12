@@ -162,7 +162,7 @@ namespace Resettlement
                 }
             }
 
-            else if (countFloor == 1 || countFloor.ToString(CultureInfo.InvariantCulture) == "")
+            else if (countFloor == 1)
             {
                 const string resultFullSearch = "Итог полного перебора:";
                 resultFullSearch_label.Text += resultFullSearch.ToString(CultureInfo.InvariantCulture) + "\r\n";
@@ -182,6 +182,28 @@ namespace Resettlement
                 {
                     resultFullSearch_label.Text += (string.Format(" {0} ", i));
                 }
+                resultFullSearch_label.Text += "\r\n";
+                var ss1 = (List<double>)fullSearch[3];
+                if (ss1.Count != 0)
+                {
+                    resultFullSearch_label.Text += "Варианты однокомнатных, не попавших в итоговый ответ";
+                    foreach (var i in (IEnumerable)ss1)
+                    {
+                        resultFullSearch_label.Text += (string.Format(" {0} ", i));
+                    }
+                }
+
+                resultFullSearch_label.Text += ("\r\n").ToString(CultureInfo.InvariantCulture);
+                var ss2 = (List<double>)fullSearch[4];
+                if (ss2.Count != 0)
+                {
+                    resultFullSearch_label.Text += "Варианты двухкомнатных, не попавших в итоговый ответ";
+                    foreach (var i in (IEnumerable)ss2)
+                    {
+                        resultFullSearch_label.Text += (string.Format(" {0} ", i));
+                    }
+                }
+
                 resultFullSearch_label.Text += "\r\n";
             }
         }

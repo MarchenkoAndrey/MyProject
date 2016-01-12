@@ -5,9 +5,8 @@ namespace Resettlement
 {
 	static class VariantsFlats
 	{
-		public static List<object> VariantsFlat(List<int[]> permListFlat, List<double> newLengthFlat)
+        public static int VariantsFlat(out List<double[]> aaa1, out List<double[]> aaa2, List<int[]> permListFlat, List<double> newLengthFlat)
 		{
-            var resultList = new List<object>();
             var listFlat = new List<double[]>();
             var excessData = new List<double[]>();
 			foreach (var i in permListFlat)
@@ -30,11 +29,10 @@ namespace Resettlement
                 }
                 excessData.Add(currentExcessData.ToArray());   //оставшиеся варианты записать в excessData
 				listFlat.Add(currentList.ToArray());
-
 			}
-            resultList.AddRange(listFlat);
-            resultList.AddRange(excessData);
-			return resultList;
+            aaa1 = listFlat;
+            aaa2 = excessData;
+			return 0;
 		}
 	}
 }
