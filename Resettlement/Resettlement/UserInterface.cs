@@ -18,11 +18,6 @@ namespace Resettlement
 
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-           
-        }
-
         private void greedy_btn_Click(object sender, EventArgs e)
         {
             var strOne = new string[1]
@@ -53,44 +48,44 @@ namespace Resettlement
                 squareTwoRoomFlat[i] = enterDataTwoRoomFlat[i];
             }
 
-            var lengthOneRoomFlat = PreparationSquares.CalculateLengthOfFlat(squareOneRoomFlat, widthOfApartment);
-            var lengthTwoRoomFlat = PreparationSquares.CalculateLengthOfFlat(squareTwoRoomFlat, widthOfApartment);
-            var newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(lengthOneRoomFlat);
-            var newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(lengthTwoRoomFlat);
-            var deltaOfOneRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthOneRoomFlat, newLengthOneRoomFlat);
-            var deltaOfTwoRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthTwoRoomFlat, newLengthTwoRoomFlat);
+//            var lengthOneRoomFlat = PreparationSquares.CalculateLengthOfFlat(squareOneRoomFlat, widthOfApartment);
+//            var lengthTwoRoomFlat = PreparationSquares.CalculateLengthOfFlat(squareTwoRoomFlat, widthOfApartment);
+            var newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(squareOneRoomFlat);
+            var newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(squareTwoRoomFlat);
+//            var deltaOfOneRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthOneRoomFlat, newLengthOneRoomFlat);
+//            var deltaOfTwoRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthTwoRoomFlat, newLengthTwoRoomFlat);
 
-            var countFloor = 0;
-            if (radioButton1.Checked)
-            {
-                countFloor = 1;
-            }
-            if (radioButton2.Checked)
-            {
-                countFloor = 2;
-            }
-            if (radioButton3.Checked)
-            {
-                countFloor = 3;
-            }
-            if (countFloor == 0)
-            {
-                MessageBox.Show("Необходимо выбрать значение 'Этаж'");
-                return;
-            }
+            var countFloor = 1;
+//            if (radioButton1.Checked)
+//            {
+//                countFloor = 1;
+//            }
+//            if (radioButton2.Checked)
+//            {
+//                countFloor = 2;
+//            }
+//            if (radioButton3.Checked)
+//            {
+//                countFloor = 3;
+//            }
+//            if (countFloor == 0)
+//            {
+//                MessageBox.Show("Необходимо выбрать значение 'Этаж'");
+//                return;
+//            }
 
             realizat_label.Text = "".ToString(CultureInfo.InvariantCulture);
-            lossesOne_label.Text = "".ToString(CultureInfo.InvariantCulture);
-            lossesTwo_label.Text = "".ToString(CultureInfo.InvariantCulture);
+//            lossesOne_label.Text = "".ToString(CultureInfo.InvariantCulture);
+//            lossesTwo_label.Text = "".ToString(CultureInfo.InvariantCulture);
             resultGreedy_label.Text = "".ToString(CultureInfo.InvariantCulture);
 
             var realFlat = newLengthOneRoomFlat.Count + newLengthTwoRoomFlat.Count;
-            realizat_label.Text += ("Реализация для " + realFlat + " квартир").ToString(CultureInfo.InvariantCulture);
+            realizat_label.Text += ("Реализация для " + realFlat + " прямоугольников").ToString(CultureInfo.InvariantCulture);
 
-            var lossesOne = "Потери при округлении длин однокомнатных квартир до числа, кратного 0.3: " + deltaOfOneRoomFlat.ToString(CultureInfo.InvariantCulture);
-            var lossesTwo = "Потери при округлении длин двухкомнатных квартир до числа, кратного 0.3: " + deltaOfTwoRoomFlat.ToString(CultureInfo.InvariantCulture);
-            lossesOne_label.Text += lossesOne.ToString(CultureInfo.InvariantCulture);
-            lossesTwo_label.Text += lossesTwo.ToString(CultureInfo.InvariantCulture);
+//            var lossesOne = "Потери при округлении длин однокомнатных квартир до числа, кратного 0.3: " + deltaOfOneRoomFlat.ToString(CultureInfo.InvariantCulture);
+//            var lossesTwo = "Потери при округлении длин двухкомнатных квартир до числа, кратного 0.3: " + deltaOfTwoRoomFlat.ToString(CultureInfo.InvariantCulture);
+//            lossesOne_label.Text += lossesOne.ToString(CultureInfo.InvariantCulture);
+//            lossesTwo_label.Text += lossesTwo.ToString(CultureInfo.InvariantCulture);
 
             var newListFlatAfterGrouping = new List<object>();
             var fineAfterGrouping = 0.0;
@@ -176,8 +171,8 @@ namespace Resettlement
                 }
                 else
                 {
-                    newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(lengthOneRoomFlat);
-                    newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(lengthTwoRoomFlat);
+                    newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(squareOneRoomFlat);
+                    newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(squareTwoRoomFlat);
                 }
                 //Вывод результата по итерациям
 
@@ -226,32 +221,32 @@ namespace Resettlement
                 squareTwoRoomFlat[i] = enterDataTwoRoomFlat[i];
             }
           
-            var lengthOneRoomFlat = PreparationSquares.CalculateLengthOfFlat(squareOneRoomFlat, widthOfApartment);
-            var lengthTwoRoomFlat = PreparationSquares.CalculateLengthOfFlat(squareTwoRoomFlat, widthOfApartment);
-            var newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(lengthOneRoomFlat);
-            var newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(lengthTwoRoomFlat);
-            var deltaOfOneRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthOneRoomFlat, newLengthOneRoomFlat);
-            var deltaOfTwoRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthTwoRoomFlat, newLengthTwoRoomFlat);
+//            var lengthOneRoomFlat = PreparationSquares.CalculateLengthOfFlat(squareOneRoomFlat, widthOfApartment);
+//            var lengthTwoRoomFlat = PreparationSquares.CalculateLengthOfFlat(squareTwoRoomFlat, widthOfApartment);
+            var newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(squareOneRoomFlat);
+            var newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(squareTwoRoomFlat);
+//            var deltaOfOneRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthOneRoomFlat, newLengthOneRoomFlat);
+//            var deltaOfTwoRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthTwoRoomFlat, newLengthTwoRoomFlat);
 
-            var countFloor = 0;
+            var countFloor = 1;
 
-            if (radioButton1.Checked)
-            {
-                countFloor = 1;
-            }
-            if (radioButton2.Checked)
-            {
-                countFloor = 2;
-            }
-            if (radioButton3.Checked)
-            {
-                countFloor = 3;
-            }
-            if (countFloor == 0)
-            {
-                MessageBox.Show("Необходимо выбрать значение 'Этаж'");
-                return;
-            }
+//            if (radioButton1.Checked)
+//            {
+//                countFloor = 1;
+//            }
+//            if (radioButton2.Checked)
+//            {
+//                countFloor = 2;
+//            }
+//            if (radioButton3.Checked)
+//            {
+//                countFloor = 3;
+//            }
+//            if (countFloor == 0)
+//            {
+//                MessageBox.Show("Необходимо выбрать значение 'Этаж'");
+//                return;
+//            }
             
             realizat_label.Text = "".ToString(CultureInfo.InvariantCulture);
             lossesOne_label.Text = "".ToString(CultureInfo.InvariantCulture);
@@ -259,12 +254,12 @@ namespace Resettlement
             resultFullSearch_label.Text = "".ToString(CultureInfo.InvariantCulture);
 
             var realCountFlat = newLengthOneRoomFlat.Count + newLengthTwoRoomFlat.Count;
-            realizat_label.Text += ("Реализация для " + realCountFlat + " квартир").ToString(CultureInfo.InvariantCulture);
+            realizat_label.Text += ("Реализация для " + realCountFlat + " прямоугольников").ToString(CultureInfo.InvariantCulture);
 
-            var lossesOne = "Потери при округлении длин однокомнатных квартир до числа, кратного 0.3: " + deltaOfOneRoomFlat.ToString(CultureInfo.InvariantCulture);
-            var lossesTwo = "Потери при округлении длин двухкомнатных квартир до числа, кратного 0.3: " + deltaOfTwoRoomFlat.ToString(CultureInfo.InvariantCulture);
-            lossesOne_label.Text += lossesOne.ToString(CultureInfo.InvariantCulture); 
-            lossesTwo_label.Text += lossesTwo.ToString(CultureInfo.InvariantCulture);
+//            var lossesOne = "Потери при округлении длин однокомнатных квартир до числа, кратного 0.3: " + deltaOfOneRoomFlat.ToString(CultureInfo.InvariantCulture);
+//            var lossesTwo = "Потери при округлении длин двухкомнатных квартир до числа, кратного 0.3: " + deltaOfTwoRoomFlat.ToString(CultureInfo.InvariantCulture);
+//            lossesOne_label.Text += lossesOne.ToString(CultureInfo.InvariantCulture); 
+//            lossesTwo_label.Text += lossesTwo.ToString(CultureInfo.InvariantCulture);
 
             var newListFlatAfterGrouping = new List<object>();
             var fineAfterGrouping = 0.0;
@@ -286,14 +281,14 @@ namespace Resettlement
 
             if (newLengthOneRoomFlat.Count >= 12 || newLengthTwoRoomFlat.Count >= 12)
             {
-                MessageBox.Show("Для 12-ти и более вариантов используйте только жадный алгоритм"); 
+                MessageBox.Show("Для 12-ти и более контейнеров используйте только жадный алгоритм"); 
                 return;
             }
 
-            if (Math.Abs(lengthOneRoomFlat.Count - lengthTwoRoomFlat.Count) >= 3 ||
-                (Math.Abs(lengthOneRoomFlat.Count - lengthTwoRoomFlat.Count) == 2 && lengthOneRoomFlat.Count % 2 != 0))
+            if (Math.Abs(squareOneRoomFlat.Length - squareTwoRoomFlat.Length) >= 3 ||
+                (Math.Abs(squareOneRoomFlat.Length - squareTwoRoomFlat.Length) == 2 && squareOneRoomFlat.Length % 2 != 0))
             {
-                MessageBox.Show("Слишком много вариантов для перебора");
+                MessageBox.Show("Слишком много контейнеров для перебора");
                 return;
             }
 

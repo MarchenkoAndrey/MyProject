@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Forms;
@@ -20,9 +21,22 @@ namespace Resettlement
                 resultGreedy_label.Text +=
                     ("Итог работы жадного алгоритма:\r\n").ToString(CultureInfo.InvariantCulture);
             }
+
+            var s1 = (double []) greedyAlgorithm[1];
+            for (var i=0; i<s1.Length;++i)
+            {
+                s1[i] = Math.Round(s1[i],1);
+            }
+
+            var s2 = (double[])greedyAlgorithm[1];
+            for (var i = 0; i < s2.Length; ++i)
+            {
+                s2[i] = Math.Round(s2[i], 1);
+            }
+
+
             resultGreedy_label.Text +=
                  (string.Format("Штраф {0}", greedyAlgorithm[0]) + "\r\n").ToString(CultureInfo.InvariantCulture);
-
             if (countFloor == 2)
             {
                   for (var index = 0; index < 2; ++index)
@@ -70,27 +84,40 @@ namespace Resettlement
                 else if (countFloor == 1)
                 {
                     resultGreedy_label.Text +=
-                        ("Оптимальная расстановка однокомнатных квартир: ").ToString(CultureInfo.InvariantCulture);
+                        ("Оптимальная расстановка контейнеров: ").ToString(CultureInfo.InvariantCulture);
+                    resultGreedy_label.Text += ("\r\n").ToString(CultureInfo.InvariantCulture);
+                    var b = 0;
+                    resultGreedy_label.Text += "|";
                     foreach (var i in (IEnumerable)greedyAlgorithm[1])
                     {
-                        resultGreedy_label.Text += (string.Format(" {0} ", i));
+                        resultGreedy_label.Text += (string.Format(" {0:0.0} ", i));
+                        ++b;
+                        if (b % 2 == 0)
+                        {
+                            resultGreedy_label.Text += "|";
+                        }
+                        
                     }
                     resultGreedy_label.Text += ("\r\n").ToString(CultureInfo.InvariantCulture);
-                    resultGreedy_label.Text +=
-                        ("Оптимальная расстановка двухкомнатных квартир: ").ToString(CultureInfo.InvariantCulture);
+
+                    b = 0;
+                    resultGreedy_label.Text += "|";
                     foreach (var i in (IEnumerable)greedyAlgorithm[2])
                     {
-                        resultGreedy_label.Text += (string.Format(" {0} ", i));
+                        resultGreedy_label.Text += (string.Format(" {0:0.0} ", i));
+                        ++b;
+                        if (b % 2 == 0)
+                            resultGreedy_label.Text += "|";
                     }
                     resultGreedy_label.Text += ("\r\n").ToString(CultureInfo.InvariantCulture);
                     
                     var ss1 = (List<double>)greedyAlgorithm[4];
                     if (ss1.Count != 0)
                     {
-                        resultGreedy_label.Text += "Варианты однокомнатных, не попавших в итоговый ответ";
+                        resultGreedy_label.Text += "Варианты прямоугольников a(i), не попавших в итоговый ответ";
                         foreach (var i in (IEnumerable)ss1)
                         {
-                            resultGreedy_label.Text += (string.Format(" {0} ", i));
+                            resultGreedy_label.Text += (string.Format(" {0:0.0} ", i));
                         }
                     }
 
@@ -98,14 +125,12 @@ namespace Resettlement
                     var ss2 = (List<double>)greedyAlgorithm[5];
                     if (ss2.Count != 0)
                     {
-                        resultGreedy_label.Text += "Варианты двухкомнатных, не попавших в итоговый ответ";
+                        resultGreedy_label.Text += "Варианты прямоугольников b(i), не попавших в итоговый ответ";
                         foreach (var i in (IEnumerable)ss2)
                         {
-                            resultGreedy_label.Text += (string.Format(" {0} ", i));
+                            resultGreedy_label.Text += (string.Format(" {0:0.0} ", i));
                         }
                     }
-
-                    resultGreedy_label.Text += ("\r\n").ToString(CultureInfo.InvariantCulture);
                 }
         }
 
@@ -171,27 +196,43 @@ namespace Resettlement
                 var minFine = string.Format("Штраф {0}", fullSearch[0]);
                 resultFullSearch_label.Text += minFine.ToString(CultureInfo.InvariantCulture) + "\r\n";
 
-                const string optArrangeOne = "Оптимальная расстановка однокомнатных квартир";
+                const string optArrangeOne = "Оптимальная расстановка контейнеров";
                 resultFullSearch_label.Text += optArrangeOne.ToString(CultureInfo.InvariantCulture);
+                resultFullSearch_label.Text += "\r\n";
+                var b = 0;
+                resultFullSearch_label.Text += "|";
                 foreach (var i in (IEnumerable)fullSearch[1])
                 {
-                    resultFullSearch_label.Text += (string.Format(" {0} ", i));
+                    resultFullSearch_label.Text += (string.Format(" {0:0.0} ", i));
+                    ++b;
+                    if (b%2 == 0)
+                    {
+                        resultFullSearch_label.Text += "|";
+                    }
+                   
                 }
                 resultFullSearch_label.Text += "\r\n";
-                const string optArrangeTwo = "Оптимальная расстановка однокомнатных квартир";
-                resultFullSearch_label.Text += optArrangeTwo.ToString(CultureInfo.InvariantCulture);
+
+                b = 0;
+                resultFullSearch_label.Text += "|";
                 foreach (var i in (IEnumerable)fullSearch[2])
                 {
-                    resultFullSearch_label.Text += (string.Format(" {0} ", i));
+                    resultFullSearch_label.Text += (string.Format(" {0:0.0} ", i));
+                    ++b;
+                    if (b % 2 == 0)
+                    {
+                        resultFullSearch_label.Text += "|";
+                    }
+                   
                 }
                 resultFullSearch_label.Text += "\r\n";
                 var ss1 = (List<double>)fullSearch[3];
                 if (ss1.Count != 0)
                 {
-                    resultFullSearch_label.Text += "Варианты однокомнатных, не попавших в итоговый ответ";
+                    resultFullSearch_label.Text += "Варианты прямоугольников a(i), не попавших в итоговый ответ";
                     foreach (var i in (IEnumerable)ss1)
                     {
-                        resultFullSearch_label.Text += (string.Format(" {0} ", i));
+                        resultFullSearch_label.Text += (string.Format(" {0:0.0} ", i));
                     }
                 }
 
@@ -199,10 +240,10 @@ namespace Resettlement
                 var ss2 = (List<double>)fullSearch[4];
                 if (ss2.Count != 0)
                 {
-                    resultFullSearch_label.Text += "Варианты двухкомнатных, не попавших в итоговый ответ";
+                    resultFullSearch_label.Text += "Варианты прямоугольников b(i), не попавших в итоговый ответ";
                     foreach (var i in (IEnumerable)ss2)
                     {
-                        resultFullSearch_label.Text += (string.Format(" {0} ", i));
+                        resultFullSearch_label.Text += (string.Format(" {0:0.0} ", i));
                     }
                 }
 
