@@ -108,7 +108,7 @@ namespace Resettlement
 	                }
 	                a++;
 
-	                var greedyAlhorithm = GreedyAlcorithmSection.GreedyMethode(newLengthOneRoomFlat, newLengthTwoRoomFlat,
+	                var greedyAlhorithm = GreedyAlgorithmSection.GreedyMethode(newLengthOneRoomFlat, newLengthTwoRoomFlat,
 	                    Step, Entryway, firstOneFlat);
 	                firstOneFlat = (double) greedyAlhorithm[3];
 	                currentTotalFine = (double) greedyAlhorithm[0];

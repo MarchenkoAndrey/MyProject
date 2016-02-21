@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Resettlement
 {
-	static class GreedyAlcorithmSection
+	static class GreedyAlgorithmSection
 	{
 		public static List<object> GreedyMethode(List<double> newLengthOneFlat, List<double> newLengthTwoFlat, double step,
 			double entryway, double newFirstOneF)

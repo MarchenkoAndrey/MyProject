@@ -97,7 +97,15 @@ namespace Resettlement
             if (countFloor == 2)
             {
                 newListFlatAfterGrouping = GroupingOnTheFloors.GroupingTwoFloors(newLengthOneRoomFlat, newLengthTwoRoomFlat);
-                newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>) newListFlatAfterGrouping[0]);
+
+                //Todo достать нужную для дальнейшего расчета, наделать кучу циклов, поставить ограничение не более 3 списков, а нельзя без списка списков
+                //Todo Поправить баг 12 10 для Oneflat
+                foreach (var i in (List<List<double>>)newListFlatAfterGrouping[0])
+                {
+                    
+                }
+                newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>) newListFlatAfterGrouping[0]); 
+               
                 newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>) newListFlatAfterGrouping[1]);
                 fineAfterGrouping = (double) newListFlatAfterGrouping[2];
             }
@@ -130,9 +138,7 @@ namespace Resettlement
                 a++;
 
                 // если минимальный штраф не уменьшается, заканчивать итерацию // альтернативная концовка
-
-                //TODO поменять название метода с=>g
-                var greedyAlgorithm = GreedyAlcorithmSection.GreedyMethode(newLengthOneRoomFlat, newLengthTwoRoomFlat,
+                var greedyAlgorithm = GreedyAlgorithmSection.GreedyMethode(newLengthOneRoomFlat, newLengthTwoRoomFlat,
                     step, entryway, firstOneFlat);
                 firstOneFlat = (double)greedyAlgorithm[3];
                 excessDataOneFlat = (List<double>)greedyAlgorithm[4];
@@ -150,7 +156,6 @@ namespace Resettlement
                 greedyAlgorithm[0] = Math.Round((double) greedyAlgorithm[0] + fineAfterGrouping, 1);
                 currentTotalFine = Math.Round((double)greedyAlgorithm[0],1);
 
-                //Todo Общий итог жадного алгоритма
                 if (totalOptimalResult.Count == greedyAlgorithm.Count)
                 {
                     if ((double)totalOptimalResult[0]>(double)greedyAlgorithm[0])
