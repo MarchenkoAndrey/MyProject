@@ -180,10 +180,12 @@ namespace Resettlement
                     newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(lengthTwoRoomFlat);
                 }
                 //Вывод результата по итерациям
-              PrintResult.GreedyIterationPrintResult(greedyAlgorithm,countFloor,entryway,step,a, true);
+
+
+              PrintResult.GreedyIterationPrintResult(greedyAlgorithm,countFloor,entryway,step,a, true, resultGreedy_label);
             }
             myStopWatchGreedy.Stop();
-            PrintResult.GreedyIterationPrintResult(totalOptimalResult, countFloor, entryway, step, a1, false);
+            PrintResult.GreedyIterationPrintResult(totalOptimalResult, countFloor, entryway, step, a1, false, resultGreedy_label);
 
             resultGreedy_label.Text +=
                   ("Время работы жадного алгоритма: " +
@@ -311,7 +313,7 @@ namespace Resettlement
 
             fullSearch[0] = Math.Round((double)fullSearch[0] + fineAfterGrouping,1);
 
-            PrintResult.FullSearchPrintResult(fullSearch,countFloor);
+            PrintResult.FullSearchPrintResult(fullSearch, countFloor, resultFullSearch_label);
             
             myStopWatch.Stop();
             resultFullSearch_label.Text += "\r\n";
@@ -320,6 +322,7 @@ namespace Resettlement
                                  " секунд";
             resultFullSearch_label.Text += timeFullSearch.ToString(CultureInfo.InvariantCulture);
         }
+
 
         private void labelOne_Click(object sender, EventArgs e)
         {

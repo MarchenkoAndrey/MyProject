@@ -26,7 +26,7 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
+        protected void InitializeComponent()
         {
             this.greedy_btn = new System.Windows.Forms.Button();
             this.fullSearch_btn = new System.Windows.Forms.Button();
@@ -41,8 +41,8 @@
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton3 = new System.Windows.Forms.RadioButton();
-            UserInterface.resultFullSearch_label = new System.Windows.Forms.Label();
-            UserInterface.resultGreedy_label = new System.Windows.Forms.Label();
+            this.resultFullSearch_label = new System.Windows.Forms.Label();
+            this.resultGreedy_label = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // greedy_btn
@@ -170,29 +170,29 @@
             // 
             // resultFullSearch_label2
             // 
-            UserInterface.resultFullSearch_label.AutoSize = true;
-            UserInterface.resultFullSearch_label.Location = new System.Drawing.Point(23, 261);
-            UserInterface.resultFullSearch_label.Name = "resultFullSearch_label";
-            UserInterface.resultFullSearch_label.Size = new System.Drawing.Size(35, 13);
-            UserInterface.resultFullSearch_label.TabIndex = 20;
-            UserInterface.resultFullSearch_label.Text = "";
+            this.resultFullSearch_label.AutoSize = true;
+            this.resultFullSearch_label.Location = new System.Drawing.Point(23, 261);
+            this.resultFullSearch_label.Name = "resultFullSearch_label";
+            this.resultFullSearch_label.Size = new System.Drawing.Size(35, 13);
+            this.resultFullSearch_label.TabIndex = 20;
+            this.resultFullSearch_label.Text = "";
             // 
             // resultGreedy_label2
             // 
-            UserInterface.resultGreedy_label.AutoSize = true;
-            UserInterface.resultGreedy_label.Location = new System.Drawing.Point(604, 261);
-            UserInterface.resultGreedy_label.Name = "resultGreedy_label";
-            UserInterface.resultGreedy_label.Size = new System.Drawing.Size(35, 13);
-            UserInterface.resultGreedy_label.TabIndex = 21;
-            UserInterface.resultGreedy_label.Text = "";
+            this.resultGreedy_label.AutoSize = true;
+            this.resultGreedy_label.Location = new System.Drawing.Point(604, 261);
+            this.resultGreedy_label.Name = "resultGreedy_label";
+            this.resultGreedy_label.Size = new System.Drawing.Size(35, 13);
+            this.resultGreedy_label.TabIndex = 21;
+            this.resultGreedy_label.Text = "";
             // 
             // UserInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1086, 556);
-            this.Controls.Add(UserInterface.resultGreedy_label);
-            this.Controls.Add(UserInterface.resultFullSearch_label);
+            this.Controls.Add(this.resultGreedy_label);
+            this.Controls.Add(this.resultFullSearch_label);
             this.Controls.Add(this.radioButton3);
             this.Controls.Add(this.radioButton2);
             this.Controls.Add(this.radioButton1);
@@ -229,7 +229,7 @@
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton3;
-        protected static System.Windows.Forms.Label resultFullSearch_label;
-        protected static System.Windows.Forms.Label resultGreedy_label;
+        protected System.Windows.Forms.Label resultFullSearch_label;
+        protected System.Windows.Forms.Label resultGreedy_label;
     }
 }

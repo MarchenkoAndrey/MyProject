@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Windows.Forms;
 
 namespace Resettlement
 {
-    public class PrintResult : UserInterface
+    public partial class PrintResult : Form
     {
-        public static void GreedyIterationPrintResult(List<object> greedyAlgorithm, int countFloor, double entryway, double step, int a, bool flag)
+       
+        public static void GreedyIterationPrintResult(List<object> greedyAlgorithm, int countFloor, double entryway, double step, int a, bool flag, Label resultGreedy_label)
         {
             if (flag)
             {
@@ -107,7 +109,7 @@ namespace Resettlement
                 }
         }
 
-        public static void FullSearchPrintResult(List<object> fullSearch, int countFloor)
+        public static void FullSearchPrintResult(List<object> fullSearch, int countFloor, Label resultFullSearch_label)
         {
             if (countFloor == 2)
             {
