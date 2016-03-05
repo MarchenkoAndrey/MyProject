@@ -20,11 +20,11 @@ namespace Resettlement
 
         private void greedy_btn_Click(object sender, EventArgs e)
         {
-            var strOne = new string[1]
+            var strOne = new[]
             {
                 squareOne_input.Text.ToString(CultureInfo.InvariantCulture)
             };
-            var strTwo = new string[1]
+            var strTwo = new[]
             {
                 squareTwo_input.Text.ToString(CultureInfo.InvariantCulture)
             };
@@ -55,7 +55,7 @@ namespace Resettlement
 //            var deltaOfOneRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthOneRoomFlat, newLengthOneRoomFlat);
 //            var deltaOfTwoRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthTwoRoomFlat, newLengthTwoRoomFlat);
 
-            var countFloor = 1;
+            var countFloor = 4;
 //            if (radioButton1.Checked)
 //            {
 //                countFloor = 1;
@@ -92,15 +92,7 @@ namespace Resettlement
             if (countFloor == 2)
             {
                 newListFlatAfterGrouping = GroupingOnTheFloors.GroupingTwoFloors(newLengthOneRoomFlat, newLengthTwoRoomFlat);
-
-                //Todo достать нужную для дальнейшего расчета, наделать кучу циклов, поставить ограничение не более 3 списков, а нельзя без списка списков
-                //Todo Поправить баг 12 10 для Oneflat
-                foreach (var i in (List<List<double>>)newListFlatAfterGrouping[0])
-                {
-                    
-                }
                 newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>) newListFlatAfterGrouping[0]); 
-               
                 newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>) newListFlatAfterGrouping[1]);
                 fineAfterGrouping = (double) newListFlatAfterGrouping[2];
             }
@@ -111,6 +103,15 @@ namespace Resettlement
                 newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListFlatAfterGrouping[1]);
                 fineAfterGrouping = (double) newListFlatAfterGrouping[2];
             }
+
+            if (countFloor == 4)
+            {
+                newListFlatAfterGrouping = GroupingOnTheFloors.GroupingFourthFloors(newLengthOneRoomFlat, newLengthTwoRoomFlat);
+                newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListFlatAfterGrouping[0]);
+                newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListFlatAfterGrouping[1]);
+                fineAfterGrouping = (double)newListFlatAfterGrouping[2];
+            }
+
 
             var excessDataOneFlat = new List<double>(); //  варианты однокомнатных, не попавших в ответ
             var excessDataTwoFlat = new List<double>(); //  варианты двухкомнатных, не попавших в ответ
@@ -124,7 +125,7 @@ namespace Resettlement
             var a1 = 0;
             var totalOptimalResult = new List<object>();
 
-            while (a<2)
+            while (a<5)
             {
                 if (a > 0)
                 {
@@ -168,6 +169,8 @@ namespace Resettlement
                 {
                     newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListFlatAfterGrouping[0]);
                     newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListFlatAfterGrouping[1]);
+                    greedyAlgorithm[4] = newListFlatAfterGrouping[3];
+                    greedyAlgorithm[5] = newListFlatAfterGrouping[4];
                 }
                 else
                 {
@@ -228,7 +231,7 @@ namespace Resettlement
 //            var deltaOfOneRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthOneRoomFlat, newLengthOneRoomFlat);
 //            var deltaOfTwoRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthTwoRoomFlat, newLengthTwoRoomFlat);
 
-            var countFloor = 1;
+            var countFloor = 4;
 
 //            if (radioButton1.Checked)
 //            {
@@ -278,6 +281,13 @@ namespace Resettlement
                 fineAfterGrouping = (double)newListFlatAfterGrouping[2];
             }
 
+            if (countFloor == 4)
+            {
+                newListFlatAfterGrouping = GroupingOnTheFloors.GroupingFourthFloors(newLengthOneRoomFlat, newLengthTwoRoomFlat);
+                newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListFlatAfterGrouping[0]);
+                newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListFlatAfterGrouping[1]);
+                fineAfterGrouping = (double)newListFlatAfterGrouping[2];
+            }
 
             if (newLengthOneRoomFlat.Count >= 12 || newLengthTwoRoomFlat.Count >= 12)
             {
@@ -307,7 +317,11 @@ namespace Resettlement
             }
 
             fullSearch[0] = Math.Round((double)fullSearch[0] + fineAfterGrouping,1);
-
+            if (countFloor != 1)
+            {
+                fullSearch[3] = newListFlatAfterGrouping[3];
+                fullSearch[4] = newListFlatAfterGrouping[4];
+            }
             PrintResult.FullSearchPrintResult(fullSearch, countFloor, resultFullSearch_label);
             
             myStopWatch.Stop();
