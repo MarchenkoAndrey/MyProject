@@ -8,7 +8,6 @@ namespace Resettlement
 {
     public class PrintResult : Form
     {
-       
         public static void GreedyIterationPrintResult(List<object> greedyAlgorithm, int countFloor, double entryway, double step, int a, bool flag, Label resultGreedy_label)
         {
             if (flag)
@@ -40,48 +39,50 @@ namespace Resettlement
 
             if (countFloor == 2 || countFloor == 3 || countFloor == 4)
             {
-                  for (var index = 0; index < countFloor; ++index)
-                  {
-                      //resultGreedy_label.Text += "\r\n";
-                      var line = 0;
-                      resultGreedy_label.Text += "|";
-                      foreach (var i in (IEnumerable)greedyAlgorithm[1])
-                      {
-                          resultGreedy_label.Text += (string.Format(" {0:0.0} ", i));
-                          ++line;
-                          if (line % 2 == 0)
-                          {
-                              resultGreedy_label.Text += "|";
-                          }
-                      }
-                      resultGreedy_label.Text += "\r\n";
+                if (!flag)
+                {
+                    for (var index = 0; index < countFloor; ++index)
+                    {
+                        //resultGreedy_label.Text += "\r\n";
+                        var line = 0;
+                        resultGreedy_label.Text += "|";
+                        foreach (var i in (IEnumerable) greedyAlgorithm[1])
+                        {
+                            resultGreedy_label.Text += (string.Format(" {0:0.0} ", i));
+                            ++line;
+                            if (line%2 == 0)
+                            {
+                                resultGreedy_label.Text += "|";
+                            }
+                        }
+                        resultGreedy_label.Text += "\r\n";
 
-                      line = 0;
-                      resultGreedy_label.Text += "|";
+                        line = 0;
+                        resultGreedy_label.Text += "|";
 
-                      foreach (var i in (IEnumerable)greedyAlgorithm[2])
-                      {
-                          resultGreedy_label.Text += (string.Format(" {0:0.0} ", i));
-                          ++line;
-                          if (line % 2 == 0)
-                          {
-                              resultGreedy_label.Text += "|";
-                          }
-                      }
-                      resultGreedy_label.Text += "\r\n";
+                        foreach (var i in (IEnumerable) greedyAlgorithm[2])
+                        {
+                            resultGreedy_label.Text += (string.Format(" {0:0.0} ", i));
+                            ++line;
+                            if (line%2 == 0)
+                            {
+                                resultGreedy_label.Text += "|";
+                            }
+                        }
+                        resultGreedy_label.Text += "\r\n";
 
-
-                      var strokeLength = "";
-                      for (var i = 0; i < s1.Length; ++i)
-                      {
-                          strokeLength += "----------";
-                      }
-                      if (index != countFloor - 1)
-                      {
-                          resultGreedy_label.Text += strokeLength;
-                      }
-                      resultGreedy_label.Text += "\r\n";
-                  }
+                        var strokeLength = "";
+                        for (var i = 0; i < s1.Length; ++i)
+                        {
+                            strokeLength += "----------";
+                        }
+                        if (index != countFloor - 1)
+                        {
+                            resultGreedy_label.Text += strokeLength;
+                        }
+                        resultGreedy_label.Text += "\r\n";
+                    }
+                }
                 var listOneParam = (List<double>) greedyAlgorithm[4];
                 var listTwoParam = (List<double>) greedyAlgorithm[5];
                 if (listOneParam.Count > 0)
