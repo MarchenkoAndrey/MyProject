@@ -91,7 +91,7 @@ namespace Resettlement
             resultGreedy_label.Text = "".ToString(CultureInfo.InvariantCulture);
 
             var realFlat = newLengthOneRoomFlat.Count + newLengthTwoRoomFlat.Count;
-            realizat_label.Text += ("Реализация для " + realFlat + " прямоугольников").ToString(CultureInfo.InvariantCulture);
+            realizat_label.Text += ("Realization for " + realFlat + " rectangles").ToString(CultureInfo.InvariantCulture);
 
 //            var lossesOne = "Потери при округлении длин однокомнатных квартир до числа, кратного 0.3: " + deltaOfOneRoomFlat.ToString(CultureInfo.InvariantCulture);
 //            var lossesTwo = "Потери при округлении длин двухкомнатных квартир до числа, кратного 0.3: " + deltaOfTwoRoomFlat.ToString(CultureInfo.InvariantCulture);
@@ -197,9 +197,9 @@ namespace Resettlement
             PrintResult.GreedyIterationPrintResult(totalOptimalResult, countFloor, entryway, step, a1, false, resultGreedy_label);
 
             resultGreedy_label.Text +=
-                  ("Время работы жадного алгоритма: " +
+                  ("Work time of the greedy algorithm: " +
                    (myStopWatchGreedy.ElapsedMilliseconds / 1000.0).ToString(CultureInfo.InvariantCulture) +
-                   " секунд").ToString(CultureInfo.InvariantCulture);
+                   " seconds").ToString(CultureInfo.InvariantCulture);
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -279,7 +279,7 @@ namespace Resettlement
             resultFullSearch_label.Text = "".ToString(CultureInfo.InvariantCulture);
 
             var realCountFlat = newLengthOneRoomFlat.Count + newLengthTwoRoomFlat.Count;
-            realizat_label.Text += ("Реализация для " + realCountFlat + " прямоугольников").ToString(CultureInfo.InvariantCulture);
+            realizat_label.Text += ("Realization for " + realCountFlat + " rectangles").ToString(CultureInfo.InvariantCulture);
 
 //            var lossesOne = "Потери при округлении длин однокомнатных квартир до числа, кратного 0.3: " + deltaOfOneRoomFlat.ToString(CultureInfo.InvariantCulture);
 //            var lossesTwo = "Потери при округлении длин двухкомнатных квартир до числа, кратного 0.3: " + deltaOfTwoRoomFlat.ToString(CultureInfo.InvariantCulture);
@@ -348,9 +348,9 @@ namespace Resettlement
             
             myStopWatch.Stop();
             resultFullSearch_label.Text += "\r\n";
-            var timeFullSearch = "Время работы полного перебора " +
+            var timeFullSearch = "Work time of the full search " +
                                  (myStopWatch.ElapsedMilliseconds / 1000.0).ToString(CultureInfo.InvariantCulture) +
-                                 " секунд";
+                                 " seconds";
             resultFullSearch_label.Text += timeFullSearch.ToString(CultureInfo.InvariantCulture);
         }
 

@@ -59,7 +59,7 @@
             this.greedy_btn.Name = "greedy_btn";
             this.greedy_btn.Size = new System.Drawing.Size(119, 23);
             this.greedy_btn.TabIndex = 0;
-            this.greedy_btn.Text = "Жадный алгоритм";
+            this.greedy_btn.Text = "Greedy Algorithm";
             this.greedy_btn.UseVisualStyleBackColor = true;
             this.greedy_btn.Click += new System.EventHandler(this.greedy_btn_Click);
             // 
@@ -69,7 +69,7 @@
             this.fullSearch_btn.Name = "fullSearch_btn";
             this.fullSearch_btn.Size = new System.Drawing.Size(117, 23);
             this.fullSearch_btn.TabIndex = 1;
-            this.fullSearch_btn.Text = "Полный перебор";
+            this.fullSearch_btn.Text = "Full search";
             this.fullSearch_btn.UseVisualStyleBackColor = true;
             this.fullSearch_btn.Click += new System.EventHandler(this.fullSearch_btn_Click);
             // 
@@ -78,9 +78,9 @@
             this.labelOne.AutoSize = true;
             this.labelOne.Location = new System.Drawing.Point(26, 45);
             this.labelOne.Name = "labelOne";
-            this.labelOne.Size = new System.Drawing.Size(278, 13);
+            this.labelOne.Size = new System.Drawing.Size(244, 13);
             this.labelOne.TabIndex = 2;
-            this.labelOne.Text = "Введите площади прямоугольников a(i) через пробел";
+            this.labelOne.Text = "Enter the length of the rectangles a(i) with a space";
             this.labelOne.Click += new System.EventHandler(this.labelOne_Click);
             // 
             // squareOne_input
@@ -96,9 +96,9 @@
             this.labelTwo.AutoSize = true;
             this.labelTwo.Location = new System.Drawing.Point(26, 83);
             this.labelTwo.Name = "labelTwo";
-            this.labelTwo.Size = new System.Drawing.Size(278, 13);
+            this.labelTwo.Size = new System.Drawing.Size(244, 13);
             this.labelTwo.TabIndex = 4;
-            this.labelTwo.Text = "Введите площади прямоугольников b(i) через пробел";
+            this.labelTwo.Text = "Enter the length of the rectangles b(i) with a space";
             // 
             // squareTwo_input
             // 
@@ -161,27 +161,27 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(588, 45);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(195, 13);
+            this.label1.Size = new System.Drawing.Size(187, 13);
             this.label1.TabIndex = 22;
-            this.label1.Text = "Введите значение толщины стенки q";
+            this.label1.Text = "Enter the value of the wall thickness q";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(588, 80);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(297, 13);
+            this.label2.Size = new System.Drawing.Size(253, 13);
             this.label2.TabIndex = 23;
-            this.label2.Text = "Введите значение длины постоянного прямоугольника g";
+            this.label2.Text = "Enter the value of length of the constant rectangle g";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(588, 112);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(244, 13);
+            this.label3.Size = new System.Drawing.Size(210, 13);
             this.label3.TabIndex = 24;
-            this.label3.Text = "Введите значение ширины прямоугольников с";
+            this.label3.Text = "Enter the value of width of the rectangles c";
             // 
             // valueQ
             // 
@@ -209,10 +209,10 @@
             this.radioButton1.AutoSize = true;
             this.radioButton1.Location = new System.Drawing.Point(29, 128);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(51, 17);
+            this.radioButton1.Size = new System.Drawing.Size(45, 17);
             this.radioButton1.TabIndex = 28;
             this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Один";
+            this.radioButton1.Text = "One";
             this.radioButton1.UseVisualStyleBackColor = true;
             // 
             // radioButton2
@@ -223,7 +223,7 @@
             this.radioButton2.Size = new System.Drawing.Size(46, 17);
             this.radioButton2.TabIndex = 29;
             this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Два";
+            this.radioButton2.Text = "Two";
             this.radioButton2.UseVisualStyleBackColor = true;
             // 
             // radioButton3
@@ -231,10 +231,10 @@
             this.radioButton3.AutoSize = true;
             this.radioButton3.Location = new System.Drawing.Point(118, 128);
             this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(44, 17);
+            this.radioButton3.Size = new System.Drawing.Size(53, 17);
             this.radioButton3.TabIndex = 30;
             this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "Три";
+            this.radioButton3.Text = "Three";
             this.radioButton3.UseVisualStyleBackColor = true;
             // 
             // radioButton4
@@ -242,10 +242,10 @@
             this.radioButton4.AutoSize = true;
             this.radioButton4.Location = new System.Drawing.Point(118, 152);
             this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(64, 17);
+            this.radioButton4.Size = new System.Drawing.Size(55, 17);
             this.radioButton4.TabIndex = 31;
             this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "Четыре";
+            this.radioButton4.Text = "Fourth";
             this.radioButton4.UseVisualStyleBackColor = true;
             // 
             // label4
@@ -253,9 +253,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(26, 104);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(151, 13);
+            this.label4.Size = new System.Drawing.Size(135, 13);
             this.label4.TabIndex = 32;
-            this.label4.Text = "Выберите количество слоёв";
+            this.label4.Text = "Select the number of layers";
             // 
             // UserInterface
             // 
