@@ -59,7 +59,7 @@
             this.greedy_btn.Name = "greedy_btn";
             this.greedy_btn.Size = new System.Drawing.Size(119, 23);
             this.greedy_btn.TabIndex = 0;
-            this.greedy_btn.Text = "Greedy Algorithm";
+            this.greedy_btn.Text = "Heuristic Algorithm";
             this.greedy_btn.UseVisualStyleBackColor = true;
             this.greedy_btn.Click += new System.EventHandler(this.greedy_btn_Click);
             // 

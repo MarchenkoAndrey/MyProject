@@ -197,7 +197,7 @@ namespace Resettlement
             PrintResult.GreedyIterationPrintResult(totalOptimalResult, countFloor, entryway, step, a1, false, resultGreedy_label);
 
             resultGreedy_label.Text +=
-                  ("Work time of the greedy algorithm: " +
+                  ("Work time of the heuristic algorithm: " +
                    (myStopWatchGreedy.ElapsedMilliseconds / 1000.0).ToString(CultureInfo.InvariantCulture) +
                    " seconds").ToString(CultureInfo.InvariantCulture);
         }

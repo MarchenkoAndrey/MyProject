@@ -13,12 +13,12 @@ namespace Resettlement
             if (flag)
             {
                 resultGreedy_label.Text +=
-                    ("Result " + a + " iteration of greedy algorithm:\r\n").ToString(CultureInfo.InvariantCulture);
+                    ("Result " + a + " iteration of heuristic algorithm:\r\n").ToString(CultureInfo.InvariantCulture);
             }
             else
             {
                 resultGreedy_label.Text +=
-                    ("Total result of greedy algorithm:\r\n").ToString(CultureInfo.InvariantCulture);
+                    ("Total result of heuristic algorithm:\r\n").ToString(CultureInfo.InvariantCulture);
             }
 
             var s1 = (double []) greedyAlgorithm[1];
