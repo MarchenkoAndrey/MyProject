@@ -52,15 +52,15 @@
             // 
             this.greedy_btn.Location = new System.Drawing.Point(310, 134);
             this.greedy_btn.Name = "greedy_btn";
-            this.greedy_btn.Size = new System.Drawing.Size(119, 23);
+            this.greedy_btn.Size = new System.Drawing.Size(149, 23);
             this.greedy_btn.TabIndex = 0;
-            this.greedy_btn.Text = "Жадный алгоритм";
+            this.greedy_btn.Text = "Эвристический алгоритм";
             this.greedy_btn.UseVisualStyleBackColor = true;
             this.greedy_btn.Click += new System.EventHandler(this.greedy_btn_Click);
             // 
             // fullSearch_btn
             // 
-            this.fullSearch_btn.Location = new System.Drawing.Point(446, 134);
+            this.fullSearch_btn.Location = new System.Drawing.Point(465, 134);
             this.fullSearch_btn.Name = "fullSearch_btn";
             this.fullSearch_btn.Size = new System.Drawing.Size(117, 23);
             this.fullSearch_btn.TabIndex = 1;
@@ -82,7 +82,7 @@
             // 
             this.squareOne_input.Location = new System.Drawing.Point(310, 42);
             this.squareOne_input.Name = "squareOne_input";
-            this.squareOne_input.Size = new System.Drawing.Size(253, 20);
+            this.squareOne_input.Size = new System.Drawing.Size(272, 20);
             this.squareOne_input.TabIndex = 3;
             this.squareOne_input.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -99,7 +99,7 @@
             // 
             this.squareTwo_input.Location = new System.Drawing.Point(310, 80);
             this.squareTwo_input.Name = "squareTwo_input";
-            this.squareTwo_input.Size = new System.Drawing.Size(253, 20);
+            this.squareTwo_input.Size = new System.Drawing.Size(272, 20);
             this.squareTwo_input.TabIndex = 5;
             // 
             // labelCountFloor
