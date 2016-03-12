@@ -29,9 +29,16 @@ namespace Resettlement
                 squareTwo_input.Text.ToString(CultureInfo.InvariantCulture)
             };
 
-            const double entryway = 2.7;
-            const double widthOfApartment = 5.7;
-            const double step = 0.3;
+            var temp1 = valueG.Text.ToString(CultureInfo.InvariantCulture);
+            var entryway = temp1 == "" ? 2.7 : double.Parse(temp1);
+            var temp2 = valueC.Text.ToString(CultureInfo.InvariantCulture);
+            var widthOfApartment  = temp2 == "" ? 5.7 : double.Parse(temp2);
+            var temp3 = valueQ.Text.ToString(CultureInfo.InvariantCulture);
+            var step = temp3 =="" ? 0.3 :  double.Parse(temp3);
+
+           // const double entryway = 2.7;
+           // const double widthOfApartment = 5.7;
+           // const double step = 0.3;
 
             var enterDataOneRoomFlat = ReadFromFile.ReadFileOneRoom(strOne);
             var enterDataTwoRoomFlat = ReadFromFile.ReadFileTwoRoom(strTwo);
@@ -55,24 +62,28 @@ namespace Resettlement
 //            var deltaOfOneRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthOneRoomFlat, newLengthOneRoomFlat);
 //            var deltaOfTwoRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthTwoRoomFlat, newLengthTwoRoomFlat);
 
-            var countFloor = 4;
-//            if (radioButton1.Checked)
-//            {
-//                countFloor = 1;
-//            }
-//            if (radioButton2.Checked)
-//            {
-//                countFloor = 2;
-//            }
-//            if (radioButton3.Checked)
-//            {
-//                countFloor = 3;
-//            }
-//            if (countFloor == 0)
-//            {
-//                MessageBox.Show("Необходимо выбрать значение 'Этаж'");
-//                return;
-//            }
+            var countFloor = 0;
+            if (radioButton1.Checked)
+            {
+                countFloor = 1;
+            }
+            if (radioButton2.Checked)
+            {
+                countFloor = 2;
+            }
+            if (radioButton3.Checked)
+            {
+                countFloor = 3;
+            }
+            if (radioButton4.Checked)
+            {
+                countFloor = 4;
+            }
+            if (countFloor == 0)
+            {
+                MessageBox.Show("Необходимо выбрать значение 'Количество слоёв'");
+                return;
+            }
 
             realizat_label.Text = "".ToString(CultureInfo.InvariantCulture);
 //            lossesOne_label.Text = "".ToString(CultureInfo.InvariantCulture);
@@ -80,7 +91,7 @@ namespace Resettlement
             resultGreedy_label.Text = "".ToString(CultureInfo.InvariantCulture);
 
             var realFlat = newLengthOneRoomFlat.Count + newLengthTwoRoomFlat.Count;
-            realizat_label.Text += ("Реализация для " + realFlat + " прямоугольников").ToString(CultureInfo.InvariantCulture);
+            realizat_label.Text += ("Realization for " + realFlat + " rectangles").ToString(CultureInfo.InvariantCulture);
 
 //            var lossesOne = "Потери при округлении длин однокомнатных квартир до числа, кратного 0.3: " + deltaOfOneRoomFlat.ToString(CultureInfo.InvariantCulture);
 //            var lossesTwo = "Потери при округлении длин двухкомнатных квартир до числа, кратного 0.3: " + deltaOfTwoRoomFlat.ToString(CultureInfo.InvariantCulture);
@@ -186,9 +197,9 @@ namespace Resettlement
             PrintResult.GreedyIterationPrintResult(totalOptimalResult, countFloor, entryway, step, a1, false, resultGreedy_label);
 
             resultGreedy_label.Text +=
-                  ("Время работы жадного алгоритма: " +
+                  ("Work time of the heuristic algorithm: " +
                    (myStopWatchGreedy.ElapsedMilliseconds / 1000.0).ToString(CultureInfo.InvariantCulture) +
-                   " секунд").ToString(CultureInfo.InvariantCulture);
+                   " seconds").ToString(CultureInfo.InvariantCulture);
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -198,9 +209,17 @@ namespace Resettlement
 
         private void fullSearch_btn_Click(object sender, EventArgs e)
         {
-            const double entryway = 2.7;
-            const double widthOfApartment = 5.7;
-            const double step = 0.3;
+            var temp1 = valueG.Text.ToString(CultureInfo.InvariantCulture);
+            var entryway = temp1 == "" ? 2.7 : double.Parse(temp1);
+            var temp2 = valueC.Text.ToString(CultureInfo.InvariantCulture);
+            var widthOfApartment = temp2 == "" ? 5.7 : double.Parse(temp2);
+            var temp3 = valueQ.Text.ToString(CultureInfo.InvariantCulture);
+            var step = temp3 == "" ? 0.3 : double.Parse(temp3);
+
+            //const double entryway = 2.7;
+            //const double widthOfApartment = 5.7;
+            //const double step = 0.3;
+
             var strOne = new string[1]
             {
                 squareOne_input.Text.ToString(CultureInfo.InvariantCulture)
@@ -231,25 +250,28 @@ namespace Resettlement
 //            var deltaOfOneRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthOneRoomFlat, newLengthOneRoomFlat);
 //            var deltaOfTwoRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthTwoRoomFlat, newLengthTwoRoomFlat);
 
-            var countFloor = 4;
-
-//            if (radioButton1.Checked)
-//            {
-//                countFloor = 1;
-//            }
-//            if (radioButton2.Checked)
-//            {
-//                countFloor = 2;
-//            }
-//            if (radioButton3.Checked)
-//            {
-//                countFloor = 3;
-//            }
-//            if (countFloor == 0)
-//            {
-//                MessageBox.Show("Необходимо выбрать значение 'Этаж'");
-//                return;
-//            }
+            var countFloor = 0;
+            if (radioButton1.Checked)
+            {
+                countFloor = 1;
+            }
+            if (radioButton2.Checked)
+            {
+                countFloor = 2;
+            }
+            if (radioButton3.Checked)
+            {
+                countFloor = 3;
+            }
+            if (radioButton4.Checked)
+            {
+                countFloor = 4;
+            }
+            if (countFloor == 0)
+            {
+                MessageBox.Show("Необходимо выбрать значение 'Количество слоёв'");
+                return;
+            }
             
             realizat_label.Text = "".ToString(CultureInfo.InvariantCulture);
             lossesOne_label.Text = "".ToString(CultureInfo.InvariantCulture);
@@ -257,7 +279,7 @@ namespace Resettlement
             resultFullSearch_label.Text = "".ToString(CultureInfo.InvariantCulture);
 
             var realCountFlat = newLengthOneRoomFlat.Count + newLengthTwoRoomFlat.Count;
-            realizat_label.Text += ("Реализация для " + realCountFlat + " прямоугольников").ToString(CultureInfo.InvariantCulture);
+            realizat_label.Text += ("Realization for " + realCountFlat + " rectangles").ToString(CultureInfo.InvariantCulture);
 
 //            var lossesOne = "Потери при округлении длин однокомнатных квартир до числа, кратного 0.3: " + deltaOfOneRoomFlat.ToString(CultureInfo.InvariantCulture);
 //            var lossesTwo = "Потери при округлении длин двухкомнатных квартир до числа, кратного 0.3: " + deltaOfTwoRoomFlat.ToString(CultureInfo.InvariantCulture);
@@ -326,9 +348,9 @@ namespace Resettlement
             
             myStopWatch.Stop();
             resultFullSearch_label.Text += "\r\n";
-            var timeFullSearch = "Время работы полного перебора " +
+            var timeFullSearch = "Work time of the full search " +
                                  (myStopWatch.ElapsedMilliseconds / 1000.0).ToString(CultureInfo.InvariantCulture) +
-                                 " секунд";
+                                 " seconds";
             resultFullSearch_label.Text += timeFullSearch.ToString(CultureInfo.InvariantCulture);
         }
 
@@ -340,11 +362,6 @@ namespace Resettlement
         }
 
         private void UserInterface_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
 
         }

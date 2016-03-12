@@ -148,7 +148,6 @@ namespace Resettlement
                     fineOneFlat = Math.Round(fineOneFlat + (sortedListOneFlat[i + 2] - sortedListOneFlat[i]) + (sortedListOneFlat[i + 2] - sortedListOneFlat[i + 1]), 1);
                     newListOneFlat.Add(sortedListOneFlat[i + 2]);
                 }
-
             }
             else
             {
@@ -157,7 +156,6 @@ namespace Resettlement
                 for (var k = listCount - 1; k < listCount; ++k)
                 {
                     var currentList = new List<double>(sortedListOneFlat);
-
                     //временный cписок, удаляя все значения взятые в список, оставшийся и есть лишний
                     for (var i = k; sortedListOneFlat.Count - i > 1; i = i + 3)
                     {
@@ -187,12 +185,12 @@ namespace Resettlement
             else
             {
                 twoFlag = false;
-                var listCount = sortedListTwoFlat.Count - optimalCountFlat + 1;
+                var listCount = 1;
+                //var listCount = sortedListTwoFlat.Count - optimalCountFlat + 1;
                 for (var k = 0; k < listCount; ++k)
                 {
                     var currentList = new List<double>(sortedListTwoFlat);
-
-                    for (var i = k; sortedListTwoFlat.Count - i > 1; i = i + 3)
+                    for (var i = k; sortedListTwoFlat.Count - i > 2; i = i + 3)
                     {
                         fineTwoFlat += Math.Round(fineTwoFlat + (sortedListTwoFlat[i + 2] - sortedListTwoFlat[i]) + (sortedListTwoFlat[i + 2] - sortedListTwoFlat[i + 1]), 1); ;
                         newListTwoFlat.Add(sortedListTwoFlat[i + 2]);
@@ -250,7 +248,6 @@ namespace Resettlement
                         (sortedListOneFlat[i + 3] - sortedListOneFlat[i + 1]) + (sortedListOneFlat[i + 3] - sortedListOneFlat[i + 2]), 1);
                     newListOneFlat.Add(sortedListOneFlat[i + 3]);
                 }
-
             }
             else
             {
@@ -296,8 +293,7 @@ namespace Resettlement
                 for (var k = 0; k < listCount; ++k)
                 {
                     var currentList = new List<double>(sortedListTwoFlat);
-
-                    for (var i = k; sortedListTwoFlat.Count - i > 1; i = i + 4)
+                    for (var i = k; sortedListTwoFlat.Count - i > 3; i = i + 4)
                     {
                         fineTwoFlat += Math.Round(fineTwoFlat + (sortedListTwoFlat[i + 3] - sortedListTwoFlat[i])
                             + (sortedListTwoFlat[i + 3] - sortedListTwoFlat[i + 1]) + (sortedListTwoFlat[i + 3] - sortedListTwoFlat[i + 2]), 1);
