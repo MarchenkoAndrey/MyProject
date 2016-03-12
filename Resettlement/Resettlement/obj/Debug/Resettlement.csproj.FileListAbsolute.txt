@@ -9,7 +9,6 @@ D:\MyProject\MyProject\Resettlement\Resettlement\obj\Debug\Resettlement.exe
 D:\MyProject\MyProject\Resettlement\Resettlement\obj\Debug\Resettlement.pdb
 D:\MyProject\MyProject\Resettlement\Resettlement\bin\Debug\Resettlement.exe
 D:\MyProject\MyProject\Resettlement\Resettlement\bin\Debug\Resettlement.pdb
-D:\MyProject\MyProject\Resettlement\Resettlement\obj\Debug\Resettlement.csprojResolveAssemblyReference.cache
 D:\_MyProject\MyProject\Resettlement\Resettlement\bin\Debug\Resettlement.exe.config
 D:\_MyProject\MyProject\Resettlement\Resettlement\obj\Debug\Resettlement.exe
 D:\_MyProject\MyProject\Resettlement\Resettlement\obj\Debug\Resettlement.pdb
