@@ -59,7 +59,7 @@
             this.greedy_btn.Name = "greedy_btn";
             this.greedy_btn.Size = new System.Drawing.Size(119, 23);
             this.greedy_btn.TabIndex = 0;
-            this.greedy_btn.Text = "Жадный алгоритм";
+            this.greedy_btn.Text = "Heuristic Algorithm";
             this.greedy_btn.UseVisualStyleBackColor = true;
             this.greedy_btn.Click += new System.EventHandler(this.greedy_btn_Click);
             // 
@@ -69,7 +69,7 @@
             this.fullSearch_btn.Name = "fullSearch_btn";
             this.fullSearch_btn.Size = new System.Drawing.Size(117, 23);
             this.fullSearch_btn.TabIndex = 1;
-            this.fullSearch_btn.Text = "Полный перебор";
+            this.fullSearch_btn.Text = "Full Search";
             this.fullSearch_btn.UseVisualStyleBackColor = true;
             this.fullSearch_btn.Click += new System.EventHandler(this.fullSearch_btn_Click);
             // 
