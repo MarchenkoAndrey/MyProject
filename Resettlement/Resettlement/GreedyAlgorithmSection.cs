@@ -63,11 +63,15 @@ namespace Resettlement
 					{
 						for (var h = 0; h < newSortedListOneFlat.Count; ++h)
 						{
+                            
                             var currentExtraSquare = 0.0;
                             double[] currentMassiv;
                             Array.Copy(sortedTwo, currentMassiv = new double[sortedTwo.Length], sortedTwo.Length);
-
-                            if (currentMassiv[i] - choiceMinOneFlat < restrictionOnDoor) 
+						    if (numberOfApartments-n == 2)
+						    {
+                                Array.Reverse(currentMassiv);
+						    }
+						    if (currentMassiv[i] - choiceMinOneFlat < restrictionOnDoor) 
 						    {
                                 var a1 = Math.Round(restrictionOnDoor - (currentMassiv[i] - choiceMinOneFlat),2);
                                 if (a1 <= step)

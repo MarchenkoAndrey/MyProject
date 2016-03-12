@@ -80,8 +80,7 @@
             this.labelOne.Name = "labelOne";
             this.labelOne.Size = new System.Drawing.Size(278, 13);
             this.labelOne.TabIndex = 2;
-            this.labelOne.Text = "Введите площади прямоугольников a(i) через пробел";
-            this.labelOne.Click += new System.EventHandler(this.labelOne_Click);
+            this.labelOne.Text = "Enter the length of the rectangles a(i) with a space";
             // 
             // squareOne_input
             // 
@@ -89,7 +88,6 @@
             this.squareOne_input.Name = "squareOne_input";
             this.squareOne_input.Size = new System.Drawing.Size(253, 20);
             this.squareOne_input.TabIndex = 3;
-            this.squareOne_input.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // labelTwo
             // 
@@ -98,7 +96,7 @@
             this.labelTwo.Name = "labelTwo";
             this.labelTwo.Size = new System.Drawing.Size(278, 13);
             this.labelTwo.TabIndex = 4;
-            this.labelTwo.Text = "Введите площади прямоугольников b(i) через пробел";
+            this.labelTwo.Text = "Enter the length of the rectangles b(i) with a space";
             // 
             // squareTwo_input
             // 
@@ -127,7 +125,7 @@
             // lossesOne_label
             // 
             this.lossesOne_label.AutoSize = true;
-            this.lossesOne_label.Location = new System.Drawing.Point(23, 207);
+            this.lossesOne_label.Location = new System.Drawing.Point(283, 177);
             this.lossesOne_label.Name = "lossesOne_label";
             this.lossesOne_label.Size = new System.Drawing.Size(0, 13);
             this.lossesOne_label.TabIndex = 8;
@@ -143,7 +141,7 @@
             // resultFullSearch_label
             // 
             this.resultFullSearch_label.AutoSize = true;
-            this.resultFullSearch_label.Location = new System.Drawing.Point(23, 172);
+            this.resultFullSearch_label.Location = new System.Drawing.Point(23, 215);
             this.resultFullSearch_label.Name = "resultFullSearch_label";
             this.resultFullSearch_label.Size = new System.Drawing.Size(0, 13);
             this.resultFullSearch_label.TabIndex = 20;
@@ -163,7 +161,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(195, 13);
             this.label1.TabIndex = 22;
-            this.label1.Text = "Введите значение толщины стенки q";
+            this.label1.Text = "Enter the value of the wall thickness q";
             // 
             // label2
             // 
@@ -172,7 +170,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(297, 13);
             this.label2.TabIndex = 23;
-            this.label2.Text = "Введите значение длины постоянного прямоугольника g";
+            this.label2.Text = "Enter the value of length of the constant rectangle g";
             // 
             // label3
             // 
@@ -235,7 +233,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(244, 13);
             this.label3.TabIndex = 24;
-            this.label3.Text = "Введите значение ширины прямоугольников с";
+            this.label3.Text = "Enter the value of width of the rectangles c";
             // 
             // valueQ
             // 
@@ -288,7 +286,6 @@
             this.Controls.Add(this.greedy_btn);
             this.Name = "UserInterface";
             this.Text = "UserInterface";
-            this.Load += new System.EventHandler(this.UserInterface_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

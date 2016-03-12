@@ -19,3 +19,4 @@ D:\MyProject\MyProject\Resettlement\Resettlement\obj\Debug\Resettlement.csproj.G
 D:\MyProject\MyProject\Resettlement\Resettlement\obj\Debug\Resettlement.UserInterface.resources
 D:\_MyProject\MyProject\Resettlement\Resettlement\obj\Debug\Resettlement.UserInterface.resources
 D:\_MyProject\MyProject\Resettlement\Resettlement\obj\Debug\Resettlement.csproj.GenerateResource.Cache
+D:\MyProject\MyProject\Resettlement\Resettlement\obj\Debug\Resettlement.csprojResolveAssemblyReference.cache

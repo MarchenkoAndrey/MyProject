@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Resettlement
 {
@@ -16,14 +17,14 @@ namespace Resettlement
 		}
 		public static List<double> FlatsWithTheAdditiveLength(IEnumerable<double> squareOfAppartments)
 		{
-			const double delta = 0.3;
-			var lengthApartmentsWithAdditive = new List<double>();
-			foreach (var i in squareOfAppartments)
-			{		
-				lengthApartmentsWithAdditive.Add(Math.Round(Math.Ceiling(i/delta)*delta,1));
-			}
-			return lengthApartmentsWithAdditive;
+			const double delta = 0.30;
+		    return squareOfAppartments.Select(i => Math.Round(Math.Ceiling(i/delta)*delta, 1)).ToList();
 		}
+        public static List<double> FlatsRestartList(IEnumerable<double> squareOfAppartments)
+        {
+            return squareOfAppartments.ToList();
+        }
+
 		public static double DeltaSquaresOfFlats(List<double> lengthOfApartments, List<double> lengthApartmentsWithAdditive)
 		{
 			var additive = 0.0;

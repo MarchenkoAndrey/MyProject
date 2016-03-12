@@ -12,12 +12,6 @@ namespace Resettlement
         {
             InitializeComponent();
         }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void greedy_btn_Click(object sender, EventArgs e)
         {
             var strOne = new[]
@@ -36,10 +30,6 @@ namespace Resettlement
             var temp3 = valueQ.Text.ToString(CultureInfo.InvariantCulture);
             var step = temp3 =="" ? 0.3 :  double.Parse(temp3);
 
-           // const double entryway = 2.7;
-           // const double widthOfApartment = 5.7;
-           // const double step = 0.3;
-
             var enterDataOneRoomFlat = ReadFromFile.ReadFileOneRoom(strOne);
             var enterDataTwoRoomFlat = ReadFromFile.ReadFileTwoRoom(strTwo);
             var squareOneRoomFlat = new double[enterDataOneRoomFlat.Count];
@@ -55,12 +45,13 @@ namespace Resettlement
                 squareTwoRoomFlat[i] = enterDataTwoRoomFlat[i];
             }
 
-//            var lengthOneRoomFlat = PreparationSquares.CalculateLengthOfFlat(squareOneRoomFlat, widthOfApartment);
-//            var lengthTwoRoomFlat = PreparationSquares.CalculateLengthOfFlat(squareTwoRoomFlat, widthOfApartment);
-            var newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(squareOneRoomFlat);
-            var newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(squareTwoRoomFlat);
-//            var deltaOfOneRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthOneRoomFlat, newLengthOneRoomFlat);
-//            var deltaOfTwoRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthTwoRoomFlat, newLengthTwoRoomFlat);
+            var lengthOneRoomFlat = PreparationSquares.CalculateLengthOfFlat(squareOneRoomFlat, widthOfApartment);
+            var lengthTwoRoomFlat = PreparationSquares.CalculateLengthOfFlat(squareTwoRoomFlat, widthOfApartment);
+            var newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(lengthOneRoomFlat);
+            var newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(lengthTwoRoomFlat);
+            var deltaOfOneRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthOneRoomFlat, newLengthOneRoomFlat);
+            var deltaOfTwoRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthTwoRoomFlat, newLengthTwoRoomFlat);
+            var sumDelta = deltaOfOneRoomFlat + deltaOfTwoRoomFlat;
 
             var countFloor = 0;
             if (radioButton1.Checked)
@@ -86,17 +77,14 @@ namespace Resettlement
             }
 
             realizat_label.Text = "".ToString(CultureInfo.InvariantCulture);
-//            lossesOne_label.Text = "".ToString(CultureInfo.InvariantCulture);
-//            lossesTwo_label.Text = "".ToString(CultureInfo.InvariantCulture);
+            lossesOne_label.Text = "".ToString(CultureInfo.InvariantCulture);
             resultGreedy_label.Text = "".ToString(CultureInfo.InvariantCulture);
 
             var realFlat = newLengthOneRoomFlat.Count + newLengthTwoRoomFlat.Count;
             realizat_label.Text += ("Realization for " + realFlat + " rectangles").ToString(CultureInfo.InvariantCulture);
 
-//            var lossesOne = "Потери при округлении длин однокомнатных квартир до числа, кратного 0.3: " + deltaOfOneRoomFlat.ToString(CultureInfo.InvariantCulture);
-//            var lossesTwo = "Потери при округлении длин двухкомнатных квартир до числа, кратного 0.3: " + deltaOfTwoRoomFlat.ToString(CultureInfo.InvariantCulture);
-//            lossesOne_label.Text += lossesOne.ToString(CultureInfo.InvariantCulture);
-//            lossesTwo_label.Text += lossesTwo.ToString(CultureInfo.InvariantCulture);
+            lossesOne_label.Text += string.Format("The addition of the lengths of a rounding up\r\n to the number of times the wall thickness: {0}",
+                sumDelta.ToString(CultureInfo.InvariantCulture));
 
             var newListFlatAfterGrouping = new List<object>();
             var fineAfterGrouping = 0.0;
@@ -118,38 +106,24 @@ namespace Resettlement
             if (countFloor == 4)
             {
                 newListFlatAfterGrouping = GroupingOnTheFloors.GroupingFourthFloors(newLengthOneRoomFlat, newLengthTwoRoomFlat);
-                newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListFlatAfterGrouping[0]);
-                newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListFlatAfterGrouping[1]);
+                newLengthOneRoomFlat = PreparationSquares.FlatsRestartList((List<double>)newListFlatAfterGrouping[0]);
+                newLengthTwoRoomFlat = PreparationSquares.FlatsRestartList((List<double>)newListFlatAfterGrouping[1]);
                 fineAfterGrouping = (double)newListFlatAfterGrouping[2];
             }
-
-
-            var excessDataOneFlat = new List<double>(); //  варианты однокомнатных, не попавших в ответ
-            var excessDataTwoFlat = new List<double>(); //  варианты двухкомнатных, не попавших в ответ
 
             var myStopWatchGreedy = new Stopwatch();
             myStopWatchGreedy.Start();
             var firstOneFlat = 0.0;
-            var currentTotalFine = 10000.0;
-            var minTotalFine = 100000.0;
             var a = 0;
             var a1 = 0;
             var totalOptimalResult = new List<object>();
 
             while (a<5)
             {
-                if (a > 0)
-                {
-                    minTotalFine = currentTotalFine;
-                }
                 a++;
-
-                // если минимальный штраф не уменьшается, заканчивать итерацию // альтернативная концовка
                 var greedyAlgorithm = GreedyAlgorithmSection.GreedyMethode(newLengthOneRoomFlat, newLengthTwoRoomFlat,
                     step, entryway, firstOneFlat);
                 firstOneFlat = (double)greedyAlgorithm[3];
-                excessDataOneFlat = (List<double>)greedyAlgorithm[4];
-                excessDataTwoFlat = (List<double>)greedyAlgorithm[5];
                 if (countFloor == 2)
                 {
                     greedyAlgorithm[0] = Math.Round((double) greedyAlgorithm[0] * 2.0,1);
@@ -160,8 +134,12 @@ namespace Resettlement
                     greedyAlgorithm[0] = Math.Round((double) greedyAlgorithm[0] * 3.0,1);
                 }
 
+                if (countFloor == 4)
+                {
+                    greedyAlgorithm[0] = Math.Round((double)greedyAlgorithm[0] * 4.0, 1);
+                }
+
                 greedyAlgorithm[0] = Math.Round((double) greedyAlgorithm[0] + fineAfterGrouping, 1);
-                currentTotalFine = Math.Round((double)greedyAlgorithm[0],1);
 
                 if (totalOptimalResult.Count == greedyAlgorithm.Count)
                 {
@@ -178,15 +156,15 @@ namespace Resettlement
 
                 if (countFloor != 1)
                 {
-                    newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListFlatAfterGrouping[0]);
-                    newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListFlatAfterGrouping[1]);
+                    newLengthOneRoomFlat = PreparationSquares.FlatsRestartList((List<double>)newListFlatAfterGrouping[0]);
+                    newLengthTwoRoomFlat = PreparationSquares.FlatsRestartList((List<double>)newListFlatAfterGrouping[1]);
                     greedyAlgorithm[4] = newListFlatAfterGrouping[3];
                     greedyAlgorithm[5] = newListFlatAfterGrouping[4];
                 }
                 else
                 {
-                    newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(squareOneRoomFlat);
-                    newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(squareTwoRoomFlat);
+                    newLengthOneRoomFlat = PreparationSquares.FlatsRestartList(lengthOneRoomFlat);
+                    newLengthTwoRoomFlat = PreparationSquares.FlatsRestartList(lengthTwoRoomFlat);
                 }
                 //Вывод результата по итерациям
 
@@ -216,15 +194,11 @@ namespace Resettlement
             var temp3 = valueQ.Text.ToString(CultureInfo.InvariantCulture);
             var step = temp3 == "" ? 0.3 : double.Parse(temp3);
 
-            //const double entryway = 2.7;
-            //const double widthOfApartment = 5.7;
-            //const double step = 0.3;
-
-            var strOne = new string[1]
+            var strOne = new []
             {
                 squareOne_input.Text.ToString(CultureInfo.InvariantCulture)
             };
-            var strTwo = new string[1]
+            var strTwo = new []
             {
                 squareTwo_input.Text.ToString(CultureInfo.InvariantCulture)
             };
@@ -243,12 +217,13 @@ namespace Resettlement
                 squareTwoRoomFlat[i] = enterDataTwoRoomFlat[i];
             }
           
-//            var lengthOneRoomFlat = PreparationSquares.CalculateLengthOfFlat(squareOneRoomFlat, widthOfApartment);
-//            var lengthTwoRoomFlat = PreparationSquares.CalculateLengthOfFlat(squareTwoRoomFlat, widthOfApartment);
-            var newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(squareOneRoomFlat);
-            var newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(squareTwoRoomFlat);
-//            var deltaOfOneRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthOneRoomFlat, newLengthOneRoomFlat);
-//            var deltaOfTwoRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthTwoRoomFlat, newLengthTwoRoomFlat);
+            var lengthOneRoomFlat = PreparationSquares.CalculateLengthOfFlat(squareOneRoomFlat, widthOfApartment);
+            var lengthTwoRoomFlat = PreparationSquares.CalculateLengthOfFlat(squareTwoRoomFlat, widthOfApartment);
+            var newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(lengthOneRoomFlat);
+            var newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(lengthTwoRoomFlat);
+            var deltaOfOneRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthOneRoomFlat, newLengthOneRoomFlat);
+            var deltaOfTwoRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthTwoRoomFlat, newLengthTwoRoomFlat);
+            var sumDelta = deltaOfOneRoomFlat + deltaOfTwoRoomFlat;
 
             var countFloor = 0;
             if (radioButton1.Checked)
@@ -275,16 +250,11 @@ namespace Resettlement
             
             realizat_label.Text = "".ToString(CultureInfo.InvariantCulture);
             lossesOne_label.Text = "".ToString(CultureInfo.InvariantCulture);
-            lossesTwo_label.Text = "".ToString(CultureInfo.InvariantCulture);
             resultFullSearch_label.Text = "".ToString(CultureInfo.InvariantCulture);
 
             var realCountFlat = newLengthOneRoomFlat.Count + newLengthTwoRoomFlat.Count;
             realizat_label.Text += ("Realization for " + realCountFlat + " rectangles").ToString(CultureInfo.InvariantCulture);
-
-//            var lossesOne = "Потери при округлении длин однокомнатных квартир до числа, кратного 0.3: " + deltaOfOneRoomFlat.ToString(CultureInfo.InvariantCulture);
-//            var lossesTwo = "Потери при округлении длин двухкомнатных квартир до числа, кратного 0.3: " + deltaOfTwoRoomFlat.ToString(CultureInfo.InvariantCulture);
-//            lossesOne_label.Text += lossesOne.ToString(CultureInfo.InvariantCulture); 
-//            lossesTwo_label.Text += lossesTwo.ToString(CultureInfo.InvariantCulture);
+            lossesOne_label.Text += string.Format("The addition of the lengths of a rounding up\r\n to the number of times the wall thickness: {0}",  sumDelta.ToString(CultureInfo.InvariantCulture));
 
             var newListFlatAfterGrouping = new List<object>();
             var fineAfterGrouping = 0.0;
@@ -306,8 +276,8 @@ namespace Resettlement
             if (countFloor == 4)
             {
                 newListFlatAfterGrouping = GroupingOnTheFloors.GroupingFourthFloors(newLengthOneRoomFlat, newLengthTwoRoomFlat);
-                newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListFlatAfterGrouping[0]);
-                newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListFlatAfterGrouping[1]);
+                newLengthOneRoomFlat = PreparationSquares.FlatsRestartList((List<double>)newListFlatAfterGrouping[0]);
+                newLengthTwoRoomFlat = PreparationSquares.FlatsRestartList((List<double>)newListFlatAfterGrouping[1]);
                 fineAfterGrouping = (double)newListFlatAfterGrouping[2];
             }
 
@@ -317,8 +287,8 @@ namespace Resettlement
                 return;
             }
 
-            if (Math.Abs(squareOneRoomFlat.Length - squareTwoRoomFlat.Length) >= 3 ||
-                (Math.Abs(squareOneRoomFlat.Length - squareTwoRoomFlat.Length) == 2 && squareOneRoomFlat.Length % 2 != 0))
+            if (Math.Abs(lengthOneRoomFlat.Count - lengthTwoRoomFlat.Count) >= 3 ||
+                (Math.Abs(lengthOneRoomFlat.Count - lengthTwoRoomFlat.Count) == 2 && lengthOneRoomFlat.Count % 2 != 0))
             {
                 MessageBox.Show("Слишком много контейнеров для перебора");
                 return;
@@ -338,6 +308,11 @@ namespace Resettlement
                 fullSearch[0] = Math.Round((double)fullSearch[0] * 3.0,1);
             }
 
+            if (countFloor == 4)
+            {
+                fullSearch[0] = Math.Round((double)fullSearch[0] * 4.0, 1);
+            }
+
             fullSearch[0] = Math.Round((double)fullSearch[0] + fineAfterGrouping,1);
             if (countFloor != 1)
             {
@@ -352,18 +327,6 @@ namespace Resettlement
                                  (myStopWatch.ElapsedMilliseconds / 1000.0).ToString(CultureInfo.InvariantCulture) +
                                  " seconds";
             resultFullSearch_label.Text += timeFullSearch.ToString(CultureInfo.InvariantCulture);
-        }
-
-
-        private void labelOne_Click(object sender, EventArgs e)
-        {
-            
-            
-        }
-
-        private void UserInterface_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

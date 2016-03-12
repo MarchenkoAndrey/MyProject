@@ -43,7 +43,6 @@ namespace Resettlement
                 {
                     for (var index = 0; index < countFloor; ++index)
                     {
-                        //resultGreedy_label.Text += "\r\n";
                         var line = 0;
                         resultGreedy_label.Text += "|";
                         foreach (var i in (IEnumerable) greedyAlgorithm[1])
@@ -74,7 +73,7 @@ namespace Resettlement
                         var strokeLength = "";
                         for (var i = 0; i < s1.Length; ++i)
                         {
-                            strokeLength += "----------";
+                            strokeLength += "--------";
                         }
                         if (index != countFloor - 1)
                         {
@@ -202,7 +201,7 @@ namespace Resettlement
                     var strokeLength = "";
                     for (var i = 0; i < s2; ++i)
                     {
-                        strokeLength += "----------";
+                        strokeLength += "--------";
                     }
                     if (index != countFloor - 1)
                     {
