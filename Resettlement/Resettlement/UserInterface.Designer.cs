@@ -59,7 +59,7 @@
             this.greedy_btn.Name = "greedy_btn";
             this.greedy_btn.Size = new System.Drawing.Size(119, 23);
             this.greedy_btn.TabIndex = 0;
-            this.greedy_btn.Text = "Жадный алгоритм";
+            this.greedy_btn.Text = "Эвристический алгоритм";
             this.greedy_btn.UseVisualStyleBackColor = true;
             this.greedy_btn.Click += new System.EventHandler(this.greedy_btn_Click);
             // 
@@ -184,7 +184,7 @@
             this.radioButton1.Size = new System.Drawing.Size(45, 17);
             this.radioButton1.TabIndex = 28;
             this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "One";
+            this.radioButton1.Text = "Один";
             this.radioButton1.UseVisualStyleBackColor = true;
             // 
             // radioButton2
@@ -195,7 +195,7 @@
             this.radioButton2.Size = new System.Drawing.Size(46, 17);
             this.radioButton2.TabIndex = 29;
             this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Two";
+            this.radioButton2.Text = "Два";
             this.radioButton2.UseVisualStyleBackColor = true;
             // 
             // radioButton3
