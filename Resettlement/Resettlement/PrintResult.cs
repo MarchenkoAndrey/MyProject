@@ -34,7 +34,7 @@ namespace Resettlement
             }
 
             resultGreedy_label.Text +=
-                 (string.Format("Fine {0}", greedyAlgorithm[0]) + "\r\n").ToString(CultureInfo.InvariantCulture);
+                 (string.Format("Value of the functional F: {0}", greedyAlgorithm[0]) + "\r\n").ToString(CultureInfo.InvariantCulture);
 
 
             if (countFloor == 2 || countFloor == 3 || countFloor == 4)
@@ -168,7 +168,7 @@ namespace Resettlement
                 var s2 = s1.Length;
                 const string resultFullSearch = "Result of full search:";
                 resultFullSearch_label.Text += resultFullSearch.ToString(CultureInfo.InvariantCulture) + "\r\n";
-                var minFine = string.Format("Fine {0}", fullSearch[0]);
+                var minFine = string.Format("Value of the functional F: {0}", fullSearch[0]);
                 resultFullSearch_label.Text += minFine.ToString(CultureInfo.InvariantCulture) + "\r\n" + "\r\n";
                 for (var index = 0; index < countFloor; ++index)
                 {
