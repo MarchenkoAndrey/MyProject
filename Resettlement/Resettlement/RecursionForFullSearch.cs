@@ -16,7 +16,6 @@ namespace Resettlement
 		        n = optN;
 		    }
 
-            //todo для второго этажа нечетное количество секций
 		    if (n%2 != 0 && flagTwoFloor)
 		    {
 		        countExcessNumber = 1;
