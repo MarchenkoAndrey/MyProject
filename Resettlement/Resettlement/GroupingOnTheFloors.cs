@@ -142,17 +142,18 @@ namespace Resettlement
                 var excessValueCount = sortedListTwoFlat.Count - optimalCountFlat;
                 var newExcessValueCount = excessValueCount;
                 var newListAfterDividedMoreTwoValues = new List<double>();
+
                 if (excessValueCount > 2)
                 {
                     var valuesMoreTwoCount = excessValueCount - 2;
                     newExcessValueCount -= valuesMoreTwoCount;
-                    for (var index = 0; index < valuesMoreTwoCount; ++index)
-                    {
-                        excessDataTwoFlat.Add(sortedListTwoFlat[index]);
-                    }
-                    for (var index = valuesMoreTwoCount; index < sortedListTwoFlat.Count; ++index)
+                    for (var index = 0; index < sortedListTwoFlat.Count - valuesMoreTwoCount; ++index)
                     {
                         newListAfterDividedMoreTwoValues.Add(sortedListTwoFlat[index]);
+                    }
+                    for (var index = sortedListTwoFlat.Count - valuesMoreTwoCount; index < sortedListTwoFlat.Count; ++index)
+                    {
+                        excessDataTwoFlat.Add(sortedListTwoFlat[index]);
                     }
                 }
                 var newListForTwoFlat = new List<double>(sortedListTwoFlat);
@@ -385,13 +386,13 @@ namespace Resettlement
                 {
                     var valuesMoreTwoCount = excessValueCount - 2;
                     newExcessValueCount -= valuesMoreTwoCount;
-                    for (var index = 0; index < valuesMoreTwoCount; ++index)
-                    {
-                        excessDataTwoFlat.Add(sortedListTwoFlat[index]);
-                    }
-                    for (var index = valuesMoreTwoCount; index < sortedListTwoFlat.Count; ++index)
+                    for (var index = 0; index < sortedListTwoFlat.Count - valuesMoreTwoCount; ++index)
                     {
                         newListAfterDividedMoreTwoValues.Add(sortedListTwoFlat[index]);
+                    }
+                    for (var index = sortedListTwoFlat.Count - valuesMoreTwoCount; index < sortedListTwoFlat.Count; ++index)
+                    {
+                        excessDataTwoFlat.Add(sortedListTwoFlat[index]);
                     }
                 }
                 var newListForTwoFlat = new List<double>(sortedListTwoFlat);
@@ -637,13 +638,13 @@ namespace Resettlement
                 {
                     var valuesMoreTwoCount = excessValueCount - 2;
                     newExcessValueCount -= valuesMoreTwoCount;
-                    for (var index = 0; index < valuesMoreTwoCount; ++index)
-                    {
-                        excessDataTwoFlat.Add(sortedListTwoFlat[index]);
-                    }
-                    for (var index = valuesMoreTwoCount; index < sortedListTwoFlat.Count; ++index)
+                    for (var index = 0; index < sortedListTwoFlat.Count - valuesMoreTwoCount; ++index)
                     {
                         newListAfterDividedMoreTwoValues.Add(sortedListTwoFlat[index]);
+                    }
+                    for (var index = sortedListTwoFlat.Count - valuesMoreTwoCount; index < sortedListTwoFlat.Count; ++index)
+                    {
+                        excessDataTwoFlat.Add(sortedListTwoFlat[index]);
                     }
                 }
                 var newListForTwoFlat = new List<double>(sortedListTwoFlat);

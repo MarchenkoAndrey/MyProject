@@ -281,16 +281,22 @@ namespace Resettlement
                 fineAfterGrouping = (double)newListFlatAfterGrouping[2];
             }
 
-            if (newLengthOneRoomFlat.Count >= 12 || newLengthTwoRoomFlat.Count >= 12)
+            if ((newLengthOneRoomFlat.Count >= 12 || newLengthTwoRoomFlat.Count >= 12) && countFloor==1)
             {
-                MessageBox.Show("Для 12-ти и более контейнеров используйте только жадный алгоритм"); 
+                MessageBox.Show("For 12 or more containers, use only heuristic algorithm"); 
                 return;
             }
 
-            if (Math.Abs(lengthOneRoomFlat.Count - lengthTwoRoomFlat.Count) >= 3 ||
-                (Math.Abs(lengthOneRoomFlat.Count - lengthTwoRoomFlat.Count) == 2 && lengthOneRoomFlat.Count % 2 != 0))
+            if ((Math.Abs(lengthOneRoomFlat.Count - lengthTwoRoomFlat.Count) >= 3 ||
+                (Math.Abs(lengthOneRoomFlat.Count - lengthTwoRoomFlat.Count) == 2 && lengthOneRoomFlat.Count % 2 != 0)) && countFloor==1)
             {
-                MessageBox.Show("Слишком много контейнеров для перебора");
+                MessageBox.Show("Too many containers for sorting");
+                return;
+            }
+
+            if(newLengthOneRoomFlat.Count>=12 || newLengthTwoRoomFlat.Count>=12 && countFloor>1)
+            {
+                MessageBox.Show("For 12 or more containers, use only heuristic algorithm");
                 return;
             }
 
