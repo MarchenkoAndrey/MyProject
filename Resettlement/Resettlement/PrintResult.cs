@@ -82,27 +82,30 @@ namespace Resettlement
                         resultGreedy_label.Text += "\r\n";
                     }
                 }
-                var listOneParam = (List<double>) greedyAlgorithm[4];
-                var listTwoParam = (List<double>) greedyAlgorithm[5];
-                if (listOneParam.Count > 0)
+                if (!flag)
                 {
-                    resultGreedy_label.Text += "Rectangles a(i) not included in the total result";
-
-                    foreach (var i in listOneParam)
+                    var listOneParam = (List<double>) greedyAlgorithm[4];
+                    var listTwoParam = (List<double>) greedyAlgorithm[5];
+                    if (listOneParam.Count > 0)
                     {
-                        resultGreedy_label.Text += (string.Format(" {0:0.0} ", i));
-                    }
-                    resultGreedy_label.Text += ("\r\n");
-                }
+                        resultGreedy_label.Text += "Rectangles a(i) not included in the total result";
 
-                if (listTwoParam.Count > 0)
-                {
-                    resultGreedy_label.Text += "Rectangles b(i) not included in the total result";
-                    foreach (var i in listTwoParam)
-                    {
-                        resultGreedy_label.Text += (string.Format(" {0:0.0} ", i));
+                        foreach (var i in listOneParam)
+                        {
+                            resultGreedy_label.Text += (string.Format(" {0:0.0} ", i));
+                        }
+                        resultGreedy_label.Text += ("\r\n");
                     }
-                    resultGreedy_label.Text += ("\r\n");
+
+                    if (listTwoParam.Count > 0)
+                    {
+                        resultGreedy_label.Text += "Rectangles b(i) not included in the total result";
+                        foreach (var i in listTwoParam)
+                        {
+                            resultGreedy_label.Text += (string.Format(" {0:0.0} ", i));
+                        }
+                        resultGreedy_label.Text += ("\r\n");
+                    }
                 }
             }
 

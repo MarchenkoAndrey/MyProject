@@ -197,7 +197,7 @@
             this.radioButton4.Size = new System.Drawing.Size(55, 17);
             this.radioButton4.TabIndex = 31;
             this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "Fourth";
+            this.radioButton4.Text = "Four";
             this.radioButton4.UseVisualStyleBackColor = true;
             // 
             // label4
