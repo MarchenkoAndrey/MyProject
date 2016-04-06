@@ -169,7 +169,7 @@ namespace Resettlement
             {
                 var s1 = (double[])fullSearch[1];
                 var s2 = s1.Length;
-                const string resultFullSearch = "Result of full search:";
+                const string resultFullSearch = "Result of comprehensive search:";
                 resultFullSearch_label.Text += resultFullSearch.ToString(CultureInfo.InvariantCulture) + "\r\n";
                 var minFine = string.Format("Value of the functional F: {0}", fullSearch[0]);
                 resultFullSearch_label.Text += minFine.ToString(CultureInfo.InvariantCulture) + "\r\n" + "\r\n";
