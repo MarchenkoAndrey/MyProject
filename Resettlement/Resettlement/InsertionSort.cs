@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using System.Collections.Generic;
 namespace Resettlement
 {
-	static class InsertionSort
+	public static class InsertionSort
 	{
 		public static List<double> InsertSort(List<double> list)
 		{
-			var result = new List<double>();
 			int i, j;
 			for (i = 0; i < list.Count; ++i)
 			{

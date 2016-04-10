@@ -48,7 +48,6 @@ namespace Resettlement
 				var fine = 10000.0;
               
 				finalPlacementOneFlat[n] = choiceMinOneFlat;
-			    const double restrictionOnDoor = 1.25;
 
                 //запись в массив
                 var sortedTwo = new double[sortedListTwoFlat.Count];
@@ -71,9 +70,9 @@ namespace Resettlement
 						    {
                                 Array.Reverse(currentMassiv);
 						    }
-						    if (currentMassiv[i] - choiceMinOneFlat < restrictionOnDoor) 
+						    if (currentMassiv[i] - choiceMinOneFlat < Constraints.ApartureLength) 
 						    {
-                                var a1 = Math.Round(restrictionOnDoor - (currentMassiv[i] - choiceMinOneFlat),2);
+                                var a1 = Math.Round(Constraints.ApartureLength - (currentMassiv[i] - choiceMinOneFlat),2);
                                 if (a1 <= step)
                                 {
                                     currentMassiv[i] += step;
@@ -85,9 +84,9 @@ namespace Resettlement
                                     currentExtraSquare += Math.Round(Math.Ceiling(a1 / step) * step, 1);
                                 }
 						    }
-                            if (currentMassiv[j] - newSortedListOneFlat[h] < restrictionOnDoor)
+                            if (currentMassiv[j] - newSortedListOneFlat[h] < Constraints.ApartureLength)
 					        {
-                                var a2 = Math.Round(restrictionOnDoor - (currentMassiv[j] - newSortedListOneFlat[h]),2);
+                                var a2 = Math.Round(Constraints.ApartureLength - (currentMassiv[j] - newSortedListOneFlat[h]),2);
 					            if (a2 <= step)
                                 {
                                     currentMassiv[j] += step;

@@ -44,10 +44,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BuildingPermutationPairs.cs" />
+    <Compile Include="ComprehensiveSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Constraints.cs" />
     <Compile Include="CreatePermWithOddParam.cs" />
     <Compile Include="CreateSecondFloor.cs" />
     <Compile Include="GreedyAlgorithmSection.cs" />
     <Compile Include="GroupingOnTheFloors.cs" />
+    <Compile Include="HeuristicAlgorithm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InputConstraints.cs" />
     <Compile Include="InsertionSort.cs" />
     <Compile Include="PreparationSquares.cs" />
     <Compile Include="MethodeFullSearch.cs" />

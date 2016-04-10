@@ -17,8 +17,7 @@ namespace Resettlement
 		}
 		public static List<double> FlatsWithTheAdditiveLength(IEnumerable<double> squareOfAppartments)
 		{
-			const double delta = 0.30;
-		    return squareOfAppartments.Select(i => Math.Round(Math.Ceiling(i/delta)*delta, 1)).ToList();
+            return squareOfAppartments.Select(i => Math.Round(Math.Ceiling(i / Constraints.DefaultH) * Constraints.DefaultH, 1)).ToList();
 		}
         public static List<double> FlatsRestartList(IEnumerable<double> squareOfAppartments)
         {

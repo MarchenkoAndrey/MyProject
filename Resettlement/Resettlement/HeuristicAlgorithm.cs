@@ -1,0 +1,176 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
+using System.Windows.Forms;
+
+namespace Resettlement
+{
+    partial class UserInterface
+    {
+        private void PerformHeuristicAlgorithm()
+        {
+            var entryway = InputConstraints.G(valueG.Text.ToString(CultureInfo.InvariantCulture));
+            var widthOfApartment = InputConstraints.C(valueC.Text.ToString(CultureInfo.InvariantCulture));
+            var step = InputConstraints.Q(valueQ.Text.ToString(CultureInfo.InvariantCulture));
+
+            var strOne = new[]
+            {
+                squareOne_input.Text.ToString(CultureInfo.InvariantCulture)
+            };
+            var strTwo = new[]
+            {
+                squareTwo_input.Text.ToString(CultureInfo.InvariantCulture)
+            };
+
+            var enterDataOneRoomFlat = ReadFromFile.ReadFileOneRoom(strOne);
+            var enterDataTwoRoomFlat = ReadFromFile.ReadFileTwoRoom(strTwo);
+            var squareOneRoomFlat = new double[enterDataOneRoomFlat.Count];
+            var squareTwoRoomFlat = new double[enterDataTwoRoomFlat.Count];
+
+            //запись в массив
+            for (var i = 0; i < enterDataOneRoomFlat.Count; ++i)
+            {
+                squareOneRoomFlat[i] = enterDataOneRoomFlat[i];
+            }
+            for (var i = 0; i < enterDataTwoRoomFlat.Count; ++i)
+            {
+                squareTwoRoomFlat[i] = enterDataTwoRoomFlat[i];
+            }
+
+            var lengthOneRoomFlat = PreparationSquares.CalculateLengthOfFlat(squareOneRoomFlat, widthOfApartment);
+            var lengthTwoRoomFlat = PreparationSquares.CalculateLengthOfFlat(squareTwoRoomFlat, widthOfApartment);
+            var newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(lengthOneRoomFlat);
+            var newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(lengthTwoRoomFlat);
+            var deltaOfOneRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthOneRoomFlat, newLengthOneRoomFlat);
+            var deltaOfTwoRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthTwoRoomFlat, newLengthTwoRoomFlat);
+            var sumDelta = deltaOfOneRoomFlat + deltaOfTwoRoomFlat;
+
+            var countFloor = 0;
+            if (radioButton1.Checked)
+            {
+                countFloor = 1;
+            }
+            if (radioButton2.Checked)
+            {
+                countFloor = 2;
+            }
+            if (radioButton3.Checked)
+            {
+                countFloor = 3;
+            }
+            if (radioButton4.Checked)
+            {
+                countFloor = 4;
+            }
+            if (countFloor == 0)
+            {
+                MessageBox.Show("It is need to choose count of floors");
+                return;
+            }
+
+            realizat_label.Text = "".ToString(CultureInfo.InvariantCulture);
+            lossesOne_label.Text = "".ToString(CultureInfo.InvariantCulture);
+            resultGreedy_label.Text = "".ToString(CultureInfo.InvariantCulture);
+
+            var realFlat = newLengthOneRoomFlat.Count + newLengthTwoRoomFlat.Count;
+            realizat_label.Text += ("Realization for " + realFlat + " rectangles").ToString(CultureInfo.InvariantCulture);
+
+            lossesOne_label.Text += string.Format("The addition of the lengths of a rounding up\r\n to the number of times the wall thickness: {0}",
+                sumDelta.ToString(CultureInfo.InvariantCulture));
+
+            var newListFlatAfterGrouping = new List<object>();
+            var fineAfterGrouping = 0.0;
+            if (countFloor == 2)
+            {
+                newListFlatAfterGrouping = GroupingOnTheFloors.GroupingTwoFloors(newLengthOneRoomFlat, newLengthTwoRoomFlat);
+                newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListFlatAfterGrouping[0]);
+                newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListFlatAfterGrouping[1]);
+                fineAfterGrouping = (double)newListFlatAfterGrouping[2];
+            }
+            if (countFloor == 3)
+            {
+                newListFlatAfterGrouping = GroupingOnTheFloors.GroupingThreeFloors(newLengthOneRoomFlat, newLengthTwoRoomFlat);
+                newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListFlatAfterGrouping[0]);
+                newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListFlatAfterGrouping[1]);
+                fineAfterGrouping = (double)newListFlatAfterGrouping[2];
+            }
+
+            if (countFloor == 4)
+            {
+                newListFlatAfterGrouping = GroupingOnTheFloors.GroupingFourthFloors(newLengthOneRoomFlat, newLengthTwoRoomFlat);
+                newLengthOneRoomFlat = PreparationSquares.FlatsRestartList((List<double>)newListFlatAfterGrouping[0]);
+                newLengthTwoRoomFlat = PreparationSquares.FlatsRestartList((List<double>)newListFlatAfterGrouping[1]);
+                fineAfterGrouping = (double)newListFlatAfterGrouping[2];
+            }
+
+            var myStopWatchGreedy = new Stopwatch();
+            myStopWatchGreedy.Start();
+            var firstOneFlat = 0.0;
+            var a = 0;
+            var a1 = 0;
+            var totalOptimalResult = new List<object>();
+
+            while (a < 5)
+            {
+                a++;
+                var greedyAlgorithm = GreedyAlgorithmSection.GreedyMethode(newLengthOneRoomFlat, newLengthTwoRoomFlat,
+                    step, entryway, firstOneFlat);
+                firstOneFlat = (double)greedyAlgorithm[3];
+                if (countFloor == 2)
+                {
+                    greedyAlgorithm[0] = Math.Round((double)greedyAlgorithm[0] * 2.0, 1);
+                }
+
+                if (countFloor == 3)
+                {
+                    greedyAlgorithm[0] = Math.Round((double)greedyAlgorithm[0] * 3.0, 1);
+                }
+
+                if (countFloor == 4)
+                {
+                    greedyAlgorithm[0] = Math.Round((double)greedyAlgorithm[0] * 4.0, 1);
+                }
+
+                greedyAlgorithm[0] = Math.Round((double)greedyAlgorithm[0] + fineAfterGrouping, 1);
+
+                if (totalOptimalResult.Count == greedyAlgorithm.Count)
+                {
+                    if ((double)totalOptimalResult[0] > (double)greedyAlgorithm[0])
+                    {
+                        totalOptimalResult = greedyAlgorithm;
+                        a1 = a;
+                    }
+                }
+                else
+                {
+                    totalOptimalResult = greedyAlgorithm;
+                }
+
+                if (countFloor != 1)
+                {
+                    newLengthOneRoomFlat = PreparationSquares.FlatsRestartList((List<double>)newListFlatAfterGrouping[0]);
+                    newLengthTwoRoomFlat = PreparationSquares.FlatsRestartList((List<double>)newListFlatAfterGrouping[1]);
+                    greedyAlgorithm[4] = newListFlatAfterGrouping[3];
+                    greedyAlgorithm[5] = newListFlatAfterGrouping[4];
+                }
+                else
+                {
+                    newLengthOneRoomFlat = PreparationSquares.FlatsRestartList(lengthOneRoomFlat);
+                    newLengthTwoRoomFlat = PreparationSquares.FlatsRestartList(lengthTwoRoomFlat);
+                }
+                //Вывод результата по итерациям
+
+
+                PrintResult.GreedyIterationPrintResult(greedyAlgorithm, countFloor, a, true, resultGreedy_label);
+            }
+            myStopWatchGreedy.Stop();
+            PrintResult.GreedyIterationPrintResult(totalOptimalResult, countFloor, a1, false, resultGreedy_label);
+
+            resultGreedy_label.Text +=
+                  ("Work time of the heuristic algorithm: " +
+                   (myStopWatchGreedy.ElapsedMilliseconds / 1000.0).ToString(CultureInfo.InvariantCulture) +
+                   " seconds").ToString(CultureInfo.InvariantCulture);
+        }
+    }
+}

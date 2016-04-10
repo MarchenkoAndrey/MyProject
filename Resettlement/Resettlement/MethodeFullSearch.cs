@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Resettlement
 {
-	static class MethodeFullSearch
+	public static class MethodeFullSearch
 	{
 		public static List<object> FullSearch(List<double> listLengthOneFlat, List<double> listLengthTwoFlat,double step, double entryway, int countFloor)
 		{
@@ -27,7 +27,7 @@ namespace Resettlement
             VariantsFlats.VariantsFlat(out listVariantsOneFlat, out listExcessDataOneFlat, permListOneFlat, listLengthOneFlat);
             VariantsFlats.VariantsFlat(out listVariantsTwoFlat, out listExcessDataTwoFlat, permListTwoFlat, listLengthTwoFlat);
 			var minTotalExtraSquare = 10000.0;
-		    const double restrictionOnDoor = 1.25;
+		    //const double restrictionOnDoor = 1.25;
 
             var countI = -1;
 		    foreach (var i in listVariantsOneFlat)
@@ -48,9 +48,9 @@ namespace Resettlement
                     //двигаем стены из-за 1.25
 				    for (var k = 0; k < j.Length; k = k + 2)
 					{
-                        if (tempArrayTwoFlat[k] - i[k] < restrictionOnDoor)
+                        if (tempArrayTwoFlat[k] - i[k] < Constraints.ApartureLength)
 					    {
-                            var leftAddition = restrictionOnDoor - (tempArrayTwoFlat[k] - i[k]);
+                            var leftAddition = Constraints.ApartureLength - (tempArrayTwoFlat[k] - i[k]);
 					        if (leftAddition < step)
 					        {  
                                 tempArrayTwoFlat[k] = Math.Round(tempArrayTwoFlat[k] + step, 1);
@@ -62,9 +62,9 @@ namespace Resettlement
                                 currentFineOneFloor += Math.Round(Math.Ceiling(leftAddition / step) * step, 1);
 					        }
 					    }
-                        if (tempArrayTwoFlat[k + 1] - i[k + 1] < restrictionOnDoor)
+                        if (tempArrayTwoFlat[k + 1] - i[k + 1] < Constraints.ApartureLength)
 					    {
-                            var rightAddition = restrictionOnDoor - (tempArrayTwoFlat[k + 1] - i[k + 1]);
+                            var rightAddition = Constraints.ApartureLength - (tempArrayTwoFlat[k + 1] - i[k + 1]);
 					        if (rightAddition < step)
                             {
                                 tempArrayTwoFlat[k + 1] = Math.Round(tempArrayTwoFlat[k+1] + step,1);
