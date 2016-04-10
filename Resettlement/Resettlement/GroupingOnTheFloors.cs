@@ -5,40 +5,42 @@ namespace Resettlement
 {
     static class GroupingOnTheFloors
     {
-        public static List<object> GroupingTwoFloors(List<double> listLengthsOneRoomFlats, List<double> listLengthsTwoRoomFlats)
+        public static List<object> GroupingTwoFloors(List<double> listLengthsOneBedroomApartment,
+            List<double> listLengthsTwoBedroomAppartment, int countFloor)
         {
-            var resultList = new List<object>();
-            var fineOneFlat = 0.0;
-            var fineTwoFlat = 0.0;
-            var sortedListOneFlat = InsertionSort.InsertSort(listLengthsOneRoomFlats);
-            var sortedListTwoFlat = InsertionSort.InsertSort(listLengthsTwoRoomFlats);
-            var resultListOneFlat = new List<double>();
-            var resultListTwoFlat = new List<double>();
+            var listResult = new List<object>();
+            var fineOneBedroomApartment = 0.0;
+            var fineTwoBedroomApartment = 0.0;
+            var listSortAscOneBedroomApartment = InsertionSort.InsertSort(listLengthsOneBedroomApartment);
+            var listSortAscTwoBedroomApartment = InsertionSort.InsertSort(listLengthsTwoBedroomAppartment);
+            var listResultOneBedroomApartment = new List<double>();
+            var listResultTwoBedroomApartment = new List<double>();
 
             //данные для нескольких списков - лишние квартиры
-            var excessOneFlatFlag = false;
-            var excessTwoFlatFlag = false;
-            var optimalCountFlat = Math.Min(sortedListOneFlat.Count / 2 * 2, sortedListTwoFlat.Count / 2 * 2);   
-            var excessDataOneFlat = new List<double>();
-            var excessDataTwoFlat = new List<double>(); // квартиры, которые не попали в список 
-            var totalFineOneFlatWithExcessData = 1000.0;
-            var totalFineTwoFlatWithExcessData = 1000.0;
-            var totalListsOneFlatForFloor = new List<double>();
-            var totalListsTwoFlatForFloor = new List<double>();
+            var flagIsExcessOneBedroomApartment = false;
+            var flagIsExcessTwoBedroomApartment = false;
+            var optimalCountApartment = CalculateOptimalNumberApartments(listSortAscOneBedroomApartment,
+                listSortAscTwoBedroomApartment, countFloor);  
+            var listExcessDataOneBedroomApartment = new List<double>();
+            var listExcessDataTwoBedroomApartment = new List<double>(); 
+            var totalFineOneBedroomApartmentBecauseExcessData = 1000.0;
+            var totalFineTwoBedroomApartmentBecauseExcessData = 1000.0;
+            var totalListOneBedroomApartmentForFloor = new List<double>();
+            var totalListTwoBedroomApartmentForFloor = new List<double>();
            
-            if (sortedListOneFlat.Count == optimalCountFlat)
+            if (listSortAscOneBedroomApartment.Count == optimalCountApartment)
             {
-                for (var i = 0; i < sortedListOneFlat.Count; i = i + 2)
+                for (var i = 0; i < listSortAscOneBedroomApartment.Count; i = i + 2)
                 {
-                    fineOneFlat += Math.Round(sortedListOneFlat[i + 1] - sortedListOneFlat[i],1);
-                    resultListOneFlat.Add(sortedListOneFlat[i + 1]);
+                    fineOneBedroomApartment += Math.Round(listSortAscOneBedroomApartment[i + 1] - listSortAscOneBedroomApartment[i],1);
+                    listResultOneBedroomApartment.Add(listSortAscOneBedroomApartment[i + 1]);
                 }
             }
             else
             {
                 //as FS, all variants, to choice better
-                excessOneFlatFlag = true;
-                var excessValueCount = sortedListOneFlat.Count - optimalCountFlat;
+                flagIsExcessOneBedroomApartment = true;
+                var excessValueCount = listSortAscOneBedroomApartment.Count - optimalCountApartment;
                 var newExcessValueCount = excessValueCount;
                 var newListAfterDividedMoreTwoValues = new List<double>();
                 if (excessValueCount > 2)
@@ -47,14 +49,14 @@ namespace Resettlement
                     newExcessValueCount -= valuesMoreTwoCount;
                     for (var index = 0; index < valuesMoreTwoCount; ++index)
                     {
-                        excessDataOneFlat.Add(sortedListOneFlat[index]);
+                        listExcessDataOneBedroomApartment.Add(listSortAscOneBedroomApartment[index]);
                     }
-                    for(var index=valuesMoreTwoCount; index<sortedListOneFlat.Count;++index)
+                    for(var index=valuesMoreTwoCount; index<listSortAscOneBedroomApartment.Count;++index)
                     {
-                        newListAfterDividedMoreTwoValues.Add(sortedListOneFlat[index]);
+                        newListAfterDividedMoreTwoValues.Add(listSortAscOneBedroomApartment[index]);
                     }
                 }
-                var newListForOneFlat = new List<double>(sortedListOneFlat);
+                var newListForOneFlat = new List<double>(listSortAscOneBedroomApartment);
                 if (newListAfterDividedMoreTwoValues.Count != 0)
                 {
                     newListForOneFlat = newListAfterDividedMoreTwoValues;
@@ -75,9 +77,9 @@ namespace Resettlement
                             currentFineOneFlat += Math.Round(currentListOneFlat[i + 1] - currentListOneFlat[i], 1);
                             currentResultListOneFlat.Add(currentListOneFlat[i + 1]);
                         }
-                        if (currentFineOneFlat < totalFineOneFlatWithExcessData)
+                        if (currentFineOneFlat < totalFineOneBedroomApartmentBecauseExcessData)
                         {
-                            totalFineOneFlatWithExcessData = Math.Round(currentFineOneFlat,1);
+                            totalFineOneBedroomApartmentBecauseExcessData = Math.Round(currentFineOneFlat,1);
                             totalResultListOneFlat=currentResultListOneFlat;
                             if (excessListOneValue.Count != 0)
                             {
@@ -86,8 +88,8 @@ namespace Resettlement
                             excessListOneValue.Add(index);
                         }
                     }
-                    totalListsOneFlatForFloor.AddRange(totalResultListOneFlat);
-                    excessDataOneFlat.AddRange(excessListOneValue);
+                    totalListOneBedroomApartmentForFloor.AddRange(totalResultListOneFlat);
+                    listExcessDataOneBedroomApartment.AddRange(excessListOneValue);
                 }
                 else // newExcessValueCount == 2
                 {
@@ -108,9 +110,9 @@ namespace Resettlement
                                 currentFineOneFlat += Math.Round(currentListOneFlatEvenExcess[i + 1] - currentListOneFlatEvenExcess[i], 1);
                                 currentResultListOneFlat.Add(currentListOneFlatEvenExcess[i + 1]);
                             }
-                            if (currentFineOneFlat < totalFineOneFlatWithExcessData)
+                            if (currentFineOneFlat < totalFineOneBedroomApartmentBecauseExcessData)
                             {
-                                totalFineOneFlatWithExcessData = Math.Round(currentFineOneFlat, 1);
+                                totalFineOneBedroomApartmentBecauseExcessData = Math.Round(currentFineOneFlat, 1);
                                 totalResultListOneFlat = currentResultListOneFlat;
                                 if (excessListOneValue.Count != 0)
                                 {
@@ -123,23 +125,23 @@ namespace Resettlement
                         }
                     }
                     
-                    totalListsOneFlatForFloor.AddRange(totalResultListOneFlat);
-                    excessDataOneFlat.AddRange(excessListOneValue);
+                    totalListOneBedroomApartmentForFloor.AddRange(totalResultListOneFlat);
+                    listExcessDataOneBedroomApartment.AddRange(excessListOneValue);
                 }
             }
-            if (sortedListTwoFlat.Count == optimalCountFlat)
+            if (listSortAscTwoBedroomApartment.Count == optimalCountApartment)
             {
-                for (var i = 0; i < sortedListTwoFlat.Count; i = i + 2)
+                for (var i = 0; i < listSortAscTwoBedroomApartment.Count; i = i + 2)
                 {
-                    fineTwoFlat += Math.Round(sortedListTwoFlat[i + 1] - sortedListTwoFlat[i],1);
-                    resultListTwoFlat.Add(sortedListTwoFlat[i + 1]);
+                    fineTwoBedroomApartment += Math.Round(listSortAscTwoBedroomApartment[i + 1] - listSortAscTwoBedroomApartment[i],1);
+                    listResultTwoBedroomApartment.Add(listSortAscTwoBedroomApartment[i + 1]);
                 }
             }
             else
             {
                 //as FS, all variants, to choice better
-                excessTwoFlatFlag = true;
-                var excessValueCount = sortedListTwoFlat.Count - optimalCountFlat;
+                flagIsExcessTwoBedroomApartment = true;
+                var excessValueCount = listSortAscTwoBedroomApartment.Count - optimalCountApartment;
                 var newExcessValueCount = excessValueCount;
                 var newListAfterDividedMoreTwoValues = new List<double>();
 
@@ -147,16 +149,16 @@ namespace Resettlement
                 {
                     var valuesMoreTwoCount = excessValueCount - 2;
                     newExcessValueCount -= valuesMoreTwoCount;
-                    for (var index = 0; index < sortedListTwoFlat.Count - valuesMoreTwoCount; ++index)
+                    for (var index = 0; index < listSortAscTwoBedroomApartment.Count - valuesMoreTwoCount; ++index)
                     {
-                        newListAfterDividedMoreTwoValues.Add(sortedListTwoFlat[index]);
+                        newListAfterDividedMoreTwoValues.Add(listSortAscTwoBedroomApartment[index]);
                     }
-                    for (var index = sortedListTwoFlat.Count - valuesMoreTwoCount; index < sortedListTwoFlat.Count; ++index)
+                    for (var index = listSortAscTwoBedroomApartment.Count - valuesMoreTwoCount; index < listSortAscTwoBedroomApartment.Count; ++index)
                     {
-                        excessDataTwoFlat.Add(sortedListTwoFlat[index]);
+                        listExcessDataTwoBedroomApartment.Add(listSortAscTwoBedroomApartment[index]);
                     }
                 }
-                var newListForTwoFlat = new List<double>(sortedListTwoFlat);
+                var newListForTwoFlat = new List<double>(listSortAscTwoBedroomApartment);
                 if (newListAfterDividedMoreTwoValues.Count != 0)
                 {
                     newListForTwoFlat = newListAfterDividedMoreTwoValues;
@@ -177,9 +179,9 @@ namespace Resettlement
                             currentFineTwoFlat += Math.Round(currentListTwoFlat[i + 1] - currentListTwoFlat[i], 1);
                             currentResultListTwoFlat.Add(currentListTwoFlat[i + 1]);
                         }
-                        if (currentFineTwoFlat < totalFineTwoFlatWithExcessData)
+                        if (currentFineTwoFlat < totalFineTwoBedroomApartmentBecauseExcessData)
                         {
-                            totalFineTwoFlatWithExcessData = Math.Round(currentFineTwoFlat, 1);
+                            totalFineTwoBedroomApartmentBecauseExcessData = Math.Round(currentFineTwoFlat, 1);
                             totalResultListTwoFlat = currentResultListTwoFlat;
                             if (excessListOneValue.Count != 0)
                             {
@@ -188,8 +190,8 @@ namespace Resettlement
                             excessListOneValue.Add(index);
                         }
                     }
-                    totalListsTwoFlatForFloor.AddRange(totalResultListTwoFlat);
-                    excessDataTwoFlat.AddRange(excessListOneValue);
+                    totalListTwoBedroomApartmentForFloor.AddRange(totalResultListTwoFlat);
+                    listExcessDataTwoBedroomApartment.AddRange(excessListOneValue);
                 }
                 else // newExcessValueCount == 2
                 {
@@ -210,9 +212,9 @@ namespace Resettlement
                                 currentFineTwoFlat += Math.Round(currentListTwoFlatEvenExcess[i + 1] - currentListTwoFlatEvenExcess[i], 1);
                                 currentResultListTwoFlat.Add(currentListTwoFlatEvenExcess[i + 1]);
                             }
-                            if (currentFineTwoFlat < totalFineTwoFlatWithExcessData)
+                            if (currentFineTwoFlat < totalFineTwoBedroomApartmentBecauseExcessData)
                             {
-                                totalFineTwoFlatWithExcessData = Math.Round(currentFineTwoFlat, 1);
+                                totalFineTwoBedroomApartmentBecauseExcessData = Math.Round(currentFineTwoFlat, 1);
                                 totalResultListTwoFlat = currentResultListTwoFlat;
                                 if (excessListOneValue.Count != 0)
                                 {
@@ -224,20 +226,29 @@ namespace Resettlement
                             }
                         }
                     }
-                    totalListsTwoFlatForFloor.AddRange(totalResultListTwoFlat);
-                    excessDataTwoFlat.AddRange(excessListOneValue);
+                    totalListTwoBedroomApartmentForFloor.AddRange(totalResultListTwoFlat);
+                    listExcessDataTwoBedroomApartment.AddRange(excessListOneValue);
                 }
             }
-            resultList.Add(excessOneFlatFlag ? totalListsOneFlatForFloor : resultListOneFlat);
-            resultList.Add(excessTwoFlatFlag ? totalListsTwoFlatForFloor : resultListTwoFlat);
-            fineOneFlat = excessOneFlatFlag ? totalFineOneFlatWithExcessData : fineOneFlat;
-            fineTwoFlat = excessTwoFlatFlag ? totalFineTwoFlatWithExcessData : fineTwoFlat;
-            var totalFine = Math.Round(fineOneFlat + fineTwoFlat, 1);
-            resultList.Add(totalFine);
-            resultList.Add(excessDataOneFlat);
-            resultList.Add(excessDataTwoFlat);
-            return resultList;
+            listResult.Add(flagIsExcessOneBedroomApartment ? totalListOneBedroomApartmentForFloor : listResultOneBedroomApartment);
+            listResult.Add(flagIsExcessTwoBedroomApartment ? totalListTwoBedroomApartmentForFloor : listResultTwoBedroomApartment);
+            fineOneBedroomApartment = flagIsExcessOneBedroomApartment ? totalFineOneBedroomApartmentBecauseExcessData : fineOneBedroomApartment;
+            fineTwoBedroomApartment = flagIsExcessTwoBedroomApartment ? totalFineTwoBedroomApartmentBecauseExcessData : fineTwoBedroomApartment;
+            var totalFine = Math.Round(fineOneBedroomApartment + fineTwoBedroomApartment, 1);
+            listResult.Add(totalFine);
+            listResult.Add(listExcessDataOneBedroomApartment);
+            listResult.Add(listExcessDataTwoBedroomApartment);
+            return listResult;
         }
+
+        private static int CalculateOptimalNumberApartments(List<double> listSortAscOneBedroomApartment,
+            List<double> listSortAscTwoBedroomApartment, int countFloor)
+        {
+            return Math.Min(listSortAscOneBedroomApartment.Count/countFloor*countFloor,
+                listSortAscTwoBedroomApartment.Count/countFloor*countFloor);
+        }
+
+
 
         public static List<object> GroupingThreeFloors(List<double> listLengthsOneRoomFlats, List<double> listLengthsTwoRoomFlats)
         {

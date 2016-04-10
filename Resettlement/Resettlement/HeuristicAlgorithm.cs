@@ -74,21 +74,7 @@ namespace Resettlement
                 var greedyAlgorithm = GreedyAlgorithmSection.GreedyMethode(newLengthOneRoomFlat, newLengthTwoRoomFlat,
                     step, entryway, firstOneFlat);
                 firstOneFlat = (double)greedyAlgorithm[5];
-                if (countFloor == 2)
-                {
-                    greedyAlgorithm[0] = Math.Round((double)greedyAlgorithm[0] * 2.0, 1);
-                }
-
-                if (countFloor == 3)
-                {
-                    greedyAlgorithm[0] = Math.Round((double)greedyAlgorithm[0] * 3.0, 1);
-                }
-
-                if (countFloor == 4)
-                {
-                    greedyAlgorithm[0] = Math.Round((double)greedyAlgorithm[0] * 4.0, 1);
-                }
-
+                greedyAlgorithm[0] = Math.Round((double)greedyAlgorithm[0] * countFloor, 1);
                 greedyAlgorithm[0] = Math.Round((double)greedyAlgorithm[0] + fineAfterGrouping, 1);
 
                 if (totalOptimalResult.Count == greedyAlgorithm.Count)
