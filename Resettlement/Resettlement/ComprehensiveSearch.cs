@@ -8,66 +8,17 @@ namespace Resettlement
 {
     partial class UserInterface
     {
-        private void PerformComprehensiveSearch()
+        private void PerformComprehensiveSearch(List<object> preparationInputData)
         {
-            var entryway = InputConstraints.G(valueG.Text.ToString(CultureInfo.InvariantCulture));
-            var widthOfApartment = InputConstraints.C(valueC.Text.ToString(CultureInfo.InvariantCulture));
-            var step = InputConstraints.Q(valueQ.Text.ToString(CultureInfo.InvariantCulture));
-
-            var strOne = new[]
-            {
-                squareOne_input.Text.ToString(CultureInfo.InvariantCulture)
-            };
-            var strTwo = new[]
-            {
-                squareTwo_input.Text.ToString(CultureInfo.InvariantCulture)
-            };
-
-            var enterDataOneRoomFlat = ReadFromFile.ReadFileOneRoom(strOne); // если пуст, то по умолчанию берем данные из указанного файла
-            var enterDataTwoRoomFlat = ReadFromFile.ReadFileTwoRoom(strTwo); // если пуст, то по умолчанию берем данные из указанного файла
-            var squareOneRoomFlat = new double[enterDataOneRoomFlat.Count];
-            var squareTwoRoomFlat = new double[enterDataTwoRoomFlat.Count];
-            //запись в массив
-            for (var i = 0; i < enterDataOneRoomFlat.Count; ++i)
-            {
-                squareOneRoomFlat[i] = enterDataOneRoomFlat[i];
-            }
-            for (var i = 0; i < enterDataTwoRoomFlat.Count; ++i)
-            {
-                squareTwoRoomFlat[i] = enterDataTwoRoomFlat[i];
-            }
-
-            var lengthOneRoomFlat = PreparationSquares.CalculateLengthOfFlat(squareOneRoomFlat, widthOfApartment);
-            var lengthTwoRoomFlat = PreparationSquares.CalculateLengthOfFlat(squareTwoRoomFlat, widthOfApartment);
-            var newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(lengthOneRoomFlat);
-            var newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(lengthTwoRoomFlat);
-            var deltaOfOneRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthOneRoomFlat, newLengthOneRoomFlat);
-            var deltaOfTwoRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthTwoRoomFlat, newLengthTwoRoomFlat);
-            var sumDelta = deltaOfOneRoomFlat + deltaOfTwoRoomFlat;
-
-            var countFloor = 0;
-            if (radioButton1.Checked)
-            {
-                countFloor = 1;
-            }
-            if (radioButton2.Checked)
-            {
-                countFloor = 2;
-            }
-            if (radioButton3.Checked)
-            {
-                countFloor = 3;
-            }
-            if (radioButton4.Checked)
-            {
-                countFloor = 4;
-            }
-            if (countFloor == 0)
-            {
-                MessageBox.Show("It is need to choose count of floors");
-                return;
-            }
-
+            var entryway = (double)preparationInputData[0];
+            var widthOfApartment = (double)preparationInputData[1];
+            var step = (double)preparationInputData[2];
+            var sumDelta = (double)preparationInputData[3];
+            var newLengthOneRoomFlat = (List<double>)preparationInputData[4];
+            var newLengthTwoRoomFlat = (List<double>)preparationInputData[5];
+            var countFloor = (int)preparationInputData[6];
+            var lengthOneRoomFlat = (List<double>)preparationInputData[7];
+            var lengthTwoRoomFlat = (List<double>)preparationInputData[8];
             realizat_label.Text = "".ToString(CultureInfo.InvariantCulture);
             lossesOne_label.Text = "".ToString(CultureInfo.InvariantCulture);
             resultFullSearch_label.Text = "".ToString(CultureInfo.InvariantCulture);
