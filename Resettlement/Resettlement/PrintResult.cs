@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Forms;
 using Resettlement.GeneralData;
@@ -9,296 +7,142 @@ namespace Resettlement
 {
     public static class PrintResult
     {
-        public static void GreedyIterationPrintResult(List<object> greedyAlgorithm, int countFloor, int a, bool flag, Label resultGreedyLabel)
+        public static void GreedyIterationPrintResult(List<object> heuristicAlgorithmData, int countFloor, int numberIteration, bool flagIsNotFinish, Label resultGreedyLabel)
         {
-            if (flag)
+            var fine = (double)heuristicAlgorithmData[0];
+            var totalListOneBedroomApartment = (double[])heuristicAlgorithmData[1];
+            var totalListTwoBedroomApartment = (double[])heuristicAlgorithmData[2];
+            var exceedListOneBedroomApartment = (List<double>)heuristicAlgorithmData[3];
+            var exceedListTwoBedroomApartment = (List<double>)heuristicAlgorithmData[4];
+
+            if (flagIsNotFinish)
             {
                 resultGreedyLabel.Text +=
-                    string.Format(MessagesText.ResultIterationHeuristicAlgorithm,a).ToString(CultureInfo.InvariantCulture);
+                    string.Format(MessagesText.ResultIterationHeuristicAlgorithm,numberIteration).ToString(CultureInfo.InvariantCulture);
             }
             else
             {
+                resultGreedyLabel.Text += MessagesText.NextLine;
                 resultGreedyLabel.Text +=
                     MessagesText.TotalResultHeuristicAlgorithm.ToString(CultureInfo.InvariantCulture);
             }
 
-            var s1 = (double []) greedyAlgorithm[1];
-            for (var i=0; i<s1.Length;++i)
-            {
-                s1[i] = Math.Round(s1[i],1);
-            }
-
-            var s2 = (double[])greedyAlgorithm[1];
-            for (var i = 0; i < s2.Length; ++i)
-            {
-                s2[i] = Math.Round(s2[i], 1);
-            }
-
             resultGreedyLabel.Text +=
-                 string.Format(MessagesText.ValueFunctionalF, greedyAlgorithm[0]).ToString(CultureInfo.InvariantCulture);
+                 string.Format(MessagesText.ValueFunctionalF, fine).ToString(CultureInfo.InvariantCulture);
 
-
-            if (countFloor == 2 || countFloor == 3 || countFloor == 4)
+            if (countFloor !=1)
             {
-                if (!flag)
+                if (!flagIsNotFinish)
                 {
-                    for (var index = 0; index < countFloor; ++index)
+                    for (var numberFloor = 0; numberFloor < countFloor; ++numberFloor)
                     {
-                        var line = 0;
                         resultGreedyLabel.Text += MessagesText.DividingLine;
-                        foreach (var i in (IEnumerable) greedyAlgorithm[1])
-                        {
-                            resultGreedyLabel.Text += (string.Format(" {0:0.0} ", i));
-                            ++line;
-                            if (line%2 == 0)
-                            {
-                                resultGreedyLabel.Text += MessagesText.DividingLine;
-                            }
-                        }
-                        resultGreedyLabel.Text += MessagesText.NextLine;
-
-                        line = 0;
+                        PrintFloor(totalListOneBedroomApartment, resultGreedyLabel);
                         resultGreedyLabel.Text += MessagesText.DividingLine;
-
-                        foreach (var i in (IEnumerable) greedyAlgorithm[2])
-                        {
-                            resultGreedyLabel.Text += (string.Format(" {0:0.0} ", i));
-                            ++line;
-                            if (line%2 == 0)
-                            {
-                                resultGreedyLabel.Text += MessagesText.DividingLine;
-                            }
-                        }
-                        resultGreedyLabel.Text += MessagesText.NextLine;
-
-                        var strokeLength = "";
-                        for (var i = 0; i < s1.Length; ++i)
-                        {
-                            strokeLength += MessagesText.StrokeLength;
-                        }
-                        if (index != countFloor - 1)
-                        {
-                            resultGreedyLabel.Text += strokeLength;
-                        }
-                        resultGreedyLabel.Text += MessagesText.NextLine;
+                        PrintFloor(totalListTwoBedroomApartment, resultGreedyLabel);
+                        PrintStroke(totalListOneBedroomApartment, numberFloor, countFloor, resultGreedyLabel);
                     }
                 }
-                if (!flag)
-                {
-                    var listOneParam = (List<double>) greedyAlgorithm[4];
-                    var listTwoParam = (List<double>) greedyAlgorithm[5];
-                    if (listOneParam.Count > 0)
-                    {
-                        resultGreedyLabel.Text += MessagesText.RectanglesAiNotList;
-
-                        foreach (var i in listOneParam)
-                        {
-                            resultGreedyLabel.Text += (string.Format(" {0:0.0} ", i));
-                        }
-                        resultGreedyLabel.Text += (MessagesText.NextLine);
-                    }
-
-                    if (listTwoParam.Count > 0)
-                    {
-                        resultGreedyLabel.Text += MessagesText.RectanglesBiNotList;
-                        foreach (var i in listTwoParam)
-                        {
-                            resultGreedyLabel.Text += (string.Format(" {0:0.0} ", i));
-                        }
-                        resultGreedyLabel.Text += (MessagesText.NextLine);
-                    }
-                }
+                if (flagIsNotFinish) return;
+                PrintExceedAppartment(exceedListOneBedroomApartment, resultGreedyLabel, MessagesText.RectanglesAiNotList);
+                PrintExceedAppartment(exceedListTwoBedroomApartment, resultGreedyLabel, MessagesText.RectanglesBiNotList);
             }
-
-                else if (countFloor == 1)
+                else
                 {
-                    resultGreedyLabel.Text +=
-                        MessagesText.OptimalContainerPackage.ToString(CultureInfo.InvariantCulture);
-                    resultGreedyLabel.Text += (MessagesText.NextLine).ToString(CultureInfo.InvariantCulture);
-                    var line = 0;
+                    resultGreedyLabel.Text += MessagesText.OptimalContainerPackage;
+                    resultGreedyLabel.Text += MessagesText.NextLine;
                     resultGreedyLabel.Text += MessagesText.DividingLine;
-                    foreach (var i in (IEnumerable)greedyAlgorithm[1])
-                    {
-                        resultGreedyLabel.Text += (string.Format(" {0:0.0} ", i));
-                        ++line;
-                        if (line % 2 == 0)
-                        {
-                            resultGreedyLabel.Text += MessagesText.DividingLine;
-                        }
-                        
-                    }
-                    resultGreedyLabel.Text += (MessagesText.NextLine).ToString(CultureInfo.InvariantCulture);
-
-                    line = 0;
+                    PrintFloor(totalListOneBedroomApartment, resultGreedyLabel);
                     resultGreedyLabel.Text += MessagesText.DividingLine;
-                    foreach (var i in (IEnumerable)greedyAlgorithm[2])
-                    {
-                        resultGreedyLabel.Text += (string.Format(" {0:0.0} ", i));
-                        ++line;
-                        if (line % 2 == 0)
-                            resultGreedyLabel.Text += MessagesText.DividingLine;
-                    }
-                    resultGreedyLabel.Text += (MessagesText.NextLine).ToString(CultureInfo.InvariantCulture);
-                    
-                    var ss1 = (List<double>)greedyAlgorithm[4];
-                    if (ss1.Count != 0)
-                    {
-                        resultGreedyLabel.Text += MessagesText.RectanglesAiNotList;
-                        foreach (var i in (IEnumerable)ss1)
-                        {
-                            resultGreedyLabel.Text += (string.Format(" {0:0.0} ", i));
-                        }
-                    }
-
-                    resultGreedyLabel.Text += (MessagesText.NextLine).ToString(CultureInfo.InvariantCulture);
-                    var ss2 = (List<double>)greedyAlgorithm[5];
-                    if (ss2.Count != 0)
-                    {
-                        resultGreedyLabel.Text += MessagesText.RectanglesBiNotList;
-                        foreach (var i in (IEnumerable)ss2)
-                        {
-                            resultGreedyLabel.Text += (string.Format(" {0:0.0} ", i));
-                        }
-                        resultGreedyLabel.Text += (MessagesText.NextLine).ToString(CultureInfo.InvariantCulture);
-                    }  
+                    PrintFloor(totalListTwoBedroomApartment, resultGreedyLabel);
+                    PrintExceedAppartment(exceedListOneBedroomApartment, resultGreedyLabel, MessagesText.RectanglesAiNotList);
+                    PrintExceedAppartment(exceedListTwoBedroomApartment, resultGreedyLabel, MessagesText.RectanglesBiNotList);
                 }
         }
 
-        public static void FullSearchPrintResult(List<object> fullSearch, int countFloor, Label resultFullSearchLabel)
+        public static void FullSearchPrintResult(List<object> comprehensiveSearchData, int countFloor, Label resultFullSearchLabel)
         {
-            if (countFloor == 2 || countFloor==3 || countFloor==4)
+            var fine = (double)comprehensiveSearchData[0];
+            var totalListOneBedroomApartment = (double[])comprehensiveSearchData[1];
+            var totalListTwoBedroomApartment = (double[])comprehensiveSearchData[2];
+            var exceedListOneBedroomApartment = (List<double>)comprehensiveSearchData[3];
+            var exceedListTwoBedroomApartment = (List<double>)comprehensiveSearchData[4];
+
+            if (countFloor !=1)
             {
-                var s1 = (double[])fullSearch[1];
-                var s2 = s1.Length;
                 const string resultFullSearch = MessagesText.ResultComprehensiveSearch;
-                resultFullSearchLabel.Text += resultFullSearch.ToString(CultureInfo.InvariantCulture) + MessagesText.NextLine;
-                var minFine = string.Format(MessagesText.ValueFunctionalF, fullSearch[0]);
-                resultFullSearchLabel.Text += minFine.ToString(CultureInfo.InvariantCulture) + MessagesText.NextLine + MessagesText.NextLine;
-                for (var index = 0; index < countFloor; ++index)
+                resultFullSearchLabel.Text += resultFullSearch + MessagesText.NextLine;
+                var minFine = string.Format(MessagesText.ValueFunctionalF, fine);
+                resultFullSearchLabel.Text += minFine + MessagesText.NextLine + MessagesText.NextLine;
+                for (var numberFloor = 0; numberFloor < countFloor; ++numberFloor)
                 {
-                    var line = 0;
                     resultFullSearchLabel.Text += MessagesText.DividingLine;
-                    foreach (var i in (IEnumerable) fullSearch[1])
-                    {
-                        resultFullSearchLabel.Text += (string.Format(" {0:0.0} ", i));
-                        ++line;
-                        if (line % 2 == 0)
-                        {
-                            resultFullSearchLabel.Text += MessagesText.DividingLine;
-                        }
-                    }
-                    resultFullSearchLabel.Text += MessagesText.NextLine;
-
-                    line = 0;
+                    PrintFloor(totalListOneBedroomApartment, resultFullSearchLabel);
                     resultFullSearchLabel.Text += MessagesText.DividingLine;
-                    foreach (var i in (IEnumerable) fullSearch[2])
-                    {
-                        resultFullSearchLabel.Text += (string.Format(" {0:0.0} ", i));
-                        ++line;
-                        if (line % 2 == 0)
-                        {
-                            resultFullSearchLabel.Text += MessagesText.DividingLine;
-                        }
-                    }
-                    resultFullSearchLabel.Text += MessagesText.NextLine;
-
-                    var strokeLength = "";
-                    for (var i = 0; i < s2; ++i)
-                    {
-                        strokeLength += MessagesText.StrokeLength;
-                    }
-                    if (index != countFloor - 1)
-                    {
-                        resultFullSearchLabel.Text += strokeLength;
-                    }
-                    resultFullSearchLabel.Text += MessagesText.NextLine;
+                    PrintFloor(totalListTwoBedroomApartment, resultFullSearchLabel);
+                    PrintStroke(totalListOneBedroomApartment, numberFloor, countFloor, resultFullSearchLabel);
                 }
-
-                var listOneParam = (List<double>) fullSearch[3];
-                var listTwoParam = (List<double>) fullSearch[4];
-                if (listOneParam.Count > 0)
-                {
-                    resultFullSearchLabel.Text += MessagesText.RectanglesAiNotList;
-
-                    foreach (var i in listOneParam)
-                    {
-                        resultFullSearchLabel.Text += (string.Format(" {0:0.0} ", i));
-                    }
-                    resultFullSearchLabel.Text += (MessagesText.NextLine);
-                }
-
-                if (listTwoParam.Count > 0)
-                {
-                    resultFullSearchLabel.Text += MessagesText.RectanglesBiNotList;
-                    foreach (var i in listTwoParam)
-                    {
-                        resultFullSearchLabel.Text += (string.Format(" {0:0.0} ", i));
-                    }
-                    resultFullSearchLabel.Text += (MessagesText.NextLine);
-                }
-
+                PrintExceedAppartment(exceedListOneBedroomApartment, resultFullSearchLabel, MessagesText.RectanglesAiNotList);
+                PrintExceedAppartment(exceedListOneBedroomApartment, resultFullSearchLabel, MessagesText.RectanglesBiNotList);
             }   
 
-            else if (countFloor == 1)
+            else
             {
                 const string resultFullSearch = MessagesText.ResultComprehensiveSearch;
-                resultFullSearchLabel.Text += resultFullSearch.ToString(CultureInfo.InvariantCulture) + MessagesText.NextLine;
-                var minFine = string.Format(MessagesText.Fine, fullSearch[0]);
-                resultFullSearchLabel.Text += minFine.ToString(CultureInfo.InvariantCulture) + MessagesText.NextLine;
-
+                resultFullSearchLabel.Text += resultFullSearch + MessagesText.NextLine;
+                var minFine = string.Format(MessagesText.Fine, fine);
+                resultFullSearchLabel.Text += minFine + MessagesText.NextLine;
                 const string optArrangeOne = MessagesText.OptimalContainerPackage;
-                resultFullSearchLabel.Text += optArrangeOne.ToString(CultureInfo.InvariantCulture);
+                resultFullSearchLabel.Text += optArrangeOne;
                 resultFullSearchLabel.Text += MessagesText.NextLine;
-                var b = 0;
                 resultFullSearchLabel.Text += MessagesText.DividingLine;
-                foreach (var i in (IEnumerable)fullSearch[1])
-                {
-                    resultFullSearchLabel.Text += (string.Format(" {0:0.0} ", i));
-                    ++b;
-                    if (b%2 == 0)
-                    {
-                        resultFullSearchLabel.Text += MessagesText.DividingLine;
-                    }
-                   
-                }
-                resultFullSearchLabel.Text += MessagesText.NextLine;
-
-                b = 0;
+                PrintFloor(totalListOneBedroomApartment, resultFullSearchLabel);
                 resultFullSearchLabel.Text += MessagesText.DividingLine;
-                foreach (var i in (IEnumerable)fullSearch[2])
-                {
-                    resultFullSearchLabel.Text += (string.Format(" {0:0.0} ", i));
-                    ++b;
-                    if (b % 2 == 0)
-                    {
-                        resultFullSearchLabel.Text += MessagesText.DividingLine;
-                    }
-                   
-                }
-                resultFullSearchLabel.Text += MessagesText.NextLine;
-                var ss1 = (List<double>)fullSearch[3];
-                if (ss1.Count != 0)
-                {
-                    resultFullSearchLabel.Text += MessagesText.RectanglesAiNotList;
-                    foreach (var i in (IEnumerable)ss1)
-                    {
-                        resultFullSearchLabel.Text += (string.Format(" {0:0.0} ", i));
-                    }
-                }
-
-                resultFullSearchLabel.Text += (MessagesText.NextLine).ToString(CultureInfo.InvariantCulture);
-                var ss2 = (List<double>)fullSearch[4];
-                if (ss2.Count != 0)
-                {
-                    resultFullSearchLabel.Text += MessagesText.RectanglesBiNotList;
-                    foreach (var i in (IEnumerable)ss2)
-                    {
-                        resultFullSearchLabel.Text += (string.Format(" {0:0.0} ", i));
-                    }
-                }
-
-                resultFullSearchLabel.Text += MessagesText.NextLine;
+                PrintFloor(totalListTwoBedroomApartment, resultFullSearchLabel);
+                PrintExceedAppartment(exceedListOneBedroomApartment, resultFullSearchLabel, MessagesText.RectanglesAiNotList);
+                PrintExceedAppartment(exceedListTwoBedroomApartment, resultFullSearchLabel, MessagesText.RectanglesBiNotList);
             }
+        }
+
+        private static void PrintStroke(double[] totalListOneBedroomApartment, int numberFloor, int countFloor, Label resultLabel)
+        {
+            var strokeLength = MessagesText.StrokeLength;
+            for (var i = 0; i < totalListOneBedroomApartment.Length; ++i)
+            {
+                strokeLength += MessagesText.StrokeLength;
+            }
+            if (numberFloor != countFloor - 1)
+            {
+                resultLabel.Text += strokeLength;
+            }
+            resultLabel.Text += MessagesText.NextLine;
+        }
+
+
+        private static void PrintFloor(double[] listBedroomApartment, Label resultLabel)
+        {
+            var dividedLine = 0;
+            foreach (var i in listBedroomApartment)
+            {
+                resultLabel.Text += (string.Format(" {0:0.0} ", i));
+                ++dividedLine;
+                if (dividedLine % 2 == 0)
+                {
+                    resultLabel.Text += MessagesText.DividingLine;
+                }
+            }
+            resultLabel.Text += MessagesText.NextLine;
+        }
+
+        private static void PrintExceedAppartment(List<double> listExceedBedroomApartment, Label resultLabel, string rectanglesNotList)
+        {
+            if (listExceedBedroomApartment.Count == 0) return;
+            resultLabel.Text += rectanglesNotList;
+            foreach (var i in listExceedBedroomApartment)
+            {
+                resultLabel.Text += (string.Format(" {0:0.0} ", i));
+            }
+            resultLabel.Text += MessagesText.NextLine;
         }
     }
 }

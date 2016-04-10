@@ -59,12 +59,6 @@ namespace Resettlement
             {
                 countFloor = 4;
             }
-            if (countFloor == 0)
-            {
-                MessageBox.Show(ErrorsText.NotSelectedFloor);
-                //Todo вынести в Performer
-                //return;
-            }
 
             resultList.Add(entryway);
             resultList.Add(widthOfApartment);

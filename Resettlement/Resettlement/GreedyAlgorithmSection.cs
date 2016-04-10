@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Resettlement.GeneralData;
 
 namespace Resettlement
 {
@@ -141,9 +142,9 @@ namespace Resettlement
 			list.Add(itogFine);
 			list.Add(finalPlacementOneFlat);
 			list.Add(finalPlacementTwoFlat);
-            list.Add(newFirstOneFlat);
             list.Add(newLengthOneFlat);
             list.Add(newLengthTwoFlat);
+            list.Add(newFirstOneFlat);
 			return list;
 		}
 	}

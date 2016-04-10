@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Resettlement.GeneralData;
 
 namespace Resettlement
 {
@@ -27,7 +28,6 @@ namespace Resettlement
             VariantsFlats.VariantsFlat(out listVariantsOneFlat, out listExcessDataOneFlat, permListOneFlat, listLengthOneFlat);
             VariantsFlats.VariantsFlat(out listVariantsTwoFlat, out listExcessDataTwoFlat, permListTwoFlat, listLengthTwoFlat);
 			var minTotalExtraSquare = 10000.0;
-		    //const double restrictionOnDoor = 1.25;
 
             var countI = -1;
 		    foreach (var i in listVariantsOneFlat)

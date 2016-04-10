@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.Windows.Forms;
 using Resettlement.GeneralData;
 
 namespace Resettlement
@@ -19,6 +20,12 @@ namespace Resettlement
             var countFloor = (int) preparationInputData[6];
             var lengthOneRoomFlat = (List<double>)preparationInputData[7];
             var lengthTwoRoomFlat = (List<double>)preparationInputData[8];
+
+            if (countFloor == 0)
+            {
+                MessageBox.Show(ErrorsText.NotSelectedFloor);
+                return;
+            }
 
             realizat_label.Text = "".ToString(CultureInfo.InvariantCulture);
             lossesOne_label.Text = "".ToString(CultureInfo.InvariantCulture);
@@ -57,16 +64,16 @@ namespace Resettlement
             var myStopWatchGreedy = new Stopwatch();
             myStopWatchGreedy.Start();
             var firstOneFlat = 0.0;
-            var a = 0;
-            var a1 = 0;
+            var numberIteration = 0;
+            var optimalNumberIteration = 0;
             var totalOptimalResult = new List<object>();
 
-            while (a < 5)
+            while (numberIteration < 5)
             {
-                a++;
+                numberIteration++;
                 var greedyAlgorithm = GreedyAlgorithmSection.GreedyMethode(newLengthOneRoomFlat, newLengthTwoRoomFlat,
                     step, entryway, firstOneFlat);
-                firstOneFlat = (double)greedyAlgorithm[3];
+                firstOneFlat = (double)greedyAlgorithm[5];
                 if (countFloor == 2)
                 {
                     greedyAlgorithm[0] = Math.Round((double)greedyAlgorithm[0] * 2.0, 1);
@@ -89,7 +96,7 @@ namespace Resettlement
                     if ((double)totalOptimalResult[0] > (double)greedyAlgorithm[0])
                     {
                         totalOptimalResult = greedyAlgorithm;
-                        a1 = a;
+                        optimalNumberIteration = numberIteration;
                     }
                 }
                 else
@@ -101,8 +108,8 @@ namespace Resettlement
                 {
                     newLengthOneRoomFlat = PreparationSquares.FlatsRestartList((List<double>)newListFlatAfterGrouping[0]);
                     newLengthTwoRoomFlat = PreparationSquares.FlatsRestartList((List<double>)newListFlatAfterGrouping[1]);
-                    greedyAlgorithm[4] = newListFlatAfterGrouping[3];
-                    greedyAlgorithm[5] = newListFlatAfterGrouping[4];
+                    greedyAlgorithm[3] = newListFlatAfterGrouping[3];
+                    greedyAlgorithm[4] = newListFlatAfterGrouping[4];
                 }
                 else
                 {
@@ -112,10 +119,10 @@ namespace Resettlement
                 //Вывод результата по итерациям
 
 
-                PrintResult.GreedyIterationPrintResult(greedyAlgorithm, countFloor, a, true, resultGreedy_label);
+                PrintResult.GreedyIterationPrintResult(greedyAlgorithm, countFloor, numberIteration, true, resultGreedy_label);
             }
             myStopWatchGreedy.Stop();
-            PrintResult.GreedyIterationPrintResult(totalOptimalResult, countFloor, a1, false, resultGreedy_label);
+            PrintResult.GreedyIterationPrintResult(totalOptimalResult, countFloor, optimalNumberIteration, false, resultGreedy_label);
 
             resultGreedy_label.Text +=
                   string.Format(MessagesText.WorkTimeHeuristicAlgoruthm,

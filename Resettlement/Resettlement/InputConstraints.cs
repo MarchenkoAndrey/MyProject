@@ -1,4 +1,6 @@
-﻿namespace Resettlement
+﻿using Resettlement.GeneralData;
+
+namespace Resettlement
 {
     public static class InputConstraints
     {

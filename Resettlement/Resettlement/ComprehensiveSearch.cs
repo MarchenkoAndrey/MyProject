@@ -20,6 +20,13 @@ namespace Resettlement
             var countFloor = (int)preparationInputData[6];
             var lengthOneRoomFlat = (List<double>)preparationInputData[7];
             var lengthTwoRoomFlat = (List<double>)preparationInputData[8];
+
+            if (countFloor == 0)
+            {
+                MessageBox.Show(ErrorsText.NotSelectedFloor);
+                return;
+            }
+
             realizat_label.Text = "".ToString(CultureInfo.InvariantCulture);
             lossesOne_label.Text = "".ToString(CultureInfo.InvariantCulture);
             resultFullSearch_label.Text = "".ToString(CultureInfo.InvariantCulture);
@@ -100,7 +107,7 @@ namespace Resettlement
             PrintResult.FullSearchPrintResult(fullSearch, countFloor, resultFullSearch_label);
 
             myStopWatch.Stop();
-            resultFullSearch_label.Text += "\r\n";
+            resultFullSearch_label.Text += MessagesText.NextLine;
             var timeFullSearch = String.Format(MessagesText.WorkTimeComprehensiveSearch, 
                 myStopWatch.ElapsedMilliseconds/1000.0).ToString(CultureInfo.InvariantCulture);               
             resultFullSearch_label.Text += timeFullSearch.ToString(CultureInfo.InvariantCulture);

@@ -1,4 +1,4 @@
-﻿namespace Resettlement
+﻿namespace Resettlement.GeneralData
 {
     public static class Constraints
     {
