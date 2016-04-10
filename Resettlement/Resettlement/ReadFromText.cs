@@ -5,38 +5,30 @@ using System.Linq;
 
 namespace Resettlement
 {
-	static class ReadFromFile
+    public static class ReadFromFile
 	{
-		public static List<double> ReadFileOneRoom(string[] l)
+		public static List<double> ReadFileOneRoom(string[] inputData)
 		{
-//            string[] str = l[0] == "" ? File.ReadAllLines("OneRoom8.txt") : l;
-            string[] str = l[0] == "" ? File.ReadAllLines("OneRoom20.txt") : l;
+            string[] arrayData = inputData[0] == "" ? File.ReadAllLines("OneRoom20.txt") : inputData;
 		    var enterData = new List<double>();
-			if (str.Length != 0)
-			{
 				var inputArgs =
-					str[0].Split(default(string[]), StringSplitOptions.RemoveEmptyEntries).Select(double.Parse).ToArray();
+					arrayData[0].Split(default(string[]), StringSplitOptions.RemoveEmptyEntries).Select(double.Parse).ToArray();
 				for (var j = 0; j < inputArgs.Count(); j++)
 				{
 					enterData.Add(inputArgs[j]);
 				}
-			}
 			return enterData;
 		}
-		public static List<double> ReadFileTwoRoom(string[] l)
+		public static List<double> ReadFileTwoRoom(string[] inputData)
 		{
-//          string[] str = l[0] == "" ? File.ReadAllLines("TwoRoom8.txt") : l;
-          string[] str = l[0] == "" ? File.ReadAllLines("TwoRoom20.txt") : l;
+            string[] arrayData = inputData[0] == "" ? File.ReadAllLines("TwoRoom20.txt") : inputData;
 			var enterData = new List<double>();
-			if (str.Length != 0)
-			{
 				var inputArgs =
-					str[0].Split(default(string[]), StringSplitOptions.RemoveEmptyEntries).Select(double.Parse).ToArray();
+					arrayData[0].Split(default(string[]), StringSplitOptions.RemoveEmptyEntries).Select(double.Parse).ToArray();
 				for (var j = 0; j < inputArgs.Count(); j++)
 				{
 					enterData.Add(inputArgs[j]);
 				}
-			}
 			return enterData;
 		}
 	}

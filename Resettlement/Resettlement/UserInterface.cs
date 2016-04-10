@@ -23,12 +23,12 @@ namespace Resettlement
                 squareTwo_input.Text.ToString(CultureInfo.InvariantCulture)
             };
 
-            var temp1 = valueG.Text.ToString(CultureInfo.InvariantCulture);
-            var entryway = temp1 == "" ? 2.7 : double.Parse(temp1);
-            var temp2 = valueC.Text.ToString(CultureInfo.InvariantCulture);
-            var widthOfApartment  = temp2 == "" ? 5.7 : double.Parse(temp2);
-            var temp3 = valueQ.Text.ToString(CultureInfo.InvariantCulture);
-            var step = temp3 =="" ? 0.3 :  double.Parse(temp3);
+            var inputValueG = valueG.Text.ToString(CultureInfo.InvariantCulture);
+            var entryway = inputValueG == "" ? 2.7 : double.Parse(inputValueG);
+            var inputValueC = valueC.Text.ToString(CultureInfo.InvariantCulture);
+            var widthOfApartment  = inputValueC == "" ? 5.7 : double.Parse(inputValueC);
+            var inputValueQ = valueQ.Text.ToString(CultureInfo.InvariantCulture);
+            var step = inputValueQ =="" ? 0.3 : double.Parse(inputValueQ);
 
             var enterDataOneRoomFlat = ReadFromFile.ReadFileOneRoom(strOne);
             var enterDataTwoRoomFlat = ReadFromFile.ReadFileTwoRoom(strTwo);
@@ -72,7 +72,7 @@ namespace Resettlement
             }
             if (countFloor == 0)
             {
-                MessageBox.Show("Необходимо выбрать значение 'Количество слоёв'");
+                MessageBox.Show("It is need to choose count of floors");
                 return;
             }
 
@@ -169,10 +169,10 @@ namespace Resettlement
                 //Вывод результата по итерациям
 
 
-              PrintResult.GreedyIterationPrintResult(greedyAlgorithm,countFloor,entryway,step,a, true, resultGreedy_label);
+              PrintResult.GreedyIterationPrintResult(greedyAlgorithm,countFloor,a, true, resultGreedy_label);
             }
             myStopWatchGreedy.Stop();
-            PrintResult.GreedyIterationPrintResult(totalOptimalResult, countFloor, entryway, step, a1, false, resultGreedy_label);
+            PrintResult.GreedyIterationPrintResult(totalOptimalResult, countFloor, a1, false, resultGreedy_label);
 
             resultGreedy_label.Text +=
                   ("Work time of the heuristic algorithm: " +
@@ -180,19 +180,14 @@ namespace Resettlement
                    " seconds").ToString(CultureInfo.InvariantCulture);
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void fullSearch_btn_Click(object sender, EventArgs e)
         {
-            var temp1 = valueG.Text.ToString(CultureInfo.InvariantCulture);
-            var entryway = temp1 == "" ? 2.7 : double.Parse(temp1);
-            var temp2 = valueC.Text.ToString(CultureInfo.InvariantCulture);
-            var widthOfApartment = temp2 == "" ? 5.7 : double.Parse(temp2);
-            var temp3 = valueQ.Text.ToString(CultureInfo.InvariantCulture);
-            var step = temp3 == "" ? 0.3 : double.Parse(temp3);
+            var inputValueG = valueG.Text.ToString(CultureInfo.InvariantCulture);
+            var entryway = inputValueG == "" ? 2.7 : double.Parse(inputValueG);
+            var inputValueC = valueC.Text.ToString(CultureInfo.InvariantCulture);
+            var widthOfApartment = inputValueC == "" ? 5.7 : double.Parse(inputValueC);
+            var inputValueQ = valueQ.Text.ToString(CultureInfo.InvariantCulture);
+            var step = inputValueQ == "" ? 0.3 : double.Parse(inputValueQ);
 
             var strOne = new []
             {
@@ -244,7 +239,7 @@ namespace Resettlement
             }
             if (countFloor == 0)
             {
-                MessageBox.Show("Необходимо выбрать значение 'Количество слоёв'");
+                MessageBox.Show("It is need to choose count of floors");
                 return;
             }
             
@@ -283,7 +278,7 @@ namespace Resettlement
 
             if ((newLengthOneRoomFlat.Count >= 12 || newLengthTwoRoomFlat.Count >= 12) && countFloor==1)
             {
-                MessageBox.Show("For 12 or more containers, use only heuristic algorithm"); 
+                MessageBox.Show("For 6 or more containers, use only heuristic algorithm"); 
                 return;
             }
 
@@ -296,7 +291,7 @@ namespace Resettlement
 
             if(newLengthOneRoomFlat.Count>=12 || newLengthTwoRoomFlat.Count>=12 && countFloor>1)
             {
-                MessageBox.Show("For 12 or more containers, use only heuristic algorithm");
+                MessageBox.Show("For 6 or more containers, use only heuristic algorithm");
                 return;
             }
 
@@ -329,7 +324,7 @@ namespace Resettlement
             
             myStopWatch.Stop();
             resultFullSearch_label.Text += "\r\n";
-            var timeFullSearch = "Work time of the full search " +
+            var timeFullSearch = "Work time of the comprehensive search " +
                                  (myStopWatch.ElapsedMilliseconds / 1000.0).ToString(CultureInfo.InvariantCulture) +
                                  " seconds";
             resultFullSearch_label.Text += timeFullSearch.ToString(CultureInfo.InvariantCulture);

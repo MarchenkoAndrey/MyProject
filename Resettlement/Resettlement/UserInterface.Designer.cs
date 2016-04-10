@@ -2,15 +2,7 @@
 {
     partial class UserInterface
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
-
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,12 +12,6 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         protected void InitializeComponent()
         {
             this.greedy_btn = new System.Windows.Forms.Button();
@@ -80,8 +66,7 @@
             this.labelOne.Name = "labelOne";
             this.labelOne.Size = new System.Drawing.Size(252, 26);
             this.labelOne.TabIndex = 2;
-            this.labelOne.Text = "Enter the squares of the rectangles a(i) with a space\r\n or the name of a data fil" +
-    "e";
+            this.labelOne.Text = "Enter the squares of the rectangles a(i) with a space\r\n or specify a file name";
             // 
             // squareOne_input
             // 
@@ -97,8 +82,7 @@
             this.labelTwo.Name = "labelTwo";
             this.labelTwo.Size = new System.Drawing.Size(252, 26);
             this.labelTwo.TabIndex = 4;
-            this.labelTwo.Text = "Enter the squares of the rectangles b(i) with a space\r\n or the name of a data fil" +
-    "e";
+            this.labelTwo.Text = "Enter the squares of the rectangles b(i) with a space\r\n or specify a file name";
             // 
             // squareTwo_input
             // 
@@ -114,7 +98,6 @@
             this.labelCountFloor.Name = "labelCountFloor";
             this.labelCountFloor.Size = new System.Drawing.Size(0, 13);
             this.labelCountFloor.TabIndex = 6;
-            this.labelCountFloor.Click += new System.EventHandler(this.label1_Click);
             // 
             // lossesTwo_label
             // 
@@ -207,7 +190,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(141, 13);
             this.label4.TabIndex = 32;
-            this.label4.Text = "Select the number of storeys";
+            this.label4.Text = "Select the number of floors";
             // 
             // label1
             // 
@@ -291,8 +274,6 @@
             this.PerformLayout();
 
         }
-
-        #endregion
 
         private System.Windows.Forms.Button greedy_btn;
         private System.Windows.Forms.Button fullSearch_btn;
