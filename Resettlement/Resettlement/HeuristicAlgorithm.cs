@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using Resettlement.GeneralData;
 
 namespace Resettlement
 {
@@ -24,10 +25,9 @@ namespace Resettlement
             resultGreedy_label.Text = "".ToString(CultureInfo.InvariantCulture);
 
             var realFlat = newLengthOneRoomFlat.Count + newLengthTwoRoomFlat.Count;
-            realizat_label.Text += ("Realization for " + realFlat + " rectangles").ToString(CultureInfo.InvariantCulture);
+            realizat_label.Text += string.Format(MessagesText.RealizationForRectangles,realFlat).ToString(CultureInfo.InvariantCulture);
 
-            lossesOne_label.Text += string.Format("The addition of the lengths of a rounding up\r\n to the number of times the wall thickness: {0}",
-                sumDelta.ToString(CultureInfo.InvariantCulture));
+            lossesOne_label.Text += string.Format(MessagesText.SummarizeAdditionLengthForH, sumDelta.ToString(CultureInfo.InvariantCulture));
 
             var newListFlatAfterGrouping = new List<object>();
             var fineAfterGrouping = 0.0;
@@ -118,9 +118,8 @@ namespace Resettlement
             PrintResult.GreedyIterationPrintResult(totalOptimalResult, countFloor, a1, false, resultGreedy_label);
 
             resultGreedy_label.Text +=
-                  ("Work time of the heuristic algorithm: " +
-                   (myStopWatchGreedy.ElapsedMilliseconds / 1000.0).ToString(CultureInfo.InvariantCulture) +
-                   " seconds").ToString(CultureInfo.InvariantCulture);
+                  string.Format(MessagesText.WorkTimeHeuristicAlgoruthm,
+                   myStopWatchGreedy.ElapsedMilliseconds / 1000.0).ToString(CultureInfo.InvariantCulture).ToString(CultureInfo.InvariantCulture);
         }
     }
 }

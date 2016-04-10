@@ -61,7 +61,7 @@ namespace Resettlement
             }
             if (countFloor == 0)
             {
-                MessageBox.Show("It is need to choose count of floors");
+                MessageBox.Show(ErrorsText.NotSelectedFloor);
                 //Todo вынести в Performer
                 //return;
             }

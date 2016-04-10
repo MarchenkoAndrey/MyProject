@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Forms;
+using Resettlement.GeneralData;
 
 namespace Resettlement
 {
@@ -24,8 +25,8 @@ namespace Resettlement
             resultFullSearch_label.Text = "".ToString(CultureInfo.InvariantCulture);
 
             var realCountFlat = newLengthOneRoomFlat.Count + newLengthTwoRoomFlat.Count;
-            realizat_label.Text += ("Realization for " + realCountFlat + " rectangles").ToString(CultureInfo.InvariantCulture);
-            lossesOne_label.Text += string.Format("The addition of the lengths of a rounding up\r\n to the number of times the wall thickness: {0}", sumDelta.ToString(CultureInfo.InvariantCulture));
+            realizat_label.Text += string.Format(MessagesText.RealizationForRectangles, realCountFlat).ToString(CultureInfo.InvariantCulture);
+            lossesOne_label.Text += string.Format(MessagesText.SummarizeAdditionLengthForH, sumDelta.ToString(CultureInfo.InvariantCulture));
 
             var newListFlatAfterGrouping = new List<object>();
             var fineAfterGrouping = 0.0;
@@ -54,20 +55,20 @@ namespace Resettlement
 
             if ((newLengthOneRoomFlat.Count >= 12 || newLengthTwoRoomFlat.Count >= 12) && countFloor == 1)
             {
-                MessageBox.Show("For 6 or more containers, use only heuristic algorithm");
+                MessageBox.Show(ErrorsText.NotSixContaiters);
                 return;
             }
 
             if ((Math.Abs(lengthOneRoomFlat.Count - lengthTwoRoomFlat.Count) >= 3 ||
                 (Math.Abs(lengthOneRoomFlat.Count - lengthTwoRoomFlat.Count) == 2 && lengthOneRoomFlat.Count % 2 != 0)) && countFloor == 1)
             {
-                MessageBox.Show("Too many containers for sorting");
+                MessageBox.Show(ErrorsText.TooManyContainers);
                 return;
             }
 
             if (newLengthOneRoomFlat.Count >= 12 || newLengthTwoRoomFlat.Count >= 12 && countFloor > 1)
             {
-                MessageBox.Show("For 6 or more containers, use only heuristic algorithm");
+                MessageBox.Show(ErrorsText.NotSixContaiters);
                 return;
             }
 
@@ -100,9 +101,8 @@ namespace Resettlement
 
             myStopWatch.Stop();
             resultFullSearch_label.Text += "\r\n";
-            var timeFullSearch = "Work time of the comprehensive search " +
-                                 (myStopWatch.ElapsedMilliseconds / 1000.0).ToString(CultureInfo.InvariantCulture) +
-                                 " seconds";
+            var timeFullSearch = String.Format(MessagesText.WorkTimeComprehensiveSearch, 
+                myStopWatch.ElapsedMilliseconds/1000.0).ToString(CultureInfo.InvariantCulture);               
             resultFullSearch_label.Text += timeFullSearch.ToString(CultureInfo.InvariantCulture);
         }
     }
