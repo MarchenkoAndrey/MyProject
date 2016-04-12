@@ -12,7 +12,7 @@ namespace Resettlement
         private void PerformComprehensiveSearch(List<object> preparationInputData)
         {
             var entryway = (double)preparationInputData[0];
-            var widthOfApartment = (double)preparationInputData[1];
+//            var widthOfApartment = (double)preparationInputData[1];
             var step = (double)preparationInputData[2];
             var sumDelta = (double)preparationInputData[3];
             var newLengthOneRoomFlat = (List<double>)preparationInputData[4];

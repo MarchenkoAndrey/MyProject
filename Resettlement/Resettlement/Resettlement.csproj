@@ -61,6 +61,7 @@
     <Compile Include="InputConstraints.cs" />
     <Compile Include="InsertionSort.cs" />
     <Compile Include="GeneralData\MessagesText.cs" />
+    <Compile Include="OptimalNumberApartments.cs" />
     <Compile Include="PreparationBeforeAlgorithm.cs">
       <SubType>Form</SubType>
     </Compile>

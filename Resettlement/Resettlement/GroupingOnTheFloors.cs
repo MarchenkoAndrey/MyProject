@@ -19,7 +19,7 @@ namespace Resettlement
             var listResultTwoBedroomApartment = new List<double>();
             var listExcessDataOneBedroomApartment = new List<double>();
             var listExcessDataTwoBedroomApartment = new List<double>(); 
-            var optimalCountApartment = CalculateOptimalNumberApartments(listSortAscOneBedroomApartment,
+            var optimalCountApartment = OptimalNumberApartments.CalculateOptimalNumberApartments(listSortAscOneBedroomApartment,
                 listSortAscTwoBedroomApartment, countFloor);  
             var totalFineOneBedroomApartmentBecauseExcessData = 1000.0;
             var totalFineTwoBedroomApartmentBecauseExcessData = 1000.0;
@@ -76,7 +76,7 @@ namespace Resettlement
                     }
                     listExcessDataOneBedroomApartment.AddRange(listExceedOneValue);
                 }
-                else // newExcessValueCount == 2
+                else // countExceedValuesMoreTwo == 2
                 {
                     var listExceedOneValue = new List<double>();
                     for (var index = 0; index < listOneBedroomApartmentForCalculate.Count-1; ++index)
@@ -145,9 +145,11 @@ namespace Resettlement
                         var currentListTwoBedroomApartment = new List<double>(listTwoBedroomApartmentForCalculate);
                         var currentFineTwoBedroomApartment = 0.0;
                         currentListTwoBedroomApartment.Remove(index);
+
                         CalculateList(currentListTwoBedroomApartment, currentFineTwoBedroomApartment,
                             currentResultListTwoBedroomApartment, countFloor,
                             out currentFineTwoBedroomApartment, out currentResultListTwoBedroomApartment);
+
                         if (currentFineTwoBedroomApartment < totalFineTwoBedroomApartmentBecauseExcessData)
                         {
                             totalFineTwoBedroomApartmentBecauseExcessData = Math.Round(currentFineTwoBedroomApartment, 1);
@@ -161,7 +163,7 @@ namespace Resettlement
                     }
                     listExcessDataTwoBedroomApartment.AddRange(excessListOneValue);
                 }
-                else // newExcessValueCount == 2
+                else // countExceedValuesMoreTwo == 2
                 {
                     var excessListOneValue = new List<double>();
                     for (var index = 0; index < listTwoBedroomApartmentForCalculate.Count-1; ++index)
@@ -175,9 +177,11 @@ namespace Resettlement
                             var currentFineTwoBedroomApartment = 0.0;
                             var currentListTwoBedroomApartment1 = new List<double>(currentListTwoBedroomApartment);
                             currentListTwoBedroomApartment1.Remove(listTwoBedroomApartmentForCalculate[jndex]);
+
                             CalculateList(currentListTwoBedroomApartment1, currentFineTwoBedroomApartment,
                            currentResultListTwoBedroomApartment, countFloor,
                            out currentFineTwoBedroomApartment, out currentResultListTwoBedroomApartment);
+
                             if (currentFineTwoBedroomApartment < totalFineTwoBedroomApartmentBecauseExcessData)
                             {
                                 totalFineTwoBedroomApartmentBecauseExcessData = Math.Round(currentFineTwoBedroomApartment, 1);
@@ -206,15 +210,8 @@ namespace Resettlement
             return listResult;
         }
 
-        private static int CalculateOptimalNumberApartments(List<double> listSortAscOneBedroomApartment,
-            List<double> listSortAscTwoBedroomApartment, int countFloor)
-        {
-            return Math.Min(listSortAscOneBedroomApartment.Count/countFloor*countFloor,
-                listSortAscTwoBedroomApartment.Count/countFloor*countFloor);
-        }
-
         private static void EqualCountApartment(List<double> listSortAscApartment, double fineApartment,
-            List<double> listResultApartment, int countFloor, out double aaa1, out List<double> aaa2)
+            List<double> listResultApartment, int countFloor, out double totalFineApartment, out List<double> totalListResultApartment)
         {
             switch (countFloor)
             {
@@ -247,12 +244,12 @@ namespace Resettlement
                     MessageBox.Show(ErrorsText.Error);
                     break;
             }
-            aaa1 = fineApartment;
-            aaa2 = listResultApartment;
+            totalFineApartment = fineApartment;
+            totalListResultApartment = listResultApartment;
         }
 
         private static void CalculateList(List<double> currentListApartment, double currentFineApartment,
-            List<double> currentResultListApartment, int countFloor, out double aaa3, out List<double> aaa4)
+            List<double> currentResultListApartment, int countFloor, out double totalCurrentFineApartment, out List<double> totalCurrentResultListApartment)
         {
             switch (countFloor)
             {
@@ -292,8 +289,8 @@ namespace Resettlement
                     MessageBox.Show(ErrorsText.Error);
                     break;
             }
-            aaa3 = currentFineApartment;
-            aaa4 = currentResultListApartment;
+            totalCurrentFineApartment = currentFineApartment;
+            totalCurrentResultListApartment = currentResultListApartment;
         }
     }
 }

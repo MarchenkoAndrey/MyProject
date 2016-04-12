@@ -5,18 +5,14 @@ using Resettlement.GeneralData;
 
 namespace Resettlement
 {
-	static class PreparationSquares
+    public static class PreparationSquares
 	{
 		public static List<double> CalculateLengthOfFlat(IEnumerable<double> squareOfApartments, double widthOfApartment)
 		{
-			var lengthOfApartments = new List<double>();
-			foreach (var i in squareOfApartments)
-			{
-				lengthOfApartments.Add(Math.Round(i/widthOfApartment, 3));
-			}
-			return lengthOfApartments;
+		    return squareOfApartments.Select(i => Math.Round(i/widthOfApartment, 3)).ToList();
 		}
-		public static List<double> FlatsWithTheAdditiveLength(IEnumerable<double> squareOfAppartments)
+
+        public static List<double> FlatsWithTheAdditiveLength(IEnumerable<double> squareOfAppartments)
 		{
             return squareOfAppartments.Select(i => Math.Round(Math.Ceiling(i / Constraints.DefaultH) * Constraints.DefaultH, 1)).ToList();
 		}
