@@ -38,28 +38,13 @@ namespace Resettlement
 
             var newListFlatAfterGrouping = new List<object>();
             var fineAfterGrouping = 0.0;
-            if (countFloor == 2)
+            if (countFloor == 2 || countFloor == 3 || countFloor == 4)
             {
-                newListFlatAfterGrouping = GroupingOnTheFloors.GroupingTwoFloors(newLengthOneRoomFlat, newLengthTwoRoomFlat,countFloor);
+                newListFlatAfterGrouping = GroupingOnTheFloors.GroupingApartment(newLengthOneRoomFlat, newLengthTwoRoomFlat,countFloor);
                 newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListFlatAfterGrouping[0]);
                 newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListFlatAfterGrouping[1]);
                 fineAfterGrouping = (double)newListFlatAfterGrouping[2];
-            }
-            if (countFloor == 3)
-            {
-                newListFlatAfterGrouping = GroupingOnTheFloors.GroupingThreeFloors(newLengthOneRoomFlat, newLengthTwoRoomFlat);
-                newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListFlatAfterGrouping[0]);
-                newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListFlatAfterGrouping[1]);
-                fineAfterGrouping = (double)newListFlatAfterGrouping[2];
-            }
-
-            if (countFloor == 4)
-            {
-                newListFlatAfterGrouping = GroupingOnTheFloors.GroupingFourthFloors(newLengthOneRoomFlat, newLengthTwoRoomFlat);
-                newLengthOneRoomFlat = PreparationSquares.FlatsRestartList((List<double>)newListFlatAfterGrouping[0]);
-                newLengthTwoRoomFlat = PreparationSquares.FlatsRestartList((List<double>)newListFlatAfterGrouping[1]);
-                fineAfterGrouping = (double)newListFlatAfterGrouping[2];
-            }
+            }       
 
             var myStopWatchGreedy = new Stopwatch();
             myStopWatchGreedy.Start();
