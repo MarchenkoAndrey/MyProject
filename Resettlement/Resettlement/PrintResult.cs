@@ -83,7 +83,7 @@ namespace Resettlement
                     PrintStroke(totalListOneBedroomApartment, numberFloor, countFloor, resultFullSearchLabel);
                 }
                 PrintExceedAppartment(exceedListOneBedroomApartment, resultFullSearchLabel, MessagesText.RectanglesAiNotList);
-                PrintExceedAppartment(exceedListOneBedroomApartment, resultFullSearchLabel, MessagesText.RectanglesBiNotList);
+                PrintExceedAppartment(exceedListTwoBedroomApartment, resultFullSearchLabel, MessagesText.RectanglesBiNotList);
             }   
 
             else
