@@ -4,148 +4,150 @@ using Resettlement.GeneralData;
 
 namespace Resettlement
 {
-	static class GreedyAlgorithmSection
+	public static class GreedyAlgorithmSection
 	{
-		public static List<object> GreedyMethode(List<double> newLengthOneFlat, List<double> newLengthTwoFlat, double step,
-			double entryway, double newFirstOneF)
+		public static List<object> GreedyMethode(List<double> listLengthOneBedroomApartment, List<double> listLengthTwoBedroomApartment, double step,
+			double entryway, double firstOneBedroomApartment)
 		{
-			var list = new List<object>();
-			var sortedListOneFlat = InsertionSort.InsertSort(newLengthOneFlat);
-			var sortedListTwoFlat = InsertionSort.InsertSort(newLengthTwoFlat);
-            var numberOfApartments = Math.Min(newLengthOneFlat.Count / 2 * 2, newLengthTwoFlat.Count / 2 * 2);
-            var finalPlacementOneFlat = new double[numberOfApartments];
-            var finalPlacementTwoFlat = new double[numberOfApartments];
-			var itogFine = 0.0;
+			var resultList = new List<object>();
+			var sortedAscListOneBedroomApartment = InsertionSort.InsertSort(listLengthOneBedroomApartment);
+			var sortedAscListTwoBedroomApartment = InsertionSort.InsertSort(listLengthTwoBedroomApartment);
+		    var optimalNumberApartments =
+		        OptimalNumberApartments.CalculateOptimalNumberApartments(
+		            sortedAscListOneBedroomApartment, sortedAscListTwoBedroomApartment, 2);
+            var finalPlacementOneBedroomApartment = new double[optimalNumberApartments];
+            var finalPlacementTwoBedroomApartment = new double[optimalNumberApartments];
+			var totalFine = 0.0;
             var maxFine = 0.0;
-            var newFirstOneFlat=0.0;
-			var b = 0;
+		    var newFirstOneBedroomApartment = 0.0;
+			var isFlagFirstEntry = true;
 		    var index1 = 0;
 		    var index2 = 0;
-			for (var n = 0; n < numberOfApartments; n=n+2)             // цикл заполнения секций
+			for (var n = 0; n < optimalNumberApartments; n=n+2)             // цикл заполнения секций
 			{
-                double choiceMinOneFlat;
-                if (newFirstOneF!=0 && b==0)
+                double choiceMinOneBedroomApartment;
+                if (firstOneBedroomApartment!=0.0 && isFlagFirstEntry)
                 {
-                     choiceMinOneFlat = newFirstOneF;
+                     choiceMinOneBedroomApartment = firstOneBedroomApartment;
                 }
                 else 
                 {                
-                   choiceMinOneFlat = sortedListOneFlat[sortedListOneFlat.Count/2];
+                   choiceMinOneBedroomApartment = sortedAscListOneBedroomApartment[sortedAscListOneBedroomApartment.Count/2];
                 }
-				b++;
-				var newSortedListOneFlat = new List<double>();
-                var a = 0;
-				for (var i = 0; i < sortedListOneFlat.Count; ++i)
+			    isFlagFirstEntry = false;
+				var newSortedListOneBedroomApartment = new List<double>();
+                var isFlagMeetApartment = true;
+				for (var i = 0; i < sortedAscListOneBedroomApartment.Count; ++i)
 				{
-                    if (sortedListOneFlat[i] == choiceMinOneFlat && a == 0)
+                    if (sortedAscListOneBedroomApartment[i] == choiceMinOneBedroomApartment && isFlagMeetApartment)
                     {
-                        a++;
+                        isFlagMeetApartment = false;
                     }
                     else
                     {
-                        newSortedListOneFlat.Add(sortedListOneFlat[i]);
+                        newSortedListOneBedroomApartment.Add(sortedAscListOneBedroomApartment[i]);
                     }
 				}
 				var fine = 10000.0;
               
-				finalPlacementOneFlat[n] = choiceMinOneFlat;
+				finalPlacementOneBedroomApartment[n] = choiceMinOneBedroomApartment;
 
                 //запись в массив
-                var sortedTwo = new double[sortedListTwoFlat.Count];
-                for (var p = 0; p < sortedListTwoFlat.Count; ++p)
-                {
-                    sortedTwo[p] = sortedListTwoFlat[p];
-                }
+			    var arraySortedTwoApartments = ChangeTypeVariable.ChangeListIntoArray(sortedAscListTwoBedroomApartment);
+//                var sortedTwo = new double[sortedAscListTwoBedroomApartment.Count];
+//                for (var p = 0; p < sortedAscListTwoBedroomApartment.Count; ++p)
+//                {
+//                    sortedTwo[p] = sortedAscListTwoBedroomApartment[p];
+//                }
 
-				for (var i = 0; i < sortedListTwoFlat.Count; ++i)
+				for (var i = 0; i < sortedAscListTwoBedroomApartment.Count; ++i)
 				{
-					for (var j = i + 1; j < sortedListTwoFlat.Count; ++j)
+					for (var j = i + 1; j < sortedAscListTwoBedroomApartment.Count; ++j)
 					{
-						for (var h = 0; h < newSortedListOneFlat.Count; ++h)
+						for (var h = 0; h < newSortedListOneBedroomApartment.Count; ++h)
 						{
                             
                             var currentExtraSquare = 0.0;
                             double[] currentMassiv;
-                            Array.Copy(sortedTwo, currentMassiv = new double[sortedTwo.Length], sortedTwo.Length);
-						    if (numberOfApartments-n == 2)
+                            Array.Copy(arraySortedTwoApartments, currentMassiv = new double[arraySortedTwoApartments.Length], arraySortedTwoApartments.Length);
+						    if (optimalNumberApartments-n == 2)
 						    {
-                                Array.Reverse(currentMassiv);
+						        Array.Reverse(currentMassiv);
 						    }
-						    if (currentMassiv[i] - choiceMinOneFlat < Constraints.ApartureLength) 
+						    if (currentMassiv[i] - choiceMinOneBedroomApartment < Constraints.ApartureLength) 
 						    {
-                                var a1 = Math.Round(Constraints.ApartureLength - (currentMassiv[i] - choiceMinOneFlat),2);
-                                if (a1 <= step)
+                                var tempFine1 = Math.Round(Constraints.ApartureLength - (currentMassiv[i] - choiceMinOneBedroomApartment),2);
+                                if (tempFine1 <= step)
                                 {
                                     currentMassiv[i] += step;
                                     currentExtraSquare += step;
                                 }
                                 else
                                 {
-                                    currentMassiv[i] += Math.Round(Math.Ceiling(a1 / step) * step, 1);
-                                    currentExtraSquare += Math.Round(Math.Ceiling(a1 / step) * step, 1);
+                                    currentMassiv[i] += Math.Round(Math.Ceiling(tempFine1 / step) * step, 1);
+                                    currentExtraSquare += Math.Round(Math.Ceiling(tempFine1 / step) * step, 1);
                                 }
 						    }
-                            if (currentMassiv[j] - newSortedListOneFlat[h] < Constraints.ApartureLength)
+                            if (currentMassiv[j] - newSortedListOneBedroomApartment[h] < Constraints.ApartureLength)
 					        {
-                                var a2 = Math.Round(Constraints.ApartureLength - (currentMassiv[j] - newSortedListOneFlat[h]),2);
-					            if (a2 <= step)
+                                var tempFine2 = Math.Round(Constraints.ApartureLength - (currentMassiv[j] - newSortedListOneBedroomApartment[h]),2);
+					            if (tempFine2 <= step)
                                 {
                                     currentMassiv[j] += step;
                                     currentExtraSquare += step;
                                 }
                                 else
                                 {
-                                    currentMassiv[j] += Math.Round(Math.Ceiling(a2 / step) * step, 1);
-                                    currentExtraSquare += Math.Round(Math.Ceiling(a2 / step) * step, 1);
+                                    currentMassiv[j] += Math.Round(Math.Ceiling(tempFine2 / step) * step, 1);
+                                    currentExtraSquare += Math.Round(Math.Ceiling(tempFine2 / step) * step, 1);
                                 }
 					        }
 						    var currentFine =
 								Math.Abs(Math.Round(
-                                    currentMassiv[i] + currentMassiv[j] + 2 * step - choiceMinOneFlat - entryway - 3 * step -
-                                    newSortedListOneFlat[h] + currentExtraSquare, 1));
+                                    currentMassiv[i] + currentMassiv[j] + 2 * step - choiceMinOneBedroomApartment - entryway - 3 * step -
+                                    newSortedListOneBedroomApartment[h] + currentExtraSquare, 1));
 							if (currentFine < fine)
 							{
 								fine = currentFine;
-                                finalPlacementTwoFlat[n] = (currentMassiv[i]);
+                                finalPlacementTwoBedroomApartment[n] = (currentMassiv[i]);
 							    index1 = i;
-                                finalPlacementTwoFlat[n + 1] = (currentMassiv[j]);
+                                finalPlacementTwoBedroomApartment[n + 1] = (currentMassiv[j]);
 							    index2 = j;
-								finalPlacementOneFlat[n+1] = (newSortedListOneFlat[h]);
+								finalPlacementOneBedroomApartment[n+1] = (newSortedListOneBedroomApartment[h]);
 							}
 						}
 					}
 				}
 				//удаление занятых вариантов из списка и суммирование штрафа
-             
-				itogFine+=fine;
+				totalFine+=fine;
                 if(maxFine<fine)
                 {
                     maxFine = fine;
-                    newFirstOneFlat = finalPlacementOneFlat[n];
+                    newFirstOneBedroomApartment = finalPlacementOneBedroomApartment[n];
                 }
 			
-				sortedListOneFlat.Remove(finalPlacementOneFlat[n]);
-				sortedListOneFlat.Remove(finalPlacementOneFlat[n+1]);
+				sortedAscListOneBedroomApartment.Remove(finalPlacementOneBedroomApartment[n]);
+				sortedAscListOneBedroomApartment.Remove(finalPlacementOneBedroomApartment[n+1]);
 			    if (index1 > index2)
 			    {
-			        sortedListTwoFlat.RemoveAt(index1);
-			        sortedListTwoFlat.RemoveAt(index2);
+			        sortedAscListTwoBedroomApartment.RemoveAt(index1);
+			        sortedAscListTwoBedroomApartment.RemoveAt(index2);
 			    }
 			    else
 			    {
-                    sortedListTwoFlat.RemoveAt(index2);
-                    sortedListTwoFlat.RemoveAt(index1);
+                    sortedAscListTwoBedroomApartment.RemoveAt(index2);
+                    sortedAscListTwoBedroomApartment.RemoveAt(index1);
 			    }
 
 			}
 		    
-			list.Add(itogFine);
-			list.Add(finalPlacementOneFlat);
-			list.Add(finalPlacementTwoFlat);
-            list.Add(newLengthOneFlat);
-            list.Add(newLengthTwoFlat);
-            list.Add(newFirstOneFlat);
-			return list;
+			resultList.Add(totalFine);
+			resultList.Add(finalPlacementOneBedroomApartment);
+			resultList.Add(finalPlacementTwoBedroomApartment);
+            resultList.Add(listLengthOneBedroomApartment);
+            resultList.Add(listLengthTwoBedroomApartment);
+            resultList.Add(newFirstOneBedroomApartment);
+			return resultList;
 		}
 	}
 }
