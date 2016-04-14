@@ -15,8 +15,8 @@ namespace Resettlement
 //            var widthOfApartment = (double)preparationInputData[1];
             var step = (double)preparationInputData[2];
             var sumDelta = (double)preparationInputData[3];
-            var newLengthOneRoomFlat = (List<double>) preparationInputData[4];
-            var newLengthTwoRoomFlat = (List<double>)preparationInputData[5];
+            var newLengthOneBedroomApartment = (List<double>) preparationInputData[4];
+            var newLengthTwoBedroomApartment = (List<double>)preparationInputData[5];
             var countFloor = (int) preparationInputData[6];
             var lengthOneRoomFlat = (List<double>)preparationInputData[7];
             var lengthTwoRoomFlat = (List<double>)preparationInputData[8];
@@ -31,19 +31,19 @@ namespace Resettlement
             lossesOne_label.Text = "".ToString(CultureInfo.InvariantCulture);
             resultGreedy_label.Text = "".ToString(CultureInfo.InvariantCulture);
 
-            var realFlat = newLengthOneRoomFlat.Count + newLengthTwoRoomFlat.Count;
+            var realFlat = newLengthOneBedroomApartment.Count + newLengthTwoBedroomApartment.Count;
             realizat_label.Text += string.Format(MessagesText.RealizationForRectangles,realFlat).ToString(CultureInfo.InvariantCulture);
 
             lossesOne_label.Text += string.Format(MessagesText.SummarizeAdditionLengthForH, sumDelta.ToString(CultureInfo.InvariantCulture));
 
-            var newListFlatAfterGrouping = new List<object>();
+            var newListApartmentsAfterGrouping = new List<object>();
             var fineAfterGrouping = 0.0;
             if (countFloor == 2 || countFloor == 3 || countFloor == 4)
             {
-                newListFlatAfterGrouping = GroupingOnTheFloors.GroupingApartment(newLengthOneRoomFlat, newLengthTwoRoomFlat,countFloor);
-                newLengthOneRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListFlatAfterGrouping[0]);
-                newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListFlatAfterGrouping[1]);
-                fineAfterGrouping = (double)newListFlatAfterGrouping[2];
+                newListApartmentsAfterGrouping = GroupingOnTheFloors.GroupingApartment(newLengthOneBedroomApartment, newLengthTwoBedroomApartment,countFloor);
+                newLengthOneBedroomApartment = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListApartmentsAfterGrouping[0]);
+                newLengthTwoBedroomApartment = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListApartmentsAfterGrouping[1]);
+                fineAfterGrouping = (double)newListApartmentsAfterGrouping[2];
             }       
 
             var myStopWatchGreedy = new Stopwatch();
@@ -53,10 +53,10 @@ namespace Resettlement
             var optimalNumberIteration = 0;
             var totalOptimalResult = new List<object>();
 
-            while (numberIteration < 5)
+            while (numberIteration < Constraints.NumberOfIteration)
             {
                 numberIteration++;
-                var greedyAlgorithm = GreedyAlgorithmSection.GreedyMethode(newLengthOneRoomFlat, newLengthTwoRoomFlat,
+                var greedyAlgorithm = GreedyAlgorithmSection.GreedyMethode(newLengthOneBedroomApartment, newLengthTwoBedroomApartment,
                     step, entryway, firstOneFlat);
                 firstOneFlat = (double)greedyAlgorithm[5];
                 greedyAlgorithm[0] = Math.Round((double)greedyAlgorithm[0] * countFloor, 1);
@@ -77,15 +77,15 @@ namespace Resettlement
 
                 if (countFloor != 1)
                 {
-                    newLengthOneRoomFlat = PreparationSquares.FlatsRestartList((List<double>)newListFlatAfterGrouping[0]);
-                    newLengthTwoRoomFlat = PreparationSquares.FlatsRestartList((List<double>)newListFlatAfterGrouping[1]);
-                    greedyAlgorithm[3] = newListFlatAfterGrouping[3];
-                    greedyAlgorithm[4] = newListFlatAfterGrouping[4];
+                    newLengthOneBedroomApartment = PreparationSquares.FlatsRestartList((List<double>)newListApartmentsAfterGrouping[0]);
+                    newLengthTwoBedroomApartment = PreparationSquares.FlatsRestartList((List<double>)newListApartmentsAfterGrouping[1]);
+                    greedyAlgorithm[3] = newListApartmentsAfterGrouping[3];
+                    greedyAlgorithm[4] = newListApartmentsAfterGrouping[4];
                 }
                 else
                 {
-                    newLengthOneRoomFlat = PreparationSquares.FlatsRestartList(lengthOneRoomFlat);
-                    newLengthTwoRoomFlat = PreparationSquares.FlatsRestartList(lengthTwoRoomFlat);
+                    newLengthOneBedroomApartment = PreparationSquares.FlatsRestartList(lengthOneRoomFlat);
+                    newLengthTwoBedroomApartment = PreparationSquares.FlatsRestartList(lengthTwoRoomFlat);
                 }
                 //Вывод результата по итерациям
 

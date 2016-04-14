@@ -16,8 +16,8 @@ namespace Resettlement
                 
 				for (var s = 0; s < i.Length; ++s)
 				{
-                    currentListApartment.Add(temporalListApartment[s - 1]);
-                    temporalListApartment[s - 1] = 0;  //зануляю взятые эл-ты
+                    currentListApartment.Add(temporalListApartment[i[s] - 1]);
+                    temporalListApartment[i[s] - 1] = 0;  //зануляю взятые эл-ты
 				}
 			    listExceedData.Add(temporalListApartment.Where(j => j != 0).ToArray());   //оставшиеся варианты записать в exceedData
 				listApartments.Add(currentListApartment.ToArray());

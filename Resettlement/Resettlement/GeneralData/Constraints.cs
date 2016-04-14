@@ -7,5 +7,6 @@
         public const double DefaultQ = 0.3;
         public const double ApartureLength = 1.25;
         public const double DefaultH = 0.3;
+        public const double NumberOfIteration = 5;
     }
 }
