@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Forms;
-using Resettlement.GeneralData;
+using ComputationMethods;
+using ComputationMethods.GeneralData;
 
 namespace Resettlement
 {
@@ -67,7 +68,7 @@ namespace Resettlement
             var myStopWatch = new Stopwatch();
             myStopWatch.Start();
 
-            var fullSearch = MethodeFullSearch.FullSearch(newLengthOneRoomFlat, newLengthTwoRoomFlat, step, entryway, countFloor);
+            var fullSearch = MethodeFullSearch.FullSearch(newLengthOneRoomFlat, newLengthTwoRoomFlat, step, entryway);
             if (countFloor == 2)
             {
                 fullSearch[0] = Math.Round((double)fullSearch[0] * 2.0, 1);

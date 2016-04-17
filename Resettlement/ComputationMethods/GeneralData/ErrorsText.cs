@@ -1,4 +1,4 @@
-﻿namespace Resettlement.GeneralData
+﻿namespace ComputationMethods.GeneralData
 {
     public static class ErrorsText
     {

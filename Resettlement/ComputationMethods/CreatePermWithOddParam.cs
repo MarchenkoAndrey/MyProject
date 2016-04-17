@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Resettlement
+namespace ComputationMethods
 {
     static class CreatePermWithExcessParam
     {

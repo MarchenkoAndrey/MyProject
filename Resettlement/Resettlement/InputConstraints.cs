@@ -1,4 +1,4 @@
-﻿using Resettlement.GeneralData;
+﻿using ComputationMethods.GeneralData;
 
 namespace Resettlement
 {

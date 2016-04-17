@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Forms;
-using Resettlement.GeneralData;
+using ComputationMethods;
+using ComputationMethods.GeneralData;
 
 namespace Resettlement
 {

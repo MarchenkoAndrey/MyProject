@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
-using Resettlement.GeneralData;
+using ComputationMethods;
+using ComputationMethods.GeneralData;
 
 namespace Resettlement
 {

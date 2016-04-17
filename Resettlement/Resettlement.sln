@@ -3,6 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resettlement", "Resettlement\Resettlement.csproj", "{2C3F0880-9757-4304-A4D4-354F75E5307B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resettlement.Tests", "Resettlement.Tests\Resettlement.Tests.csproj", "{A03B8F2D-C793-4B78-B2B7-FB906CE70A0E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComputationMethods", "ComputationMethods\ComputationMethods.csproj", "{6154495D-1633-4B0B-AC84-B6A552837652}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +17,14 @@ Global
 		{2C3F0880-9757-4304-A4D4-354F75E5307B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C3F0880-9757-4304-A4D4-354F75E5307B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C3F0880-9757-4304-A4D4-354F75E5307B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A03B8F2D-C793-4B78-B2B7-FB906CE70A0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A03B8F2D-C793-4B78-B2B7-FB906CE70A0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A03B8F2D-C793-4B78-B2B7-FB906CE70A0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A03B8F2D-C793-4B78-B2B7-FB906CE70A0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6154495D-1633-4B0B-AC84-B6A552837652}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6154495D-1633-4B0B-AC84-B6A552837652}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6154495D-1633-4B0B-AC84-B6A552837652}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6154495D-1633-4B0B-AC84-B6A552837652}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

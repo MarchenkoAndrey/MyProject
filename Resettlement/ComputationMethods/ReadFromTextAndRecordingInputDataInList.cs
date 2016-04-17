@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace Resettlement
+namespace ComputationMethods
 {
     public static class ReadFromFileAndRecordingInputDataInList
 	{
 		public static List<double> ReadFile(string fileName)
 		{
-		    var arrayData = File.ReadAllLines(Path.Combine(@"D:\MyProject\MyProject\Resettlement\Resettlement\Examples", fileName));
+            var arrayData = File.ReadAllLines(Path.Combine(@"D:\MyProject\MyProject\Resettlement\ComputationMethods\Examples", fileName));
             var enterData = RecordingInputDataInList(arrayData);
 		    return enterData;
 		}

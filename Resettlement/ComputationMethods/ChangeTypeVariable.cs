@@ -1,7 +1,12 @@
-﻿using System.Collections.Generic;
-namespace Resettlement
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ComputationMethods
 {
-   public static class ChangeTypeVariable
+    public static class ChangeTypeVariable
     {
         public static double[] ChangeListIntoArray(List<double> inputList)
         {

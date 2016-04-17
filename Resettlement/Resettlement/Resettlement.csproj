@@ -43,35 +43,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BuildingPermutationPairs.cs" />
-    <Compile Include="ChangeTypeVariable.cs" />
     <Compile Include="ComprehensiveSearch.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ConstraintLengthApartureForComprehensiveSearch.cs" />
-    <Compile Include="GeneralData\Constraints.cs" />
-    <Compile Include="CreatePermWithOddParam.cs" />
     <Compile Include="CreateSecondFloor.cs" />
-    <Compile Include="GeneralData\FilesDefault.cs" />
-    <Compile Include="GeneralData\ErrorsText.cs" />
     <Compile Include="GreedyAlgorithmSection.cs" />
-    <Compile Include="GroupingOnTheFloors.cs" />
     <Compile Include="HeuristicAlgorithm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="InputConstraints.cs" />
-    <Compile Include="InsertionSort.cs" />
-    <Compile Include="GeneralData\MessagesText.cs" />
-    <Compile Include="OptimalNumberApartments.cs" />
     <Compile Include="PreparationBeforeAlgorithm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PreparationSquares.cs" />
     <Compile Include="MethodeFullSearch.cs" />
     <Compile Include="PrintResult.cs" />
-    <Compile Include="ReadFromTextAndRecordingInputDataInList.cs" />
-    <Compile Include="RecursionForFullSearch.cs" />
-    <Compile Include="PermutationWithoutRepetition.cs" />
     <Compile Include="StartAndFinishProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserInterface.cs">
@@ -80,13 +65,15 @@
     <Compile Include="UserInterface.Designer.cs">
       <DependentUpon>UserInterface.cs</DependentUpon>
     </Compile>
-    <Compile Include="VariantsFlats.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Examples\" />
+    <ProjectReference Include="..\ComputationMethods\ComputationMethods.csproj">
+      <Project>{6154495d-1633-4b0b-ac84-b6a552837652}</Project>
+      <Name>ComputationMethods</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="UserInterface.resx">

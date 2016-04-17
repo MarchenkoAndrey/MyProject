@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Resettlement.GeneralData;
+using ComputationMethods;
 
 namespace Resettlement
 {
 	public static class MethodeFullSearch
 	{
-		public static List<object> FullSearch(List<double> listLengthsOneBedroomApartment, List<double> listLengthsTwoBedroomApartment,double step, double entryway, int countFloor)
+		public static List<object> FullSearch(List<double> listLengthsOneBedroomApartment, List<double> listLengthsTwoBedroomApartment,double step, double entryway)
 		{
 			var resultList = new List<object>();
             var totalListExceedDataOneBedroomApartment = new List<double>();
@@ -38,7 +38,7 @@ namespace Resettlement
 				foreach (var j in listVariantsTwoBedroomApartment)
 				{
                     countJ++;
-				    var constraintAparture = ConstraintLengthApartureForComprehensiveSearch.LengthAparture(i,j, step,entryway);
+                    var constraintAparture = ConstraintLengthApartureForCS.LengthAparture(i, j, step, entryway);
 
 				    var listSquareSectionsOneBedroomApartment = (List<double>)constraintAparture[0];
                     var listSquareSectionsTwoBedroomApartment = (List<double>)constraintAparture[1];

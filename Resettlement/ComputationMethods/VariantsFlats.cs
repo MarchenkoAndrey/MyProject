@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
-namespace Resettlement
+namespace ComputationMethods
 {
     public static class VariantsFlats
 	{
@@ -19,7 +20,7 @@ namespace Resettlement
                     currentListApartment.Add(temporalListApartment[i[s] - 1]);
                     temporalListApartment[i[s] - 1] = 0;  //зануляю взятые эл-ты
 				}
-			    listExceedData.Add(temporalListApartment.Where(j => j != 0).ToArray());   //оставшиеся варианты записать в exceedData
+			    listExceedData.Add(temporalListApartment.Where(j => Math.Abs(j) > 1e-9).ToArray());   //оставшиеся варианты записать в exceedData
 				listApartments.Add(currentListApartment.ToArray());
 			}
             totalListApartments = listApartments;

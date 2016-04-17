@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Forms;
-using Resettlement.GeneralData;
+using ComputationMethods.GeneralData;
 
 namespace Resettlement
 {

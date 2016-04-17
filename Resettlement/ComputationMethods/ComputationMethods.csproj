@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6154495D-1633-4B0B-AC84-B6A552837652}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ComputationMethods</RootNamespace>
+    <AssemblyName>ComputationMethods</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BuildingPermutationPairs.cs" />
+    <Compile Include="ChangeTypeVariable.cs" />
+    <Compile Include="ConstraintLengthApartureForCS.cs" />
+    <Compile Include="CreatePermWithOddParam.cs" />
+    <Compile Include="GeneralData\Constraints.cs" />
+    <Compile Include="GeneralData\ErrorsText.cs" />
+    <Compile Include="GeneralData\FilesDefault.cs" />
+    <Compile Include="GeneralData\MessagesText.cs" />
+    <Compile Include="GroupingOnTheFloors.cs" />
+    <Compile Include="InsertionSort.cs" />
+    <Compile Include="OptimalNumberApartments.cs" />
+    <Compile Include="PermutationWithoutRepetition.cs" />
+    <Compile Include="PreparationSquares.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReadFromTextAndRecordingInputDataInList.cs" />
+    <Compile Include="Recursion.cs" />
+    <Compile Include="VariantsFlats.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Examples\LengthOne10.txt" />
+    <Content Include="Examples\LengthOne14.txt" />
+    <Content Include="Examples\LengthOne8.txt" />
+    <Content Include="Examples\LengthTwo13.txt" />
+    <Content Include="Examples\LengthTwo8.txt" />
+    <Content Include="Examples\OneRoom.txt" />
+    <Content Include="Examples\OneRoom10.txt" />
+    <Content Include="Examples\OneRoom10L.txt" />
+    <Content Include="Examples\OneRoom12.txt" />
+    <Content Include="Examples\OneRoom18.txt" />
+    <Content Include="Examples\OneRoom20.txt" />
+    <Content Include="Examples\OneRoom20L.txt" />
+    <Content Include="Examples\OneRoom21.txt" />
+    <Content Include="Examples\OneRoom24.txt" />
+    <Content Include="Examples\OneRoom25.txt" />
+    <Content Include="Examples\OneRoom4bug.txt" />
+    <Content Include="Examples\OneRoom5.txt" />
+    <Content Include="Examples\OneRoom55.txt" />
+    <Content Include="Examples\OneRoom57.txt" />
+    <Content Include="Examples\OneRoom60.txt" />
+    <Content Include="Examples\OneRoom7.txt" />
+    <Content Include="Examples\OneRoom8.txt" />
+    <Content Include="Examples\OneRoom9.txt" />
+    <Content Include="Examples\TestBug21.txt" />
+    <Content Include="Examples\TestBug22.txt" />
+    <Content Include="Examples\TwoRoom.txt" />
+    <Content Include="Examples\TwoRoom10.txt" />
+    <Content Include="Examples\TwoRoom10L.txt" />
+    <Content Include="Examples\TwoRoom12.txt" />
+    <Content Include="Examples\TwoRoom18.txt" />
+    <Content Include="Examples\TwoRoom20.txt" />
+    <Content Include="Examples\TwoRoom20L.txt" />
+    <Content Include="Examples\TwoRoom21.txt" />
+    <Content Include="Examples\TwoRoom24.txt" />
+    <Content Include="Examples\TwoRoom25.txt" />
+    <Content Include="Examples\TwoRoom27.txt" />
+    <Content Include="Examples\TwoRoom4.txt" />
+    <Content Include="Examples\TwoRoom4bug.txt" />
+    <Content Include="Examples\TwoRoom55.txt" />
+    <Content Include="Examples\TwoRoom57.txt" />
+    <Content Include="Examples\TwoRoom60.txt" />
+    <Content Include="Examples\TwoRoom7.txt" />
+    <Content Include="Examples\TwoRoom8.txt" />
+    <Content Include="Examples\TwoRoom9.txt" />
+    <Content Include="Examples\Пример1.txt" />
+    <Content Include="Examples\Пример2.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

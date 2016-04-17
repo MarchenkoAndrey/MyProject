@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
-using Resettlement.GeneralData;
 
-namespace Resettlement
+namespace ComputationMethods
 {
-    static class GroupingOnTheFloors
+    public static class GroupingOnTheFloors
     {
         public static List<object> GroupingApartment(List<double> listLengthsOneBedroomApartment,
             List<double> listLengthsTwoBedroomAppartment, int countFloor)
@@ -18,9 +16,9 @@ namespace Resettlement
             var listResultOneBedroomApartment = new List<double>();
             var listResultTwoBedroomApartment = new List<double>();
             var listExcessDataOneBedroomApartment = new List<double>();
-            var listExcessDataTwoBedroomApartment = new List<double>(); 
+            var listExcessDataTwoBedroomApartment = new List<double>();
             var optimalCountApartment = OptimalNumberApartments.CalculateOptimalNumberApartments(listSortAscOneBedroomApartment,
-                listSortAscTwoBedroomApartment, countFloor);  
+                listSortAscTwoBedroomApartment, countFloor);
             var totalFineOneBedroomApartmentBecauseExcessData = 1000.0;
             var totalFineTwoBedroomApartmentBecauseExcessData = 1000.0;
 
@@ -49,7 +47,7 @@ namespace Resettlement
                 }
 
                 var listOneBedroomApartmentForCalculate = listAfterConversionTwoValues.Count != 0 ? listAfterConversionTwoValues : listSortAscOneBedroomApartment;
-               
+
                 if (countExceedValuesMoreTwo == 1)
                 {
                     var listExceedOneValue = new List<double>();
@@ -65,8 +63,8 @@ namespace Resettlement
 
                         if (currentFineOneBedroomApartment < totalFineOneBedroomApartmentBecauseExcessData)
                         {
-                            totalFineOneBedroomApartmentBecauseExcessData = Math.Round(currentFineOneBedroomApartment,1);
-                            listResultOneBedroomApartment=currentResultListOneBedroomApartment;
+                            totalFineOneBedroomApartmentBecauseExcessData = Math.Round(currentFineOneBedroomApartment, 1);
+                            listResultOneBedroomApartment = currentResultListOneBedroomApartment;
                             if (listExceedOneValue.Count != 0)
                             {
                                 listExceedOneValue.RemoveAt(0);
@@ -79,11 +77,11 @@ namespace Resettlement
                 else // countExceedValuesMoreTwo == 2
                 {
                     var listExceedOneValue = new List<double>();
-                    for (var index = 0; index < listOneBedroomApartmentForCalculate.Count-1; ++index)
+                    for (var index = 0; index < listOneBedroomApartmentForCalculate.Count - 1; ++index)
                     {
                         var currentListOneBedroomApartment = new List<double>(listOneBedroomApartmentForCalculate);
                         currentListOneBedroomApartment.Remove(listOneBedroomApartmentForCalculate[index]);
-                       
+
                         for (var jndex = index + 1; jndex < listOneBedroomApartmentForCalculate.Count; ++jndex)
                         {
                             var currentResultListOneBedroomApartment = new List<double>();
@@ -113,8 +111,8 @@ namespace Resettlement
             }
             if (listSortAscTwoBedroomApartment.Count == optimalCountApartment)
             {
-                   EqualCountApartment(listSortAscTwoBedroomApartment, fineTwoBedroomApartment,
-                   listResultTwoBedroomApartment, countFloor, out fineTwoBedroomApartment, out listResultTwoBedroomApartment);
+                EqualCountApartment(listSortAscTwoBedroomApartment, fineTwoBedroomApartment,
+                listResultTwoBedroomApartment, countFloor, out fineTwoBedroomApartment, out listResultTwoBedroomApartment);
             }
             else
             {
@@ -166,7 +164,7 @@ namespace Resettlement
                 else // countExceedValuesMoreTwo == 2
                 {
                     var excessListOneValue = new List<double>();
-                    for (var index = 0; index < listTwoBedroomApartmentForCalculate.Count-1; ++index)
+                    for (var index = 0; index < listTwoBedroomApartmentForCalculate.Count - 1; ++index)
                     {
                         var currentListTwoBedroomApartment = new List<double>(listTwoBedroomApartmentForCalculate);
                         currentListTwoBedroomApartment.Remove(listTwoBedroomApartmentForCalculate[index]);
@@ -241,7 +239,7 @@ namespace Resettlement
                     }
                     break;
                 default:
-                    MessageBox.Show(ErrorsText.Error);
+//                    MessageBox.Show(ErrorsText.Error);
                     break;
             }
             totalFineApartment = fineApartment;
@@ -286,7 +284,7 @@ namespace Resettlement
                     }
                     break;
                 default:
-                    MessageBox.Show(ErrorsText.Error);
+//                    MessageBox.Show(ErrorsText.Error);
                     break;
             }
             totalCurrentFineApartment = currentFineApartment;

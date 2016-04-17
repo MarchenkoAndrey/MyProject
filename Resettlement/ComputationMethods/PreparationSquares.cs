@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Resettlement.GeneralData;
+using ComputationMethods.GeneralData;
 
-namespace Resettlement
+namespace ComputationMethods
 {
     public static class PreparationSquares
 	{

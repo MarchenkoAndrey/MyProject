@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using Resettlement.GeneralData;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ComputationMethods.GeneralData;
 
-namespace Resettlement
+namespace ComputationMethods
 {
-    public static class ConstraintLengthApartureForComprehensiveSearch
+    public static class ConstraintLengthApartureForCS
     {
         //двигаем стены из-за ApartureLength
         public static List<object> LengthAparture(double[] i, double[] j, double step, double entryway)
@@ -28,8 +31,8 @@ namespace Resettlement
                     }
                     else
                     {
-                        temporalArrayTwoBedroomApartment[k] += Math.Round(Math.Ceiling(leftAddition/step)*step, 1);
-                        currentFineFirstFloor += Math.Round(Math.Ceiling(leftAddition/step)*step, 1);
+                        temporalArrayTwoBedroomApartment[k] += Math.Round(Math.Ceiling(leftAddition / step) * step, 1);
+                        currentFineFirstFloor += Math.Round(Math.Ceiling(leftAddition / step) * step, 1);
                     }
                 }
                 if (temporalArrayTwoBedroomApartment[k + 1] - i[k + 1] < Constraints.ApartureLength)
@@ -44,13 +47,13 @@ namespace Resettlement
                     }
                     else
                     {
-                        temporalArrayTwoBedroomApartment[k + 1] += Math.Round(Math.Ceiling(rightAddition/step)*step, 1);
-                        currentFineFirstFloor += Math.Round(Math.Ceiling(rightAddition/step)*step, 1);
+                        temporalArrayTwoBedroomApartment[k + 1] += Math.Round(Math.Ceiling(rightAddition / step) * step, 1);
+                        currentFineFirstFloor += Math.Round(Math.Ceiling(rightAddition / step) * step, 1);
                     }
                 }
-                listSquareSectionsOneBedroomApartment.Add(Math.Round(i[k] + i[k + 1] + entryway + 3*step, 1));
+                listSquareSectionsOneBedroomApartment.Add(Math.Round(i[k] + i[k + 1] + entryway + 3 * step, 1));
                 listSquareSectionsTwoBedroomApartment.Add(
-                    Math.Round(temporalArrayTwoBedroomApartment[k] + temporalArrayTwoBedroomApartment[k + 1] + 2*step, 1));
+                    Math.Round(temporalArrayTwoBedroomApartment[k] + temporalArrayTwoBedroomApartment[k + 1] + 2 * step, 1));
                 // delta1 + delta2
             }
             listResult.Add(listSquareSectionsOneBedroomApartment);

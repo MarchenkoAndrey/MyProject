@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Resettlement
+namespace ComputationMethods
 {
-	static class Resursion
+	public static class Resursion
 	{
 		public static List<int[]> Data(int n, int optN,bool flag,bool flagTwoFloor)
 		{
