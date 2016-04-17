@@ -9,7 +9,7 @@ namespace Resettlement
 	{
 		public static List<double> ReadFile(string fileName)
 		{
-		    var arrayData = File.ReadAllLines(fileName);
+		    var arrayData = File.ReadAllLines(Path.Combine(@"D:\MyProject\MyProject\Resettlement\Resettlement\Examples", fileName));
             var enterData = RecordingInputDataInList(arrayData);
 		    return enterData;
 		}

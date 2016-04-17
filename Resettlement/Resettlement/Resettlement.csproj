@@ -48,6 +48,7 @@
     <Compile Include="ComprehensiveSearch.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ConstraintLengthApartureForComprehensiveSearch.cs" />
     <Compile Include="GeneralData\Constraints.cs" />
     <Compile Include="CreatePermWithOddParam.cs" />
     <Compile Include="CreateSecondFloor.cs" />
@@ -84,7 +85,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Examples\" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="UserInterface.resx">
       <DependentUpon>UserInterface.cs</DependentUpon>

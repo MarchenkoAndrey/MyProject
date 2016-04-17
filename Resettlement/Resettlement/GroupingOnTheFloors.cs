@@ -201,8 +201,8 @@ namespace Resettlement
             }
             listResult.Add(listResultOneBedroomApartment);
             listResult.Add(listResultTwoBedroomApartment);
-            fineOneBedroomApartment = Math.Abs(fineOneBedroomApartment) < 0.1 ? totalFineOneBedroomApartmentBecauseExcessData : fineOneBedroomApartment;
-            fineTwoBedroomApartment = Math.Abs(fineOneBedroomApartment) < 0.1 ? totalFineTwoBedroomApartmentBecauseExcessData : fineTwoBedroomApartment;
+            fineOneBedroomApartment = Math.Abs(fineOneBedroomApartment) < 1e-9 ? totalFineOneBedroomApartmentBecauseExcessData : fineOneBedroomApartment;
+            fineTwoBedroomApartment = Math.Abs(fineOneBedroomApartment) < 1e-9 ? totalFineTwoBedroomApartmentBecauseExcessData : fineTwoBedroomApartment;
             var totalFine = Math.Round(fineOneBedroomApartment + fineTwoBedroomApartment, 1);
             listResult.Add(totalFine);
             listResult.Add(listExcessDataOneBedroomApartment);

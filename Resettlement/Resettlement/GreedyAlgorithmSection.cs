@@ -26,7 +26,7 @@ namespace Resettlement
 			for (var n = 0; n < optimalNumberApartments; n=n+2)             // цикл заполнения секций
 			{
                 double choiceMinOneBedroomApartment;
-                if (firstOneBedroomApartment!=0.0 && isFlagFirstEntry)
+                if (Math.Abs(firstOneBedroomApartment)>1e-9 && isFlagFirstEntry)
                 {
                      choiceMinOneBedroomApartment = firstOneBedroomApartment;
                 }
@@ -37,28 +37,22 @@ namespace Resettlement
 			    isFlagFirstEntry = false;
 				var newSortedListOneBedroomApartment = new List<double>();
                 var isFlagMeetApartment = true;
-				for (var i = 0; i < sortedAscListOneBedroomApartment.Count; ++i)
+				foreach (var elem in sortedAscListOneBedroomApartment)
 				{
-                    if (sortedAscListOneBedroomApartment[i] == choiceMinOneBedroomApartment && isFlagMeetApartment)
-                    {
-                        isFlagMeetApartment = false;
-                    }
-                    else
-                    {
-                        newSortedListOneBedroomApartment.Add(sortedAscListOneBedroomApartment[i]);
-                    }
+				    if (Math.Abs(elem - choiceMinOneBedroomApartment)< 1e-9 && isFlagMeetApartment)
+				    {
+				        isFlagMeetApartment = false;
+				    }
+				    else
+				    {
+				        newSortedListOneBedroomApartment.Add(elem);
+				    }
 				}
-				var fine = 10000.0;
+			    var fine = 10000.0;
               
 				finalPlacementOneBedroomApartment[n] = choiceMinOneBedroomApartment;
 
-                //запись в массив
-			    var arraySortedTwoApartments = ChangeTypeVariable.ChangeListIntoArray(sortedAscListTwoBedroomApartment);
-//                var sortedTwo = new double[sortedAscListTwoBedroomApartment.Count];
-//                for (var p = 0; p < sortedAscListTwoBedroomApartment.Count; ++p)
-//                {
-//                    sortedTwo[p] = sortedAscListTwoBedroomApartment[p];
-//                }
+			    var arraySortedTwoApartments = ChangeTypeVariable.ChangeListIntoArray(sortedAscListTwoBedroomApartment); 
 
 				for (var i = 0; i < sortedAscListTwoBedroomApartment.Count; ++i)
 				{
@@ -66,10 +60,10 @@ namespace Resettlement
 					{
 						for (var h = 0; h < newSortedListOneBedroomApartment.Count; ++h)
 						{
-                            
                             var currentExtraSquare = 0.0;
                             double[] currentMassiv;
                             Array.Copy(arraySortedTwoApartments, currentMassiv = new double[arraySortedTwoApartments.Length], arraySortedTwoApartments.Length);
+                            //TODO когда остается 2 варианта добавить 2 разных варианта сочетания
 						    if (optimalNumberApartments-n == 2)
 						    {
 						        Array.Reverse(currentMassiv);
@@ -79,8 +73,8 @@ namespace Resettlement
                                 var tempFine1 = Math.Round(Constraints.ApartureLength - (currentMassiv[i] - choiceMinOneBedroomApartment),2);
                                 if (tempFine1 <= step)
                                 {
-                                    currentMassiv[i] += step;
-                                    currentExtraSquare += step;
+                                    currentMassiv[i] += Math.Round(step,1);
+                                    currentExtraSquare += Math.Round(step,1);
                                 }
                                 else
                                 {
@@ -93,8 +87,8 @@ namespace Resettlement
                                 var tempFine2 = Math.Round(Constraints.ApartureLength - (currentMassiv[j] - newSortedListOneBedroomApartment[h]),2);
 					            if (tempFine2 <= step)
                                 {
-                                    currentMassiv[j] += step;
-                                    currentExtraSquare += step;
+                                    currentMassiv[j] += Math.Round(step,1);
+                                    currentExtraSquare += Math.Round(step,1);
                                 }
                                 else
                                 {
