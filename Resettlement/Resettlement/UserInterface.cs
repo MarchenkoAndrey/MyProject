@@ -11,14 +11,14 @@ namespace Resettlement
         }
         private void greedy_btn_Click(object sender, EventArgs e)
         {
-            var preparationData = PreparationBeforeAlgorithm();
-            PerformHeuristicAlgorithm(preparationData);
+            var dataHAlg = PreparationBeforeAlgorithm();
+            PerformHeuristicAlgorithm(dataHAlg);
         }
 
         private void fullSearch_btn_Click(object sender, EventArgs e)
         {
-            var preparationData = PreparationBeforeAlgorithm();
-            PerformComprehensiveSearch(preparationData);
+            var dataCAlg = PreparationBeforeAlgorithm();
+            PerformComprehensiveSearch(dataCAlg);
         }
     }
 }

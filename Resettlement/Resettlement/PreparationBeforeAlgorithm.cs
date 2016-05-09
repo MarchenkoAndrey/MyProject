@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 using ComputationMethods;
 using ComputationMethods.GeneralData;
 
@@ -7,10 +6,8 @@ namespace Resettlement
 {
     partial class UserInterface
     {
-        private List<object> PreparationBeforeAlgorithm()
+        private DataAlgorithm PreparationBeforeAlgorithm()
         {
-            var resultList = new List<object>();
-
             var entryway = InputConstraints.G(valueG.Text.ToString(CultureInfo.InvariantCulture));
             var widthOfApartment = InputConstraints.C(valueC.Text.ToString(CultureInfo.InvariantCulture));
             var step = InputConstraints.Q(valueQ.Text.ToString(CultureInfo.InvariantCulture));
@@ -60,16 +57,19 @@ namespace Resettlement
                 countFloor = 4;
             }
 
-            resultList.Add(entryway);
-            resultList.Add(widthOfApartment);
-            resultList.Add(step);
-            resultList.Add(sumDelta);
-            resultList.Add(newLengthOneRoomFlat);
-            resultList.Add(newLengthTwoRoomFlat);
-            resultList.Add(countFloor);
-            resultList.Add(lengthOneRoomFlat);
-            resultList.Add(lengthTwoRoomFlat);
-            return resultList;
+
+            return new DataAlgorithm
+            {
+                Entryway = entryway,
+                WidthOfApartment = widthOfApartment,
+                Step = step,
+                SumDelta = sumDelta,
+                ListLengthOneBedroomApartnent = newLengthOneRoomFlat,
+                ListLengthTwoBedroomApartnent = newLengthTwoRoomFlat,
+                CountFloor = countFloor,
+                ListLengthOneBedroomApartnentWithoutFormats = lengthOneRoomFlat,
+                ListLengthTwoBedroomApartnentWithoutFormats = lengthTwoRoomFlat
+            };
         }
     }
 }
