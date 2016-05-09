@@ -12,10 +12,16 @@ namespace Resettlement
     {
         private void PerformHeuristicAlgorithm(List<object> preparationInputData)
         {
+            var oneListApartment = new AddEssence();
+            var twoListApartment = new AddEssence();
+
+
+
             var entryway = (double)preparationInputData[0];
 //            var widthOfApartment = (double)preparationInputData[1];
             var step = (double)preparationInputData[2];
             var sumDelta = (double)preparationInputData[3];
+
             var newLengthOneBedroomApartment = (List<double>) preparationInputData[4];
             var newLengthTwoBedroomApartment = (List<double>)preparationInputData[5];
             var countFloor = (int) preparationInputData[6];

@@ -17,7 +17,7 @@ namespace Resettlement
             var listSquareTwoFlat = new List<double>();
 
             const bool flagTwoFloor = true;
-            var permutationVariants = Resursion.Data(optArrangeOneArray.Length/2, optArrangeTwoArray.Length/2, true,flagTwoFloor);
+            var permutationVariants = Resursion.Data(optArrangeOneArray.Length/2, optArrangeTwoArray.Length/2, true);
             // для индекса вычитаем 1 из каждого элемента перестановки
             foreach (var t in permutationVariants)
             {

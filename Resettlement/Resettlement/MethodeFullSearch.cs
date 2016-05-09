@@ -18,16 +18,17 @@ namespace Resettlement
 			var optimalLocationOneBedroomApartments = new double[numberOptimalLocationApartments];
 			var optimalLocationTwoBedroomApartments = new double[numberOptimalLocationApartments];
 
-		    const bool flagFirstFloor = false;
-            var permListOneFlat = Resursion.Data(listLengthsOneBedroomApartment.Count, numberOptimalLocationApartments, true, flagFirstFloor); //gereration permutations
-            var permListTwoFlat = Resursion.Data(listLengthsTwoBedroomApartment.Count, numberOptimalLocationApartments, false, flagFirstFloor); //gereration permutations
+		    const bool isPermutationForOneBedroom = true;
+            const bool isPermutationForTwoBedroom = true;
+            var permListOneBedroomApartment = Resursion.Data(listLengthsOneBedroomApartment.Count, numberOptimalLocationApartments, isPermutationForOneBedroom); //gereration permutations
+            var permListTwoBedroomApartment = Resursion.Data(listLengthsTwoBedroomApartment.Count, numberOptimalLocationApartments, isPermutationForTwoBedroom); //gereration permutations
 
             List<double[]> listVariantsOneBedroomApartment;
             List<double[]> listExceedDataOneBedroomApartment;
             List<double[]> listVariantsTwoBedroomApartment;
             List<double[]> listExcessDataTwoBedroomApartment;
-            VariantsFlats.VariantsFlat(out listVariantsOneBedroomApartment, out listExceedDataOneBedroomApartment, permListOneFlat, listLengthsOneBedroomApartment);
-            VariantsFlats.VariantsFlat(out listVariantsTwoBedroomApartment, out listExcessDataTwoBedroomApartment, permListTwoFlat, listLengthsTwoBedroomApartment);
+            VariantsFlats.VariantsFlat(out listVariantsOneBedroomApartment, out listExceedDataOneBedroomApartment, permListOneBedroomApartment, listLengthsOneBedroomApartment);
+            VariantsFlats.VariantsFlat(out listVariantsTwoBedroomApartment, out listExcessDataTwoBedroomApartment, permListTwoBedroomApartment, listLengthsTwoBedroomApartment);
 			var totalOptimalExceedSquare = 10000.0;
 
             var countI = -1;

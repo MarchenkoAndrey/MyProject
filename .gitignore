@@ -22,6 +22,8 @@ $RECYCLE.BIN/
 *.dotCover
 *.vshost.exe
 
+*.mdf
+*.ldf
 *.vshost.exe.manifest
 bin
 obj

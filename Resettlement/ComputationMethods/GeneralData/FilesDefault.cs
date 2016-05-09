@@ -2,7 +2,7 @@
 {
     public static class FilesDefault
     {
-        public const string DefaultListOneBedroomApartment = "OneRoom8.txt";
-        public const string DefaultListTwoBedroomApartment = "TwoRoom8.txt";
+        public const string DefaultListOneBedroomApartment = "OneRoom6.txt";
+        public const string DefaultListTwoBedroomApartment = "TwoRoom6.txt";
     }
 }
