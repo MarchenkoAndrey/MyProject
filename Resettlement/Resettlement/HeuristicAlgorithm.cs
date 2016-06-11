@@ -75,12 +75,10 @@ namespace Resettlement
                 }
                 else
                 {
-                    dataAlg.ListLengthOneBedroomApartnent = PreparationSquares.FlatsRestartList(dataAlg.ListLengthOneBedroomApartnentWithoutFormats);
-                    dataAlg.ListLengthTwoBedroomApartnent = PreparationSquares.FlatsRestartList(dataAlg.ListLengthTwoBedroomApartnentWithoutFormats);
+                    dataAlg.ListLengthOneBedroomApartnent = PreparationSquares.FlatsWithTheAdditiveLength(dataAlg.ListLengthOneBedroomApartnentWithoutFormats);
+                    dataAlg.ListLengthTwoBedroomApartnent = PreparationSquares.FlatsWithTheAdditiveLength(dataAlg.ListLengthTwoBedroomApartnentWithoutFormats);
                 }
                 //Вывод результата по итерациям
-
-
                 PrintResult.GreedyIterationPrintResult(greedyAlgorithm, dataAlg.CountFloor, numberIteration, true, resultGreedy_label);
             }
             myStopWatchGreedy.Stop();

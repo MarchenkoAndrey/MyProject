@@ -38,7 +38,7 @@ namespace Resettlement
 			    isFlagFirstEntry = false;
 				var newSortedListOneBedroomApartment = new List<double>();
                 var isFlagMeetApartment = true;
-				foreach (var elem in sortedAscListOneBedroomApartment)
+				foreach (var elem in sortedAscListOneBedroomApartment) // divided from list given value oneApartment
 				{
 				    if (Math.Abs(elem - choiceMinOneBedroomApartment)< 1e-9 && isFlagMeetApartment)
 				    {
@@ -114,7 +114,7 @@ namespace Resettlement
 					}
 				}
 				//удаление занятых вариантов из списка и суммирование штрафа
-				totalFine+=fine;
+				totalFine= Math.Round(totalFine + fine,1);
                 if(maxFine<fine)
                 {
                     maxFine = fine;

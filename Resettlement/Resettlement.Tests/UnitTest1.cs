@@ -15,7 +15,7 @@ namespace Resettlement.Tests
         {
             var list1 = new List<double> {1.02, 2.0, 415.11};
             var resultList = ChangeTypeVariable.ChangeListIntoArray(list1);
-            Assert.AreEqual(resultList.Length, 3 , "Не конвертирует в массив");
+            Assert.AreEqual(resultList.Length, 3 , "Not converted in array");
         }
 
         [TestMethod]

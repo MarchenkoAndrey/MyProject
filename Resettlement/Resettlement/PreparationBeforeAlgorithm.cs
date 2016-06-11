@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using ComputationMethods;
 using ComputationMethods.GeneralData;
 
@@ -37,7 +38,7 @@ namespace Resettlement
             var newLengthTwoRoomFlat = PreparationSquares.FlatsWithTheAdditiveLength(lengthTwoRoomFlat);
             var deltaOfOneRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthOneRoomFlat, newLengthOneRoomFlat);
             var deltaOfTwoRoomFlat = PreparationSquares.DeltaSquaresOfFlats(lengthTwoRoomFlat, newLengthTwoRoomFlat);
-            var sumDelta = deltaOfOneRoomFlat + deltaOfTwoRoomFlat;
+            var sumDelta = Math.Round(deltaOfOneRoomFlat + deltaOfTwoRoomFlat,1);
 
             var countFloor = 0;
             if (radioButton1.Checked)
