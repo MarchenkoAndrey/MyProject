@@ -46,7 +46,6 @@
     <Compile Include="ComprehensiveSearch.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CreateSecondFloor.cs" />
     <Compile Include="DataAlgorithm.cs" />
     <Compile Include="GreedyAlgorithmSection.cs" />
     <Compile Include="HeuristicAlgorithm.cs">

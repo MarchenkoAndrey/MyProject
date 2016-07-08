@@ -37,27 +37,28 @@
             this.valueQ = new System.Windows.Forms.TextBox();
             this.valueG = new System.Windows.Forms.TextBox();
             this.valueC = new System.Windows.Forms.TextBox();
+            this.generalCase_btn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // greedy_btn
             // 
-            this.greedy_btn.Location = new System.Drawing.Point(286, 134);
-            this.greedy_btn.Name = "greedy_btn";
-            this.greedy_btn.Size = new System.Drawing.Size(119, 23);
-            this.greedy_btn.TabIndex = 0;
-            this.greedy_btn.Text = "Heuristic Algorithm";
-            this.greedy_btn.UseVisualStyleBackColor = true;
-            this.greedy_btn.Click += new System.EventHandler(this.greedy_btn_Click);
+//            this.greedy_btn.Location = new System.Drawing.Point(286, 134);
+//            this.greedy_btn.Name = "greedy_btn";
+//            this.greedy_btn.Size = new System.Drawing.Size(119, 23);
+//            this.greedy_btn.TabIndex = 0;
+//            this.greedy_btn.Text = "Heuristic Algorithm";
+//            this.greedy_btn.UseVisualStyleBackColor = true;
+//            this.greedy_btn.Click += new System.EventHandler(this.greedy_btn_Click);
             // 
             // fullSearch_btn
             // 
-            this.fullSearch_btn.Location = new System.Drawing.Point(422, 134);
-            this.fullSearch_btn.Name = "fullSearch_btn";
-            this.fullSearch_btn.Size = new System.Drawing.Size(141, 23);
-            this.fullSearch_btn.TabIndex = 1;
-            this.fullSearch_btn.Text = "Comprehensive Search";
-            this.fullSearch_btn.UseVisualStyleBackColor = true;
-            this.fullSearch_btn.Click += new System.EventHandler(this.fullSearch_btn_Click);
+//            this.fullSearch_btn.Location = new System.Drawing.Point(422, 134);
+//            this.fullSearch_btn.Name = "fullSearch_btn";
+//            this.fullSearch_btn.Size = new System.Drawing.Size(141, 23);
+//            this.fullSearch_btn.TabIndex = 1;
+//            this.fullSearch_btn.Text = "Comprehensive Search";
+//            this.fullSearch_btn.UseVisualStyleBackColor = true;
+//            this.fullSearch_btn.Click += new System.EventHandler(this.fullSearch_btn_Click);
             // 
             // labelOne
             // 
@@ -177,7 +178,7 @@
             this.radioButton4.AutoSize = true;
             this.radioButton4.Location = new System.Drawing.Point(118, 152);
             this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(55, 17);
+            this.radioButton4.Size = new System.Drawing.Size(46, 17);
             this.radioButton4.TabIndex = 31;
             this.radioButton4.TabStop = true;
             this.radioButton4.Text = "Four";
@@ -188,7 +189,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(26, 112);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(141, 13);
+            this.label4.Size = new System.Drawing.Size(133, 13);
             this.label4.TabIndex = 32;
             this.label4.Text = "Select the number of floors";
             // 
@@ -240,11 +241,22 @@
             this.valueC.Size = new System.Drawing.Size(40, 20);
             this.valueC.TabIndex = 27;
             // 
+            // generalCase_btn
+            // 
+            this.generalCase_btn.Location = new System.Drawing.Point(286, 166);
+            this.generalCase_btn.Name = "generalCase_btn";
+            this.generalCase_btn.Size = new System.Drawing.Size(277, 23);
+            this.generalCase_btn.TabIndex = 33;
+            this.generalCase_btn.Text = "General Case";
+            this.generalCase_btn.UseVisualStyleBackColor = true;
+            this.generalCase_btn.Click += new System.EventHandler(generalCase_btn_Click);
+            // 
             // UserInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1086, 556);
+            this.Controls.Add(this.generalCase_btn);
             this.Controls.Add(this.valueC);
             this.Controls.Add(this.valueG);
             this.Controls.Add(this.valueQ);
@@ -298,5 +310,6 @@
         private System.Windows.Forms.RadioButton radioButton3;
         private System.Windows.Forms.RadioButton radioButton4;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button generalCase_btn;
     }
 }

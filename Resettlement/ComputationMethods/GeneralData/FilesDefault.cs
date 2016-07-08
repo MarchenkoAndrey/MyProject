@@ -4,6 +4,6 @@
     {
         public const string DefaultListOneBedroomApartment = "NewListOne.txt";
         public const string DefaultListTwoBedroomApartment = "NewListTwo.txt";
-        public const string DefaultListThreeBedroomApartment = "NewLisThree.txt";
+        public const string DefaultListThreeBedroomApartment = "NewListThree.txt";
     }
 }

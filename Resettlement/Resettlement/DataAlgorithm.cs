@@ -4,14 +4,28 @@ namespace Resettlement
 {
     public class DataAlgorithm
     {
-        public double Entryway;
-        public double WidthOfApartment;
-        public double Step;
-        public double SumDelta;
+        public List<double> ListSquaresOneBedroomApartment;
+        public List<double> ListSquaresTwoBedroomApartment;
+        public List<double> ListSquaresThreeBedroomApartment;
+
+        public int TotalCountApartments;
+
+        public List<double> ListSquaresOneBedroomApartmentBringingToMin;
+        public List<double> ListSquaresTwoBedroomApartmentBringingToMin;
+        public List<double> ListSquaresThreeBedroomApartmentBringingToMin;
+
+        public double SumSquaresOriginal;
+        public double SumSquaresAfterBrindingToMin;
+        public int TotalCountSections;
+        
         public List<double> ListLengthOneBedroomApartnent;
         public List<double> ListLengthTwoBedroomApartnent;
-        public int CountFloor;
+
         public List<double> ListLengthOneBedroomApartnentWithoutFormats;
         public List<double> ListLengthTwoBedroomApartnentWithoutFormats;
+
+        
+
+
     }
 }

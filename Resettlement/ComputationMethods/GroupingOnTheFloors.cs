@@ -208,7 +208,7 @@ namespace ComputationMethods
             return listResult;
         }
 
-        private static void EqualCountApartment(List<double> listSortAscApartment, double fineApartment,
+        public static void EqualCountApartment(List<double> listSortAscApartment, double fineApartment,
             List<double> listResultApartment, int countFloor, out double totalFineApartment, out List<double> totalListResultApartment)
         {
             switch (countFloor)
