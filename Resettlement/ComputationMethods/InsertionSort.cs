@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 namespace ComputationMethods
 {
+
+    //Todo delete class
     public static class InsertionSort
     {
         public static List<double> InsertSort(List<double> list)

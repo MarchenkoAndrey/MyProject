@@ -48,6 +48,7 @@
     <Compile Include="GeneralData\ErrorsText.cs" />
     <Compile Include="GeneralData\FilesDefault.cs" />
     <Compile Include="GeneralData\MessagesText.cs" />
+    <Compile Include="GeneralData\SpecificConstraints.cs" />
     <Compile Include="Grouping.cs" />
     <Compile Include="GroupingOnTheFloors.cs" />
     <Compile Include="InsertionSort.cs" />

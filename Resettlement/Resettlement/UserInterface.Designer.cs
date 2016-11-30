@@ -39,29 +39,29 @@
             this.valueC = new System.Windows.Forms.TextBox();
             this.generalCase_btn = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // greedy_btn
-            // 
-//            this.greedy_btn.Location = new System.Drawing.Point(286, 134);
-//            this.greedy_btn.Name = "greedy_btn";
-//            this.greedy_btn.Size = new System.Drawing.Size(119, 23);
-//            this.greedy_btn.TabIndex = 0;
-//            this.greedy_btn.Text = "Heuristic Algorithm";
-//            this.greedy_btn.UseVisualStyleBackColor = true;
-//            this.greedy_btn.Click += new System.EventHandler(this.greedy_btn_Click);
-            // 
-            // fullSearch_btn
-            // 
-//            this.fullSearch_btn.Location = new System.Drawing.Point(422, 134);
-//            this.fullSearch_btn.Name = "fullSearch_btn";
-//            this.fullSearch_btn.Size = new System.Drawing.Size(141, 23);
-//            this.fullSearch_btn.TabIndex = 1;
-//            this.fullSearch_btn.Text = "Comprehensive Search";
-//            this.fullSearch_btn.UseVisualStyleBackColor = true;
-//            this.fullSearch_btn.Click += new System.EventHandler(this.fullSearch_btn_Click);
-            // 
-            // labelOne
-            // 
+             
+//             greedy_btn
+             
+            this.greedy_btn.Location = new System.Drawing.Point(286, 134);
+            this.greedy_btn.Name = "greedy_btn";
+            this.greedy_btn.Size = new System.Drawing.Size(119, 23);
+            this.greedy_btn.TabIndex = 0;
+            this.greedy_btn.Text = "Heuristic Algorithm";
+            this.greedy_btn.UseVisualStyleBackColor = true;
+            this.greedy_btn.Click += new System.EventHandler(this.greedy_btn_Click);
+             
+//             fullSearch_btn
+             
+            this.fullSearch_btn.Location = new System.Drawing.Point(422, 134);
+            this.fullSearch_btn.Name = "fullSearch_btn";
+            this.fullSearch_btn.Size = new System.Drawing.Size(141, 23);
+            this.fullSearch_btn.TabIndex = 1;
+            this.fullSearch_btn.Text = "Comprehensive Search";
+            this.fullSearch_btn.UseVisualStyleBackColor = true;
+            this.fullSearch_btn.Click += new System.EventHandler(this.fullSearch_btn_Click);
+             
+//             labelOne
+             
             this.labelOne.AutoSize = true;
             this.labelOne.Location = new System.Drawing.Point(26, 40);
             this.labelOne.Name = "labelOne";
@@ -249,7 +249,7 @@
             this.generalCase_btn.TabIndex = 33;
             this.generalCase_btn.Text = "General Case";
             this.generalCase_btn.UseVisualStyleBackColor = true;
-            this.generalCase_btn.Click += new System.EventHandler(generalCase_btn_Click);
+//            this.generalCase_btn.Click += new System.EventHandler(generalCase_btn_Click);
             // 
             // UserInterface
             // 

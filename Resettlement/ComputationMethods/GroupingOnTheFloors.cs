@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ComputationMethods
 {
@@ -7,30 +8,30 @@ namespace ComputationMethods
     {
         public static List<object> GroupingApartment(List<double> listLengthsOneBedroomApartment,
             List<double> listLengthsTwoBedroomAppartment, int countFloor)
-        {
+        {         
             var listResult = new List<object>();
             var fineOneBedroomApartment = 0.0;
             var fineTwoBedroomApartment = 0.0;
-            var listSortAscOneBedroomApartment = InsertionSort.InsertSort(listLengthsOneBedroomApartment);
-            var listSortAscTwoBedroomApartment = InsertionSort.InsertSort(listLengthsTwoBedroomAppartment);
-            var listResultOneBedroomApartment = new List<double>();
+            listLengthsOneBedroomApartment.Sort();
+            listLengthsTwoBedroomAppartment.Sort();
+            var listResultOneBedroomApartment= new List<double>();
             var listResultTwoBedroomApartment = new List<double>();
             var listExcessDataOneBedroomApartment = new List<double>();
             var listExcessDataTwoBedroomApartment = new List<double>();
-            var optimalCountApartment = OptimalNumberApartments.CalculateOptimalNumberApartments(listSortAscOneBedroomApartment,
-                listSortAscTwoBedroomApartment, countFloor);
+            var optimalCountApartment = OptimalNumberApartments.CalculateOptimalNumberApartments(listLengthsOneBedroomApartment,
+                 listLengthsTwoBedroomAppartment, countFloor);
             var totalFineOneBedroomApartmentBecauseExcessData = 1000.0;
             var totalFineTwoBedroomApartmentBecauseExcessData = 1000.0;
 
-            if (listSortAscOneBedroomApartment.Count == optimalCountApartment)
+            if (listLengthsOneBedroomApartment.Count == optimalCountApartment)
             {
-                EqualCountApartment(listSortAscOneBedroomApartment, fineOneBedroomApartment,
+                EqualCountApartment(listLengthsOneBedroomApartment, fineOneBedroomApartment,
                    listResultOneBedroomApartment, countFloor, out fineOneBedroomApartment, out listResultOneBedroomApartment);
             }
             else
             {
                 //as FS, all variants, to choice better
-                var exceedValuesCount = listSortAscOneBedroomApartment.Count - optimalCountApartment;
+                var exceedValuesCount = listLengthsOneBedroomApartment.Count - optimalCountApartment;
                 var countExceedValuesMoreTwo = exceedValuesCount;
                 var listAfterConversionTwoValues = new List<double>();
                 if (exceedValuesCount > 2)
@@ -38,15 +39,15 @@ namespace ComputationMethods
                     countExceedValuesMoreTwo = countExceedValuesMoreTwo - (exceedValuesCount - 2);
                     for (var index = 0; index < countExceedValuesMoreTwo; ++index)
                     {
-                        listExcessDataOneBedroomApartment.Add(listSortAscOneBedroomApartment[index]);
+                        listExcessDataOneBedroomApartment.Add(listLengthsOneBedroomApartment[index]);
                     }
-                    for (var index = countExceedValuesMoreTwo; index < listSortAscOneBedroomApartment.Count; ++index)
+                    for (var index = countExceedValuesMoreTwo; index < listLengthsOneBedroomApartment.Count; ++index)
                     {
-                        listAfterConversionTwoValues.Add(listSortAscOneBedroomApartment[index]);
+                        listAfterConversionTwoValues.Add(listLengthsOneBedroomApartment[index]);
                     }
                 }
 
-                var listOneBedroomApartmentForCalculate = listAfterConversionTwoValues.Count != 0 ? listAfterConversionTwoValues : listSortAscOneBedroomApartment;
+                var listOneBedroomApartmentForCalculate = listAfterConversionTwoValues.Count != 0 ? listAfterConversionTwoValues : listLengthsOneBedroomApartment;
 
                 if (countExceedValuesMoreTwo == 1)
                 {
@@ -109,30 +110,30 @@ namespace ComputationMethods
                     listExcessDataOneBedroomApartment.AddRange(listExceedOneValue);
                 }
             }
-            if (listSortAscTwoBedroomApartment.Count == optimalCountApartment)
+            if (listLengthsTwoBedroomAppartment.Count == optimalCountApartment)
             {
-                EqualCountApartment(listSortAscTwoBedroomApartment, fineTwoBedroomApartment,
+                EqualCountApartment(listLengthsTwoBedroomAppartment, fineTwoBedroomApartment,
                 listResultTwoBedroomApartment, countFloor, out fineTwoBedroomApartment, out listResultTwoBedroomApartment);
             }
             else
             {
                 //as FS, all variants, to choice better
-                var exceedValuesCount = listSortAscTwoBedroomApartment.Count - optimalCountApartment;
+                var exceedValuesCount = listLengthsTwoBedroomAppartment.Count - optimalCountApartment;
                 var countExceedValuesMoreTwo = exceedValuesCount;
                 var listAfterConversionTwoValues = new List<double>();
                 if (exceedValuesCount > 2)
                 {
                     countExceedValuesMoreTwo = countExceedValuesMoreTwo - (exceedValuesCount - 2);
-                    for (var index = 0; index < listSortAscTwoBedroomApartment.Count - countExceedValuesMoreTwo; ++index)
+                    for (var index = 0; index < listLengthsTwoBedroomAppartment.Count() - countExceedValuesMoreTwo; ++index)
                     {
-                        listAfterConversionTwoValues.Add(listSortAscTwoBedroomApartment[index]);
+                        listAfterConversionTwoValues.Add(listLengthsTwoBedroomAppartment[index]);
                     }
-                    for (var index = listSortAscTwoBedroomApartment.Count - countExceedValuesMoreTwo; index < listSortAscTwoBedroomApartment.Count; ++index)
+                    for (var index = listLengthsTwoBedroomAppartment.Count() - countExceedValuesMoreTwo; index < listLengthsTwoBedroomAppartment.Count; ++index)
                     {
-                        listExcessDataTwoBedroomApartment.Add(listSortAscTwoBedroomApartment[index]);
+                        listExcessDataTwoBedroomApartment.Add(listLengthsTwoBedroomAppartment[index]);
                     }
                 }
-                var listTwoBedroomApartmentForCalculate = listAfterConversionTwoValues.Count != 0 ? listAfterConversionTwoValues : listSortAscTwoBedroomApartment;
+                var listTwoBedroomApartmentForCalculate = listAfterConversionTwoValues.Count != 0 ? listAfterConversionTwoValues : listLengthsTwoBedroomAppartment;
 
                 if (countExceedValuesMoreTwo == 1)
                 {

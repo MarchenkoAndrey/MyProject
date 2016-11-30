@@ -23,7 +23,7 @@ namespace ComputationMethods
             return newResultList;
         }
 
-        public static List<int[]> MethodeCreatePermWithTwoExcessParam(List<int[]> result, int n)
+        public static IEnumerable<int[]> MethodeCreatePermWithTwoExcessParam(List<int[]> result, int n)
         {
             var a1 = n + 1;
             var a2 = n + 2;

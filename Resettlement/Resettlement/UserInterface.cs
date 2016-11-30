@@ -10,22 +10,22 @@ namespace Resettlement
             InitializeComponent();
         }
         
-//        private void greedy_btn_Click(object sender, EventArgs e)
-//        {
-//            var dataHAlg = PreparationBeforeAlgorithm();
-//            PerformHeuristicAlgorithm(dataHAlg);
-//        }
-
-//        private void fullSearch_btn_Click(object sender, EventArgs e)
-//        {
-//            var dataCAlg = PreparationBeforeAlgorithm();
-//            PerformComprehensiveSearch(dataCAlg);
-//        }
-
-        private void generalCase_btn_Click(object sender, EventArgs e)
+        private void greedy_btn_Click(object sender, EventArgs e)
         {
-            var dataGeneralAlg = PreparationBeforeAlgorithm();
-            
+            var dataHAlg =  PrepareDataBeforeAlgorithm(new DataAlgorithm());
+            PerformHeuristicAlgorithm(dataHAlg);
         }
+
+        private void fullSearch_btn_Click(object sender, EventArgs e)
+        {
+            var dataCAlg = PrepareDataBeforeAlgorithm(new DataAlgorithm());
+            PerformComprehensiveSearch(dataCAlg);
+        }
+
+//        private void generalCase_btn_Click(object sender, EventArgs e)
+//        {
+//            var dataGeneralAlg = PreparationBeforeAlgorithm();
+//            
+//        }
     }
 }

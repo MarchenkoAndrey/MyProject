@@ -14,7 +14,7 @@ namespace ComputationMethods
 		    return enterData;
 		}
 
-        public static List<double> RecordingInputDataInList(string[] inputData)
+	    private static List<double> RecordingInputDataInList(string[] inputData)
         {
             var enterData = new List<double>();
             var inputArgs =
