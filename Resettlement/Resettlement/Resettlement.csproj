@@ -48,12 +48,15 @@
     </Compile>
     <Compile Include="DataAlgorithm.cs" />
     <Compile Include="GreedyAlgorithmSection.cs" />
+    <Compile Include="GroupingOnTheFloors.cs" />
     <Compile Include="HeuristicAlgorithm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="InputConstraints.cs" />
     <Compile Include="MethodeFullSearch.cs" />
     <Compile Include="PrintResult.cs" />
+    <Compile Include="ResultDataAfterGrouping.cs" />
+    <Compile Include="ResultGreedyMethode.cs" />
     <Compile Include="SpecificMethods.cs" />
     <Compile Include="StartAndFinishProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

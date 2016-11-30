@@ -5,11 +5,11 @@ namespace ComputationMethods
 {
     public static class OptimalNumberApartments
     {
-        public static int CalculateOptimalNumberApartments(List<double> listSortAscOneBedroomApartment,
-            List<double> listSortAscTwoBedroomApartment, int countFloor)
+        public static int CalculateOptimalNumberApartments(List<double> listSortAscOneFlat,
+            List<double> listSortAscTwoFlat, int countFloor)
         {
-            return Math.Min(listSortAscOneBedroomApartment.Count / countFloor * countFloor,
-                listSortAscTwoBedroomApartment.Count / countFloor * countFloor);
+            return Math.Min(listSortAscOneFlat.Count / countFloor * countFloor,
+                listSortAscTwoFlat.Count / countFloor * countFloor);
         }
     }
 }

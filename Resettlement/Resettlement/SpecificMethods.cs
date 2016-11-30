@@ -11,7 +11,7 @@ namespace Resettlement
         //TODO specific
         //            dataAlgorithm.ListSquaresOneBedroomApartmentBringingToMin = Calculate.BringingToMin(dataAlgorithm.ListSquaresOneBedroomApartment, Constraints.MinSquareOneBedroomApartment);
         //            dataAlgorithm.ListSquaresTwoBedroomApartmentBringingToMin = Calculate.BringingToMin(dataAlgorithm.ListSquaresTwoBedroomApartment, Constraints.MinSquareTwoBedroomApartment);
-        //            dataAlgorithm.ListSquaresThreeBedroomApartmentBringingToMin = Calculate.BringingToMin(dataAlgorithm.ListSquaresThreeBedroomApartment, Constraints.MinSquareThreeBedroomApartment);
+        //            dataAlgorithm.ListSquaresThreeBedroomApartmentBringingToMin = Calculate.BringingToMin(dataAlgorithm.ListSquaresThreeFlat, Constraints.MinSquareThreeBedroomApartment);
 
         //            dataAlgorithm.SumSquaresAfterBrindingToMin = Calculate.CalculateSumList(dataAlgorithm.ListSquaresOneBedroomApartmentBringingToMin) +
         //                Calculate.CalculateSumList(dataAlgorithm.ListSquaresTwoBedroomApartmentBringingToMin) +

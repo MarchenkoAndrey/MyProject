@@ -5,7 +5,7 @@ namespace ComputationMethods
 {
 	public static class Resursion
 	{
-        public static IEnumerable<int[]> Data(int n, int optN, bool isPermutationForOneBedroom)
+        public static IEnumerable<int[]> Data(int n, int optN, bool isPermutationForOneFlat)
 		{
 			var result = new List<int[]>();
 		    var countExcessNumber=0;
@@ -19,11 +19,11 @@ namespace ComputationMethods
 		    {
 		        countExcessNumber = 1;
 		        n--;
-                isPermutationForOneBedroom = true;
+                isPermutationForOneFlat = true;
 		    }
 
 
-            Do(n, n, new bool[n], new int[n], result, isPermutationForOneBedroom);
+            Do(n, n, new bool[n], new int[n], result, isPermutationForOneFlat);
 		    if (countExcessNumber==1)
 		    {
                 result.AddRange(CreatePermWithExcessParam.MethodeCreatePermWithOddParam(result, n));

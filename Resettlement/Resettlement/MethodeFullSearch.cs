@@ -7,9 +7,8 @@ namespace Resettlement
 {
 	public static class MethodeFullSearch
 	{
-		public static List<object> FullSearch(List<double> listLengthsOneBedroomApartment, List<double> listLengthsTwoBedroomApartment,double step, double entryway)
+		public static ResultDataAfterGrouping FullSearch(List<double> listLengthsOneBedroomApartment, List<double> listLengthsTwoBedroomApartment,double step, double entryway)
 		{
-			var resultList = new List<object>();
             var totalListExceedDataOneBedroomApartment = new List<double>();
             var totalListExceedDataTwoBedroomApartment = new List<double>();
 		    var numberOptimalLocationApartments = OptimalNumberApartments.CalculateOptimalNumberApartments(listLengthsOneBedroomApartment,
@@ -67,14 +66,9 @@ namespace Resettlement
 				    }
 				}
 			}
-
-		    resultList.Add(totalOptimalExceedSquare);
-			resultList.Add(optimalLocationOneBedroomApartments.ToArray());
-			resultList.Add(optimalLocationTwoBedroomApartments.ToArray());
-            resultList.Add(totalListExceedDataOneBedroomApartment);
-            resultList.Add(totalListExceedDataTwoBedroomApartment);
-
-			return resultList;
+		    return new ResultDataAfterGrouping(optimalLocationOneBedroomApartments.ToList(),
+		        optimalLocationTwoBedroomApartments.ToList(), totalOptimalExceedSquare, totalListExceedDataOneBedroomApartment,
+		        totalListExceedDataTwoBedroomApartment);
 		}
 	}
 }

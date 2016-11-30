@@ -50,7 +50,6 @@
     <Compile Include="GeneralData\MessagesText.cs" />
     <Compile Include="GeneralData\SpecificConstraints.cs" />
     <Compile Include="Grouping.cs" />
-    <Compile Include="GroupingOnTheFloors.cs" />
     <Compile Include="InsertionSort.cs" />
     <Compile Include="OptimalNumberApartments.cs" />
     <Compile Include="PermutationWithoutRepetition.cs" />

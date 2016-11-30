@@ -8,20 +8,20 @@ namespace Resettlement
     {
         //            var widthOfApartment = InputConstraints.C(valueC.Text.ToString(CultureInfo.InvariantCulture));
         //            var step = InputConstraints.Q(valueQ.Text.ToString(CultureInfo.InvariantCulture));
-        public List<double> ListSquaresOneBedroomApartment;
-        public List<double> ListSquaresTwoBedroomApartment;
-        public List<double> ListSquaresThreeBedroomApartment;
+        public List<double> ListSquaresOneFlat;
+        public List<double> ListSquaresTwoFlat;
+        public List<double> ListSquaresThreeFlat;
 
         public int CountFloor { get; set; }
         public double SumDelta { get; set; }
         public double Step { get; set; }
         public double Entryway { get; set; }
 
-        public List<double> ListLengthOneBedroomApartment;
-        public List<double> ListLengthTwoBedroomApartment;
+        public List<double> ListLenOneFlat;
+        public List<double> ListLenTwoFlat;
 
-        public List<double> ListLengthOneBedroomApartnentWithoutFormats;
-        public List<double> ListLengthTwoBedroomApartnentWithoutFormats;
+        public List<double> ListLenOneFlatWithoutFormats;
+        public List<double> ListLenTwoFlatWithoutFormats;
 
         #region specific
 
@@ -40,19 +40,19 @@ namespace Resettlement
 
         public DataAlgorithm()
         {
-            ListSquaresOneBedroomApartment =
-                ReadFromFileAndRecordingInputDataInList.ReadFile(FilesDefault.DefaultListOneBedroomApartment);
-            ListSquaresTwoBedroomApartment =
-                ReadFromFileAndRecordingInputDataInList.ReadFile(FilesDefault.DefaultListTwoBedroomApartment);
-            ListSquaresThreeBedroomApartment =
-                ReadFromFileAndRecordingInputDataInList.ReadFile(FilesDefault.DefaultListThreeBedroomApartment);
+            ListSquaresOneFlat =
+                ReadFromFileAndRecordingInputDataInList.ReadFile(FilesDefault.DefaultListOneFlat);
+            ListSquaresTwoFlat =
+                ReadFromFileAndRecordingInputDataInList.ReadFile(FilesDefault.DefaultListTwoFlat);
+            ListSquaresThreeFlat =
+                ReadFromFileAndRecordingInputDataInList.ReadFile(FilesDefault.DefaultListThreeFlat);
             #region specific
 
 //            TotalCountApartments = ListSquaresOneBedroomApartment.Count + ListSquaresTwoBedroomApartment.Count +
-//                                       ListSquaresThreeBedroomApartment.Count;
+//                                       ListSquaresThreeFlat.Count;
 //            SumSquaresOriginal = Calculate.CalculateSumList(ListSquaresOneBedroomApartment) +
 //                Calculate.CalculateSumList(ListSquaresTwoBedroomApartment) +
-//                Calculate.CalculateSumList(ListSquaresThreeBedroomApartment);
+//                Calculate.CalculateSumList(ListSquaresThreeFlat);
             #endregion
         }
     }
