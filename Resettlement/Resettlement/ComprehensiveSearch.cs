@@ -11,9 +11,9 @@ namespace Resettlement
 {
     partial class UserInterface
     {
-        private void PerformComprehensiveSearch(DataAlgorithm dataAlg)
+        private void PerformComprehensiveSearch(DataAlgorithm data)
         {
-            if (dataAlg.CountFloor == 0)
+            if (data.CountFloor == 0)
             {
                 MessageBox.Show(ErrorsText.NotSelectedFloor);
                 return;
@@ -23,34 +23,36 @@ namespace Resettlement
             lossesOne_label.Text = "".ToString(CultureInfo.InvariantCulture);
             resultFullSearch_label.Text = "".ToString(CultureInfo.InvariantCulture);
 
-            var realCountFlat = dataAlg.ListLengthOneBedroomApartment.Count() + dataAlg.ListLengthTwoBedroomApartment.Count();
+            var realCountFlat = data.ListLengthOneBedroomApartment.Count() + data.ListLengthTwoBedroomApartment.Count();
             realizat_label.Text += string.Format(MessagesText.RealizationForRectangles, realCountFlat).ToString(CultureInfo.InvariantCulture);
-            lossesOne_label.Text += string.Format(MessagesText.SummarizeAdditionLengthForH, dataAlg.SumDelta.ToString(CultureInfo.InvariantCulture));
+            lossesOne_label.Text += string.Format(MessagesText.SummarizeAdditionLengthForH, data.SumDelta.ToString(CultureInfo.InvariantCulture));
 
-            var newListFlatAfterGrouping = new List<object>();
+            var newListFlatAfterGrouping = new Tuple<List<double>, List<double>, double, List<double>, List<double>>(default(List<double>),
+                    default(List<double>),
+                    default(double), default(List<double>), default(List<double>));
             var fineAfterGrouping = 0.0;
-            if (dataAlg.CountFloor == 2 || dataAlg.CountFloor == 3 || dataAlg.CountFloor == 4)
+            if (data.CountFloor == 2 || data.CountFloor == 3 || data.CountFloor == 4)
             {
-                newListFlatAfterGrouping = GroupingOnTheFloors.GroupingApartment(dataAlg.ListLengthOneBedroomApartment, dataAlg.ListLengthTwoBedroomApartment,dataAlg.CountFloor);
-                dataAlg.ListLengthOneBedroomApartment = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListFlatAfterGrouping[0]);
-                dataAlg.ListLengthTwoBedroomApartment = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListFlatAfterGrouping[1]);
-                fineAfterGrouping = (double)newListFlatAfterGrouping[2];
+                newListFlatAfterGrouping = GroupingOnTheFloors.GroupingApartment(data.ListLengthOneBedroomApartment, data.ListLengthTwoBedroomApartment,data.CountFloor);
+                data.ListLengthOneBedroomApartment = PreparationSquares.FlatsWithTheAdditiveLength(newListFlatAfterGrouping.Item1);
+                data.ListLengthTwoBedroomApartment = PreparationSquares.FlatsWithTheAdditiveLength(newListFlatAfterGrouping.Item2);
+                fineAfterGrouping = newListFlatAfterGrouping.Item3;
             }
 
-            if ((dataAlg.ListLengthOneBedroomApartment.Count() >= 12 || dataAlg.ListLengthTwoBedroomApartment.Count >= 12) && dataAlg.CountFloor == 1)
+            if ((data.ListLengthOneBedroomApartment.Count() >= 12 || data.ListLengthTwoBedroomApartment.Count >= 12) && data.CountFloor == 1)
             {
                 MessageBox.Show(ErrorsText.NotSixContaiters);
                 return;
             }
 
-            if ((Math.Abs(dataAlg.ListLengthOneBedroomApartment.Count() - dataAlg.ListLengthTwoBedroomApartment.Count) >= 3 ||
-                (Math.Abs(dataAlg.ListLengthOneBedroomApartment.Count() - dataAlg.ListLengthTwoBedroomApartment.Count) == 2 && dataAlg.ListLengthOneBedroomApartment.Count % 2 != 0)) && dataAlg.CountFloor == 1)
+            if ((Math.Abs(data.ListLengthOneBedroomApartment.Count() - data.ListLengthTwoBedroomApartment.Count) >= 3 ||
+                (Math.Abs(data.ListLengthOneBedroomApartment.Count() - data.ListLengthTwoBedroomApartment.Count) == 2 && data.ListLengthOneBedroomApartment.Count % 2 != 0)) && data.CountFloor == 1)
             {
                 MessageBox.Show(ErrorsText.TooManyContainers);
                 return;
             }
 
-            if (dataAlg.ListLengthOneBedroomApartment.Count() >= 12 || dataAlg.ListLengthTwoBedroomApartment.Count >= 12 && dataAlg.CountFloor > 1)
+            if (data.ListLengthOneBedroomApartment.Count() >= 12 || data.ListLengthTwoBedroomApartment.Count >= 12 && data.CountFloor > 1)
             {
                 MessageBox.Show(ErrorsText.NotSixContaiters);
                 return;
@@ -59,29 +61,29 @@ namespace Resettlement
             var myStopWatch = new Stopwatch();
             myStopWatch.Start();
 
-            var fullSearch = MethodeFullSearch.FullSearch(dataAlg.ListLengthOneBedroomApartment, dataAlg.ListLengthTwoBedroomApartment, dataAlg.Step, dataAlg.Entryway);
-            if (dataAlg.CountFloor == 2)
+            var fullSearch = MethodeFullSearch.FullSearch(data.ListLengthOneBedroomApartment, data.ListLengthTwoBedroomApartment, data.Step, data.Entryway);
+            if (data.CountFloor == 2)
             {
                 fullSearch[0] = Math.Round((double)fullSearch[0] * 2.0, 1);
             }
 
-            if (dataAlg.CountFloor == 3)
+            if (data.CountFloor == 3)
             {
                 fullSearch[0] = Math.Round((double)fullSearch[0] * 3.0, 1);
             }
 
-            if (dataAlg.CountFloor == 4)
+            if (data.CountFloor == 4)
             {
                 fullSearch[0] = Math.Round((double)fullSearch[0] * 4.0, 1);
             }
 
             fullSearch[0] = Math.Round((double)fullSearch[0] + fineAfterGrouping, 1);
-            if (dataAlg.CountFloor != 1)
+            if (data.CountFloor != 1)
             {
-                fullSearch[3] = newListFlatAfterGrouping[3];
-                fullSearch[4] = newListFlatAfterGrouping[4];
+                fullSearch[3] = newListFlatAfterGrouping.Item4;
+                fullSearch[4] = newListFlatAfterGrouping.Item5;
             }
-            PrintResult.FullSearchPrintResult(fullSearch, dataAlg.CountFloor, resultFullSearch_label);
+            PrintResult.FullSearchPrintResult(fullSearch, data.CountFloor, resultFullSearch_label);
 
             myStopWatch.Stop();
             resultFullSearch_label.Text += MessagesText.NextLine;

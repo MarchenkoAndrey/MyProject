@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
-using System.Linq;
-using System.Windows.Forms;
 using ComputationMethods;
 using ComputationMethods.GeneralData;
 
@@ -11,31 +9,30 @@ namespace Resettlement
 {
     partial class UserInterface
     {
-        private void PerformHeuristicAlgorithm(DataAlgorithm dataAlg)
+        private void PerformHeuristicAlgorithm(DataAlgorithm data)
         {
-            if (dataAlg.CountFloor == 0)
-            {
-                MessageBox.Show(ErrorsText.NotSelectedFloor);
-                return;
-            }
+            ValidateConditions.Validate(data);
 
             realizat_label.Text = "".ToString(CultureInfo.InvariantCulture);
             lossesOne_label.Text = "".ToString(CultureInfo.InvariantCulture);
             resultGreedy_label.Text = "".ToString(CultureInfo.InvariantCulture);
 
-            var realFlat = dataAlg.ListLengthOneBedroomApartment.Count() + dataAlg.ListLengthTwoBedroomApartment.Count();
+            var realFlat = data.ListLengthOneBedroomApartment.Count + data.ListLengthTwoBedroomApartment.Count;
             realizat_label.Text += string.Format(MessagesText.RealizationForRectangles,realFlat).ToString(CultureInfo.InvariantCulture);
+            lossesOne_label.Text += string.Format(MessagesText.SummarizeAdditionLengthForH, data.SumDelta.ToString(CultureInfo.InvariantCulture));
 
-            lossesOne_label.Text += string.Format(MessagesText.SummarizeAdditionLengthForH, dataAlg.SumDelta.ToString(CultureInfo.InvariantCulture));
-
-            var newListApartmentsAfterGrouping = new List<object>();
+            var newListApartmentsAfterGrouping =
+                new Tuple<List<double>, List<double>, double, List<double>, List<double>>(default(List<double>),
+                    default(List<double>),
+                    default(double), default(List<double>), default(List<double>));
+            //newListApartmentsAfterGrouping = new Tuple<>();
             var fineAfterGrouping = 0.0;
-            if (dataAlg.CountFloor == 2 || dataAlg.CountFloor == 3 || dataAlg.CountFloor == 4)
+            if (data.CountFloor == 2 || data.CountFloor == 3 || data.CountFloor == 4)
             {
-                newListApartmentsAfterGrouping = GroupingOnTheFloors.GroupingApartment(dataAlg.ListLengthOneBedroomApartment, dataAlg.ListLengthTwoBedroomApartment,dataAlg.CountFloor);
-                dataAlg.ListLengthOneBedroomApartment = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListApartmentsAfterGrouping[0]);
-                dataAlg.ListLengthTwoBedroomApartment = PreparationSquares.FlatsWithTheAdditiveLength((List<double>)newListApartmentsAfterGrouping[1]);
-                fineAfterGrouping = (double)newListApartmentsAfterGrouping[2];
+                newListApartmentsAfterGrouping = GroupingOnTheFloors.GroupingApartment(data.ListLengthOneBedroomApartment, data.ListLengthTwoBedroomApartment,data.CountFloor);
+                data.ListLengthOneBedroomApartment = PreparationSquares.FlatsWithTheAdditiveLength(newListApartmentsAfterGrouping.Item1);
+                data.ListLengthTwoBedroomApartment = PreparationSquares.FlatsWithTheAdditiveLength(newListApartmentsAfterGrouping.Item2);
+                fineAfterGrouping = newListApartmentsAfterGrouping.Item3;
             }       
 
             var myStopWatchGreedy = new Stopwatch();
@@ -50,9 +47,9 @@ namespace Resettlement
                 numberIteration++;
 //                var greedyAlgorithm = GreedyAlgorithmSection.GreedyMethode(dataAlg.ListLengthOneBedroomApartnent, dataAlg.ListLengthTwoBedroomApartnent,
 //                    dataAlg.Step, dataAlg.Entryway, firstOneFlat);
-                var greedyAlgorithm = GreedyAlgorithmSection.GreedyMethode(dataAlg, firstOneFlat);
+                var greedyAlgorithm = GreedyAlgorithmSection.GreedyMethode(data, firstOneFlat);
                 firstOneFlat = (double)greedyAlgorithm[5];
-                greedyAlgorithm[0] = Math.Round((double)greedyAlgorithm[0] * dataAlg.CountFloor, 1);
+                greedyAlgorithm[0] = Math.Round((double)greedyAlgorithm[0] * data.CountFloor, 1);
                 greedyAlgorithm[0] = Math.Round((double)greedyAlgorithm[0] + fineAfterGrouping, 1);
 
                 if (totalOptimalResult.Count == greedyAlgorithm.Count)
@@ -68,23 +65,23 @@ namespace Resettlement
                     totalOptimalResult = greedyAlgorithm;
                 }
 
-                if (dataAlg.CountFloor != 1)
+                if (data.CountFloor != 1)
                 {
-                    dataAlg.ListLengthOneBedroomApartment = PreparationSquares.FlatsRestartList((List<double>)newListApartmentsAfterGrouping[0]);
-                    dataAlg.ListLengthTwoBedroomApartment = PreparationSquares.FlatsRestartList((List<double>)newListApartmentsAfterGrouping[1]);
-                    greedyAlgorithm[3] = newListApartmentsAfterGrouping[3];
-                    greedyAlgorithm[4] = newListApartmentsAfterGrouping[4];
+                    data.ListLengthOneBedroomApartment = PreparationSquares.FlatsRestartList(newListApartmentsAfterGrouping.Item1);
+                    data.ListLengthTwoBedroomApartment = PreparationSquares.FlatsRestartList(newListApartmentsAfterGrouping.Item2);
+                    greedyAlgorithm[3] = newListApartmentsAfterGrouping.Item4;
+                    greedyAlgorithm[4] = newListApartmentsAfterGrouping.Item5;
                 }
                 else
                 {
-                    dataAlg.ListLengthOneBedroomApartment = PreparationSquares.FlatsWithTheAdditiveLength(dataAlg.ListLengthOneBedroomApartnentWithoutFormats);
-                    dataAlg.ListLengthTwoBedroomApartment = PreparationSquares.FlatsWithTheAdditiveLength(dataAlg.ListLengthTwoBedroomApartnentWithoutFormats);
+                    data.ListLengthOneBedroomApartment = PreparationSquares.FlatsWithTheAdditiveLength(data.ListLengthOneBedroomApartnentWithoutFormats);
+                    data.ListLengthTwoBedroomApartment = PreparationSquares.FlatsWithTheAdditiveLength(data.ListLengthTwoBedroomApartnentWithoutFormats);
                 }
                 //Вывод результата по итерациям
-                PrintResult.GreedyIterationPrintResult(greedyAlgorithm, dataAlg.CountFloor, numberIteration, true, resultGreedy_label);
+                PrintResult.GreedyIterationPrintResult(greedyAlgorithm, data.CountFloor, numberIteration, true, resultGreedy_label);
             }
             myStopWatchGreedy.Stop();
-            PrintResult.GreedyIterationPrintResult(totalOptimalResult, dataAlg.CountFloor, optimalNumberIteration, false, resultGreedy_label);
+            PrintResult.GreedyIterationPrintResult(totalOptimalResult, data.CountFloor, optimalNumberIteration, false, resultGreedy_label);
 
             resultGreedy_label.Text +=
                   string.Format(MessagesText.WorkTimeHeuristicAlgoruthm,

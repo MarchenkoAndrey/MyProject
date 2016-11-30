@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
+﻿using System.Collections.Generic;
 using ComputationMethods;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -33,11 +31,11 @@ namespace Resettlement.Tests
             //Todo писать тест
 
 
-            Assert.AreEqual((List<double>)resultList[0], result0, "Error in grouping");
-            Assert.AreEqual((List<double>)resultList[1], result1, "Error in grouping");
-            Assert.AreEqual((double)resultList[2], result2, "Error in grouping");
-            Assert.AreEqual((List<double>)resultList[3], new List<double>(), "Error in grouping");
-            Assert.AreEqual((List<double>)resultList[4], new List<double>(), "Error in grouping");
+            Assert.AreEqual(resultList.Item1, result0, "Error in grouping");
+            Assert.AreEqual(resultList.Item2, result1, "Error in grouping");
+            Assert.AreEqual(resultList.Item3, result2, "Error in grouping");
+            Assert.AreEqual(resultList.Item4, new List<double>(), "Error in grouping");
+            Assert.AreEqual(resultList.Item5, new List<double>(), "Error in grouping");
 
             list1.Remove(0);
             list2.Remove(0);
@@ -50,11 +48,11 @@ namespace Resettlement.Tests
             var result3 = new List<double> { 4.8, 6.6, 6.6, 7.2 };
             var result4 = new List<double> { 4.8, 6.6, 6.6, 7.2 };
 
-            Assert.AreEqual((List<double>)resultList[0], result0, "Error in grouping");
-            Assert.AreEqual((List<double>)resultList[1], result1, "Error in grouping");
-            Assert.AreEqual((double)resultList[2], result2, "Error in grouping");
-            Assert.AreEqual((List<double>)resultList[3], result3, "Error in grouping");
-            Assert.AreEqual((List<double>)resultList[4], result4, "Error in grouping");
+            Assert.AreEqual(resultList.Item1, result0, "Error in grouping");
+            Assert.AreEqual(resultList.Item2, result1, "Error in grouping");
+            Assert.AreEqual(resultList.Item3, result2, "Error in grouping");
+            Assert.AreEqual(resultList.Item4, result3, "Error in grouping");
+            Assert.AreEqual(resultList.Item5, result4, "Error in grouping");
         }
     }
 }

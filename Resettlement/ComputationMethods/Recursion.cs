@@ -5,7 +5,7 @@ namespace ComputationMethods
 {
 	public static class Resursion
 	{
-        public static List<int[]> Data(int n, int optN, bool isPermutationForOneBedroom)
+        public static IEnumerable<int[]> Data(int n, int optN, bool isPermutationForOneBedroom)
 		{
 			var result = new List<int[]>();
 		    var countExcessNumber=0;

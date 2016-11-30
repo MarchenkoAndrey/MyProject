@@ -6,10 +6,10 @@ namespace ComputationMethods
 {
     public static class GroupingOnTheFloors
     {
-        public static List<object> GroupingApartment(List<double> listLengthsOneBedroomApartment,
+        public static Tuple<List<double>, List<double>, double, List<double>, List<double>> GroupingApartment(List<double> listLengthsOneBedroomApartment,
             List<double> listLengthsTwoBedroomAppartment, int countFloor)
         {         
-            var listResult = new List<object>();
+//          var listResult = new List<object>()
             var fineOneBedroomApartment = 0.0;
             var fineTwoBedroomApartment = 0.0;
             listLengthsOneBedroomApartment.Sort();
@@ -198,15 +198,16 @@ namespace ComputationMethods
                     listExcessDataTwoBedroomApartment.AddRange(excessListOneValue);
                 }
             }
-            listResult.Add(listResultOneBedroomApartment);
-            listResult.Add(listResultTwoBedroomApartment);
+//            listResult.Add(listResultOneBedroomApartment);
+//            listResult.Add(listResultTwoBedroomApartment);
             fineOneBedroomApartment = Math.Abs(fineOneBedroomApartment) < 1e-9 ? totalFineOneBedroomApartmentBecauseExcessData : fineOneBedroomApartment;
             fineTwoBedroomApartment = Math.Abs(fineOneBedroomApartment) < 1e-9 ? totalFineTwoBedroomApartmentBecauseExcessData : fineTwoBedroomApartment;
             var totalFine = Math.Round(fineOneBedroomApartment + fineTwoBedroomApartment, 1);
-            listResult.Add(totalFine);
-            listResult.Add(listExcessDataOneBedroomApartment);
-            listResult.Add(listExcessDataTwoBedroomApartment);
-            return listResult;
+//            listResult.Add(totalFine);
+//            listResult.Add(listExcessDataOneBedroomApartment);
+//            listResult.Add(listExcessDataTwoBedroomApartment);
+            return Tuple.Create(listResultOneBedroomApartment,listResultTwoBedroomApartment,
+                totalFine,listExcessDataOneBedroomApartment,listExcessDataTwoBedroomApartment);;
         }
 
         public static void EqualCountApartment(List<double> listSortAscApartment, double fineApartment,
