@@ -13,7 +13,7 @@ namespace Resettlement
 		    data.ListLenOneFlat.Sort();
             data.ListLenTwoFlat.Sort();
 		    var optimalNumberApartments =
-		        OptimalNumberApartments.CalculateOptimalNumberApartments(
+		        OptimalNumberFlat.CalculateOptimalNumberFlat(
 		            data.ListLenOneFlat, data.ListLenTwoFlat, 2);
             var finalPlacementOneBedroomApartment = new double[optimalNumberApartments];
             var finalPlacementTwoBedroomApartment = new double[optimalNumberApartments];

@@ -23,9 +23,9 @@ namespace Resettlement
             var resultDataAfterGrouping = new ResultDataAfterGrouping();
                 
             var fineAfterGrouping = 0.0;
-            if (data.CountFloor == 2 || data.CountFloor == 3 || data.CountFloor == 4)
+            if (data.CountFloor > 1)
             {
-                resultDataAfterGrouping = GroupingOnTheFloors.GroupingApartment(data.ListLenOneFlat, data.ListLenTwoFlat,data.CountFloor);
+                resultDataAfterGrouping = GroupingOnTheFloors.GroupingApartment(data);
                 data.ListLenOneFlat = PreparationSquares.FlatsWithTheAdditiveLength(resultDataAfterGrouping.ListResultOneFlat);
                 data.ListLenTwoFlat = PreparationSquares.FlatsWithTheAdditiveLength(resultDataAfterGrouping.ListResultTwoFlat);
                 fineAfterGrouping = resultDataAfterGrouping.Fine;

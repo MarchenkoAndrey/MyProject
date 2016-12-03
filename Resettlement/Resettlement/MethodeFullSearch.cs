@@ -11,7 +11,7 @@ namespace Resettlement
 		{
             var totalListExceedDataOneBedroomApartment = new List<double>();
             var totalListExceedDataTwoBedroomApartment = new List<double>();
-		    var numberOptimalLocationApartments = OptimalNumberApartments.CalculateOptimalNumberApartments(listLengthsOneBedroomApartment,
+		    var numberOptimalLocationApartments = OptimalNumberFlat.CalculateOptimalNumberFlat(listLengthsOneBedroomApartment,
 		        listLengthsTwoBedroomApartment, 2);
 
 			var optimalLocationOneBedroomApartments = new double[numberOptimalLocationApartments];

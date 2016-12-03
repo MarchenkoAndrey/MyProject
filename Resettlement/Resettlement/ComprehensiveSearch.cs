@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
@@ -23,7 +22,7 @@ namespace Resettlement
             lossesOne_label.Text = "".ToString(CultureInfo.InvariantCulture);
             resultFullSearch_label.Text = "".ToString(CultureInfo.InvariantCulture);
 
-            var realCountFlat = data.ListLenOneFlat.Count() + data.ListLenTwoFlat.Count();
+            var realCountFlat = data.ListLenOneFlat.Count + data.ListLenTwoFlat.Count;
             realizat_label.Text += string.Format(MessagesText.RealizationForRectangles, realCountFlat).ToString(CultureInfo.InvariantCulture);
             lossesOne_label.Text += string.Format(MessagesText.SummarizeAdditionLengthForH, data.SumDelta.ToString(CultureInfo.InvariantCulture));
 
@@ -31,7 +30,7 @@ namespace Resettlement
             var fineAfterGrouping = 0.0;
             if (data.CountFloor == 2 || data.CountFloor == 3 || data.CountFloor == 4)
             {
-                resultDataAfterGrouping = GroupingOnTheFloors.GroupingApartment(data.ListLenOneFlat, data.ListLenTwoFlat, data.CountFloor);
+                resultDataAfterGrouping = GroupingOnTheFloors.GroupingApartment(data);
                 data.ListLenOneFlat = PreparationSquares.FlatsWithTheAdditiveLength(resultDataAfterGrouping.ListResultOneFlat);
                 data.ListLenTwoFlat = PreparationSquares.FlatsWithTheAdditiveLength(resultDataAfterGrouping.ListResultTwoFlat);
                 fineAfterGrouping = resultDataAfterGrouping.Fine;
