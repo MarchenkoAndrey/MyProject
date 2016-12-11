@@ -5,7 +5,7 @@ namespace ComputationMethods
 {
     static class CreatePermWithExcessParam
     {
-        public static List<int[]> MethodeCreatePermWithOddParam(List<int[]> result, int n)
+        public static IEnumerable<int[]> MethodeCreatePermWithOddParam(List<int[]> result, int n)
         {
             var newResultList = new List<int[]>();
             var totCountRow = result.Count;

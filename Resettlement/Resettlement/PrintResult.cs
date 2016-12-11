@@ -7,12 +7,12 @@ namespace Resettlement
 {
     public static class PrintResult
     {
-        public static void GreedyIterationPrintResult(ResultGreedyMethode data, int countFloor, int numberIteration, bool flagIsNotFinish, Label resultGreedyLabel)
+        public static void GreedyIterationPrintResult(ResultGreedyMethode data, int countFloor, bool flagIsNotFinish, Label resultGreedyLabel)
         {
             if (flagIsNotFinish)
             {
                 resultGreedyLabel.Text +=
-                    string.Format(MessagesText.ResultIterationHeuristicAlgorithm,numberIteration).ToString(CultureInfo.InvariantCulture);
+                    string.Format(MessagesText.ResultIterationHeuristicAlgorithm,data.NumIter).ToString(CultureInfo.InvariantCulture);
             }
             else
             {
@@ -38,8 +38,8 @@ namespace Resettlement
                     }
                 }
                 if (flagIsNotFinish) return;
-                PrintExceedAppartment(data.ListLenOneFlat, resultGreedyLabel, MessagesText.RectanglesAiNotList);
-                PrintExceedAppartment(data.ListLengthTBA, resultGreedyLabel, MessagesText.RectanglesBiNotList);
+                PrintExceedFlat(data.ListLenOneFlat, resultGreedyLabel, MessagesText.RectanglesAiNotList);
+                PrintExceedFlat(data.ListLenTwoFlat, resultGreedyLabel, MessagesText.RectanglesBiNotList);
             }
                 else
                 {
@@ -49,8 +49,8 @@ namespace Resettlement
                     PrintFloor(data.FinalPlaceTwoFlat, resultGreedyLabel);
                     resultGreedyLabel.Text += MessagesText.DividingLine;
                     PrintFloor(data.FinalPlaceTwoFlat, resultGreedyLabel);
-                    PrintExceedAppartment(data.ListLenOneFlat, resultGreedyLabel, MessagesText.RectanglesAiNotList);
-                    PrintExceedAppartment(data.ListLengthTBA, resultGreedyLabel, MessagesText.RectanglesBiNotList);
+                    PrintExceedFlat(data.ListLenOneFlat, resultGreedyLabel, MessagesText.RectanglesAiNotList);
+                    PrintExceedFlat(data.ListLenTwoFlat, resultGreedyLabel, MessagesText.RectanglesBiNotList);
                 }
         }
 
@@ -65,13 +65,13 @@ namespace Resettlement
                 for (var numberFloor = 0; numberFloor < countFloor; ++numberFloor)
                 {
                     resultFullSearchLabel.Text += MessagesText.DividingLine;
-                    PrintFloor(data.ListResultOneFlat.ToArray(), resultFullSearchLabel);
+                    PrintFloor(data.ListResultOneFlat, resultFullSearchLabel);
                     resultFullSearchLabel.Text += MessagesText.DividingLine;
-                    PrintFloor(data.ListResultTwoFlat.ToArray(), resultFullSearchLabel);
-                    PrintStroke(data.ListResultOneFlat.ToArray(), numberFloor, countFloor, resultFullSearchLabel);
+                    PrintFloor(data.ListResultTwoFlat, resultFullSearchLabel);
+                    PrintStroke(data.ListResultOneFlat, numberFloor, countFloor, resultFullSearchLabel);
                 }
-                PrintExceedAppartment(data.ListExcessOneFlat, resultFullSearchLabel, MessagesText.RectanglesAiNotList);
-                PrintExceedAppartment(data.listExcessTwoFlat, resultFullSearchLabel, MessagesText.RectanglesBiNotList);
+                PrintExceedFlat(data.ListExcessOneFlat, resultFullSearchLabel, MessagesText.RectanglesAiNotList);
+                PrintExceedFlat(data.listExcessTwoFlat, resultFullSearchLabel, MessagesText.RectanglesBiNotList);
             }   
 
             else
@@ -84,18 +84,18 @@ namespace Resettlement
                 resultFullSearchLabel.Text += optArrangeOne;
                 resultFullSearchLabel.Text += MessagesText.NextLine;
                 resultFullSearchLabel.Text += MessagesText.DividingLine;
-                PrintFloor(data.ListResultOneFlat.ToArray(), resultFullSearchLabel);
+                PrintFloor(data.ListResultOneFlat, resultFullSearchLabel);
                 resultFullSearchLabel.Text += MessagesText.DividingLine;
-                PrintFloor(data.ListResultTwoFlat.ToArray(), resultFullSearchLabel);
-                PrintExceedAppartment(data.ListExcessOneFlat, resultFullSearchLabel, MessagesText.RectanglesAiNotList);
-                PrintExceedAppartment(data.listExcessTwoFlat, resultFullSearchLabel, MessagesText.RectanglesBiNotList);
+                PrintFloor(data.ListResultTwoFlat, resultFullSearchLabel);
+                PrintExceedFlat(data.ListExcessOneFlat, resultFullSearchLabel, MessagesText.RectanglesAiNotList);
+                PrintExceedFlat(data.listExcessTwoFlat, resultFullSearchLabel, MessagesText.RectanglesBiNotList);
             }
         }
 
-        private static void PrintStroke(double[] totalListOneBedroomApartment, int numberFloor, int countFloor, Label resultLabel)
+        private static void PrintStroke(List<double> totalListOneBedroomApartment, int numberFloor, int countFloor, Label resultLabel)
         {
             var strokeLength = MessagesText.StrokeLength;
-            for (var i = 0; i < totalListOneBedroomApartment.Length; ++i)
+            for (var i = 0; i < totalListOneBedroomApartment.Count; ++i)
             {
                 strokeLength += MessagesText.StrokeLength;
             }
@@ -107,10 +107,10 @@ namespace Resettlement
         }
 
 
-        private static void PrintFloor(double[] listBedroomApartment, Label resultLabel)
+        private static void PrintFloor(List<double> listFlat, Label resultLabel)
         {
             var dividedLine = 0;
-            foreach (var i in listBedroomApartment)
+            foreach (var i in listFlat)
             {
                 resultLabel.Text += (string.Format(" {0:0.0} ", i));
                 ++dividedLine;
@@ -122,11 +122,11 @@ namespace Resettlement
             resultLabel.Text += MessagesText.NextLine;
         }
 
-        private static void PrintExceedAppartment(List<double> listExceedBedroomApartment, Label resultLabel, string rectanglesNotList)
+        private static void PrintExceedFlat(List<double> listExceedFlat, Label resultLabel, string rectanglesNotList)
         {
-            if (listExceedBedroomApartment.Count == 0) return;
+            if (listExceedFlat == null) return;
             resultLabel.Text += rectanglesNotList;
-            foreach (var i in listExceedBedroomApartment)
+            foreach (var i in listExceedFlat)
             {
                 resultLabel.Text += (string.Format(" {0:0.0} ", i));
             }

@@ -23,6 +23,8 @@ namespace Resettlement
             TotalFineTwoFlatExcess = double.MaxValue;
             OptimalCountFlat = _calculateOptimalNumberFlat(data.ListLenOneFlat.Count, data.ListLenTwoFlat.Count,
                 data.CountFloor);
+            ListResultOneFlat = new List<double>();
+            ListResultTwoFlat = new List<double>();
         }
 
         private readonly Func<int, int, int, int> _calculateOptimalNumberFlat =

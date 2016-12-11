@@ -134,7 +134,7 @@ namespace Resettlement
 			    }
 
 			}
-		    return new ResultGreedyMethode(totalFine, finalPlacementOneBedroomApartment, finalPlacementTwoBedroomApartment,
+		    return new ResultGreedyMethode(totalFine, finalPlacementOneBedroomApartment.ToList(), finalPlacementTwoBedroomApartment.ToList(),
 		        data.ListLenOneFlat, data.ListLenTwoFlat, newFirstOneBedroomApartment);
 		}
 	}

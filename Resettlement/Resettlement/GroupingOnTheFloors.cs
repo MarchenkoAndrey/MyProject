@@ -50,7 +50,7 @@ namespace Resettlement
                         var currentListOneFlat = new List<double>(listOneFlatForCalculate);
                         //var currentFineOneFlat = 0.0;
                         currentListOneFlat.Remove(index);
-                        var res = CalculateList(currentListOneFlat, curData.CurrentFineFlat,
+                        var res = EqualCountFlat(currentListOneFlat, curData.CurrentFineFlat,
                             curData.CurrentResultListFlat, data.CountFloor);
                         curData.CurrentFineFlat = res.Item1;
                         curData.CurrentResultListFlat = res.Item2;
@@ -81,10 +81,10 @@ namespace Resettlement
                             var curData = new TempData();
                             var currentListOneFlat1 = new List<double>(currentListOneFlat);
                             currentListOneFlat1.Remove(listOneFlatForCalculate[jndex]);
-                            var s = CalculateList(currentListOneFlat1, curData.CurrentFineFlat,
+                            var res = EqualCountFlat(currentListOneFlat1, curData.CurrentFineFlat,
                                 curData.CurrentResultListFlat, data.CountFloor);
-                            curData.CurrentFineFlat = s.Item1;
-                            curData.CurrentResultListFlat = s.Item2;
+                            curData.CurrentFineFlat = res.Item1;
+                            curData.CurrentResultListFlat = res.Item2;
 
                             if (!(curData.CurrentFineFlat < dataInGrouping.TotalFineOneFlatExcess)) continue;
                             dataInGrouping.TotalFineOneFlatExcess = Math.Round(curData.CurrentFineFlat, 1);
@@ -138,10 +138,10 @@ namespace Resettlement
                         var currentListTwoFlat = new List<double>(listTwoFlatForCalculate);
                         currentListTwoFlat.Remove(index);
 
-                        var s = CalculateList(currentListTwoFlat, curData.CurrentFineFlat,
+                        var res = EqualCountFlat(currentListTwoFlat, curData.CurrentFineFlat,
                             curData.CurrentResultListFlat, data.CountFloor);
-                        curData.CurrentFineFlat = s.Item1;
-                        curData.CurrentResultListFlat = s.Item2;
+                        curData.CurrentFineFlat = res.Item1;
+                        curData.CurrentResultListFlat = res.Item2;
                         if (!(curData.CurrentFineFlat < dataInGrouping.TotalFineTwoFlatExcess)) continue;
                         dataInGrouping.TotalFineTwoFlatExcess = Math.Round(curData.CurrentFineFlat, 1);
                         dataInGrouping.ListResultTwoFlat = curData.CurrentResultListFlat;
@@ -167,10 +167,10 @@ namespace Resettlement
                             var currentListTwoFlat1 = new List<double>(currentListTwoFlat);
                             currentListTwoFlat1.Remove(listTwoFlatForCalculate[jndex]);
 
-                            var s = CalculateList(currentListTwoFlat1, curData.CurrentFineFlat,
+                            var res = EqualCountFlat(currentListTwoFlat1, curData.CurrentFineFlat,
                                 curData.CurrentResultListFlat, data.CountFloor);
-                            curData.CurrentFineFlat = s.Item1;
-                            curData.CurrentResultListFlat = s.Item2;
+                            curData.CurrentFineFlat = res.Item1;
+                            curData.CurrentResultListFlat = res.Item2;
                             if (!(curData.CurrentFineFlat < dataInGrouping.TotalFineTwoFlatExcess)) continue;
                             dataInGrouping.TotalFineTwoFlatExcess = Math.Round(curData.CurrentFineFlat, 1);
                             dataInGrouping.ListResultTwoFlat = curData.CurrentResultListFlat;
@@ -195,78 +195,81 @@ namespace Resettlement
         }
 
         private static Tuple<double, List<double>> EqualCountFlat(List<double> listFlat, double fineFlat,
-            List<double> listResultFlat, int countFloor)
+            List<double> resultListFlat, int countFloor)
         {
-            switch (countFloor)
+            //Todo fixed
+            for (var i = countFloor-1; i <= listFlat.Count; i += countFloor)
             {
-                case 2:
-                    for (var i = 0; i < listFlat.Count; i = i + 2)
-                    {
-                        fineFlat += Math.Round(listFlat[i + 1] - listFlat[i], 1);
-                        listResultFlat.Add(listFlat[i + 1]);
-                    }
-                    break;
-                case 3:
-                    for (var i = 0; i < listFlat.Count; i = i + 3)
-                    {
-                        fineFlat +=
-                            Math.Round(
-                                listFlat[i + 2] - listFlat[i] +
-                                (listFlat[i + 2] - listFlat[i + 1]), 1);
-                        listResultFlat.Add(listFlat[i + 2]);
-                    }
-                    break;
-                case 4:
-                    for (var i = 0; i < listFlat.Count; i = i + 4)
-                    {
-                        fineFlat += Math.Round(listFlat[i + 3] - listFlat[i] +
-                            (listFlat[i + 3] - listFlat[i + 1]) + (listFlat[i + 3] - listFlat[i + 2]), 1);
-                        listResultFlat.Add(listFlat[i + 3]);
-                    }
-                    break;
+                for (var j = 1; j < countFloor; j++)
+                {
+                    fineFlat += Math.Round(listFlat[i] - listFlat[i - j], 1);
+                }
+                resultListFlat.Add(listFlat[i]);
             }
-            return Tuple.Create(fineFlat, listResultFlat);
+
+
+//            switch (countFloor)
+//            {
+//                case 2:
+//                    for (var i = 0; i < listFlat.Count; i = i + 2)
+//                    {
+//                        fineFlat += Math.Round(listFlat[i + 1] - listFlat[i], 1);
+//                        resultListFlat.Add(listFlat[i + 1]);
+//                    }
+//                    break;
+//                case 3:
+//                    for (var i = 0; i < listFlat.Count; i = i + 3)
+//                    {
+//                        fineFlat += Math.Round(listFlat[i + 2] - listFlat[i] + (listFlat[i + 2] - listFlat[i + 1]), 1);
+//                        resultListFlat.Add(listFlat[i + 2]);
+//                    }
+//                    break;
+//                case 4:
+//                    for (var i = 0; i < listFlat.Count; i = i + 4)
+//                    {
+//                        fineFlat +=
+//                            Math.Round(
+//                                listFlat[i + 3] - listFlat[i] + (listFlat[i + 3] - listFlat[i + 1]) +
+//                                (listFlat[i + 3] - listFlat[i + 2]), 1);
+//                        resultListFlat.Add(listFlat[i + 3]);
+//                    }
+//                    break;
+//            }
+            return Tuple.Create(fineFlat, resultListFlat);
         }
 
-        private static Tuple<double,List<double>> CalculateList(List<double> currentListApartment, double currentFineApartment,
-            List<double> currentResultListApartment, int countFloor)
-        {
-            switch (countFloor)
-            {
-                case 2:
-                    for (var i = 0; i < currentListApartment.Count; i = i + 2)
-                    {
-                        currentFineApartment +=
-                            Math.Round(currentListApartment[i + 1] - currentListApartment[i], 1);
-
-                        currentResultListApartment.Add(currentListApartment[i + 1]);
-                    }
-                    break;
-                case 3:
-                    for (var i = 0; i < currentListApartment.Count; i = i + 3)
-                    {
-                        currentFineApartment +=
-                            Math.Round(
-                                currentListApartment[i + 2] - currentListApartment[i] +
-                                (currentListApartment[i + 2] - currentListApartment[i + 1]), 1);
-
-                        currentResultListApartment.Add(currentListApartment[i + 2]);
-                    }
-                    break;
-                case 4:
-                    for (var i = 0; i < currentListApartment.Count; i = i + 4)
-                    {
-                        currentFineApartment +=
-                            Math.Round(
-                                currentListApartment[i + 3] - currentListApartment[i] +
-                                (currentListApartment[i + 3] - currentListApartment[i + 1]) +
-                                (currentListApartment[i + 3] - currentListApartment[i + 2]), 1);
-
-                        currentResultListApartment.Add(currentListApartment[i + 3]);
-                    }
-                    break;
-            }
-            return Tuple.Create(currentFineApartment, currentResultListApartment);
-        }
+//        private static Tuple<double,List<double>> CalculateList(List<double> listFlat, double fineFlat,
+//            List<double> resultListFlat, int countFloor)
+//        {
+//
+//            switch (countFloor)
+//            {
+//                case 2:
+//                    for (var i = 0; i < listFlat.Count; i = i + 2)
+//                    {
+//                        fineFlat += Math.Round(listFlat[i + 1] - listFlat[i], 1);
+//                        resultListFlat.Add(listFlat[i + 1]);
+//                    }
+//                    break;
+//                case 3:
+//                    for (var i = 0; i < listFlat.Count; i = i + 3)
+//                    {
+//                        fineFlat += Math.Round(listFlat[i + 2] - listFlat[i] + (listFlat[i + 2] - listFlat[i + 1]), 1);
+//                        resultListFlat.Add(listFlat[i + 2]);
+//                    }
+//                    break;
+//                case 4:
+//                    for (var i = 0; i < listFlat.Count; i = i + 4)
+//                    {
+//                        fineFlat +=
+//                            Math.Round(
+//                                listFlat[i + 3] - listFlat[i] + (listFlat[i + 3] - listFlat[i + 1]) +
+//                                (listFlat[i + 3] - listFlat[i + 2]), 1);
+//                        resultListFlat.Add(listFlat[i + 3]);
+//                    }
+//                    break;
+//            }
+//            return Tuple.Create(fineFlat, resultListFlat);
+//        }
     }
 }

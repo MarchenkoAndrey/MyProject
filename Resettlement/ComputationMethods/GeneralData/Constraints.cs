@@ -5,9 +5,9 @@
         public const double EntrywayLength = 2.7;
         public static readonly double[] WidthOfApartmentVariants =
         {
+            5.7,
             5.6,
             5.65,
-            5.7,
             5.75,
             5.8,
             5.85,
@@ -16,7 +16,7 @@
             6
         };
 
-        public const int CountFloor = 4;
+        public const int CountFloor = 3;
 
         public const double ThickWallsWidth = 0.3;
 

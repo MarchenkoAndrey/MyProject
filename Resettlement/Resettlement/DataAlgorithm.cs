@@ -10,7 +10,7 @@ namespace Resettlement
         //            var step = InputConstraints.Q(valueQ.Text.ToString(CultureInfo.InvariantCulture));
         public List<double> ListSquaresOneFlat;
         public List<double> ListSquaresTwoFlat;
-        public List<double> ListSquaresThreeFlat;
+//        public List<double> ListSquaresThreeFlat;
 
         public int CountFloor { get; set; }
         public double SumDelta { get; set; }
@@ -44,8 +44,14 @@ namespace Resettlement
                 ReadFromFileAndRecordingInputDataInList.ReadFile(FilesDefault.DefaultListOneFlat);
             ListSquaresTwoFlat =
                 ReadFromFileAndRecordingInputDataInList.ReadFile(FilesDefault.DefaultListTwoFlat);
-            ListSquaresThreeFlat =
-                ReadFromFileAndRecordingInputDataInList.ReadFile(FilesDefault.DefaultListThreeFlat);
+            CountFloor = Constraints.CountFloor;
+
+            ListLenOneFlat = PreparationSquares.CalculateLengthOfFlat(ListSquaresOneFlat,Constraints.WidthOfApartmentVariants[0]);
+            ListLenTwoFlat = PreparationSquares.CalculateLengthOfFlat(ListSquaresTwoFlat, Constraints.WidthOfApartmentVariants[0]);
+            
+//            ListSquaresThreeFlat =
+//                ReadFromFileAndRecordingInputDataInList.ReadFile(FilesDefault.DefaultListThreeFlat);
+
             #region specific
 
 //            TotalCountApartments = ListSquaresOneBedroomApartment.Count + ListSquaresTwoBedroomApartment.Count +
@@ -53,6 +59,7 @@ namespace Resettlement
 //            SumSquaresOriginal = Calculate.CalculateSumList(ListSquaresOneBedroomApartment) +
 //                Calculate.CalculateSumList(ListSquaresTwoBedroomApartment) +
 //                Calculate.CalculateSumList(ListSquaresThreeFlat);
+
             #endregion
         }
     }

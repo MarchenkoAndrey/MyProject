@@ -15,7 +15,7 @@ namespace ComputationMethods
 				var currentListApartment = new List<double>();
 			    var temporalListApartment = new List<double>(newLengthFlat); // для нахождения лишних
                 
-				foreach (int t in i)
+				foreach (var t in i)
 				{
 				    currentListApartment.Add(temporalListApartment[t - 1]);
 				    temporalListApartment[t - 1] = 0;  //зануляю взятые эл-ты
