@@ -5,13 +5,14 @@ namespace Resettlement
 {
     public static class GroupingOnTheFloors
     {
-        public static ResultDataAfterGrouping GroupingApartment(DataAlgorithm data)
+        public static ResultDataAfterGrouping GroupingFlat(InputDataAlg data)
         {         
-            data.ListLenOneFlat.Sort();
+            data.ListLenOneFlat.Sort(); //ToDo убрать отсюда
             data.ListLenTwoFlat.Sort();
-            var dataInGrouping = new DataInnerGrouping(data);
+            
+            var dataInGrouping = new DataInnerGrouping();
 
-            if (data.ListLenOneFlat.Count == dataInGrouping.OptimalCountFlat)
+            if (data.ListLenOneFlat.Count == data.OptCountFlat)
             {
                 var res = EqualCountFlat(data.ListLenOneFlat, dataInGrouping.FineOneFlat,
                    dataInGrouping.ListResultOneFlat, data.CountFloor);
@@ -22,20 +23,22 @@ namespace Resettlement
             {
                 //as FS, all variants, to choice better
                 // Если лишних больше 2, то для однокомнатных удаляем самые маленькие квартиры
-                var exceedValuesCount = data.ListLenOneFlat.Count - dataInGrouping.OptimalCountFlat;
+                var exceedValuesCount = data.ListLenOneFlat.Count - data.OptCountFlat;
                 var countExceedValuesMoreTwo = exceedValuesCount;
                 var listAfterConversionTwoValues = new List<double>();
                 if (exceedValuesCount > 2)
                 {
-                    countExceedValuesMoreTwo = countExceedValuesMoreTwo - (exceedValuesCount - 2);
+                    //TODO ЗАЧЕМ countExceedValuesMoreTwo - (exceedValuesCount - 2), А НЕ ПРОСТО --2;
+                    countExceedValuesMoreTwo -= 2;
                     for (var index = 0; index < countExceedValuesMoreTwo; ++index)
                     {
                         dataInGrouping.ListExcessOneFlat.Add(data.ListLenOneFlat[index]);
                     }
                     for (var index = countExceedValuesMoreTwo; index < data.ListLenOneFlat.Count; ++index)
                     {
-                        listAfterConversionTwoValues.Add(data.ListLenOneFlat[index]);
+                        listAfterConversionTwoValues.Add(data.ListLenOneFlat[index]); // СПИСОК В КОТОРОМ ВСЕГО 2 ЛИШНИХ ВАРИАНТА.
                     }
+                    countExceedValuesMoreTwo = 2; // Если мы заходим в OverHead, то 100% лишних осталось две.
                 }
 
                 var listOneFlatForCalculate = listAfterConversionTwoValues.Count != 0 ? listAfterConversionTwoValues : data.ListLenOneFlat;
@@ -103,20 +106,23 @@ namespace Resettlement
             }
             
             // для двушек
-            if (data.ListLenTwoFlat.Count == dataInGrouping.OptimalCountFlat)
+            if (data.ListLenTwoFlat.Count == data.OptCountFlat)
             {
-                EqualCountFlat(data.ListLenTwoFlat, dataInGrouping.FineTwoFlat,
+                var res = EqualCountFlat(data.ListLenTwoFlat, dataInGrouping.FineTwoFlat,
                 dataInGrouping.ListResultTwoFlat, data.CountFloor);
+                dataInGrouping.FineTwoFlat = res.Item1;
+                dataInGrouping.ListResultTwoFlat = res.Item2;
             }
             else
             {
                 //as FS, all variants, to choice better
-                var exceedValuesCount = data.ListLenTwoFlat.Count - dataInGrouping.OptimalCountFlat;
+                // Если лишних больше 2, то для двушек удаляем самые большие квартиры
+                var exceedValuesCount = data.ListLenTwoFlat.Count - data.OptCountFlat;
                 var countExceedValuesMoreTwo = exceedValuesCount;
                 var listAfterConversionTwoValues = new List<double>();
                 if (exceedValuesCount > 2)
                 {
-                    countExceedValuesMoreTwo = countExceedValuesMoreTwo - (exceedValuesCount - 2);
+                    countExceedValuesMoreTwo -= 2;
                     for (var index = 0; index < data.ListLenTwoFlat.Count - countExceedValuesMoreTwo; ++index)
                     {
                         listAfterConversionTwoValues.Add(data.ListLenTwoFlat[index]);
@@ -125,6 +131,7 @@ namespace Resettlement
                     {
                         dataInGrouping.ListExcessTwoFlat.Add(data.ListLenTwoFlat[index]);
                     }
+                    countExceedValuesMoreTwo = 2;
                 }
                 var listTwoFlatForCalculate = listAfterConversionTwoValues.Count != 0 ? listAfterConversionTwoValues : data.ListLenTwoFlat;
 
@@ -198,7 +205,7 @@ namespace Resettlement
             List<double> resultListFlat, int countFloor)
         {
             //Todo fixed
-            for (var i = countFloor-1; i <= listFlat.Count; i += countFloor)
+            for (var i = countFloor-1; i < listFlat.Count; i += countFloor)
             {
                 for (var j = 1; j < countFloor; j++)
                 {
@@ -206,70 +213,7 @@ namespace Resettlement
                 }
                 resultListFlat.Add(listFlat[i]);
             }
-
-
-//            switch (countFloor)
-//            {
-//                case 2:
-//                    for (var i = 0; i < listFlat.Count; i = i + 2)
-//                    {
-//                        fineFlat += Math.Round(listFlat[i + 1] - listFlat[i], 1);
-//                        resultListFlat.Add(listFlat[i + 1]);
-//                    }
-//                    break;
-//                case 3:
-//                    for (var i = 0; i < listFlat.Count; i = i + 3)
-//                    {
-//                        fineFlat += Math.Round(listFlat[i + 2] - listFlat[i] + (listFlat[i + 2] - listFlat[i + 1]), 1);
-//                        resultListFlat.Add(listFlat[i + 2]);
-//                    }
-//                    break;
-//                case 4:
-//                    for (var i = 0; i < listFlat.Count; i = i + 4)
-//                    {
-//                        fineFlat +=
-//                            Math.Round(
-//                                listFlat[i + 3] - listFlat[i] + (listFlat[i + 3] - listFlat[i + 1]) +
-//                                (listFlat[i + 3] - listFlat[i + 2]), 1);
-//                        resultListFlat.Add(listFlat[i + 3]);
-//                    }
-//                    break;
-//            }
             return Tuple.Create(fineFlat, resultListFlat);
         }
-
-//        private static Tuple<double,List<double>> CalculateList(List<double> listFlat, double fineFlat,
-//            List<double> resultListFlat, int countFloor)
-//        {
-//
-//            switch (countFloor)
-//            {
-//                case 2:
-//                    for (var i = 0; i < listFlat.Count; i = i + 2)
-//                    {
-//                        fineFlat += Math.Round(listFlat[i + 1] - listFlat[i], 1);
-//                        resultListFlat.Add(listFlat[i + 1]);
-//                    }
-//                    break;
-//                case 3:
-//                    for (var i = 0; i < listFlat.Count; i = i + 3)
-//                    {
-//                        fineFlat += Math.Round(listFlat[i + 2] - listFlat[i] + (listFlat[i + 2] - listFlat[i + 1]), 1);
-//                        resultListFlat.Add(listFlat[i + 2]);
-//                    }
-//                    break;
-//                case 4:
-//                    for (var i = 0; i < listFlat.Count; i = i + 4)
-//                    {
-//                        fineFlat +=
-//                            Math.Round(
-//                                listFlat[i + 3] - listFlat[i] + (listFlat[i + 3] - listFlat[i + 1]) +
-//                                (listFlat[i + 3] - listFlat[i + 2]), 1);
-//                        resultListFlat.Add(listFlat[i + 3]);
-//                    }
-//                    break;
-//            }
-//            return Tuple.Create(fineFlat, resultListFlat);
-//        }
     }
 }

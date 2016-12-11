@@ -7,27 +7,20 @@ namespace Resettlement
 {
 	public static class MethodeFullSearch
 	{
-		public static ResultDataAfterGrouping FullSearch(List<double> listLengthsOneBedroomApartment, List<double> listLengthsTwoBedroomApartment,double step, double entryway)
+        public static ResultDataAfterGrouping FullSearch(InputDataAlg data)
 		{
-            var totalListExceedDataOneBedroomApartment = new List<double>();
-            var totalListExceedDataTwoBedroomApartment = new List<double>();
-		    var numberOptimalLocationApartments = OptimalNumberFlat.CalculateOptimalNumberFlat(listLengthsOneBedroomApartment,
-		        listLengthsTwoBedroomApartment, 2);
-
-			var optimalLocationOneBedroomApartments = new double[numberOptimalLocationApartments];
-			var optimalLocationTwoBedroomApartments = new double[numberOptimalLocationApartments];
-
+            var result = new ResultDataAfterGrouping();
 		    const bool isPermutationForOneBedroom = true;
             const bool isPermutationForTwoBedroom = true;
-            var permListOneBedroomApartment = Resursion.Data(listLengthsOneBedroomApartment.Count, numberOptimalLocationApartments, isPermutationForOneBedroom); //gereration permutations
-            var permListTwoBedroomApartment = Resursion.Data(listLengthsTwoBedroomApartment.Count, numberOptimalLocationApartments, isPermutationForTwoBedroom); //gereration permutations
+            var permListOneBedroomApartment = Resursion.Data(data.ListLenOneFlat.Count, data.OptCountFlat, isPermutationForOneBedroom); //gereration permutations
+            var permListTwoBedroomApartment = Resursion.Data(data.ListLenTwoFlat.Count, data.OptCountFlat, isPermutationForTwoBedroom); //gereration permutations
 
             List<double[]> listVariantsOneBedroomApartment;
             List<double[]> listExceedDataOneBedroomApartment;
             List<double[]> listVariantsTwoBedroomApartment;
             List<double[]> listExcessDataTwoBedroomApartment;
-            VariantsFlats.VariantsFlat(out listVariantsOneBedroomApartment, out listExceedDataOneBedroomApartment, permListOneBedroomApartment, listLengthsOneBedroomApartment);
-            VariantsFlats.VariantsFlat(out listVariantsTwoBedroomApartment, out listExcessDataTwoBedroomApartment, permListTwoBedroomApartment, listLengthsTwoBedroomApartment);
+            VariantsFlats.VariantsFlat(out listVariantsOneBedroomApartment, out listExceedDataOneBedroomApartment, permListOneBedroomApartment, data.ListLenOneFlat);
+            VariantsFlats.VariantsFlat(out listVariantsTwoBedroomApartment, out listExcessDataTwoBedroomApartment, permListTwoBedroomApartment, data.ListLenTwoFlat);
 			var totalOptimalExceedSquare = 10000.0;
 
             var countI = -1;
@@ -38,7 +31,7 @@ namespace Resettlement
 				foreach (var j in listVariantsTwoBedroomApartment)
 				{
                     countJ++;
-                    var constraintAparture = ConstraintLengthApartureForCS.LengthAparture(i, j, step, entryway);
+                    var constraintAparture = ConstraintLengthApartureForCS.LengthAparture(i, j, data.Step, data.Entryway);
 
 				    var listSquareSectionsOneBedroomApartment = (List<double>)constraintAparture[0];
                     var listSquareSectionsTwoBedroomApartment = (List<double>)constraintAparture[1];
@@ -54,21 +47,19 @@ namespace Resettlement
 
 				    if (!(currentFineFirstFloor < totalOptimalExceedSquare)) continue;
 				    totalOptimalExceedSquare = Math.Round(currentFineFirstFloor, 1);
-				    optimalLocationOneBedroomApartments = i;
-				    optimalLocationTwoBedroomApartments = temporalArrayTwoBedroomApartment;
+				    result.ListResultOneFlat = i.ToList();
+                    result.ListResultTwoFlat = temporalArrayTwoBedroomApartment.ToList();
 				    if (listExceedDataOneBedroomApartment.Count > 0)
 				    {
-				        totalListExceedDataOneBedroomApartment = listExceedDataOneBedroomApartment[countI].ToList();
+				        result.ListExcessOneFlat = listExceedDataOneBedroomApartment[countI].ToList();
 				    }
 				    if (listExcessDataTwoBedroomApartment.Count > 0)
 				    {
-				        totalListExceedDataTwoBedroomApartment = listExcessDataTwoBedroomApartment[countJ].ToList();
+                        result.listExcessTwoFlat = listExcessDataTwoBedroomApartment[countJ].ToList();
 				    }
 				}
 			}
-		    return new ResultDataAfterGrouping(optimalLocationOneBedroomApartments.ToList(),
-		        optimalLocationTwoBedroomApartments.ToList(), totalOptimalExceedSquare, totalListExceedDataOneBedroomApartment,
-		        totalListExceedDataTwoBedroomApartment);
+            return result;
 		}
 	}
 }

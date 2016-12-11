@@ -1,32 +1,36 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ComputationMethods;
 using ComputationMethods.GeneralData;
 
 namespace Resettlement
 {
-    public class DataAlgorithm
+    public class InputDataAlg
     {
         //            var widthOfApartment = InputConstraints.C(valueC.Text.ToString(CultureInfo.InvariantCulture));
         //            var step = InputConstraints.Q(valueQ.Text.ToString(CultureInfo.InvariantCulture));
         public List<double> ListSquaresOneFlat;
         public List<double> ListSquaresTwoFlat;
-//        public List<double> ListSquaresThreeFlat;
 
         public int CountFloor { get; set; }
         public double SumDelta { get; set; }
         public double Step { get; set; }
         public double Entryway { get; set; }
+        public double AddingA { get; private set; }
+        public double AddingB { get; private set; }
 
         public List<double> ListLenOneFlat;
         public List<double> ListLenTwoFlat;
 
         public List<double> ListLenOneFlatWithoutFormats;
         public List<double> ListLenTwoFlatWithoutFormats;
+        public int OptCountFlat { get; private set; }
+        public int OptCountFlatOnFloor { get; private set; }
 
         #region specific
 
         //        public int TotalCountApartments;
-
+        //        public List<double> ListSquaresThreeFlat;
 
         //        public List<double> ListSquaresOneBedroomApartmentBringingToMin;
         //        public List<double> ListSquaresTwoBedroomApartmentBringingToMin;
@@ -38,7 +42,7 @@ namespace Resettlement
 
         #endregion
 
-        public DataAlgorithm()
+        public InputDataAlg()
         {
             ListSquaresOneFlat =
                 ReadFromFileAndRecordingInputDataInList.ReadFile(FilesDefault.DefaultListOneFlat);
@@ -46,13 +50,21 @@ namespace Resettlement
                 ReadFromFileAndRecordingInputDataInList.ReadFile(FilesDefault.DefaultListTwoFlat);
             CountFloor = Constraints.CountFloor;
 
-            ListLenOneFlat = PreparationSquares.CalculateLengthOfFlat(ListSquaresOneFlat,Constraints.WidthOfApartmentVariants[0]);
+            ListLenOneFlat = PreparationSquares.CalculateLengthOfFlat(ListSquaresOneFlat, Constraints.WidthOfApartmentVariants[0]);
             ListLenTwoFlat = PreparationSquares.CalculateLengthOfFlat(ListSquaresTwoFlat, Constraints.WidthOfApartmentVariants[0]);
-            
-//            ListSquaresThreeFlat =
-//                ReadFromFileAndRecordingInputDataInList.ReadFile(FilesDefault.DefaultListThreeFlat);
+            Step = Constraints.ThickWallsWidth;
+            Entryway = Constraints.EntrywayLength;
+            AddingA = 3 * Step + Entryway;
+            AddingB = 2 * Step;
+            OptCountFlat = _calculateOptimalNumberFlat(ListLenOneFlat.Count, ListLenTwoFlat.Count,
+                CountFloor);
+            OptCountFlatOnFloor = OptCountFlat/CountFloor;
+
 
             #region specific
+
+            //            ListSquaresThreeFlat =
+            //                ReadFromFileAndRecordingInputDataInList.ReadFile(FilesDefault.DefaultListThreeFlat);
 
 //            TotalCountApartments = ListSquaresOneBedroomApartment.Count + ListSquaresTwoBedroomApartment.Count +
 //                                       ListSquaresThreeFlat.Count;
@@ -62,5 +74,9 @@ namespace Resettlement
 
             #endregion
         }
+        //Оптимальное количество квартир в конечной модели 1-го типа
+        private readonly Func<int, int, int, int> _calculateOptimalNumberFlat =
+                (countOneFlat, countTwoFlat, countFloor) =>
+                        Math.Min(countOneFlat / countFloor / 2 * 2 * countFloor, countTwoFlat / countFloor / 2 * 2 * countFloor);
     }
 }

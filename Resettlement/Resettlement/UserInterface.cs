@@ -12,13 +12,13 @@ namespace Resettlement
         
         private void greedy_btn_Click(object sender, EventArgs e)
         {
-            var dataHAlg = new DataAlgorithm();
-            PerformHeuristicAlgorithm(dataHAlg);
+            var dataHAlg = new InputDataAlg();
+            PerformHAlg(dataHAlg);
         }
 
         private void fullSearch_btn_Click(object sender, EventArgs e)
         {
-            var dataCAlg = new DataAlgorithm();
+            var dataCAlg = new InputDataAlg();
             PerformComprehensiveSearch(dataCAlg);
         }
 

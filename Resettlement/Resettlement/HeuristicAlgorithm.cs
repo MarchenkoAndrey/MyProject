@@ -8,7 +8,7 @@ namespace Resettlement
 {
     partial class UserInterface
     {
-        private void PerformHeuristicAlgorithm(DataAlgorithm data)
+        private void PerformHAlg(InputDataAlg data)
         {
             ValidateConditions.Validate(data);
 
@@ -21,11 +21,13 @@ namespace Resettlement
             lossesOne_label.Text += string.Format(MessagesText.SummarizeAdditionLengthForH, data.SumDelta.ToString(CultureInfo.InvariantCulture));
 
             var resultDataAfterGrouping = new ResultDataAfterGrouping();
-                
+            //var arr = new Arrangement(new Container());
+//            var cont = new Container(data);
+
             var fineAfterGrouping = 0.0;
             if (data.CountFloor > 1)
             {
-                resultDataAfterGrouping = GroupingOnTheFloors.GroupingApartment(data);
+                resultDataAfterGrouping = GroupingOnTheFloors.GroupingFlat(data);
                 data.ListLenOneFlat = PreparationSquares.FlatsWithTheAdditiveLength(resultDataAfterGrouping.ListResultOneFlat);
                 data.ListLenTwoFlat = PreparationSquares.FlatsWithTheAdditiveLength(resultDataAfterGrouping.ListResultTwoFlat);
                 fineAfterGrouping = resultDataAfterGrouping.Fine;
@@ -35,18 +37,19 @@ namespace Resettlement
             myStopWatchGreedy.Start();
             var firstOneFlat = 0.0; // в RGreedyMethode
             var numberIteration = 0;
-            //var optimalNumberIteration = 0;
-            var totalOptimalResult = new ResultGreedyMethode();
+            var totalOptimalResult = new ResultGreedyMethode(double.MaxValue);
 
             while (numberIteration < Constraints.NumberOfIteration)
             {
                 numberIteration++;
-                var resultGreedyIter = GreedyAlgorithmSection.GreedyMethode(data, firstOneFlat);
+                var resultGreedyIter = GreedyAlgorithmSection.GreedyMethode(data, firstOneFlat); // Todo Возвращать расстановку
                 firstOneFlat = resultGreedyIter.NewFirstOneFlat;
                 resultGreedyIter.NumIter = numberIteration;
                 resultGreedyIter.Fine = Math.Round(resultGreedyIter.Fine * data.CountFloor, 1);
                 resultGreedyIter.Fine = Math.Round(resultGreedyIter.Fine + fineAfterGrouping, 1); //Todo каждый раз суммируется??
 
+                //Запись в контейнеры
+                //Сравнение расстановок
                 if (totalOptimalResult.Fine > resultGreedyIter.Fine)
                 {
                     totalOptimalResult = resultGreedyIter;

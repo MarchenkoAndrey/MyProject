@@ -14,7 +14,17 @@ namespace Resettlement
 
         public ResultGreedyMethode()
         {
-            Fine = double.MaxValue;
+            Fine = 0.0;
+            ListLenOneFlat = new List<double>();
+            ListLenTwoFlat = new List<double>();
+            FinalPlaceOneFlat = new List<double>();
+            FinalPlaceTwoFlat = new List<double>();
+            NumIter = 0;
+        }
+
+        public ResultGreedyMethode(double max)
+        {
+            Fine = max;
             ListLenOneFlat = new List<double>();
             ListLenTwoFlat = new List<double>();
             FinalPlaceOneFlat = new List<double>();
@@ -23,14 +33,14 @@ namespace Resettlement
         }
 
         public ResultGreedyMethode(double fine, List<double> list1, List<double> list2, List<double> list3,
-            List<double> list4, double newFirstA)
+            List<double> list4, double newFirst)
         {
             Fine = fine;
             FinalPlaceOneFlat = list1;
             FinalPlaceTwoFlat = list2;
             ListLenOneFlat = list3;
             ListLenTwoFlat = list4;
-            NewFirstOneFlat = newFirstA;
+            NewFirstOneFlat = newFirst;
             NumIter = 0;
         }
     }

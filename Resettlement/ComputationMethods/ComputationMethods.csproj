@@ -51,7 +51,6 @@
     <Compile Include="GeneralData\SpecificConstraints.cs" />
     <Compile Include="Grouping.cs" />
     <Compile Include="InsertionSort.cs" />
-    <Compile Include="OptimalNumberFlat.cs" />
     <Compile Include="PermutationWithoutRepetition.cs" />
     <Compile Include="PreparationSquares.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

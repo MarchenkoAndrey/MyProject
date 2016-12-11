@@ -5,7 +5,7 @@ namespace Resettlement
 {
     static class ValidateConditions
     {
-        public static void Validate(DataAlgorithm data)
+        public static void Validate(InputDataAlg data)
         {
             //Не указан этаж
             if (data.CountFloor == 0)

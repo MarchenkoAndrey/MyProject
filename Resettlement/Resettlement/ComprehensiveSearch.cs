@@ -10,7 +10,7 @@ namespace Resettlement
 {
     partial class UserInterface
     {
-        private void PerformComprehensiveSearch(DataAlgorithm data)
+        private void PerformComprehensiveSearch(InputDataAlg data)
         {
             if (data.CountFloor == 0)
             {
@@ -30,7 +30,7 @@ namespace Resettlement
             var fineAfterGrouping = 0.0;
             if (data.CountFloor == 2 || data.CountFloor == 3 || data.CountFloor == 4)
             {
-                resultDataAfterGrouping = GroupingOnTheFloors.GroupingApartment(data);
+                resultDataAfterGrouping = GroupingOnTheFloors.GroupingFlat(data);
                 data.ListLenOneFlat = PreparationSquares.FlatsWithTheAdditiveLength(resultDataAfterGrouping.ListResultOneFlat);
                 data.ListLenTwoFlat = PreparationSquares.FlatsWithTheAdditiveLength(resultDataAfterGrouping.ListResultTwoFlat);
                 fineAfterGrouping = resultDataAfterGrouping.Fine;
@@ -49,7 +49,7 @@ namespace Resettlement
                 return;
             }
 
-            if (data.ListLenOneFlat.Count() >= 12 || data.ListLenTwoFlat.Count >= 12 && data.CountFloor > 1)
+            if (data.ListLenOneFlat.Count >= 12 || data.ListLenTwoFlat.Count >= 12 && data.CountFloor > 1)
             {
                 MessageBox.Show(ErrorsText.NotSixContaiters);
                 return;
@@ -58,7 +58,7 @@ namespace Resettlement
             var myStopWatch = new Stopwatch();
             myStopWatch.Start();
 
-            var fullSearch = MethodeFullSearch.FullSearch(data.ListLenOneFlat, data.ListLenTwoFlat, data.Step, data.Entryway);
+            var fullSearch = MethodeFullSearch.FullSearch(data);
             if (data.CountFloor == 2)
             {
                 fullSearch.Fine = Math.Round(fullSearch.Fine * 2.0, 1);

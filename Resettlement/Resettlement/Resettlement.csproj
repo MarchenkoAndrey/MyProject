@@ -43,10 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Arrangement.cs" />
     <Compile Include="ComprehensiveSearch.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DataAlgorithm.cs" />
+    <Compile Include="Container.cs" />
+    <Compile Include="InputDataAlg.cs" />
     <Compile Include="DataInnerGrouping.cs" />
     <Compile Include="GreedyAlgorithmSection.cs" />
     <Compile Include="GroupingOnTheFloors.cs" />
