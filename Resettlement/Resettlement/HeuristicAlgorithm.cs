@@ -60,7 +60,7 @@ namespace Resettlement
                     data.ListLenOneFlat = PreparationSquares.FlatsRestartList(resultDataAfterGrouping.ListResultOneFlat);
                     data.ListLenTwoFlat = PreparationSquares.FlatsRestartList(resultDataAfterGrouping.ListResultTwoFlat);
                     resultGreedyIter.ListLenOneFlat = resultDataAfterGrouping.ListExcessOneFlat;
-                    resultGreedyIter.ListLenTwoFlat = resultDataAfterGrouping.listExcessTwoFlat;
+                    resultGreedyIter.ListLenTwoFlat = resultDataAfterGrouping.ListExcessTwoFlat;
                 }
                 else
                 {

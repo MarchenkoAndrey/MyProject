@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Resettlement
 {
+    
     public static class GroupingOnTheFloors
     {
         public static ResultDataAfterGrouping GroupingFlat(InputDataAlg data)

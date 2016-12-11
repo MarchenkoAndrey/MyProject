@@ -78,7 +78,7 @@ namespace Resettlement
             if (data.CountFloor != 1)
             {
                 fullSearch.ListExcessOneFlat = resultDataAfterGrouping.ListExcessOneFlat;
-                fullSearch.listExcessTwoFlat = resultDataAfterGrouping.listExcessTwoFlat;
+                fullSearch.ListExcessTwoFlat = resultDataAfterGrouping.ListExcessTwoFlat;
             }
             PrintResult.FullSearchPrintResult(fullSearch, data.CountFloor, resultFullSearch_label);
 

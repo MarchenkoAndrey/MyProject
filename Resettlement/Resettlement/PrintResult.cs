@@ -71,7 +71,7 @@ namespace Resettlement
                     PrintStroke(data.ListResultOneFlat, numberFloor, countFloor, resultFullSearchLabel);
                 }
                 PrintExceedFlat(data.ListExcessOneFlat, resultFullSearchLabel, MessagesText.RectanglesAiNotList);
-                PrintExceedFlat(data.listExcessTwoFlat, resultFullSearchLabel, MessagesText.RectanglesBiNotList);
+                PrintExceedFlat(data.ListExcessTwoFlat, resultFullSearchLabel, MessagesText.RectanglesBiNotList);
             }   
 
             else
@@ -88,7 +88,7 @@ namespace Resettlement
                 resultFullSearchLabel.Text += MessagesText.DividingLine;
                 PrintFloor(data.ListResultTwoFlat, resultFullSearchLabel);
                 PrintExceedFlat(data.ListExcessOneFlat, resultFullSearchLabel, MessagesText.RectanglesAiNotList);
-                PrintExceedFlat(data.listExcessTwoFlat, resultFullSearchLabel, MessagesText.RectanglesBiNotList);
+                PrintExceedFlat(data.ListExcessTwoFlat, resultFullSearchLabel, MessagesText.RectanglesBiNotList);
             }
         }
 

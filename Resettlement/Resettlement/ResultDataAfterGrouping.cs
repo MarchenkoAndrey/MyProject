@@ -8,7 +8,7 @@ namespace Resettlement
         public List<double> ListResultTwoFlat;
         public double Fine;
         public List<double> ListExcessOneFlat;
-        public List<double> listExcessTwoFlat;
+        public List<double> ListExcessTwoFlat;
 
         public ResultDataAfterGrouping(List<double> list1, List<double> list2, double fine, List<double> list4,
             List<double> list5)
@@ -17,7 +17,7 @@ namespace Resettlement
             ListResultTwoFlat = list2;
             Fine = fine;
             ListExcessOneFlat = list4;
-            listExcessTwoFlat = list5;
+            ListExcessTwoFlat = list5;
         }
 
         public ResultDataAfterGrouping()

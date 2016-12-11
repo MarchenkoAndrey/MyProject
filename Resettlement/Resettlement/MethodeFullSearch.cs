@@ -55,7 +55,7 @@ namespace Resettlement
 				    }
 				    if (listExcessDataTwoBedroomApartment.Count > 0)
 				    {
-                        result.listExcessTwoFlat = listExcessDataTwoBedroomApartment[countJ].ToList();
+                        result.ListExcessTwoFlat = listExcessDataTwoBedroomApartment[countJ].ToList();
 				    }
 				}
 			}
