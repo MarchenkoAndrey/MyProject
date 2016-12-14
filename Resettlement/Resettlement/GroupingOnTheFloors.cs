@@ -195,7 +195,7 @@ namespace Resettlement
                 }
             }
             dataInGrouping.FineOneFlat = Math.Abs(dataInGrouping.FineOneFlat) < 1e-9 ? dataInGrouping.TotalFineOneFlatExcess : dataInGrouping.FineOneFlat;
-            dataInGrouping.FineTwoFlat = Math.Abs(dataInGrouping.FineOneFlat) < 1e-9 ? dataInGrouping.TotalFineTwoFlatExcess : dataInGrouping.FineTwoFlat;
+            dataInGrouping.FineTwoFlat = Math.Abs(dataInGrouping.FineTwoFlat) < 1e-9 ? dataInGrouping.TotalFineTwoFlatExcess : dataInGrouping.FineTwoFlat;
             var totalFine = Math.Round(dataInGrouping.FineOneFlat + dataInGrouping.FineTwoFlat, 1);
 
             return new ResultDataAfterGrouping(dataInGrouping.ListResultOneFlat, dataInGrouping.ListResultTwoFlat,

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ComputationMethods;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -16,43 +17,64 @@ namespace Resettlement
         }
 
         [TestMethod]
-        public static void TestGroupingApartment1()
+        public void TestGroupingNotExceed()
         {
+            const int countFloor = 3;
+            const double optFine = 5.7;
             var list1 = new List<double> {6.6, 6.6, 7.2, 3.3, 4.8, 3.9, 7.2, 6.6, 6.6, 6.6, 6.3, 6.0};
             var list2 = new List<double> {7.8, 7.2, 7.5, 8.1, 7.5, 7.5, 7.5, 7.5, 8.1, 7.8, 8.4, 8.7};
-            const int countFloor = 3;
+            var optItem1 = new List<double> { 4.8, 6.6, 6.6, 7.2 };
+            var optItem2 = new List<double> { 7.5, 7.5, 8.1, 8.7 };
 
-            var resultList = GroupingOnTheFloors.GroupingFlat(new InputDataAlg(list1, list2, countFloor));
+            var result = GroupingOnTheFloors.GroupingFlat(new InputDataAlg(list1, list2, countFloor));
 
-            var result0 = new List<double> {4.8, 6.6, 6.6, 7.2};
-            var result1 = new List<double> {7.5, 7.5, 8.1, 8.7};
-            const double result2 = 5.7;
-
-            Assert.AreEqual(resultList.ListResultOneFlat, result0);
-            Assert.AreEqual(resultList.ListResultTwoFlat, result1);
-            Assert.AreEqual(resultList.Fine, result2);
+            Assert.AreEqual(result.ListResultOneFlat.Except(optItem1).ToList().Count, 0);
+            Assert.AreEqual(result.ListResultTwoFlat.Except(optItem2).ToList().Count, 0);
+            Assert.AreEqual(result.Fine, optFine);
         }
 
         [TestMethod]
-        public static void TestGroupingApartment2()
+        public void TestGroupingThreeExceed()
         {
+            const int countFloor = 4;
+            const double optFine = 3;
             var list1 = new List<double> {6.6, 7.2, 3.3, 4.8, 3.9, 7.2, 6.6, 6.6, 6.6, 6.3, 6.0};
             var list2 = new List<double> {7.2, 7.5, 8.1, 7.5, 7.5, 7.5, 7.5, 8.1, 7.8, 8.4, 8.7};
-            const int countFloor = 4;
-            var resultList = GroupingOnTheFloors.GroupingFlat(new InputDataAlg(list1, list2, countFloor));
+            var optItem1 = new List<double> { 6.6, 7.2 };
+            var optItem2 = new List<double> { 7.5, 8.1 };
+            var optItem3 = new List<double> { 3.3, 3.9, 4.8 };
+            var optItem4 = new List<double> { 7.2, 8.4, 8.7 };
 
-            var result0 = new List<double> {4.8, 6.6, 6.6, 7.2};
-            var result1 = new List<double> {7.5, 7.5, 8.1, 8.7};
-            const double result2 = 5.7;
-            var result3 = new List<double> {4.8, 6.6, 6.6, 7.2};
-            var result4 = new List<double> {4.8, 6.6, 6.6, 7.2};
+            var result = GroupingOnTheFloors.GroupingFlat(new InputDataAlg(list1, list2, countFloor));
 
-            Assert.AreEqual(resultList.ListResultOneFlat, result0);
-            Assert.AreEqual(resultList.ListResultTwoFlat, result1);
-            Assert.AreEqual(resultList.Fine, result2);
-            Assert.AreEqual(resultList.ListExcessOneFlat, result3);
-            Assert.AreEqual(resultList.ListExcessTwoFlat, result4);
+            Assert.AreEqual(result.ListResultOneFlat.Except(optItem1).ToList().Count, 0);
+            Assert.AreEqual(result.ListResultTwoFlat.Except(optItem2).ToList().Count, 0);
+            Assert.AreEqual(result.Fine, optFine);
+            Assert.AreEqual(result.ListExcessOneFlat.Except(optItem3).ToList().Count, 0);
+            Assert.AreEqual(result.ListExcessTwoFlat.Except(optItem4).ToList().Count, 0);
         }
+
+        [TestMethod]
+        public void TestGroupingOneExceed()
+        {
+            const int countFloor = 2;
+            const double optFine = 1.2;
+            var list1 = new List<double> { 6.6, 7.2, 3.3, 4.8, 3.9, 7.2, 6.6, 6.6, 6.6 };
+            var list2 = new List<double> { 7.2, 7.5, 8.1, 7.5, 7.5, 7.5, 8.1, 7.8, 8.4 };
+            var optItem1 = new List<double> { 3.9, 6.6, 6.6, 7.2 };
+            var optItem2 = new List<double> { 7.5, 7.5, 8.1, 8.4 };
+            var optItem3 = new List<double> { 4.8 };
+            var optItem4 = new List<double> { 7.2 };
+
+            var result = GroupingOnTheFloors.GroupingFlat(new InputDataAlg(list1, list2, countFloor));
+
+            Assert.AreEqual(result.ListResultOneFlat.Except(optItem1).ToList().Count, 0);
+            Assert.AreEqual(result.ListResultTwoFlat.Except(optItem2).ToList().Count, 0);
+            Assert.AreEqual(result.Fine, optFine);
+            Assert.AreEqual(result.ListExcessOneFlat.Except(optItem3).ToList().Count, 0);
+            Assert.AreEqual(result.ListExcessTwoFlat.Except(optItem4).ToList().Count, 0);
+        }
+
     }
 }
 
