@@ -5,25 +5,19 @@ namespace Resettlement
 {
     public class DataInnerGrouping
     {
-        public double FineOneFlat { get; set; }
-        public double FineTwoFlat { get; set; }
-        public List<double> ListResultOneFlat { get; set; }
-        public List<double> ListResultTwoFlat { get; set; }
-        public List<double> ListExcessOneFlat { get; set; }
-        public List<double> ListExcessTwoFlat { get; set; }
-        public double TotalFineOneFlatExcess { get; set; }
-        public double TotalFineTwoFlatExcess { get; set; }
+        public double FineFlat { get; set; }
+        public List<double> ListResultFlat { get; set; }
+        public List<double> ListExcessFlat { get; set; }
+        public double TotalFineFlatExcess { get; set; }
+        private bool IsOneFlat { get; set; }
 
-        public DataInnerGrouping()
+        public DataInnerGrouping(bool flag)
         {
-            FineOneFlat = 0.0;
-            FineTwoFlat = 0.0;
-            TotalFineOneFlatExcess = double.MaxValue;
-            TotalFineTwoFlatExcess = double.MaxValue;
-            ListResultOneFlat = new List<double>();
-            ListResultTwoFlat = new List<double>();
-            ListExcessOneFlat = new List<double>();
-            ListExcessTwoFlat = new List<double>();
+            IsOneFlat = flag;
+            FineFlat = 0.0;
+            TotalFineFlatExcess = double.MaxValue;
+            ListResultFlat = new List<double>();
+            ListExcessFlat = new List<double>();
         }
 
         

@@ -34,16 +34,16 @@ namespace Resettlement
         }
 
         [TestMethod]
-        public void TestGroupingThreeExceed()
+        public void TestGroupingOneExceed()
         {
-            const int countFloor = 4;
-            const double optFine = 3;
-            var list1 = new List<double> {6.6, 7.2, 3.3, 4.8, 3.9, 7.2, 6.6, 6.6, 6.6, 6.3, 6.0};
-            var list2 = new List<double> {7.2, 7.5, 8.1, 7.5, 7.5, 7.5, 7.5, 8.1, 7.8, 8.4, 8.7};
-            var optItem1 = new List<double> { 6.6, 7.2 };
-            var optItem2 = new List<double> { 7.5, 8.1 };
-            var optItem3 = new List<double> { 3.3, 3.9, 4.8 };
-            var optItem4 = new List<double> { 7.2, 8.4, 8.7 };
+            const int countFloor = 2;
+            const double optFine = 1.2;
+            var list1 = new List<double> { 6.6, 7.2, 3.3, 4.8, 3.9, 7.2, 6.6, 6.6, 6.6 };
+            var list2 = new List<double> { 7.2, 7.5, 8.1, 7.5, 7.5, 7.5, 8.1, 7.8, 8.4 };
+            var optItem1 = new List<double> { 3.9, 6.6, 6.6, 7.2 };
+            var optItem2 = new List<double> { 7.5, 7.5, 8.1, 8.4 };
+            var optItem3 = new List<double> { 4.8 };
+            var optItem4 = new List<double> { 7.2 };
 
             var result = GroupingOnTheFloors.GroupingFlat(new InputDataAlg(list1, list2, countFloor));
 
@@ -55,16 +55,16 @@ namespace Resettlement
         }
 
         [TestMethod]
-        public void TestGroupingOneExceed()
+        public void TestGroupingThreeExceed()
         {
-            const int countFloor = 2;
-            const double optFine = 1.2;
-            var list1 = new List<double> { 6.6, 7.2, 3.3, 4.8, 3.9, 7.2, 6.6, 6.6, 6.6 };
-            var list2 = new List<double> { 7.2, 7.5, 8.1, 7.5, 7.5, 7.5, 8.1, 7.8, 8.4 };
-            var optItem1 = new List<double> { 3.9, 6.6, 6.6, 7.2 };
-            var optItem2 = new List<double> { 7.5, 7.5, 8.1, 8.4 };
-            var optItem3 = new List<double> { 4.8 };
-            var optItem4 = new List<double> { 7.2 };
+            const int countFloor = 4;
+            const double optFine = 3.0;
+            var list1 = new List<double> {6.6, 7.2, 3.3, 4.8, 3.9, 7.2, 6.6, 6.6, 6.6, 6.3, 6.0};
+            var list2 = new List<double> {7.2, 7.5, 8.1, 7.5, 7.5, 7.5, 7.5, 8.1, 7.8, 8.4, 8.7};
+            var optItem1 = new List<double> { 6.6, 7.2 };
+            var optItem2 = new List<double> { 7.5, 8.1 };
+            var optItem3 = new List<double> { 3.3, 3.9, 4.8 };
+            var optItem4 = new List<double> { 7.2, 8.4, 8.7 };
 
             var result = GroupingOnTheFloors.GroupingFlat(new InputDataAlg(list1, list2, countFloor));
 
