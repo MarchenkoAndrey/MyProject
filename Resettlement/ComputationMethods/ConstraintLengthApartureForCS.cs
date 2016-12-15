@@ -4,7 +4,7 @@ using ComputationMethods.GeneralData;
 
 namespace ComputationMethods
 {
-    public static class ConstraintLengthApartureForCS
+    public static class ConstraintLengthApartureForCs
     {
         //двигаем стены из-за ApartureLength
         public static List<object> LengthAparture(double[] i, double[] j, double step, double entryway)

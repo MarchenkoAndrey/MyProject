@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ComputationMethods;
 using ComputationMethods.GeneralData;
 
 namespace Resettlement
@@ -10,9 +9,12 @@ namespace Resettlement
     {
         public static ResultGreedyMethode GreedyMethode(InputDataAlg data, double firstOneFlat)
         {
+            var listLenOneFlat = new List<double>(data.ListLenOneFlat);
+            var listLenTwoFlat = new List<double>(data.ListLenTwoFlat);
+
+
             //Todo Зачем все эти объявления?? В конструктор
             var resultGreedy = new ResultGreedyMethode();
-
             var finalPlacementOneFlat = new double[data.OptCountFlatOnFloor];
             var finalPlacementTwoFlat = new double[data.OptCountFlatOnFloor];
 
@@ -29,12 +31,12 @@ namespace Resettlement
                 }
                 else
                 {
-                    choiceOneFlat = data.ListLenOneFlat[data.ListLenOneFlat.Count / 2];
+                    choiceOneFlat = listLenOneFlat[listLenOneFlat.Count / 2];
                 }
                 isFlagFirstEntry = false;
                 var sortedListOneFlat = new List<double>();
                 var isFlagMeetFlat = true;
-                foreach (var elem in data.ListLenOneFlat) // divided from list given value oneApartment
+                foreach (var elem in listLenOneFlat) // divided from list given value oneApartment
                 {
                     if (Math.Abs(elem - choiceOneFlat) < 1e-9 && isFlagMeetFlat)
                     {
@@ -48,12 +50,11 @@ namespace Resettlement
                 var fine = double.MaxValue;
 
                 finalPlacementOneFlat[n] = choiceOneFlat;
-//                resultGreedy.FinalPlaceOneFlat.Add(choiceMinOneFlat);
-                var arraySortedTwoApartments = ChangeTypeVariable.ChangeListIntoArray(data.ListLenTwoFlat);
+                var arraySortedTwoApartments = listLenTwoFlat.ToArray();
 
-                for (var i = 0; i < data.ListLenTwoFlat.Count; ++i)
+                for (var i = 0; i < listLenTwoFlat.Count; ++i)
                 {
-                    for (var j = i + 1; j < data.ListLenTwoFlat.Count; ++j)
+                    for (var j = i + 1; j < listLenTwoFlat.Count; ++j)
                     {
                         for (var h = 0; h < sortedListOneFlat.Count; ++h)
                         {
@@ -101,13 +102,10 @@ namespace Resettlement
                             {
                                 fine = currentFine;
                                 finalPlacementTwoFlat[n] = currentMassiv[i];
-//                                resultGreedy.FinalPlaceTwoFlat.Add(currentMassiv[i]);
                                 index1 = i;
                                 finalPlacementTwoFlat[n + 1] = currentMassiv[j];
-//                                resultGreedy.FinalPlaceTwoFlat.Add(currentMassiv[j]);
                                 index2 = j;
                                 finalPlacementOneFlat[n + 1] = sortedListOneFlat[h];
-//                                resultGreedy.FinalPlaceOneFlat.Add(sortedListOneFlat[h]);
                             }
                         }
                     }
@@ -117,27 +115,24 @@ namespace Resettlement
                 if (maxFine > fine)
                 {
                     maxFine = fine;
-//                    resultGreedy.NewFirstOneFlat = resultGreedy.FinalPlaceOneFlat[n];
                     resultGreedy.NewFirstOneFlat = finalPlacementOneFlat[n];
                 }
-
-                //Todo Лишние только с помощью удаления находятся?
-                data.ListLenOneFlat.Remove(finalPlacementOneFlat[n]);
-                data.ListLenOneFlat.Remove(finalPlacementOneFlat[n + 1]);
+                listLenOneFlat.Remove(finalPlacementOneFlat[n]);
+                listLenOneFlat.Remove(finalPlacementOneFlat[n + 1]);
                 if (index1 > index2)
                 {
-                    data.ListLenTwoFlat.RemoveAt(index1);
-                    data.ListLenTwoFlat.RemoveAt(index2);
+                    listLenTwoFlat.RemoveAt(index1);
+                    listLenTwoFlat.RemoveAt(index2);
                 }
                 else
                 {
-                    data.ListLenTwoFlat.RemoveAt(index2);
-                    data.ListLenTwoFlat.RemoveAt(index1);
+                    listLenTwoFlat.RemoveAt(index2);
+                    listLenTwoFlat.RemoveAt(index1);
                 }
 
             }
             return new ResultGreedyMethode(resultGreedy.Fine, finalPlacementOneFlat.ToList(), finalPlacementTwoFlat.ToList(),
-                 data.ListLenOneFlat, data.ListLenTwoFlat, resultGreedy.NewFirstOneFlat);
+                  resultGreedy.NewFirstOneFlat);
         }
     }
 }

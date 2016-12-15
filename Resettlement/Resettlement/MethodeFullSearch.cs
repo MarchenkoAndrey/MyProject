@@ -31,7 +31,7 @@ namespace Resettlement
 				foreach (var j in listVariantsTwoBedroomApartment)
 				{
                     countJ++;
-                    var constraintAparture = ConstraintLengthApartureForCS.LengthAparture(i, j, data.Step, data.Entryway);
+                    var constraintAparture = ConstraintLengthApartureForCs.LengthAparture(i, j, data.Step, data.Entryway);
 
 				    var listSquareSectionsOneBedroomApartment = (List<double>)constraintAparture[0];
                     var listSquareSectionsTwoBedroomApartment = (List<double>)constraintAparture[1];

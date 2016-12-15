@@ -32,14 +32,11 @@ namespace Resettlement
             NumIter = 0;
         }
 
-        public ResultGreedyMethode(double fine, List<double> list1, List<double> list2, List<double> list3,
-            List<double> list4, double newFirst)
+        public ResultGreedyMethode(double fine, List<double> list1, List<double> list2, double newFirst)
         {
             Fine = fine;
             FinalPlaceOneFlat = list1;
             FinalPlaceTwoFlat = list2;
-            ListLenOneFlat = list3;
-            ListLenTwoFlat = list4;
             NewFirstOneFlat = newFirst;
             NumIter = 0;
         }

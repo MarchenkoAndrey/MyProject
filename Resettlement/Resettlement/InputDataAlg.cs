@@ -22,8 +22,6 @@ namespace Resettlement
         public List<double> ListLenOneFlat;
         public List<double> ListLenTwoFlat;
 
-        public List<double> ListLenOneFlatWithoutFormats;
-        public List<double> ListLenTwoFlatWithoutFormats;
         public int OptCountFlat { get; private set; }
         public int OptCountFlatOnFloor { get; private set; }
 

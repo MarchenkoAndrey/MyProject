@@ -42,7 +42,8 @@ namespace Resettlement
             while (numberIteration < Constraints.NumberOfIteration)
             {
                 numberIteration++;
-                var resultGreedyIter = GreedyAlgorithmSection.GreedyMethode(data, firstOneFlat); // Todo Возвращать расстановку
+               
+                var resultGreedyIter = GreedyAlgorithmSection.GreedyMethode(data, firstOneFlat);
                 firstOneFlat = resultGreedyIter.NewFirstOneFlat;
                 resultGreedyIter.NumIter = numberIteration;
                 resultGreedyIter.Fine = Math.Round(resultGreedyIter.Fine * data.CountFloor, 1);
@@ -54,19 +55,10 @@ namespace Resettlement
                 {
                     totalOptimalResult = resultGreedyIter;
                 }
-
-                if (data.CountFloor != 1)
-                {
-                    data.ListLenOneFlat = PreparationSquares.FlatsRestartList(resultDataAfterGrouping.ListResultOneFlat);
-                    data.ListLenTwoFlat = PreparationSquares.FlatsRestartList(resultDataAfterGrouping.ListResultTwoFlat);
                     resultGreedyIter.ListLenOneFlat = resultDataAfterGrouping.ListExcessOneFlat;
                     resultGreedyIter.ListLenTwoFlat = resultDataAfterGrouping.ListExcessTwoFlat;
-                }
-                else
-                {
-                    data.ListLenOneFlat = PreparationSquares.FlatsWithTheAdditiveLength(data.ListLenOneFlatWithoutFormats);
-                    data.ListLenTwoFlat = PreparationSquares.FlatsWithTheAdditiveLength(data.ListLenTwoFlatWithoutFormats);
-                }
+                
+
                 //Вывод результата по итерациям
                 PrintResult.GreedyIterationPrintResult(resultGreedyIter, data.CountFloor, true, resultGreedy_label);
             }
