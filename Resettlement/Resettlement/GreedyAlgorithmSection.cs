@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ComputationMethods.GeneralData;
 
 namespace Resettlement
 {
@@ -17,7 +16,7 @@ namespace Resettlement
             var finalPlacementOneFlat = new double[dataGrM.OptCountFlatOnFloor];
             var finalPlacementTwoFlat = new double[dataGrM.OptCountFlatOnFloor];
 
-            var maxFine = double.MaxValue;
+            var maxFine = 0.0;
             var isFlagFirstEntry = true;
             var index1 = 0;
             var index2 = 0;
@@ -58,23 +57,23 @@ namespace Resettlement
                             {
                                 Array.Reverse(currentMassiv);
                             }
-                            var s =
+                            var resultPackSect =
                                 CompALen.Method(
                                     new ApartureLen(choiceOneFlat, sortedListOneFlat[h], currentMassiv[i],
                                         currentMassiv[j], currentExtraSquare), dataGrM.Step);
 
                         var currentFine =
                                 Math.Abs(Math.Round(
-                                    s.B1 + s.B2 + 2 * dataGrM.Step - s.A1 - dataGrM.Entryway - 3 * dataGrM.Step -
-                                    s.A2 + currentExtraSquare, 1));
+                                    resultPackSect.B1 + resultPackSect.B2 + 2 * dataGrM.Step - resultPackSect.A1 - dataGrM.Entryway - 3 * dataGrM.Step -
+                                    resultPackSect.A2 + currentExtraSquare, 1));
                             if (currentFine < fine)
                             {
                                 fine = currentFine;
-                                finalPlacementTwoFlat[n] = s.B1;
+                                finalPlacementTwoFlat[n] = resultPackSect.B1;
                                 index1 = i;
-                                finalPlacementTwoFlat[n + 1] = s.B2;
+                                finalPlacementTwoFlat[n + 1] = resultPackSect.B2;
                                 index2 = j;
-                                finalPlacementOneFlat[n + 1] = s.A2;
+                                finalPlacementOneFlat[n + 1] = resultPackSect.A2;
                             }
                         }
                     }
@@ -82,11 +81,10 @@ namespace Resettlement
                 //удаление занятых вариантов из списка и суммирование штрафа
                 resultGreedy.Fine = Math.Round(resultGreedy.Fine + fine, 1);
 
-                //Todo новые итерации не улучшаются
-                if (maxFine > fine)
+                if (maxFine < fine)
                 {
                     maxFine = fine;
-                    resultGreedy.NewFirstOneFlat = finalPlacementOneFlat[n];
+                    resultGreedy.NewFirstOneFlat = finalPlacementOneFlat[n]; // Запись контейнера с наибольшим штрафом
                 }
                 listLenOneFlat.Remove(finalPlacementOneFlat[n]);
                 listLenOneFlat.Remove(finalPlacementOneFlat[n + 1]);
