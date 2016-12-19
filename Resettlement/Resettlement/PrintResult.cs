@@ -38,8 +38,8 @@ namespace Resettlement
                     }
                 }
                 if (flagIsNotFinish) return;
-                PrintExceedFlat(data.ListLenOneFlat, resultGreedyLabel, MessagesText.RectanglesAiNotList);
-                PrintExceedFlat(data.ListLenTwoFlat, resultGreedyLabel, MessagesText.RectanglesBiNotList);
+                PrintExceedFlat(data.ListLenExceedOneFlat, resultGreedyLabel, MessagesText.RectanglesAiNotList);
+                PrintExceedFlat(data.ListLenExceedTwoFlat, resultGreedyLabel, MessagesText.RectanglesBiNotList);
             }
                 else
                 {
@@ -49,8 +49,8 @@ namespace Resettlement
                     PrintFloor(data.FinalPlaceTwoFlat, resultGreedyLabel);
                     resultGreedyLabel.Text += MessagesText.DividingLine;
                     PrintFloor(data.FinalPlaceTwoFlat, resultGreedyLabel);
-                    PrintExceedFlat(data.ListLenOneFlat, resultGreedyLabel, MessagesText.RectanglesAiNotList);
-                    PrintExceedFlat(data.ListLenTwoFlat, resultGreedyLabel, MessagesText.RectanglesBiNotList);
+                    PrintExceedFlat(data.ListLenExceedOneFlat, resultGreedyLabel, MessagesText.RectanglesAiNotList);
+                    PrintExceedFlat(data.ListLenExceedTwoFlat, resultGreedyLabel, MessagesText.RectanglesBiNotList);
                 }
         }
 

@@ -8,31 +8,30 @@ namespace Resettlement
 {
     partial class UserInterface
     {
-        private void PerformHAlg(InputDataAlg data)
+        private void PerformHAlg(InputDataAlg inData)
         {
-            ValidateConditions.Validate(data);
+            ValidateConditions.Validate(inData);
 
             realizat_label.Text = "".ToString(CultureInfo.InvariantCulture);
             lossesOne_label.Text = "".ToString(CultureInfo.InvariantCulture);
             resultGreedy_label.Text = "".ToString(CultureInfo.InvariantCulture);
 
-            var flatCount = data.ListLenOneFlat.Count + data.ListLenTwoFlat.Count;
+            var flatCount = inData.ListLenOneFlat.Count + inData.ListLenTwoFlat.Count;
             realizat_label.Text += string.Format(MessagesText.RealizationForRectangles,flatCount).ToString(CultureInfo.InvariantCulture);
-            lossesOne_label.Text += string.Format(MessagesText.SummarizeAdditionLengthForH, data.SumDelta.ToString(CultureInfo.InvariantCulture));
+            lossesOne_label.Text += string.Format(MessagesText.SummarizeAdditionLengthForH, inData.SumDelta.ToString(CultureInfo.InvariantCulture));
 
             var resultDataAfterGrouping = new ResultDataAfterGrouping();
-            //var arr = new Arrangement(new Container());
-//            var cont = new Container(data);
+            var dataAlg = new DataHeuristicAlgorithm(inData.ListLenOneFlat,inData.ListLenTwoFlat);
 
-            var fineAfterGrouping = 0.0;
-            if (data.CountFloor > 1)
+            if (inData.CountFloor > 1)
             {
-                resultDataAfterGrouping = GroupingOnTheFloors.GroupingFlat(data);
-                //Todo Переприсваивание
-                data.ListLenOneFlat = PreparationSquares.FlatsWithTheAdditiveLength(resultDataAfterGrouping.ListResultOneFlat);
-                data.ListLenTwoFlat = PreparationSquares.FlatsWithTheAdditiveLength(resultDataAfterGrouping.ListResultTwoFlat);
-                fineAfterGrouping = resultDataAfterGrouping.Fine;
-            }       
+                resultDataAfterGrouping = GroupingOnTheFloors.GroupingFlat(inData);
+                dataAlg.ListLenOneFlat =
+                    PreparationSquares.FlatsWithTheAdditiveLength(resultDataAfterGrouping.ListResultOneFlat);
+                dataAlg.ListLenTwoFlat =
+                    PreparationSquares.FlatsWithTheAdditiveLength(resultDataAfterGrouping.ListResultTwoFlat);
+                dataAlg.FineAfterGrouping = resultDataAfterGrouping.Fine;
+            }
 
             var myStopWatchGreedy = new Stopwatch();
             myStopWatchGreedy.Start();
@@ -46,29 +45,24 @@ namespace Resettlement
                 //TODO почему на другой итерации результат не улучшается??
                 var resultGreedyIter =
                     GreedyAlgorithmSection.GreedyMethode(
-                        new DataGreedyMethode(data.ListLenOneFlat, data.ListLenTwoFlat, data.OptCountFlatOnFloor),
+                        new DataGreedyMethode(dataAlg.ListLenOneFlat, dataAlg.ListLenTwoFlat, inData.OptCountFlatOnFloor),
                         firstOneFlat);
-                //Todo firstOneFlat внутрь метода
                 firstOneFlat = resultGreedyIter.NewFirstOneFlat;
                 resultGreedyIter.NumIter = numberIteration;
-                resultGreedyIter.Fine = Math.Round(resultGreedyIter.Fine * data.CountFloor, 1);
-                resultGreedyIter.Fine = Math.Round(resultGreedyIter.Fine + fineAfterGrouping, 1); //Todo каждый раз суммируется??
+                resultGreedyIter.Fine = Math.Round(resultGreedyIter.Fine * inData.CountFloor, 1);
+                resultGreedyIter.Fine = Math.Round(resultGreedyIter.Fine + dataAlg.FineAfterGrouping, 1); //Todo каждый раз суммируется??
+                resultGreedyIter.ListLenExceedOneFlat = resultDataAfterGrouping.ListExcessOneFlat;
+                resultGreedyIter.ListLenExceedTwoFlat = resultDataAfterGrouping.ListExcessTwoFlat;
 
-                //Запись в контейнеры
-                //Сравнение расстановок
-                if (totalOptimalResult.Fine > resultGreedyIter.Fine)
+                if (resultGreedyIter.Fine < totalOptimalResult.Fine)
                 {
                     totalOptimalResult = resultGreedyIter;
                 }
-                    resultGreedyIter.ListLenOneFlat = resultDataAfterGrouping.ListExcessOneFlat;
-                    resultGreedyIter.ListLenTwoFlat = resultDataAfterGrouping.ListExcessTwoFlat;
-                
-
                 //Вывод результата по итерациям
-                PrintResult.GreedyIterationPrintResult(resultGreedyIter, data.CountFloor, true, resultGreedy_label);
+                PrintResult.GreedyIterationPrintResult(resultGreedyIter, inData.CountFloor, true, resultGreedy_label);
             }
             myStopWatchGreedy.Stop();
-            PrintResult.GreedyIterationPrintResult(totalOptimalResult, data.CountFloor, false, resultGreedy_label);
+            PrintResult.GreedyIterationPrintResult(totalOptimalResult, inData.CountFloor, false, resultGreedy_label);
 
             resultGreedy_label.Text +=
                   string.Format(MessagesText.WorkTimeHeuristicAlgoruthm,

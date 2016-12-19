@@ -51,6 +51,7 @@
     </Compile>
     <Compile Include="Container.cs" />
     <Compile Include="DataGreedyMethode.cs" />
+    <Compile Include="DataHeuristicAlgorithm.cs" />
     <Compile Include="InputDataAlg.cs" />
     <Compile Include="DataInnerGrouping.cs" />
     <Compile Include="GreedyAlgorithmSection.cs" />

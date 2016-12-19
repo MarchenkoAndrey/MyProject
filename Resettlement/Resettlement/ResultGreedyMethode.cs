@@ -7,16 +7,16 @@ namespace Resettlement
         public double Fine;
         public List<double> FinalPlaceOneFlat { get; set; }
         public List<double> FinalPlaceTwoFlat { get; set; }
-        public List<double> ListLenOneFlat { get; set; }
-        public List<double> ListLenTwoFlat { get; set; }
+        public List<double> ListLenExceedOneFlat { get; set; }
+        public List<double> ListLenExceedTwoFlat { get; set; }
         public double NewFirstOneFlat { get; set; }
         public int NumIter { get; set; }
 
         public ResultGreedyMethode()
         {
             Fine = 0.0;
-            ListLenOneFlat = new List<double>();
-            ListLenTwoFlat = new List<double>();
+            ListLenExceedOneFlat = new List<double>();
+            ListLenExceedTwoFlat = new List<double>();
             FinalPlaceOneFlat = new List<double>();
             FinalPlaceTwoFlat = new List<double>();
             NumIter = 0;
@@ -25,8 +25,8 @@ namespace Resettlement
         public ResultGreedyMethode(double max)
         {
             Fine = max;
-            ListLenOneFlat = new List<double>();
-            ListLenTwoFlat = new List<double>();
+            ListLenExceedOneFlat = new List<double>();
+            ListLenExceedTwoFlat = new List<double>();
             FinalPlaceOneFlat = new List<double>();
             FinalPlaceTwoFlat = new List<double>();
             NumIter = 0;
