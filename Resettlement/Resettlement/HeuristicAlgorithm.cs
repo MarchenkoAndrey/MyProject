@@ -28,6 +28,7 @@ namespace Resettlement
             if (data.CountFloor > 1)
             {
                 resultDataAfterGrouping = GroupingOnTheFloors.GroupingFlat(data);
+                //Todo Переприсваивание
                 data.ListLenOneFlat = PreparationSquares.FlatsWithTheAdditiveLength(resultDataAfterGrouping.ListResultOneFlat);
                 data.ListLenTwoFlat = PreparationSquares.FlatsWithTheAdditiveLength(resultDataAfterGrouping.ListResultTwoFlat);
                 fineAfterGrouping = resultDataAfterGrouping.Fine;
@@ -42,8 +43,12 @@ namespace Resettlement
             while (numberIteration < Constraints.NumberOfIteration)
             {
                 numberIteration++;
-               
-                var resultGreedyIter = GreedyAlgorithmSection.GreedyMethode(data, firstOneFlat);
+                //TODO почему на другой итерации результат не улучшается??
+                var resultGreedyIter =
+                    GreedyAlgorithmSection.GreedyMethode(
+                        new DataGreedyMethode(data.ListLenOneFlat, data.ListLenTwoFlat, data.OptCountFlatOnFloor),
+                        firstOneFlat);
+                //Todo firstOneFlat внутрь метода
                 firstOneFlat = resultGreedyIter.NewFirstOneFlat;
                 resultGreedyIter.NumIter = numberIteration;
                 resultGreedyIter.Fine = Math.Round(resultGreedyIter.Fine * data.CountFloor, 1);

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
-using ComputationMethods;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Resettlement
@@ -9,6 +9,7 @@ namespace Resettlement
     public class Tests
     {
         [TestMethod]
+        [Category("Grouping")]
         public void TestGroupingNotExceed()
         {
             const int countFloor = 3;
@@ -26,6 +27,7 @@ namespace Resettlement
         }
 
         [TestMethod]
+        [Category("Grouping")]
         public void TestGroupingOneExceed()
         {
             const int countFloor = 2;
@@ -47,6 +49,7 @@ namespace Resettlement
         }
 
         [TestMethod]
+        [Category("Grouping")]
         public void TestGroupingThreeExceed()
         {
             const int countFloor = 4;
@@ -66,7 +69,66 @@ namespace Resettlement
             Assert.AreEqual(result.ListExcessOneFlat.Except(optItem3).ToList().Count, 0);
             Assert.AreEqual(result.ListExcessTwoFlat.Except(optItem4).ToList().Count, 0);
         }
+        
+        [TestMethod]
+        [Category("GreedyMethode")]
+        public void TestGreedyMethode()
+        {
+            const int optCountFlat = 4;
+            const double optFine = 3.6;
+            const double oneFirstFlat = 6.6;
+            const double startFlat = 0.0;
+            var list1 = new List<double> { 3.9, 6.6, 6.6, 7.2 };
+            var list2 = new List<double> { 7.5, 7.5, 7.8, 8.1 };
+            var optItem1 = new List<double> { 3.9, 6.6, 6.6, 7.2 };
+            var optItem2 = new List<double> { 8.1, 8.1, 8.7, 7.5 };
+            
+            var result = GreedyAlgorithmSection.GreedyMethode(new DataGreedyMethode(list1, list2, optCountFlat), startFlat);
+            Assert.AreEqual(result.FinalPlaceOneFlat.Except(optItem1).ToList().Count, 0);
+            Assert.AreEqual(result.FinalPlaceTwoFlat.Except(optItem2).ToList().Count, 0);
+            Assert.AreEqual(result.Fine, optFine);
+            Assert.AreEqual(result.NewFirstOneFlat,oneFirstFlat);
+        }
 
+        [TestMethod]
+        [Category("GreedyMethode")]
+        public void TestGreedyMethodeI()
+        {
+            const int optCountFlat = 6;
+            const double optFine = 3;
+            const double oneFirstFlat = 6.6;
+            const double startFlat = 0.0;
+            var list1 = new List<double> { 3.9, 6.0, 6.6, 6.6, 6.6, 7.2 };
+            var list2 = new List<double> { 7.5, 7.5, 7.5, 7.8, 8.1, 8.7 };
+            var optItem1 = new List<double> { 3.9, 6.0, 6.6, 6.6, 6.6, 7.2 };
+            var optItem2 = new List<double> { 8.1, 8.7, 8.1, 7.5, 8.1, 7.5 };
+
+            var result = GreedyAlgorithmSection.GreedyMethode(new DataGreedyMethode(list1, list2, optCountFlat), startFlat);
+            Assert.AreEqual(result.FinalPlaceOneFlat.Except(optItem1).ToList().Count, 0);
+            Assert.AreEqual(result.FinalPlaceTwoFlat.Except(optItem2).ToList().Count, 0);
+            Assert.AreEqual(result.Fine, optFine);
+            Assert.AreEqual(result.NewFirstOneFlat, oneFirstFlat);
+        }
+
+        [TestMethod]
+        [Category("GreedyMethode")]
+        public void TestGreedyMethodeI2()
+        {
+            const int optCountFlat = 6;
+            const double optFine = 3;
+            const double oneFirstFlat = 6.6;
+            const double startFlat = 6.6;
+            var list1 = new List<double> { 3.9, 6.0, 6.6, 6.6, 6.6, 7.2 };
+            var list2 = new List<double> { 7.5, 7.5, 7.5, 7.8, 8.1, 8.7 };
+            var optItem1 = new List<double> { 3.9, 6.0, 6.6, 6.6, 6.6, 7.2 };
+            var optItem2 = new List<double> { 8.1, 8.7, 8.1, 7.5, 8.1, 7.5 };
+
+            var result = GreedyAlgorithmSection.GreedyMethode(new DataGreedyMethode(list1, list2, optCountFlat), startFlat);
+            Assert.AreEqual(result.FinalPlaceOneFlat.Except(optItem1).ToList().Count, 0);
+            Assert.AreEqual(result.FinalPlaceTwoFlat.Except(optItem2).ToList().Count, 0);
+            Assert.AreEqual(result.Fine, optFine);
+            Assert.AreEqual(result.NewFirstOneFlat, oneFirstFlat);
+        }
     }
 }
 

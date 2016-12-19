@@ -43,12 +43,7 @@ namespace Resettlement
 
         public InputDataAlg(List<double> list1, List<double> list2, int numFloor)
         {
-//            ListSquaresOneFlat =
-//                ReadFromFileAndRecordingInputDataInList.ReadFile(FilesDefault.DefaultListOneFlat);
-//            ListSquaresTwoFlat =
-//                ReadFromFileAndRecordingInputDataInList.ReadFile(FilesDefault.DefaultListTwoFlat);
             CountFloor = numFloor;
-
             ListLenOneFlat = list1;
             ListLenTwoFlat = list2;
             Step = Constraints.ThickWallsWidth;
