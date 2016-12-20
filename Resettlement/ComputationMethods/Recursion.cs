@@ -24,7 +24,7 @@ namespace ComputationMethods
 
 
             Do(n, n, new bool[n], new int[n], result, isPermutationForOneFlat);
-		    if (countExcessNumber==1)
+		    if (countExcessNumber == 1)
 		    {
                 result.AddRange(CreatePermWithExcessParam.MethodeCreatePermWithOddParam(result, n));
 		    }
@@ -35,11 +35,11 @@ namespace ComputationMethods
 		    return result;
 		}
 
-        private static void Do(int n, int k, bool[] used, int[] current, List<int[]> result, bool isPermutationForOneBedroom)
+        private static void Do(int n, int k, bool[] used, int[] current, List<int[]> result, bool isPermutationForOneFlat)
 		{
 			if (k == 0)
 			{
-                if (!isPermutationForOneBedroom)
+                if (!isPermutationForOneFlat)
 				{
 					var res = PermutationWithoutRepetition.Data(current.Length/2);
 					foreach (int[] i in res)
@@ -65,7 +65,7 @@ namespace ComputationMethods
 					continue;
 				current[k - 2] = t; // записываем на предпоследнее возможное место t
 				used[t - 1] = true; // показали что заняли (повторно не возьмем)
-                Do(n, k - 2, used, current, result, isPermutationForOneBedroom); //вызвали рекурсию, уменьшив на 2 элемента массив
+                Do(n, k - 2, used, current, result, isPermutationForOneFlat); //вызвали рекурсию, уменьшив на 2 элемента массив
 				used[t - 1] = false; // освободили парное число
 			}
 			used[s - 1] = false; // освободили первичное число

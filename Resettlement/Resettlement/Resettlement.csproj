@@ -51,7 +51,8 @@
     </Compile>
     <Compile Include="Container.cs" />
     <Compile Include="DataGreedyMethode.cs" />
-    <Compile Include="DataHeuristicAlgorithm.cs" />
+    <Compile Include="DataPerformAlgorithm.cs" />
+    <Compile Include="DataPermutFullS.cs" />
     <Compile Include="InputDataAlg.cs" />
     <Compile Include="DataInnerGrouping.cs" />
     <Compile Include="GreedyAlgorithmSection.cs" />
@@ -76,6 +77,7 @@
       <DependentUpon>UserInterface.cs</DependentUpon>
     </Compile>
     <Compile Include="ValidateConditions.cs" />
+    <Compile Include="VariantsFlats.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

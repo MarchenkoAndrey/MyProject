@@ -2,13 +2,13 @@
 
 namespace Resettlement
 {
-    public class DataHeuristicAlgorithm
+    public class DataPerformAlgorithm
     {
         public List<double> ListLenOneFlat { get; set; }
         public List<double> ListLenTwoFlat { get; set; }
         public double FineAfterGrouping { get; set; }
 
-        public DataHeuristicAlgorithm(List<double> listLenOneFlat, List<double> listLenTwoFlat)
+        public DataPerformAlgorithm(List<double> listLenOneFlat, List<double> listLenTwoFlat)
         {
             ListLenOneFlat = listLenOneFlat;
             ListLenTwoFlat = listLenTwoFlat;

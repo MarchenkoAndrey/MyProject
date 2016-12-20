@@ -145,7 +145,7 @@ namespace Resettlement
             var optItem1 = new List<double> { 3.9, 6.0, 6.6, 6.6, 6.6, 7.2 };
             var optItem2 = new List<double> { 8.1, 8.7, 8.1, 7.5, 8.1, 7.5 };
 
-            var result = MethodeFullSearch.FullSearch(new DataHeuristicAlgorithm(list1, list2), optCountFlat);
+            var result = MethodeFullSearch.FullSearch(new DataPerformAlgorithm(list1, list2), optCountFlat);
             Assert.AreEqual(result.ListResultOneFlat.Except(optItem1).ToList().Count, 0);
             Assert.AreEqual(result.ListResultTwoFlat.Except(optItem2).ToList().Count, 0);
             Assert.AreEqual(result.Fine, optFine);
@@ -163,7 +163,7 @@ namespace Resettlement
             var optItem1 = new List<double> { 3.9, 6.6, 6.6, 7.2 };
             var optItem2 = new List<double> { 8.1, 8.1, 8.7, 7.5 };
 
-            var result = MethodeFullSearch.FullSearch(new DataHeuristicAlgorithm(list1, list2), optCountFlat);
+            var result = MethodeFullSearch.FullSearch(new DataPerformAlgorithm(list1, list2), optCountFlat);
             Assert.AreEqual(result.ListResultOneFlat.Except(optItem1).ToList().Count, 0);
             Assert.AreEqual(result.ListResultTwoFlat.Except(optItem2).ToList().Count, 0);
             Assert.AreEqual(result.Fine, optFine);

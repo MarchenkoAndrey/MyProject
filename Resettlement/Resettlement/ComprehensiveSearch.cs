@@ -22,7 +22,7 @@ namespace Resettlement
             lossesOne_label.Text += string.Format(MessagesText.SummarizeAdditionLengthForH, inData.SumDelta.ToString(CultureInfo.InvariantCulture));
 
             var resultDataAfterGrouping = new ResultDataAfterGrouping();
-            var dataAlg = new DataHeuristicAlgorithm(inData.ListLenOneFlat, inData.ListLenTwoFlat);
+            var dataAlg = new DataPerformAlgorithm(inData.ListLenOneFlat, inData.ListLenTwoFlat);
             if (inData.CountFloor > 1)
             {
                 resultDataAfterGrouping = GroupingOnTheFloors.GroupingFlat(inData);

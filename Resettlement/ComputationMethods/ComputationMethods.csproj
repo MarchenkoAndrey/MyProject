@@ -54,7 +54,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReadFromTextAndRecordingInputDataInList.cs" />
     <Compile Include="Recursion.cs" />
-    <Compile Include="VariantsFlats.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Examples\LengthOne10.txt" />
