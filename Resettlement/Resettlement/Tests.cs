@@ -76,13 +76,13 @@ namespace Resettlement
         {
             //Tests 10flat
             const int optCountFlat = 4;
-            const double optFine = 2.4;
+            const double optFine = 3.6;
             const double oneFirstFlat = 7.2;
             const double startFlat = 0.0;
             var list1 = new List<double> { 3.9, 6.6, 6.6, 7.2 };
             var list2 = new List<double> { 7.5, 7.5, 7.8, 8.1 };
             var optItem1 = new List<double> { 3.9, 6.6, 6.6, 7.2 };
-            var optItem2 = new List<double> { 8.1, 8.1, 8.7, 7.8 };
+            var optItem2 = new List<double> { 8.1, 8.1, 8.7, 7.5 };
             
             var result = GreedyAlgorithmSection.GreedyMethode(new DataGreedyMethode(list1, list2, optCountFlat), startFlat);
             Assert.AreEqual(result.FinalPlaceOneFlat.Except(optItem1).ToList().Count, 0);
@@ -97,13 +97,13 @@ namespace Resettlement
         {
             //Tests 12flat
             const int optCountFlat = 6;
-            const double optFine = 2.7;
-            const double oneFirstFlat = 7.2;
+            const double optFine = 3.0;
+            const double oneFirstFlat = 6.6;
             const double startFlat = 0.0;
             var list1 = new List<double> { 3.9, 6.0, 6.6, 6.6, 6.6, 7.2 };
             var list2 = new List<double> { 7.5, 7.5, 7.5, 7.8, 8.1, 8.7 };
             var optItem1 = new List<double> { 3.9, 6.0, 6.6, 6.6, 6.6, 7.2 };
-            var optItem2 = new List<double> { 8.1, 8.7, 8.1, 8.1, 8.1, 7.5 };
+            var optItem2 = new List<double> { 8.1, 8.7, 8.1, 7.5, 8.1, 7.5 };
 
             var result = GreedyAlgorithmSection.GreedyMethode(new DataGreedyMethode(list1, list2, optCountFlat), startFlat);
             Assert.AreEqual(result.FinalPlaceOneFlat.Except(optItem1).ToList().Count, 0);
@@ -118,13 +118,13 @@ namespace Resettlement
         {
             //tests 12flat 2Iter
             const int optCountFlat = 6;
-            const double optFine = 3.3;
+            const double optFine = 3.0;
             const double oneFirstFlat = 6.6;
-            const double startFlat = 7.2;
+            const double startFlat = 6.6;
             var list1 = new List<double> { 3.9, 6.0, 6.6, 6.6, 6.6, 7.2 };
             var list2 = new List<double> { 7.5, 7.5, 7.5, 7.8, 8.1, 8.7 };
             var optItem1 = new List<double> { 3.9, 6.0, 6.6, 6.6, 6.6, 7.2 };
-            var optItem2 = new List<double> { 8.1, 8.7, 8.1, 7.5, 8.1, 8.7 };
+            var optItem2 = new List<double> { 8.1, 8.7, 8.1, 7.5, 8.1, 7.5 };
 
             var result = GreedyAlgorithmSection.GreedyMethode(new DataGreedyMethode(list1, list2, optCountFlat), startFlat);
             Assert.AreEqual(result.FinalPlaceOneFlat.Except(optItem1).ToList().Count, 0);
@@ -132,6 +132,43 @@ namespace Resettlement
             Assert.AreEqual(result.Fine, optFine);
             Assert.AreEqual(result.NewFirstOneFlat, oneFirstFlat);
         }
+
+        [TestMethod]
+        [Category("FullSearch")]
+        public void TestFullSearch12()
+        {
+            //tests 12flat
+            const int optCountFlat = 6;
+            const double optFine = 3.0;
+            var list1 = new List<double> { 3.9, 6.0, 6.6, 6.6, 6.6, 7.2 };
+            var list2 = new List<double> { 7.5, 7.5, 7.5, 7.8, 8.1, 8.7 };
+            var optItem1 = new List<double> { 3.9, 6.0, 6.6, 6.6, 6.6, 7.2 };
+            var optItem2 = new List<double> { 8.1, 8.7, 8.1, 7.5, 8.1, 7.5 };
+
+            var result = MethodeFullSearch.FullSearch(new DataHeuristicAlgorithm(list1, list2), optCountFlat);
+            Assert.AreEqual(result.ListResultOneFlat.Except(optItem1).ToList().Count, 0);
+            Assert.AreEqual(result.ListResultTwoFlat.Except(optItem2).ToList().Count, 0);
+            Assert.AreEqual(result.Fine, optFine);
+        }
+
+        [TestMethod]
+        [Category("FullSearch")]
+        public void TestFullSearch10()
+        {
+            //tests 10flat
+            const int optCountFlat = 6;
+            const double optFine = 3.6;
+            var list1 = new List<double> { 3.9, 6.6, 6.6, 7.2 };
+            var list2 = new List<double> { 7.5, 7.5, 7.8, 8.1 };
+            var optItem1 = new List<double> { 3.9, 6.6, 6.6, 7.2 };
+            var optItem2 = new List<double> { 8.1, 8.1, 8.7, 7.5 };
+
+            var result = MethodeFullSearch.FullSearch(new DataHeuristicAlgorithm(list1, list2), optCountFlat);
+            Assert.AreEqual(result.ListResultOneFlat.Except(optItem1).ToList().Count, 0);
+            Assert.AreEqual(result.ListResultTwoFlat.Except(optItem2).ToList().Count, 0);
+            Assert.AreEqual(result.Fine, optFine);
+        }
+
     }
 }
 

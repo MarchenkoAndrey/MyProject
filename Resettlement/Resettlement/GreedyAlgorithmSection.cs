@@ -17,14 +17,13 @@ namespace Resettlement
             var finalPlacementTwoFlat = new double[dataGrM.OptCountFlatOnFloor];
 
             var maxFine = 0.0;
-            var isFlagFirstEntry = true;
-            var index1 = 0;
+            var index1 = 0; // индексы нужны для удаления из второго списка
             var index2 = 0;
             for (var n = 0; n < dataGrM.OptCountFlatOnFloor; n = n + 2)             // цикл заполнения секций
             {
                 double choiceOneFlat;
-                //Если есть значение и оно в первый раз, то его и записываем
-                if (Math.Abs(firstOneFlat) > 1e-9 && isFlagFirstEntry)
+                //Если есть ненулевое значение и оно встретилось в первый раз, то записываем его
+                if (Math.Abs(firstOneFlat) > 1e-9 && resultGreedy.IsFlagFirstEntry)
                 {
                     choiceOneFlat = firstOneFlat;
                 }
@@ -32,7 +31,7 @@ namespace Resettlement
                 {
                     choiceOneFlat = listLenOneFlat[listLenOneFlat.Count / 2];
                 }
-                isFlagFirstEntry = false;
+                resultGreedy.IsFlagFirstEntry = false;
 
                 var sortedListOneFlat = new List<double>(listLenOneFlat);
                 sortedListOneFlat.Remove(choiceOneFlat);
@@ -45,7 +44,7 @@ namespace Resettlement
                 {
                     for (var j = i + 1; j < listLenTwoFlat.Count; ++j)
                     {
-                        for (var h = 0; h < sortedListOneFlat.Count; ++h)
+                        foreach (var t in sortedListOneFlat)
                         {
                             var currentExtraSquare = 0.0;
                             double[] currentMassiv;
@@ -59,13 +58,14 @@ namespace Resettlement
                             }
                             var resultPackSect =
                                 CompALen.Method(
-                                    new ApartureLen(choiceOneFlat, sortedListOneFlat[h], currentMassiv[i],
+                                    new ApartureLen(choiceOneFlat, t, currentMassiv[i],
                                         currentMassiv[j], currentExtraSquare), dataGrM.Step);
 
-                        var currentFine =
+                            var currentFine =
                                 Math.Abs(Math.Round(
-                                    resultPackSect.B1 + resultPackSect.B2 + 2 * dataGrM.Step - resultPackSect.A1 - dataGrM.Entryway - 3 * dataGrM.Step -
-                                    resultPackSect.A2 + currentExtraSquare, 1));
+                                    resultPackSect.B1 + resultPackSect.B2 + dataGrM.AddingB -
+                                    (resultPackSect.A1 + resultPackSect.A2 + dataGrM.AddingA)
+                                    + resultPackSect.ExtraSquare, 1));
                             if (currentFine < fine)
                             {
                                 fine = currentFine;

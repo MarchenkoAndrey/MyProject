@@ -42,7 +42,6 @@ namespace Resettlement
             while (numberIteration < Constraints.NumberOfIteration)
             {
                 numberIteration++;
-                //TODO почему на другой итерации результат не улучшается??
                 var resultGreedyIter =
                     GreedyAlgorithmSection.GreedyMethode(
                         new DataGreedyMethode(dataAlg.ListLenOneFlat, dataAlg.ListLenTwoFlat, inData.OptCountFlatOnFloor),

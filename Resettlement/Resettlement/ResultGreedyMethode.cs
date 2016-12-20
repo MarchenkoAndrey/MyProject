@@ -11,6 +11,7 @@ namespace Resettlement
         public List<double> ListLenExceedTwoFlat { get; set; }
         public double NewFirstOneFlat { get; set; }
         public int NumIter { get; set; }
+        public bool IsFlagFirstEntry { get; set; }
 
         public ResultGreedyMethode()
         {
@@ -20,6 +21,7 @@ namespace Resettlement
             FinalPlaceOneFlat = new List<double>();
             FinalPlaceTwoFlat = new List<double>();
             NumIter = 0;
+            IsFlagFirstEntry = true;
         }
 
         public ResultGreedyMethode(double max)

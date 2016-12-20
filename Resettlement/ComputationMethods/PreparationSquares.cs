@@ -16,10 +16,6 @@ namespace ComputationMethods
 		{
             return squareOfAppartments.Select(i => Math.Round(Math.Ceiling(i / Constraints.DefaultH) * Constraints.DefaultH, 1)).ToList();
 		}
-        public static List<double> FlatsRestartList(IEnumerable<double> squareOfAppartments)
-        {
-            return squareOfAppartments.ToList();
-        }
 
 		public static double DeltaSquaresOfFlats(List<double> lengthOfApartments, List<double> lengthApartmentsWithAdditive)
 		{
