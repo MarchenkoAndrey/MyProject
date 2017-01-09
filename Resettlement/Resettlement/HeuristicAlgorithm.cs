@@ -10,7 +10,6 @@ namespace Resettlement
     {
         private void PerformHAlg(InputDataAlg inData)
         {
-            ValidateConditions.Validate(inData);
 
             realizat_label.Text = "".ToString(CultureInfo.InvariantCulture);
             lossesOne_label.Text = "".ToString(CultureInfo.InvariantCulture);
@@ -20,18 +19,14 @@ namespace Resettlement
             realizat_label.Text += string.Format(MessagesText.RealizationForRectangles,flatCount).ToString(CultureInfo.InvariantCulture);
             lossesOne_label.Text += string.Format(MessagesText.SummarizeAdditionLengthForH, inData.SumDelta.ToString(CultureInfo.InvariantCulture));
 
-            var resultDataAfterGrouping = new ResultDataAfterGrouping();
             var dataAlg = new DataPerformAlgorithm(inData.ListLenOneFlat,inData.ListLenTwoFlat);
 
-            if (inData.CountFloor > 1)
-            {
-                resultDataAfterGrouping = GroupingOnTheFloors.GroupingFlat(inData);
-                dataAlg.ListLenOneFlat =
-                    PreparationSquares.FlatsWithTheAdditiveLength(resultDataAfterGrouping.ListResultOneFlat);
-                dataAlg.ListLenTwoFlat =
-                    PreparationSquares.FlatsWithTheAdditiveLength(resultDataAfterGrouping.ListResultTwoFlat);
-                dataAlg.FineAfterGrouping = resultDataAfterGrouping.Fine;
-            }
+            var resultDataAfterGrouping = GroupingOnTheFloors.GroupingFlat(inData);
+            dataAlg.ListLenOneFlat =
+                PreparationSquares.FlatsWithTheAdditiveLength(resultDataAfterGrouping.ListResultOneFlat);
+            dataAlg.ListLenTwoFlat =
+                PreparationSquares.FlatsWithTheAdditiveLength(resultDataAfterGrouping.ListResultTwoFlat);
+            dataAlg.FineAfterGrouping = resultDataAfterGrouping.Fine;
 
             var myStopWatchGreedy = new Stopwatch();
             myStopWatchGreedy.Start();

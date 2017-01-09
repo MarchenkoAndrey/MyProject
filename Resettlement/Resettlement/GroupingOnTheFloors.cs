@@ -8,12 +8,14 @@ namespace Resettlement
         private static DataInnerGrouping GeneralMethodGroup(int optCountF, int countFloor, List<double> listLenFlat, bool isOneFlat)
         {
             var dataInGrouping = new DataInnerGrouping(isOneFlat);
+            
             if (listLenFlat.Count == optCountF)
             {
                 var resultTuple = EqualCountFlat(listLenFlat, dataInGrouping.FineFlat,
                     dataInGrouping.ListResultFlat, countFloor);
                 dataInGrouping.FineFlat = resultTuple.Item1;
                 dataInGrouping.ListResultFlat = resultTuple.Item2;
+                dataInGrouping.TotalFineFlatExcess = 0.0;
             }
 
             else
@@ -124,8 +126,9 @@ namespace Resettlement
 
             var resultOneFlat = GeneralMethodGroup(data.OptCountFlat, data.CountFloor, data.ListLenOneFlat, true);
             var resultTwoFlat = GeneralMethodGroup(data.OptCountFlat, data.CountFloor, data.ListLenTwoFlat, false);
-          
-            resultOneFlat.FineFlat = Math.Abs(resultOneFlat.FineFlat) < 1e-9 ? resultOneFlat.TotalFineFlatExcess :  resultOneFlat.FineFlat;
+
+            //Todo rewrite!
+            resultOneFlat.FineFlat = Math.Abs(resultOneFlat.FineFlat) < 1e-9 ? resultOneFlat.TotalFineFlatExcess : resultOneFlat.FineFlat;
             resultTwoFlat.FineFlat = Math.Abs(resultTwoFlat.FineFlat) < 1e-9 ? resultTwoFlat.TotalFineFlatExcess : resultTwoFlat.FineFlat;
             var totalFine = Math.Round(resultOneFlat.FineFlat + resultTwoFlat.FineFlat, 1);
 
