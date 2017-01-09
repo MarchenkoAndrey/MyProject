@@ -106,7 +106,7 @@ namespace Resettlement
 
         private static void PrintExceedFlat(List<double> listExceedFlat, Label resultLabel, string rectanglesNotList)
         {
-            if (listExceedFlat == null) return;
+            if (listExceedFlat.Count==0) return;
             resultLabel.Text += rectanglesNotList;
             foreach (var i in listExceedFlat)
             {
