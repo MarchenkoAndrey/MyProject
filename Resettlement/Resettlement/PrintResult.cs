@@ -24,44 +24,32 @@ namespace Resettlement
             resultGreedyLabel.Text +=
                  string.Format(MessagesText.ValueFunctionalF, data.Fine).ToString(CultureInfo.InvariantCulture);
 
-            if (countFloor !=1)
+            
+            if (!flagIsNotFinish)
             {
-                if (!flagIsNotFinish)
+                for (var numberFloor = 0; numberFloor < countFloor; ++numberFloor)
                 {
-                    for (var numberFloor = 0; numberFloor < countFloor; ++numberFloor)
-                    {
-                        resultGreedyLabel.Text += MessagesText.DividingLine;
-                        PrintFloor(data.FinalPlaceOneFlat, resultGreedyLabel);
-                        resultGreedyLabel.Text += MessagesText.DividingLine;
-                        PrintFloor(data.FinalPlaceTwoFlat, resultGreedyLabel);
-                        PrintStroke(data.FinalPlaceTwoFlat, numberFloor, countFloor, resultGreedyLabel);
-                    }
+                    resultGreedyLabel.Text += MessagesText.DividingLine;
+                    PrintFloor(data.FinalPlaceOneFlat, resultGreedyLabel);
+                    resultGreedyLabel.Text += MessagesText.DividingLine;
+                    PrintFloor(data.FinalPlaceTwoFlat, resultGreedyLabel);
+                    PrintStroke(data.FinalPlaceTwoFlat, numberFloor, countFloor, resultGreedyLabel);
                 }
-                if (flagIsNotFinish) return;
-                PrintExceedFlat(data.ListLenExceedOneFlat, resultGreedyLabel, MessagesText.RectanglesAiNotList);
-                PrintExceedFlat(data.ListLenExceedTwoFlat, resultGreedyLabel, MessagesText.RectanglesBiNotList);
             }
-                else
-                {
-                    resultGreedyLabel.Text += MessagesText.OptimalContainerPackage;
-                    resultGreedyLabel.Text += MessagesText.NextLine;
-                    resultGreedyLabel.Text += MessagesText.DividingLine;
-                    PrintFloor(data.FinalPlaceTwoFlat, resultGreedyLabel);
-                    resultGreedyLabel.Text += MessagesText.DividingLine;
-                    PrintFloor(data.FinalPlaceTwoFlat, resultGreedyLabel);
-                    PrintExceedFlat(data.ListLenExceedOneFlat, resultGreedyLabel, MessagesText.RectanglesAiNotList);
-                    PrintExceedFlat(data.ListLenExceedTwoFlat, resultGreedyLabel, MessagesText.RectanglesBiNotList);
-                }
+            if (flagIsNotFinish) return;
+            PrintExceedFlat(data.ListLenExceedOneFlat, resultGreedyLabel, MessagesText.RectanglesAiNotList);
+            PrintExceedFlat(data.ListLenExceedTwoFlat, resultGreedyLabel, MessagesText.RectanglesBiNotList);
         }
 
         public static void FullSearchPrintResult(ResultDataAfterGrouping data, int countFloor, Label resultFullSearchLabel)
         {
+            const string resultFullSearch = MessagesText.ResultComprehensiveSearch;
+            resultFullSearchLabel.Text += resultFullSearch + MessagesText.NextLine;
+            var minFine = string.Format(MessagesText.Fine, data.Fine);
+            resultFullSearchLabel.Text += minFine + MessagesText.NextLine;
+
             if (countFloor !=1)
             {
-                const string resultFullSearch = MessagesText.ResultComprehensiveSearch;
-                resultFullSearchLabel.Text += resultFullSearch + MessagesText.NextLine;
-                var minFine = string.Format(MessagesText.ValueFunctionalF, data.Fine);
-                resultFullSearchLabel.Text += minFine + MessagesText.NextLine + MessagesText.NextLine;
                 for (var numberFloor = 0; numberFloor < countFloor; ++numberFloor)
                 {
                     resultFullSearchLabel.Text += MessagesText.DividingLine;
@@ -70,16 +58,10 @@ namespace Resettlement
                     PrintFloor(data.ListResultTwoFlat, resultFullSearchLabel);
                     PrintStroke(data.ListResultOneFlat, numberFloor, countFloor, resultFullSearchLabel);
                 }
-                PrintExceedFlat(data.ListExcessOneFlat, resultFullSearchLabel, MessagesText.RectanglesAiNotList);
-                PrintExceedFlat(data.ListExcessTwoFlat, resultFullSearchLabel, MessagesText.RectanglesBiNotList);
             }   
 
             else
             {
-                const string resultFullSearch = MessagesText.ResultComprehensiveSearch;
-                resultFullSearchLabel.Text += resultFullSearch + MessagesText.NextLine;
-                var minFine = string.Format(MessagesText.Fine, data.Fine);
-                resultFullSearchLabel.Text += minFine + MessagesText.NextLine;
                 const string optArrangeOne = MessagesText.OptimalContainerPackage;
                 resultFullSearchLabel.Text += optArrangeOne;
                 resultFullSearchLabel.Text += MessagesText.NextLine;
@@ -87,9 +69,9 @@ namespace Resettlement
                 PrintFloor(data.ListResultOneFlat, resultFullSearchLabel);
                 resultFullSearchLabel.Text += MessagesText.DividingLine;
                 PrintFloor(data.ListResultTwoFlat, resultFullSearchLabel);
-                PrintExceedFlat(data.ListExcessOneFlat, resultFullSearchLabel, MessagesText.RectanglesAiNotList);
-                PrintExceedFlat(data.ListExcessTwoFlat, resultFullSearchLabel, MessagesText.RectanglesBiNotList);
             }
+            PrintExceedFlat(data.ListExcessOneFlat, resultFullSearchLabel, MessagesText.RectanglesAiNotList);
+            PrintExceedFlat(data.ListExcessTwoFlat, resultFullSearchLabel, MessagesText.RectanglesBiNotList);
         }
 
         private static void PrintStroke(List<double> totalListOneBedroomApartment, int numberFloor, int countFloor, Label resultLabel)

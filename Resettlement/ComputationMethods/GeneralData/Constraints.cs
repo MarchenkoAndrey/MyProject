@@ -16,7 +16,7 @@
             6
         };
 
-        public const int CountFloor = 2;
+        public const int CountFloor = 1;
 
         public const double ThickWallsWidth = 0.3;
 
