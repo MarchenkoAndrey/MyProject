@@ -91,6 +91,8 @@ namespace Resettlement
             Assert.AreEqual(result.NewFirstOneFlat,oneFirstFlat);
         }
 
+        //TODO Добавить тест на проверку конкретных итераций
+
         [TestMethod]
         [Category("GreedyMethode")]
         public void TestGreedyMethodeI()
@@ -168,7 +170,6 @@ namespace Resettlement
             Assert.AreEqual(result.ListResultTwoFlat.Except(optItem2).ToList().Count, 0);
             Assert.AreEqual(result.Fine, optFine);
         }
-
     }
 }
 

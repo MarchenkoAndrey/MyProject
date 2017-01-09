@@ -10,7 +10,7 @@ namespace Resettlement
     {
         private void PerformComprehensiveSearch(InputDataAlg inData)
         {
-            ValidateConditions.Validate(inData);
+            ValidateConditions.Validate(inData, false);
 
             realizat_label.Text = "".ToString(CultureInfo.InvariantCulture);
             lossesOne_label.Text = "".ToString(CultureInfo.InvariantCulture);

@@ -10,6 +10,7 @@ namespace Resettlement
     {
         private void PerformHAlg(InputDataAlg inData)
         {
+            ValidateConditions.Validate(inData, true);
 
             realizat_label.Text = "".ToString(CultureInfo.InvariantCulture);
             lossesOne_label.Text = "".ToString(CultureInfo.InvariantCulture);
