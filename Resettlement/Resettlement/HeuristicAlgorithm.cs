@@ -33,11 +33,11 @@ namespace Resettlement
             myStopWatchGreedy.Start();
             var firstOneFlat = 0.0; // в RGreedyMethode
             var numberIteration = 0;
+            var allIterationsResult = new ResultGreedyMethode[Constraints.NumberOfIteration];
             var totalOptimalResult = new ResultGreedyMethode(double.MaxValue);
 
             while (numberIteration < Constraints.NumberOfIteration)
             {
-                numberIteration++;
                 var resultGreedyIter =
                     GreedyAlgorithmSection.GreedyMethode(
                         new DataGreedyMethode(dataAlg.ListLenOneFlat, dataAlg.ListLenTwoFlat, inData.OptCountFlatOnFloor),
@@ -49,12 +49,15 @@ namespace Resettlement
                 resultGreedyIter.ListLenExceedOneFlat = resultDataAfterGrouping.ListExcessOneFlat;
                 resultGreedyIter.ListLenExceedTwoFlat = resultDataAfterGrouping.ListExcessTwoFlat;
 
+                allIterationsResult[numberIteration] = resultGreedyIter;
+
                 if (resultGreedyIter.Fine < totalOptimalResult.Fine)
                 {
                     totalOptimalResult = resultGreedyIter;
                 }
                 //Вывод результата по итерациям
                 PrintResult.GreedyIterationPrintResult(resultGreedyIter, inData.CountFloor, true, resultGreedy_label);
+                numberIteration++;
             }
             myStopWatchGreedy.Stop();
             PrintResult.GreedyIterationPrintResult(totalOptimalResult, inData.CountFloor, false, resultGreedy_label);

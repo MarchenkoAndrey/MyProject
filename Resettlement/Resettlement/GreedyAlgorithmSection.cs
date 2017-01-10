@@ -21,16 +21,11 @@ namespace Resettlement
             var index2 = 0;
             for (var n = 0; n < dataGrM.OptCountFlatOnFloor; n = n + 2)             // цикл заполнения секций
             {
-                double choiceOneFlat;
                 //Если есть ненулевое значение и оно встретилось в первый раз, то записываем его
-                if (Math.Abs(firstOneFlat) > 1e-9 && resultGreedy.IsFlagFirstEntry)
-                {
-                    choiceOneFlat = firstOneFlat;
-                }
-                else
-                {
-                    choiceOneFlat = listLenOneFlat[listLenOneFlat.Count / 2];
-                }
+                var choiceOneFlat = Math.Abs(firstOneFlat) > 1e-9 && resultGreedy.IsFlagFirstEntry
+                    ? firstOneFlat
+                    : listLenOneFlat[listLenOneFlat.Count/2];
+
                 resultGreedy.IsFlagFirstEntry = false;
 
                 var sortedListOneFlat = new List<double>(listLenOneFlat);
@@ -46,35 +41,57 @@ namespace Resettlement
                     {
                         foreach (var t in sortedListOneFlat)
                         {
-                            var currentExtraSquare = 0.0;
                             double[] currentMassiv;
                             Array.Copy(arraySortedTwoApartments,
                                 currentMassiv = new double[arraySortedTwoApartments.Length],
                                 arraySortedTwoApartments.Length);
-                            //TODO когда остается 2 варианта добавить 2 разных варианта сочетания
-                            if (dataGrM.OptCountFlatOnFloor - n == 2)
+
+                            ApartureLen resultPackSectReverse;
+                            switch (dataGrM.OptCountFlatOnFloor-n)
                             {
-                                Array.Reverse(currentMassiv);
+                                case 2:
+                                {
+                                    resultPackSectReverse =
+                                        CompALen.Method(
+                                            new ApartureLen(choiceOneFlat, t, currentMassiv[j],
+                                                currentMassiv[i]), dataGrM.Step);
+                                    break;
+                                }
+                                
+                                default:
+                                    resultPackSectReverse = new ApartureLen(double.MaxValue);
+                                break;
                             }
                             var resultPackSect =
                                 CompALen.Method(
                                     new ApartureLen(choiceOneFlat, t, currentMassiv[i],
-                                        currentMassiv[j], currentExtraSquare), dataGrM.Step);
+                                        currentMassiv[j]), dataGrM.Step);
+
+                            var currentFineReverse =
+                                Math.Abs(Math.Round(
+                                    resultPackSectReverse.B1 + resultPackSectReverse.B2 + dataGrM.AddingB -
+                                    (resultPackSectReverse.A1 + resultPackSectReverse.A2 + dataGrM.AddingA)
+                                    + resultPackSectReverse.ExtraSquare, 1));
 
                             var currentFine =
                                 Math.Abs(Math.Round(
                                     resultPackSect.B1 + resultPackSect.B2 + dataGrM.AddingB -
                                     (resultPackSect.A1 + resultPackSect.A2 + dataGrM.AddingA)
                                     + resultPackSect.ExtraSquare, 1));
-                            if (currentFine < fine)
+
+                            if (currentFineReverse < currentFine)
                             {
-                                fine = currentFine;
-                                finalPlacementTwoFlat[n] = resultPackSect.B1;
-                                index1 = i;
-                                finalPlacementTwoFlat[n + 1] = resultPackSect.B2;
-                                index2 = j;
-                                finalPlacementOneFlat[n + 1] = resultPackSect.A2;
+                                currentFine = currentFineReverse;
+                                resultPackSect = resultPackSectReverse;
                             }
+
+                            if (!(currentFine < fine)) continue;
+                            fine = currentFine;
+                            finalPlacementTwoFlat[n] = resultPackSect.B1;
+                            index1 = i;
+                            finalPlacementTwoFlat[n + 1] = resultPackSect.B2;
+                            index2 = j;
+                            finalPlacementOneFlat[n + 1] = resultPackSect.A2;
                         }
                     }
                 }

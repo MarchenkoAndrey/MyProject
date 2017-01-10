@@ -11,6 +11,15 @@ namespace Resettlement
         public double B2;
         public double ExtraSquare;
 
+        public ApartureLen(double a1, double a2, double b1, double b2)
+        {
+            A1 = a1;
+            A2 = a2;
+            B1 = b1;
+            B2 = b2;
+            ExtraSquare = 0;
+        }
+
         public ApartureLen(double a1, double a2, double b1, double b2, double extraSquare)
         {
             A1 = a1;
@@ -18,6 +27,15 @@ namespace Resettlement
             B1 = b1;
             B2 = b2;
             ExtraSquare = extraSquare;
+        }
+
+        public ApartureLen(double maxValue)
+        {
+            A1 = 0;
+            A2 = 0;
+            B1 = 0;
+            B2 = 0;
+            ExtraSquare = maxValue;
         }
     }
 
