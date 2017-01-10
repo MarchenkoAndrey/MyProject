@@ -5,16 +5,14 @@ namespace Resettlement
 {
     public class DataGreedyMethode
     {
-        public double Step { get; set; }
-        public double Entryway { get; set; }
+        public double Step { get; private set; }
+        private double Entryway { get; set; }
         public double AddingA { get; private set; }
         public double AddingB { get; private set; }
         public int OptCountFlatOnFloor { get; private set; }
 
-        public List<double> ListLenOneFlat;
-        public List<double> ListLenTwoFlat;
-
-
+        public readonly List<double> ListLenOneFlat;
+        public readonly List<double> ListLenTwoFlat;
 
         public DataGreedyMethode(List<double> list1, List<double> list2, int optCountFlat)
         {

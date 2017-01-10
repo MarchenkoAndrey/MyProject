@@ -5,8 +5,8 @@ namespace Resettlement
     public class ResultGreedyMethode
     {
         public double Fine;
-        public List<double> FinalPlaceOneFlat { get; set; }
-        public List<double> FinalPlaceTwoFlat { get; set; }
+        public List<double> FinalPlaceOneFlat { get; private set; }
+        public List<double> FinalPlaceTwoFlat { get; private set; }
         public List<double> ListLenExceedOneFlat { get; set; }
         public List<double> ListLenExceedTwoFlat { get; set; }
         public double NewFirstOneFlat { get; set; }

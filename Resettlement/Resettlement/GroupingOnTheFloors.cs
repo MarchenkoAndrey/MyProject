@@ -7,7 +7,7 @@ namespace Resettlement
     {
         private static DataInnerGrouping GeneralMethodGroup(int optCountF, int countFloor, List<double> listLenFlat, bool isOneFlat)
         {
-            var dataInGrouping = new DataInnerGrouping(isOneFlat);
+            var dataInGrouping = new DataInnerGrouping();
             
             if (listLenFlat.Count == optCountF)
             {

@@ -46,14 +46,8 @@ namespace Resettlement
 				    result.Fine = totalOptimalExceedSquare;
 				    result.ListResultOneFlat = i.ToList();
                     result.ListResultTwoFlat = temporalArrayTwoBedroomApartment.ToList();
-				    if (permutDataOneFlat.ListExceedFlat.Count > 0)
-				    {
-                        result.ListExcessOneFlat = permutDataOneFlat.ListExceedFlat[countI].ToList();
-				    }
-				    if (permutDataTwoFlat.ListExceedFlat.Count > 0)
-				    {
-                        result.ListExcessTwoFlat = permutDataTwoFlat.ListExceedFlat[countJ].ToList();
-				    }
+                    result.ListExcessOneFlat = permutDataOneFlat.ListExceedFlat[countI].ToList();
+                    result.ListExcessTwoFlat = permutDataTwoFlat.ListExceedFlat[countJ].ToList();
 				}
 			}
             return result;
