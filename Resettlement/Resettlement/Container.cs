@@ -12,6 +12,7 @@ namespace Resettlement
         public double AbsFine;
         public double LenA;
         public double LenB;
+        private int ParentId { get; set;}
 
         //Заполнять здесь
         public Container(InputDataAlg data)
@@ -19,6 +20,11 @@ namespace Resettlement
             AbsFine = Math.Abs(Fine);
             LenA = A1 + A2 + data.AddingA;
             LenB = B1 + B2 + data.AddingB;
+        }
+
+        public Container()
+        {
+
         }
     }
 }

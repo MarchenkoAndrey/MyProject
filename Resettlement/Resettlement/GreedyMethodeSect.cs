@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Resettlement
 {
-    public static class GreedyAlgorithmSection
+    public static class GreedyMethodeSect
     {
         public static ResultGreedyMethode GreedyMethode(DataGreedyMethode dataGrM, double firstOneFlat)
         {

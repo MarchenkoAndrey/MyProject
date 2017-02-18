@@ -10,10 +10,16 @@ namespace Resettlement
             InitializeComponent();
         }
         
+//        private void greedy_btn_Click(object sender, EventArgs e)
+//        {
+//            var dataHAlg = new InputDataAlg();
+//            PerformHAlg(dataHAlg);
+//        }
+
         private void greedy_btn_Click(object sender, EventArgs e)
         {
-            var dataHAlg = new InputDataAlg();
-            PerformHAlg(dataHAlg);
+            var dataDAlg = new InputDataAlg();
+            PerformDAlg(dataDAlg);
         }
 
         private void fullSearch_btn_Click(object sender, EventArgs e)

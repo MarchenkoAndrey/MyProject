@@ -39,7 +39,7 @@ namespace Resettlement
             while (numberIteration < Constraints.NumberOfIteration)
             {
                 var resultGreedyIter =
-                    GreedyAlgorithmSection.GreedyMethode(
+                    GreedyMethodeSect.GreedyMethode(
                         new DataGreedyMethode(dataAlg.ListLenOneFlat, dataAlg.ListLenTwoFlat, inData.OptCountFlatOnFloor),
                         firstOneFlat);
                 firstOneFlat = resultGreedyIter.NewFirstOneFlat;

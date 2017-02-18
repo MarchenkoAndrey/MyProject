@@ -84,7 +84,7 @@ namespace Resettlement
             var optItem1 = new List<double> { 3.9, 6.6, 6.6, 7.2 };
             var optItem2 = new List<double> { 8.1, 8.1, 8.7, 7.5 };
             
-            var result = GreedyAlgorithmSection.GreedyMethode(new DataGreedyMethode(list1, list2, optCountFlat), startFlat);
+            var result = GreedyMethodeSect.GreedyMethode(new DataGreedyMethode(list1, list2, optCountFlat), startFlat);
             Assert.AreEqual(result.FinalPlaceOneFlat.Except(optItem1).ToList().Count, 0);
             Assert.AreEqual(result.FinalPlaceTwoFlat.Except(optItem2).ToList().Count, 0);
             Assert.AreEqual(result.Fine, optFine);
@@ -107,7 +107,7 @@ namespace Resettlement
             var optItem1 = new List<double> { 3.9, 6.0, 6.6, 6.6, 6.6, 7.2 };
             var optItem2 = new List<double> { 8.1, 8.7, 8.1, 7.5, 8.1, 7.5 };
 
-            var result = GreedyAlgorithmSection.GreedyMethode(new DataGreedyMethode(list1, list2, optCountFlat), startFlat);
+            var result = GreedyMethodeSect.GreedyMethode(new DataGreedyMethode(list1, list2, optCountFlat), startFlat);
             Assert.AreEqual(result.FinalPlaceOneFlat.Except(optItem1).ToList().Count, 0);
             Assert.AreEqual(result.FinalPlaceTwoFlat.Except(optItem2).ToList().Count, 0);
             Assert.AreEqual(result.Fine, optFine);
@@ -128,7 +128,7 @@ namespace Resettlement
             var optItem1 = new List<double> { 3.9, 6.0, 6.6, 6.6, 6.6, 7.2 };
             var optItem2 = new List<double> { 8.1, 8.7, 8.1, 7.5, 8.1, 7.5 };
 
-            var result = GreedyAlgorithmSection.GreedyMethode(new DataGreedyMethode(list1, list2, optCountFlat), startFlat);
+            var result = GreedyMethodeSect.GreedyMethode(new DataGreedyMethode(list1, list2, optCountFlat), startFlat);
             Assert.AreEqual(result.FinalPlaceOneFlat.Except(optItem1).ToList().Count, 0);
             Assert.AreEqual(result.FinalPlaceTwoFlat.Except(optItem2).ToList().Count, 0);
             Assert.AreEqual(result.Fine, optFine);
