@@ -5,6 +5,12 @@ namespace Resettlement
 {
     public class ApartureLen
     {
+        //Todo переписать, убрать дубликаты. Подписать каждый конструктор
+        public readonly double OldA1;
+        public readonly double OldA2;
+        public readonly double OldB1;
+        public readonly double OldB2;
+
         public readonly double A1;
         public readonly double A2;
         public double B1;
@@ -17,6 +23,10 @@ namespace Resettlement
             A2 = a2;
             B1 = b1;
             B2 = b2;
+            OldA1 = a1;
+            OldA2 = a2;
+            OldB1 = b1;
+            OldB2 = b2;
             ExtraSquare = 0;
         }
 
@@ -27,6 +37,10 @@ namespace Resettlement
             B1 = b1;
             B2 = b2;
             ExtraSquare = extraSquare;
+            OldA1 = a1;
+            OldA2 = a2;
+            OldB1 = b1;
+            OldB2 = b2;
         }
 
         public ApartureLen(double maxValue)
@@ -36,6 +50,10 @@ namespace Resettlement
             B1 = 0;
             B2 = 0;
             ExtraSquare = maxValue;
+            OldA1 = 0;
+            OldA2 = 0;
+            OldB1 = 0;
+            OldB2 = 0;
         }
     }
 

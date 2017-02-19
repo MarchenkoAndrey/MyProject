@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Resettlement
 {
@@ -12,7 +13,13 @@ namespace Resettlement
         public double AbsFine;
         public double LenA;
         public double LenB;
-        private int ParentId { get; set;}
+
+        public List<double> ExceedListOneFlat;
+        public List<double> ExceedListTwoFlat;
+
+        public int Id { get; set;}
+        public int? ParentId { get; set;}
+        public double FineChain { get; set; }
 
         //Заполнять здесь
         public Container(InputDataAlg data)
@@ -21,6 +28,14 @@ namespace Resettlement
             LenA = A1 + A2 + data.AddingA;
             LenB = B1 + B2 + data.AddingB;
         }
+
+        public Container(Container data)
+        {
+            A1 = data.A1;
+            ParentId = data.Id;
+            FineChain = data.FineChain;
+        }
+
 
         public Container()
         {

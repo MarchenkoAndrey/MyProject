@@ -39,8 +39,9 @@ namespace Resettlement
             // Print Result
 
 //            var resultDynamicMethode = DynamicMethodeSect.DynamicMethode(dataAlg.ListLenOneFlat, dataAlg.ListLenTwoFlat, inData.OptCountFlatOnFloor);
+            var a = new DynamicMethodeSect();
             var resultDynamicMethode =
-                DynamicMethodeSect.DynamicMethode(new DataGreedyMethode(dataAlg.ListLenOneFlat, dataAlg.ListLenTwoFlat,
+                a.DynamicMethode(new DataGreedyMethode(dataAlg.ListLenOneFlat, dataAlg.ListLenTwoFlat,
                     inData.OptCountFlatOnFloor));
 
                 
