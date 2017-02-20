@@ -6,7 +6,7 @@ namespace Resettlement
 {
     public sealed class DynamicMethodeSect
     {
-        public IEnumerable<Container> DynamicMethode(DataGreedyMethode data)
+        public static IEnumerable<Container> DynamicMethode(DataGreedyMethode data)
         {
             var resultDymMethode = new ContainerTree(data);
             const int countBranch = 3;
@@ -92,13 +92,6 @@ namespace Resettlement
                                 // Если нашли меньше, то (если такой контейнер уже есть, то break)
                                 // перезаписываем, обновляя текущий наибольший
 
-
-//                                if (currentFineReverse < currentFine)
-//                                {
-//                                    currentFine = currentFineReverse;
-//                                    resultPackSect = resultPackSectRev;
-//                                }
-
                                 //Запись в промежуточный результат контейнеров
                                 if (tempThreeContainers.Count < countBranch)
                                 {
@@ -149,11 +142,13 @@ namespace Resettlement
             return resultDymMethode.Containers;
         }
 
+        // Проверка на то, что в списке контейнеров tempThreeContainers нет текущего контейнера
         private static bool ValidateToSameContainers(IEnumerable<Container> tempThreeContainers, Container newContainer)
         {
             return tempThreeContainers.Any(container => Equals(newContainer, container));
         }
 
+        // Переопределенный метод Equals
         private static bool Equals(Container obj1, Container obj2)
         {
             return (obj1.A1.Equals(obj2.A1) && obj1.A2.Equals(obj2.A2) && 
@@ -162,12 +157,13 @@ namespace Resettlement
                 obj1.B1.Equals(obj2.B2) && obj1.Fine.Equals(obj2.Fine));
         }
 
-        private static Container FillingData(Container newContainer, ApartureLen result, double fine, int count)
+        // Заполнение текущего контейнера данными
+        private static Container FillingData(Container newContainer, ApartureLen result, double fine, int id)
         {
             newContainer.B1 = result.B1;
             newContainer.B2 = result.B2;
             newContainer.A2 = result.A2;
-            newContainer.Id = count;
+            newContainer.Id = id;
             newContainer.Fine = fine;
             newContainer.FineChain += fine;
             return newContainer;

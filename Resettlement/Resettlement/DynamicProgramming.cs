@@ -31,21 +31,20 @@ namespace Resettlement
 
             var myStopWatchDynamic = new Stopwatch();
             myStopWatchDynamic.Start();
-
-
             
             // var resultDynamicIter = Methode, renurn tree (array containers)
-            // backtracking for optimal solution
-            // Print Result
-
-//            var resultDynamicMethode = DynamicMethodeSect.DynamicMethode(dataAlg.ListLenOneFlat, dataAlg.ListLenTwoFlat, inData.OptCountFlatOnFloor);
-            var a = new DynamicMethodeSect();
-            var resultDynamicMethode =
-                a.DynamicMethode(new DataGreedyMethode(dataAlg.ListLenOneFlat, dataAlg.ListLenTwoFlat,
+            
+            var part1 = new DynamicMethodeSect();
+            var resultListDynM =
+                DynamicMethodeSect.DynamicMethode(new DataGreedyMethode(dataAlg.ListLenOneFlat, dataAlg.ListLenTwoFlat,
                     inData.OptCountFlatOnFloor));
 
-                
+            // backtracking for optimal solution
+            
+            var part2 = BackTrackForDynPr.BackTracking(resultListDynM);
 
+            // Print Result
+            
             myStopWatchDynamic.Stop();
             //PrintResult.GreedyIterationPrintResult(totalOptimalResult, inData.CountFloor, false, resultGreedy_label);
 
