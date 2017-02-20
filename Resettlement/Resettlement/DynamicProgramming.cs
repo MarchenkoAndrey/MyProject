@@ -34,7 +34,6 @@ namespace Resettlement
             
             // var resultDynamicIter = Methode, renurn tree (array containers)
             
-            var part1 = new DynamicMethodeSect();
             var resultListDynM =
                 DynamicMethodeSect.DynamicMethode(new DataGreedyMethode(dataAlg.ListLenOneFlat, dataAlg.ListLenTwoFlat,
                     inData.OptCountFlatOnFloor));
@@ -44,9 +43,12 @@ namespace Resettlement
             var part2 = BackTrackForDynPr.BackTracking(resultListDynM);
 
             // Print Result
-            
+
+            PrintResult.DynamicProgrammingPrintResult(part2, inData.CountFloor, resultDataAfterGrouping.ListExcessOneFlat,
+                resultDataAfterGrouping.ListExcessTwoFlat, resultGreedy_label);
+
             myStopWatchDynamic.Stop();
-            //PrintResult.GreedyIterationPrintResult(totalOptimalResult, inData.CountFloor, false, resultGreedy_label);
+            
 
             resultGreedy_label.Text +=
                   string.Format(MessagesText.WorkTimeHeuristicAlgoruthm,

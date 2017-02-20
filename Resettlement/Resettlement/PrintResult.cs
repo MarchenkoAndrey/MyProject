@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Forms;
 using ComputationMethods.GeneralData;
 
@@ -33,7 +34,7 @@ namespace Resettlement
                     PrintFloor(data.FinalPlaceOneFlat, resultGreedyLabel);
                     resultGreedyLabel.Text += MessagesText.DividingLine;
                     PrintFloor(data.FinalPlaceTwoFlat, resultGreedyLabel);
-                    PrintStroke(data.FinalPlaceTwoFlat, numberFloor, countFloor, resultGreedyLabel);
+                    PrintStroke(data.FinalPlaceTwoFlat.Count, numberFloor, countFloor, resultGreedyLabel);
                 }
             }
             if (flagIsNotFinish) return;
@@ -56,7 +57,7 @@ namespace Resettlement
                     PrintFloor(data.ListResultOneFlat, resultFullSearchLabel);
                     resultFullSearchLabel.Text += MessagesText.DividingLine;
                     PrintFloor(data.ListResultTwoFlat, resultFullSearchLabel);
-                    PrintStroke(data.ListResultOneFlat, numberFloor, countFloor, resultFullSearchLabel);
+                    PrintStroke(data.ListResultOneFlat.Count, numberFloor, countFloor, resultFullSearchLabel);
                 }
             }   
 
@@ -74,10 +75,40 @@ namespace Resettlement
             PrintExceedFlat(data.ListExcessTwoFlat, resultFullSearchLabel, MessagesText.RectanglesBiNotList);
         }
 
-        private static void PrintStroke(List<double> totalListOneBedroomApartment, int numberFloor, int countFloor, Label resultLabel)
+        public static void DynamicProgrammingPrintResult(IEnumerable<Container> listContainers, int countFloor, List<double> exceedlistOneFlat,
+            List<double> exceedListTwoFlat, Label resultGreedyLabel)
+        {
+            resultGreedyLabel.Text +=
+                string.Format(MessagesText.ValueFunctionalF, listContainers.First().FineChain)
+                    .ToString(CultureInfo.InvariantCulture);
+
+            //Превращаем в список для удобного отображения
+                var listOneFlat = new List<double>();
+                var listTwoFlat = new List<double>();
+                foreach (var container in listContainers)
+                {
+                    listOneFlat.Add(container.A1);
+                    listOneFlat.Add(container.A2);
+                    listTwoFlat.Add(container.B1);
+                    listTwoFlat.Add(container.B2);
+                }
+
+            for (var numberFloor = 0; numberFloor < countFloor; ++numberFloor)
+            {
+                resultGreedyLabel.Text += MessagesText.DividingLine;
+                    PrintFloor(listOneFlat, resultGreedyLabel);
+                    resultGreedyLabel.Text += MessagesText.DividingLine;
+                    PrintFloor(listTwoFlat, resultGreedyLabel);
+                    PrintStroke(listContainers.Last().ExceedListOneFlat.Count, numberFloor, countFloor, resultGreedyLabel);
+            }
+            PrintExceedFlat(exceedlistOneFlat, resultGreedyLabel, MessagesText.RectanglesAiNotList);
+            PrintExceedFlat(exceedListTwoFlat, resultGreedyLabel, MessagesText.RectanglesBiNotList);
+        }
+
+        private static void PrintStroke(double totalListFlatCount, int numberFloor, int countFloor, Label resultLabel)
         {
             var strokeLength = MessagesText.StrokeLength;
-            for (var i = 0; i < totalListOneBedroomApartment.Count; ++i)
+            for (var i = 0; i < totalListFlatCount; ++i)
             {
                 strokeLength += MessagesText.StrokeLength;
             }
