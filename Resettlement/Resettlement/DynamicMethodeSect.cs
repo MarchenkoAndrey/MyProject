@@ -4,12 +4,13 @@ using System.Linq;
 
 namespace Resettlement
 {
-    public sealed class DynamicMethodeSect
+    public static class DynamicMethodeSect
     {
         public static IEnumerable<Container> DynamicMethode(DataGreedyMethode data)
         {
             var resultDymMethode = new ContainerTree(data);
             const int countBranch = 3;
+
             foreach (var baseContainer in resultDymMethode.Containers)
             {
                 if (baseContainer.ExceedListOneFlat.Count == 0) // условие завершения
@@ -22,122 +23,115 @@ namespace Resettlement
                 var arraySortedTwoApartments = baseContainer.ExceedListTwoFlat.ToArray();
 
                 var tempThreeContainers = new List<Container>();
-                var s = 0;
-                while (s != countBranch)
+               
+                //todo Добавить в отд. класс 2 parameters
+                var maxFine = double.MinValue;
+                var maxFineId = 0;
+
+                for (var i = 0; i < baseContainer.ExceedListTwoFlat.Count; ++i)
                 {
-                    //Todo В том ли месте объява? (Общие A1, ParentId, FineChain)
-                    var newContainer = new Container(baseContainer);
-                    //newContainer.A1 = choiceOneFlat;
-
-                    //todo Добавить в отд. класс 2 parameters
-                    var maxFine = double.MaxValue;
-                    var maxFineId = 0;
-
-                    for (var i = 0; i < baseContainer.ExceedListTwoFlat.Count; ++i)
+                    for (var j = i + 1; j < baseContainer.ExceedListTwoFlat.Count; ++j)
                     {
-                        for (var j = i + 1; j < baseContainer.ExceedListTwoFlat.Count; ++j)
+                        foreach (var t in sortedListOneFlat)
                         {
-                            foreach (var t in sortedListOneFlat)
+                            double[] currentMassiv;
+                            Array.Copy(arraySortedTwoApartments,
+                                currentMassiv = new double[arraySortedTwoApartments.Length],
+                                arraySortedTwoApartments.Length);
+
+                            var newContainer = new Container(data);
+                            //Todo Убрать повторы!!!
+                            var resultPackSect =
+                                CompALen.Method(
+                                    new ApartureLen(choiceOneFlat, t, currentMassiv[i],
+                                        currentMassiv[j]), data.Step);
+
+                            var resultPackSectRev =
+                                CompALen.Method(
+                                    new ApartureLen(choiceOneFlat, t, currentMassiv[j],
+                                        currentMassiv[i]), data.Step);
+
+
+                            //Считается и добавка ExtraSquare
+                            var currentFine =
+                                Math.Abs(Math.Round(
+                                    resultPackSect.B1 + resultPackSect.B2 + data.AddingB -
+                                    (resultPackSect.A1 + resultPackSect.A2 + data.AddingA)
+                                    + resultPackSect.ExtraSquare, 1));
+
+                            var currentFineReverse =
+                                Math.Abs(Math.Round(
+                                    resultPackSectRev.B1 + resultPackSectRev.B2 + data.AddingB -
+                                    (resultPackSectRev.A1 + resultPackSectRev.A2 + data.AddingA)
+                                    + resultPackSectRev.ExtraSquare, 1));
+
+                            if (currentFineReverse < currentFine)
                             {
-                                double[] currentMassiv;
-                                Array.Copy(arraySortedTwoApartments,
-                                    currentMassiv = new double[arraySortedTwoApartments.Length],
-                                    arraySortedTwoApartments.Length);
+                                currentFine = currentFineReverse;
+                                resultPackSect = resultPackSectRev;
+                            }
 
+                            // претендент на запись выбран.
+                            //Заполнение претендента
 
-                                //Todo Убрать повторы!!!
-                                var resultPackSect =
-                                    CompALen.Method(
-                                        new ApartureLen(choiceOneFlat, t, currentMassiv[i],
-                                            currentMassiv[j]), data.Step);
-
-                                var resultPackSectRev =
-                                    CompALen.Method(
-                                        new ApartureLen(choiceOneFlat, t, currentMassiv[j],
-                                            currentMassiv[i]), data.Step);
-
-
-                                //Считается и добавка ExtraSquare
-                                var currentFine =
-                                    Math.Abs(Math.Round(
-                                        resultPackSect.B1 + resultPackSect.B2 + data.AddingB -
-                                        (resultPackSect.A1 + resultPackSect.A2 + data.AddingA)
-                                        + resultPackSect.ExtraSquare, 1));
-
-                                var currentFineReverse =
-                                    Math.Abs(Math.Round(
-                                        resultPackSectRev.B1 + resultPackSectRev.B2 + data.AddingB -
-                                        (resultPackSectRev.A1 + resultPackSectRev.A2 + data.AddingA)
-                                        + resultPackSectRev.ExtraSquare, 1));
-
-                                if (currentFineReverse < currentFine)
-                                {
-                                    currentFine = currentFineReverse;
-                                    resultPackSect = resultPackSectRev;
-                                }
-
-                                // претендент на запись выбран.
-
-                                //Todo Заполнить претендента
-
-                                newContainer.ExceedListOneFlat.Remove(resultPackSect.OldA2);
-                                newContainer.ExceedListTwoFlat.Remove(resultPackSect.OldB1);
-                                newContainer.ExceedListTwoFlat.Remove(resultPackSect.OldB2);
-                                newContainer = FillingData(newContainer, resultPackSect, currentFine,
-                                    resultDymMethode.Containers.Count);
+                            //Todo Old == Now Рано удаляю!!! origin
                                 
-                                // Проверка валидности его записи
-                                // Если записей меньше 3, то записываем
-                                // Иначе сравниваем штраф с текущим наибольшим
-                                // Если нашли меньше, то (если такой контейнер уже есть, то break)
-                                // перезаписываем, обновляя текущий наибольший
+                            newContainer.ParentId = baseContainer.Id;
+                            newContainer = FillingData(newContainer, resultPackSect, currentFine,
+                                resultDymMethode.Containers.Count);
+                                
+                            // Проверка валидности его записи
+                            // Если записей меньше 3, то записываем
+                            // Иначе сравниваем штраф с текущим наибольшим
+                            // Если нашли меньше, то (если такой контейнер уже есть, то break)
+                            // перезаписываем, обновляя текущий наибольший
 
-                                //Запись в промежуточный результат контейнеров
-                                if (tempThreeContainers.Count < countBranch)
+                            //Запись в промежуточный результат контейнеров
+                            if (tempThreeContainers.Count < countBranch)
+                            {
+                                if (ValidateToSameContainers(tempThreeContainers, newContainer)) continue;
+
+                                tempThreeContainers.Add(newContainer);
+                                if (newContainer.Fine > maxFine)
                                 {
-                                    if (ValidateToSameContainers(tempThreeContainers, newContainer)) break;
-
-                                    tempThreeContainers.Add(newContainer);
-                                    s++;
-                                    if (newContainer.Fine > maxFine)
-                                    {
-                                        maxFine = newContainer.Fine;
-                                        maxFineId = newContainer.Id;
-                                    }
-                                    break;
+                                    maxFine = newContainer.Fine;
+                                    maxFineId = newContainer.Id;
                                 }
-                                if (!(newContainer.Fine < maxFine)) continue;
-                                //validate containers
-                                if (ValidateToSameContainers(tempThreeContainers, newContainer)) break;
+                                continue;
+                            }
+                            if (!(newContainer.Fine < maxFine)) continue;
+                            //validate containers
+                            if (ValidateToSameContainers(tempThreeContainers, newContainer)) continue;
 
-                                //нашли контейнер из 3 с наибольшим штрафом
-                                var containerWithMaxFine = tempThreeContainers.
-                                    Select(a => a).
-                                    Where(z => z.Id == maxFineId).
-                                    Take(1).
-                                    First();
-                                tempThreeContainers[containerWithMaxFine.Id] = newContainer;
-                                s++;
+                            //нашли контейнер из 3 с наибольшим штрафом
+                            var containerWithMaxFine = tempThreeContainers
+                                .Select(a => a)
+                                .Where(z => z.Id == maxFineId)
+                                .Take(1)
+                                .First();
+                            tempThreeContainers[containerWithMaxFine.Id-1] = newContainer;
 
-                                //Todo RefreshMaxFine
+                            //Todo RefreshMaxFine
 //                                        maxFine =
 //                                            Math.Max(
 //                                                Math.Max(tempThreeContainers[0].Fine, tempThreeContainers[1].Fine),
 //                                                tempThreeContainers[2].Fine);
-                                maxFine = tempThreeContainers.
-                                    Select(a => a.Fine).
-                                    Max();
+                            maxFine = tempThreeContainers
+                                .Select(a => a.Fine)
+                                .Max();
 
-                                maxFineId = tempThreeContainers.
-                                    Where(z => z.Fine.Equals(maxFine)).
-                                    Select(a=>a.Id).
-                                    Take(1).
-                                    First();
-                            }
+                            maxFineId = tempThreeContainers
+                                .Where(z => z.Fine.Equals(maxFine))
+                                .Select(a => a.Id)
+                                .Take(1)
+                                .First();
                         }
                     }
-                    resultDymMethode.Containers.AddRange(tempThreeContainers);
                 }
+                //Удаляет использованные квартиры
+                DeleteExceedFlat(tempThreeContainers);
+                    
+                resultDymMethode.Containers.AddRange(tempThreeContainers);
             }
             return resultDymMethode.Containers;
         }
@@ -163,10 +157,34 @@ namespace Resettlement
             newContainer.B1 = result.B1;
             newContainer.B2 = result.B2;
             newContainer.A2 = result.A2;
+            newContainer.A1 = result.A1;
             newContainer.Id = id;
             newContainer.Fine = fine;
             newContainer.FineChain += fine;
+            newContainer.OriginA1 = result.OriginDataContainer.OldA1;
+            newContainer.OriginA2 = result.OriginDataContainer.OldA2;
+            newContainer.OriginB1 = result.OriginDataContainer.OldB1;
+            newContainer.OriginB2 = result.OriginDataContainer.OldB2;
+
             return newContainer;
+        }
+
+        private static void DeleteExceedFlat(List<Container> tempThreeContainers)
+        {
+            foreach (var container in tempThreeContainers)
+            {
+                var l = new List<double>(container.ExceedListOneFlat);
+                l.Remove(container.OriginA1);
+                l.Remove(container.OriginA2);
+
+                var l1 = new List<double>(container.ExceedListTwoFlat);
+                l1.Remove(container.OriginB1);
+                l1.Remove(container.OriginB2);
+
+                container.ExceedListOneFlat = l;
+                container.ExceedListTwoFlat = l1;
+            }
+//            return tempThreeContainers;
         }
     }
 }

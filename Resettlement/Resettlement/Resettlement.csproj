@@ -59,6 +59,7 @@
     <Compile Include="DataGreedyMethode.cs" />
     <Compile Include="DataPerformAlgorithm.cs" />
     <Compile Include="DataPermutFullS.cs" />
+    <Compile Include="GoToCollection.cs" />
     <Compile Include="InputDataAlg.cs" />
     <Compile Include="DataInnerGrouping.cs" />
     <Compile Include="GreedyMethodeSect.cs" />

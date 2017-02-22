@@ -1,45 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Resettlement
 {
     public class Container
     {
-        public double A1;
-        public double A2;
-        public double B1;
-        public double B2;
-        public double Fine;
-        public double AbsFine;
-        public double LenA;
-        public double LenB;
+        public double OriginA1 { get; set; }
 
-        public List<double> ExceedListOneFlat;
-        public List<double> ExceedListTwoFlat;
+        public double OriginA2 { get; set; }
+        public double OriginB1 { get; set; }
+        public double OriginB2 { get; set; }
 
-        public int Id { get; set;}
-        public int? ParentId { get; set;}
+        public double A1 { get; set; }
+        public double A2 { get; set; }
+        public double B1 { get; set; }
+        public double B2 { get; set; }
+
+        public double Fine { get; set; }
+
+        public List<double> ExceedListOneFlat { get; set; }
+        public List<double> ExceedListTwoFlat { get; set; }
+
+        public int Id { get; set; }
+        public int? ParentId { get; set; }
         public double FineChain { get; set; }
 
-        //Заполнять здесь
-        public Container(InputDataAlg data)
+        public Container(DataGreedyMethode data)
         {
-            AbsFine = Math.Abs(Fine);
-            LenA = A1 + A2 + data.AddingA;
-            LenB = B1 + B2 + data.AddingB;
-        }
-
-        public Container(Container data)
-        {
-            A1 = data.A1;
-            ParentId = data.Id;
-            FineChain = data.FineChain;
-        }
-
-
-        public Container()
-        {
-
+            Id = 0;
+            ParentId = null;
+            Fine = 0.0;
+            FineChain = 0.0;
+            ExceedListOneFlat = data.ListLenOneFlat;
+            ExceedListTwoFlat = data.ListLenTwoFlat;
         }
     }
 }
