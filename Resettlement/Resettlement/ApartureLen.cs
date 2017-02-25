@@ -9,9 +9,8 @@ namespace Resettlement
     {
         public DataContainer OriginDataContainer;
         public DataContainer DataContainer;
-        public double ExtraSquare { get; set; }
+        public double ExtraSquare { get; set; }  // штраф за необходимость расстояния для вставки входной двери
         public double Fine { get; set; }
-
 
         public ApartureLen(double a1, double a2, double b1, double b2)
         {
@@ -54,8 +53,9 @@ namespace Resettlement
         }
     }
 
-    public static class CompALen
+    public static class MethodsForApartureLen
     {
+        // Из имеющихся 4 квартир строит оптимальным образом контейнер
         public static ApartureLen OptimalPackContainer(double choiceOneFlat, double t, double i, double j, double wallsWidth)
         {
             var resultPackSect =
@@ -71,6 +71,7 @@ namespace Resettlement
             return CalculateOptimalContainerWithMinFine(new List<ApartureLen>{resultPackSect, resultPackSectRev});
         }
 
+        // Находит контейнер с наименьшим штрафом
         private static ApartureLen CalculateOptimalContainerWithMinFine(List<ApartureLen> containers)
         {
             //Считается и добавка ExtraSquare
@@ -86,9 +87,9 @@ namespace Resettlement
                 .Take(1).First();
         }
 
+        // Вычисляет штраф текущего контейнера
         public static ApartureLen CalculateOptimalPackContainer(ApartureLen data, double step)
         {
-
             if (data.DataContainer.B1 - data.DataContainer.A1 < Constraints.ApartureLength)
             {
                 var tempFine1 = Math.Round(Constraints.ApartureLength - (data.DataContainer.B1 - data.DataContainer.A1), 2);

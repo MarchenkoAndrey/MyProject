@@ -10,8 +10,6 @@ namespace Resettlement
         public static List<Container> DynamicMethode(DataMethode data)
         {
             var coll = new GoToCollection(data);
-
-            //Todo Зацикливание
             foreach (var baseContainer in coll)
             {
                 if (baseContainer.ExceedListOneFlat.Count == 0) // условие завершения
@@ -20,12 +18,8 @@ namespace Resettlement
                 var sortedListOneFlat = new List<double>(baseContainer.ExceedListOneFlat);
                 var choiceOneFlat = baseContainer.ExceedListOneFlat[baseContainer.ExceedListOneFlat.Count/2];
                 sortedListOneFlat.Remove(choiceOneFlat);
-
                 var arraySortedTwoApartments = baseContainer.ExceedListTwoFlat.ToArray();
-
                 var tempThreeContainers = new List<Container>();
-               
-                //todo Добавить в отд. класс 2 parameters???
                 var maxFine = double.MinValue;
                 var maxFineId = 0;
 
@@ -42,15 +36,16 @@ namespace Resettlement
                                 currentMassiv = new double[arraySortedTwoApartments.Length],
                                 arraySortedTwoApartments.Length);
 
-                            var resultPackSect = CompALen.OptimalPackContainer(choiceOneFlat, t, currentMassiv[i],
-                                        currentMassiv[j], data.WallsWidth);
-                            
+                            var resultPackSect = MethodsForApartureLen.OptimalPackContainer(choiceOneFlat, t, currentMassiv[i],
+                                currentMassiv[j], data.WallsWidth);
+
                             // Претендент на запись выбран. Заполнение претендента
-                                
-                            newContainer.ParentId = baseContainer.Id;
+//                            newContainer.ParentId = baseContainer.Id;
                             newContainer = FillingData(newContainer, resultPackSect,
-                                coll.Containers.Count);
-                                
+                                coll.Containers.Count, baseContainer.Id);
+
+                            var hex = newContainer.GetHashCode();
+
                             // Проверка валидности его записи
                             // Если записей меньше 3, то записываем
                             // Иначе сравниваем штраф с текущим наибольшим
@@ -80,13 +75,8 @@ namespace Resettlement
                                 .Where(z => z.Id == maxFineId)
                                 .Take(1)
                                 .First();
-                            tempThreeContainers[containerWithMaxFine.Id-1] = newContainer;
-
-                            //Todo RefreshMaxFine
-//                                        maxFine =
-//                                            Math.Max(
-//                                                Math.Max(tempThreeContainers[0].Fine, tempThreeContainers[1].Fine),
-//                                                tempThreeContainers[2].Fine);
+                            tempThreeContainers[containerWithMaxFine.Id - 1] = newContainer;
+                            
                             maxFine = tempThreeContainers
                                 .Select(a => a.Fine)
                                 .Max();
@@ -101,7 +91,7 @@ namespace Resettlement
                 }
                 //Удаляет использованные квартиры
                 DeleteExceedFlat(tempThreeContainers);
-                    
+
                 coll.Adds(tempThreeContainers);
 
             }
@@ -109,7 +99,7 @@ namespace Resettlement
         }
 
         // Проверка на то, что в списке контейнеров tempThreeContainers нет текущего контейнера
-        private static bool ValidateToSameContainers(List<Container> tempThreeContainers, Container newContainer)
+        private static bool ValidateToSameContainers(IEnumerable<Container> tempThreeContainers, Container newContainer)
         {
             return tempThreeContainers.Any(container => Equals(newContainer, container));
         }
@@ -124,24 +114,24 @@ namespace Resettlement
         }
 
         // Заполнение текущего контейнера данными
-        private static Container FillingData(Container newContainer, ApartureLen result, int id)
+        private static Container FillingData(Container newContainer, ApartureLen result, int id, int parentId)
         {
             newContainer.DataContainer.B1 = result.DataContainer.B1;
             newContainer.DataContainer.B2 = result.DataContainer.B2;
             newContainer.DataContainer.A2 = result.DataContainer.A2;
             newContainer.DataContainer.A1 = result.DataContainer.A1;
             newContainer.Id = id;
+            newContainer.ParentId = parentId;
             newContainer.Fine = result.Fine;
             newContainer.FineChain += result.Fine;
             newContainer.OriginDataContainer.A1 = result.OriginDataContainer.A1;
             newContainer.OriginDataContainer.A2 = result.OriginDataContainer.A2;
             newContainer.OriginDataContainer.B1 = result.OriginDataContainer.B1;
             newContainer.OriginDataContainer.B2 = result.OriginDataContainer.B2;
-
             return newContainer;
         }
-
-        private static void DeleteExceedFlat(List<Container> tempThreeContainers)
+        // Удаление из оставшихся вариантов использованные
+        private static void DeleteExceedFlat(IEnumerable<Container> tempThreeContainers)
         {
             foreach (var container in tempThreeContainers)
             {
