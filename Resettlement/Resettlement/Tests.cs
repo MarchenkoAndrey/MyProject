@@ -84,14 +84,12 @@ namespace Resettlement
             var optItem1 = new List<double> { 3.9, 6.6, 6.6, 7.2 };
             var optItem2 = new List<double> { 8.1, 8.1, 8.7, 7.5 };
             
-            var result = GreedyMethodeSect.GreedyMethode(new DataGreedyMethode(list1, list2, optCountFlat), startFlat);
+            var result = GreedyMethodeSect.GreedyMethode(new DataMethode(list1, list2, optCountFlat), startFlat);
             Assert.AreEqual(result.FinalPlaceOneFlat.Except(optItem1).ToList().Count, 0);
             Assert.AreEqual(result.FinalPlaceTwoFlat.Except(optItem2).ToList().Count, 0);
             Assert.AreEqual(result.Fine, optFine);
             Assert.AreEqual(result.NewFirstOneFlat,oneFirstFlat);
         }
-
-        //TODO Добавить тест на проверку конкретных итераций
 
         [TestMethod]
         [Category("GreedyMethode")]
@@ -107,7 +105,7 @@ namespace Resettlement
             var optItem1 = new List<double> { 3.9, 6.0, 6.6, 6.6, 6.6, 7.2 };
             var optItem2 = new List<double> { 8.1, 8.7, 8.1, 7.5, 8.1, 7.5 };
 
-            var result = GreedyMethodeSect.GreedyMethode(new DataGreedyMethode(list1, list2, optCountFlat), startFlat);
+            var result = GreedyMethodeSect.GreedyMethode(new DataMethode(list1, list2, optCountFlat), startFlat);
             Assert.AreEqual(result.FinalPlaceOneFlat.Except(optItem1).ToList().Count, 0);
             Assert.AreEqual(result.FinalPlaceTwoFlat.Except(optItem2).ToList().Count, 0);
             Assert.AreEqual(result.Fine, optFine);
@@ -128,7 +126,7 @@ namespace Resettlement
             var optItem1 = new List<double> { 3.9, 6.0, 6.6, 6.6, 6.6, 7.2 };
             var optItem2 = new List<double> { 8.1, 8.7, 8.1, 7.5, 8.1, 7.5 };
 
-            var result = GreedyMethodeSect.GreedyMethode(new DataGreedyMethode(list1, list2, optCountFlat), startFlat);
+            var result = GreedyMethodeSect.GreedyMethode(new DataMethode(list1, list2, optCountFlat), startFlat);
             Assert.AreEqual(result.FinalPlaceOneFlat.Except(optItem1).ToList().Count, 0);
             Assert.AreEqual(result.FinalPlaceTwoFlat.Except(optItem2).ToList().Count, 0);
             Assert.AreEqual(result.Fine, optFine);
@@ -157,8 +155,7 @@ namespace Resettlement
         [Category("FullSearch")]
         public void TestFullSearch8()
         {
-            //tests 10flat
-            const int optCountFlat = 6;
+            const int optCountFlat = 4;
             const double optFine = 3.6;
             var list1 = new List<double> { 3.9, 6.6, 6.6, 7.2 };
             var list2 = new List<double> { 7.5, 7.5, 7.8, 8.1 };
@@ -169,6 +166,36 @@ namespace Resettlement
             Assert.AreEqual(result.ListResultOneFlat.Except(optItem1).ToList().Count, 0);
             Assert.AreEqual(result.ListResultTwoFlat.Except(optItem2).ToList().Count, 0);
             Assert.AreEqual(result.Fine, optFine);
+        }
+
+        [TestMethod]
+        [Category("MDP")]
+        public void TestMethDynPr8()
+        {
+            const int optCountFlat = 4;
+            const double optFine = 3.6;
+            
+            var list1 = new List<double> { 3.9, 6.6, 6.6, 7.2 };
+            var list2 = new List<double> { 7.5, 7.5, 7.8, 8.1 };
+            var optItem1 = new List<double> { 3.9, 6.6, 6.6, 7.2 };
+            var optItem2 = new List<double> { 8.1, 8.1, 8.7, 7.5 };
+            var listOneFlat = new List<double>();
+            var listTwoFlat = new List<double>();
+
+            var result = DynamicMethodeSect.DynamicMethode(new DataMethode(list1, list2, optCountFlat));
+            var listContainers = BackTrackForDynPr.BackTracking(result);
+            
+            Assert.AreEqual(listContainers.Last().FineChain, optFine);
+            foreach (var container in listContainers)
+            {
+                listOneFlat.Add(container.A1);
+                listOneFlat.Add(container.A2);
+                listTwoFlat.Add(container.B1);
+                listTwoFlat.Add(container.B2);
+            }
+            Assert.AreEqual(listOneFlat.Except(optItem1).ToList().Count, 0);
+            Assert.AreEqual(listTwoFlat.Except(optItem2).ToList().Count, 0);
+
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
@@ -98,10 +97,10 @@ namespace Resettlement
             for (var numberFloor = 0; numberFloor < countFloor; ++numberFloor)
             {
                 resultGreedyLabel.Text += MessagesText.DividingLine;
-                    PrintFloor(listOneFlat, resultGreedyLabel);
-                    resultGreedyLabel.Text += MessagesText.DividingLine;
-                    PrintFloor(listTwoFlat, resultGreedyLabel);
-                    PrintStroke(listContainers.Last().ExceedListOneFlat.Count, numberFloor, countFloor, resultGreedyLabel);
+                PrintFloor(listOneFlat, resultGreedyLabel);
+                resultGreedyLabel.Text += MessagesText.DividingLine;
+                PrintFloor(listTwoFlat, resultGreedyLabel);
+                PrintStroke(listContainers.First().ExceedListOneFlat.Count*2, numberFloor, countFloor, resultGreedyLabel);
             }
             PrintExceedFlat(resDataAftGrouping.ListExcessOneFlat, resultGreedyLabel, MessagesText.RectanglesAiNotList);
             PrintExceedFlat(resDataAftGrouping.ListExcessTwoFlat, resultGreedyLabel, MessagesText.RectanglesBiNotList);

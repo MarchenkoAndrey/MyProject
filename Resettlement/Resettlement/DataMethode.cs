@@ -3,7 +3,7 @@ using ComputationMethods.GeneralData;
 
 namespace Resettlement
 {
-    public class DataGreedyMethode
+    public class DataMethode
     {
         public double WallsWidth { get; private set; }
         private double Entryway { get; set; }
@@ -14,7 +14,7 @@ namespace Resettlement
         public readonly List<double> ListLenOneFlat;
         public readonly List<double> ListLenTwoFlat;
 
-        public DataGreedyMethode(List<double> list1, List<double> list2, int optCountFlat)
+        public DataMethode(List<double> list1, List<double> list2, int optCountFlat)
         {
             ListLenOneFlat = list1;
             ListLenTwoFlat = list2;

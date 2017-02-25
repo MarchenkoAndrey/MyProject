@@ -9,7 +9,7 @@ namespace Resettlement
         public List<Container> Containers { get; set; }
         private int Count { get; set; }
 
-        public GoToCollection(DataGreedyMethode data)
+        public GoToCollection(DataMethode data)
         {
             Containers = new List<Container> { new Container(data) };
             Count = 1;

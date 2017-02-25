@@ -6,7 +6,7 @@ namespace Resettlement
 {
     public static class GreedyMethodeSect
     {
-        public static ResultGreedyMethode GreedyMethode(DataGreedyMethode dataGrM, double firstOneFlat)
+        public static ResultGreedyMethode GreedyMethode(DataMethode dataGrM, double firstOneFlat)
         {
             var listLenOneFlat = new List<double>(dataGrM.ListLenOneFlat);
             var listLenTwoFlat = new List<double>(dataGrM.ListLenTwoFlat);

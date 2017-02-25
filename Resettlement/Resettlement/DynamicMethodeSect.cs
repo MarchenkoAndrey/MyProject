@@ -7,7 +7,7 @@ namespace Resettlement
 {
     public static class DynamicMethodeSect
     {
-        public static List<Container> DynamicMethode(DataGreedyMethode data)
+        public static List<Container> DynamicMethode(DataMethode data)
         {
             var coll = new GoToCollection(data);
 

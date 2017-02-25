@@ -17,7 +17,7 @@ namespace Resettlement
 
             var flatCount = inData.ListLenOneFlat.Count + inData.ListLenTwoFlat.Count;
             realizat_label.Text += string.Format(MessagesText.RealizationForRectangles,flatCount).ToString(CultureInfo.InvariantCulture);
-            lossesOne_label.Text += string.Format(MessagesText.SummarizeAdditionLengthForH, inData.SumDelta.ToString(CultureInfo.InvariantCulture));
+//            lossesOne_label.Text += string.Format(MessagesText.SummarizeAdditionLengthForH, inData.SumDelta.ToString(CultureInfo.InvariantCulture));
 
             var dataAlg = new DataPerformAlgorithm(inData.ListLenOneFlat,inData.ListLenTwoFlat);
 
@@ -26,13 +26,12 @@ namespace Resettlement
                 PreparationSquares.FlatsWithTheAdditiveLength(resultDataAfterGrouping.ListResultOneFlat);
             dataAlg.ListLenTwoFlat =
                 PreparationSquares.FlatsWithTheAdditiveLength(resultDataAfterGrouping.ListResultTwoFlat);
-            //dataAlg.FineAfterGrouping = resultDataAfterGrouping.Fine;
 
             var myStopWatchDynamic = new Stopwatch();
             myStopWatchDynamic.Start();
             
             var resultListDynM =
-                DynamicMethodeSect.DynamicMethode(new DataGreedyMethode(dataAlg.ListLenOneFlat, dataAlg.ListLenTwoFlat,
+                DynamicMethodeSect.DynamicMethode(new DataMethode(dataAlg.ListLenOneFlat, dataAlg.ListLenTwoFlat,
                     inData.OptCountFlatOnFloor));
 
             // backtracking for optimal solution
@@ -40,7 +39,7 @@ namespace Resettlement
             var part2 = BackTrackForDynPr.BackTracking(resultListDynM);
 
             // Print Result
-            // вместе со штрафом группировки по этажам
+            // штраф по этажам и от группировки считаем внутри печати
             PrintResult.DynamicProgrammingPrintResult(part2, inData.CountFloor, resultDataAfterGrouping, resultGreedy_label);
 
             myStopWatchDynamic.Stop();

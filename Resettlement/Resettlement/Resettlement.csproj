@@ -54,7 +54,7 @@
     <Compile Include="DynamicProgramming.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DataGreedyMethode.cs" />
+    <Compile Include="DataMethode.cs" />
     <Compile Include="DataPerformAlgorithm.cs" />
     <Compile Include="DataPermutFullS.cs" />
     <Compile Include="GoToCollection.cs" />

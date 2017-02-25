@@ -34,7 +34,7 @@ namespace Resettlement
             ExceedListTwoFlat = data.ExceedListTwoFlat;
         }
 
-        public Container(DataGreedyMethode data)
+        public Container(DataMethode data)
         {
             Id = 0;
             ParentId = null;
