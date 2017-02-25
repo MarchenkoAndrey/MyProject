@@ -30,21 +30,18 @@ namespace Resettlement
             var myStopWatchDynamic = new Stopwatch();
             myStopWatchDynamic.Start();
             
+            // Create solution-tree
             var resultListDynM =
                 DynamicMethodeSect.DynamicMethode(new DataMethode(dataAlg.ListLenOneFlat, dataAlg.ListLenTwoFlat,
                     inData.OptCountFlatOnFloor));
 
-            // backtracking for optimal solution
+            // Backtracking for optimal solution
+            var backTrackingResult = BackTrackForDynPr.BackTracking(resultListDynM);
+
+            // Print Result ( штраф по этажам и от группировки считаем внутри печати )
+            PrintResult.DynamicProgrammingPrintResult(backTrackingResult, inData.CountFloor, resultDataAfterGrouping, resultGreedy_label);
             
-            var part2 = BackTrackForDynPr.BackTracking(resultListDynM);
-
-            // Print Result
-            // штраф по этажам и от группировки считаем внутри печати
-            PrintResult.DynamicProgrammingPrintResult(part2, inData.CountFloor, resultDataAfterGrouping, resultGreedy_label);
-
             myStopWatchDynamic.Stop();
-            
-
             resultGreedy_label.Text +=
                   string.Format(MessagesText.WorkTimeHeuristicAlgoruthm,
                    myStopWatchDynamic.ElapsedMilliseconds / 1000.0).ToString(CultureInfo.InvariantCulture).ToString(CultureInfo.InvariantCulture);

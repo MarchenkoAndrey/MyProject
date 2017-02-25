@@ -117,26 +117,26 @@ namespace Resettlement
         // Переопределенный метод Equals
         private static bool Equals(Container obj1, Container obj2)
         {
-            return (obj1.A1.Equals(obj2.A1) && obj1.A2.Equals(obj2.A2) && 
-                obj1.B1.Equals(obj2.B1) && obj1.Fine.Equals(obj2.Fine)) ||
-                (obj1.A1.Equals(obj2.A2) && obj1.A2.Equals(obj2.A1) &&
-                obj1.B1.Equals(obj2.B2) && obj1.Fine.Equals(obj2.Fine));
+            return (obj1.DataContainer.A1.Equals(obj2.DataContainer.A1) && obj1.DataContainer.A2.Equals(obj2.DataContainer.A2) &&
+                obj1.DataContainer.B1.Equals(obj2.DataContainer.B1) && obj1.Fine.Equals(obj2.Fine)) ||
+                (obj1.DataContainer.A1.Equals(obj2.DataContainer.A2) && obj1.DataContainer.A2.Equals(obj2.DataContainer.A1) &&
+                obj1.DataContainer.B1.Equals(obj2.DataContainer.B2) && obj1.Fine.Equals(obj2.Fine));
         }
 
         // Заполнение текущего контейнера данными
         private static Container FillingData(Container newContainer, ApartureLen result, int id)
         {
-            newContainer.B1 = result.B1;
-            newContainer.B2 = result.B2;
-            newContainer.A2 = result.A2;
-            newContainer.A1 = result.A1;
+            newContainer.DataContainer.B1 = result.DataContainer.B1;
+            newContainer.DataContainer.B2 = result.DataContainer.B2;
+            newContainer.DataContainer.A2 = result.DataContainer.A2;
+            newContainer.DataContainer.A1 = result.DataContainer.A1;
             newContainer.Id = id;
             newContainer.Fine = result.Fine;
             newContainer.FineChain += result.Fine;
-            newContainer.OriginA1 = result.OriginDataContainer.OldA1;
-            newContainer.OriginA2 = result.OriginDataContainer.OldA2;
-            newContainer.OriginB1 = result.OriginDataContainer.OldB1;
-            newContainer.OriginB2 = result.OriginDataContainer.OldB2;
+            newContainer.OriginDataContainer.A1 = result.OriginDataContainer.A1;
+            newContainer.OriginDataContainer.A2 = result.OriginDataContainer.A2;
+            newContainer.OriginDataContainer.B1 = result.OriginDataContainer.B1;
+            newContainer.OriginDataContainer.B2 = result.OriginDataContainer.B2;
 
             return newContainer;
         }
@@ -146,12 +146,12 @@ namespace Resettlement
             foreach (var container in tempThreeContainers)
             {
                 var l = new List<double>(container.ExceedListOneFlat);
-                l.Remove(container.OriginA1);
-                l.Remove(container.OriginA2);
+                l.Remove(container.OriginDataContainer.A1);
+                l.Remove(container.OriginDataContainer.A2);
 
                 var l1 = new List<double>(container.ExceedListTwoFlat);
-                l1.Remove(container.OriginB1);
-                l1.Remove(container.OriginB2);
+                l1.Remove(container.OriginDataContainer.B1);
+                l1.Remove(container.OriginDataContainer.B2);
 
                 container.ExceedListOneFlat = l;
                 container.ExceedListTwoFlat = l1;

@@ -14,12 +14,6 @@ namespace Resettlement
             Containers = new List<Container> { new Container(data) };
             Count = 1;
         }
-
-//        public void Add(Container container)
-//        {
-//            Containers.Add(container);
-//            count += 1;
-//        }
         
         public void Adds(List<Container> containers)
         {

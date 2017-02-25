@@ -5,37 +5,29 @@ using ComputationMethods.GeneralData;
 
 namespace Resettlement
 {
-    public struct OriginDataContainer
-    {
-        public double OldA1 { get; set; }
-        public double OldA2 { get; set; }
-        public double OldB1 { get; set; }
-        public double OldB2 { get; set; }
-    }
-
     public class ApartureLen
     {
-        public OriginDataContainer OriginDataContainer;
-        public double A1 { get; private set; }
-        public double A2 { get; private set; }
-        public double B1 { get; set; }
-        public double B2 { get; set; }
+        public DataContainer OriginDataContainer;
+        public DataContainer DataContainer;
         public double ExtraSquare { get; set; }
         public double Fine { get; set; }
 
 
         public ApartureLen(double a1, double a2, double b1, double b2)
         {
-            A1 = a1;
-            A2 = a2;
-            B1 = b1;
-            B2 = b2;
-            OriginDataContainer = new OriginDataContainer
+            DataContainer = new DataContainer
             {
-                OldA1 = a1,
-                OldA2 = a2,
-                OldB1 = b1,
-                OldB2 = b2
+                A1 = a1,
+                A2 = a2,
+                B1 = b1,
+                B2 = b2
+            };
+            OriginDataContainer = new DataContainer
+            {
+                A1 = a1,
+                A2 = a2,
+                B1 = b1,
+                B2 = b2
             };
             Fine = 0;
             ExtraSquare = 0;
@@ -43,19 +35,22 @@ namespace Resettlement
 
         public ApartureLen(double maxValue)
         {
-            A1 = 0;
-            A2 = 0;
-            B1 = 0;
-            B2 = 0;
+            DataContainer = new DataContainer
+            {
+                A1 = 0,
+                A2 = 0,
+                B1 = 0,
+                B2 = 0
+            };
+            OriginDataContainer = new DataContainer
+            {
+                A1 = 0,
+                A2 = 0,
+                B1 = 0,
+                B2 = 0
+            };
             ExtraSquare = maxValue;
             Fine = 0;
-            OriginDataContainer = new OriginDataContainer
-            {
-                OldA1 = 0,
-                OldA2 = 0,
-                OldB1 = 0,
-                OldB2 = 0
-            };
         }
     }
 
@@ -82,8 +77,8 @@ namespace Resettlement
             foreach (var container in containers)
             {
                 container.Fine = Math.Abs(Math.Round(
-                container.B1 + container.B2 + Constraints.AddingB -
-                (container.A1 + container.A2 + Constraints.AddingA)
+                container.DataContainer.B1 + container.DataContainer.B2 + Constraints.AddingB -
+                (container.DataContainer.A1 + container.DataContainer.A2 + Constraints.AddingA)
                 + container.ExtraSquare, 1));
             }
             return containers
@@ -94,31 +89,31 @@ namespace Resettlement
         public static ApartureLen CalculateOptimalPackContainer(ApartureLen data, double step)
         {
 
-            if (data.B1 - data.A1 < Constraints.ApartureLength)
+            if (data.DataContainer.B1 - data.DataContainer.A1 < Constraints.ApartureLength)
             {
-                var tempFine1 = Math.Round(Constraints.ApartureLength - (data.B1 - data.A1), 2);
+                var tempFine1 = Math.Round(Constraints.ApartureLength - (data.DataContainer.B1 - data.DataContainer.A1), 2);
                 if (tempFine1 <= step)
                 {
-                    data.B1 += Math.Round(step, 1);
+                    data.DataContainer.B1 += Math.Round(step, 1);
                     data.ExtraSquare += Math.Round(step, 1);
                 }
                 else
                 {
-                    data.B1 += Math.Round(Math.Ceiling(tempFine1 / step) * step, 1);
+                    data.DataContainer.B1 += Math.Round(Math.Ceiling(tempFine1 / step) * step, 1);
                     data.ExtraSquare += Math.Round(Math.Ceiling(tempFine1 / step) * step, 1);
                 }
             }
-            if (data.B2 - data.A2 < Constraints.ApartureLength)
+            if (data.DataContainer.B2 - data.DataContainer.A2 < Constraints.ApartureLength)
             {
-                var tempFine2 = Math.Round(Constraints.ApartureLength - (data.B2 - data.A2), 2);
+                var tempFine2 = Math.Round(Constraints.ApartureLength - (data.DataContainer.B2 - data.DataContainer.A2), 2);
                 if (tempFine2 <= step)
                 {
-                    data.B2 += Math.Round(step, 1);
+                    data.DataContainer.B2 += Math.Round(step, 1);
                     data.ExtraSquare += Math.Round(step, 1);
                 }
                 else
                 {
-                    data.B2 += Math.Round(Math.Ceiling(tempFine2 / step) * step, 1);
+                    data.DataContainer.B2 += Math.Round(Math.Ceiling(tempFine2 / step) * step, 1);
                     data.ExtraSquare += Math.Round(Math.Ceiling(tempFine2 / step) * step, 1);
                 }
             }

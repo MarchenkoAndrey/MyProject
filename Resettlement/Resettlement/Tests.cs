@@ -188,10 +188,10 @@ namespace Resettlement
             Assert.AreEqual(listContainers.Last().FineChain, optFine);
             foreach (var container in listContainers)
             {
-                listOneFlat.Add(container.A1);
-                listOneFlat.Add(container.A2);
-                listTwoFlat.Add(container.B1);
-                listTwoFlat.Add(container.B2);
+                listOneFlat.Add(container.DataContainer.A1);
+                listOneFlat.Add(container.DataContainer.A2);
+                listTwoFlat.Add(container.DataContainer.B1);
+                listTwoFlat.Add(container.DataContainer.B2);
             }
             Assert.AreEqual(listOneFlat.Except(optItem1).ToList().Count, 0);
             Assert.AreEqual(listTwoFlat.Except(optItem2).ToList().Count, 0);

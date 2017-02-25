@@ -69,14 +69,14 @@ namespace Resettlement
 
                             var currentFineReverse =
                                 Math.Abs(Math.Round(
-                                    resultPackSectReverse.B1 + resultPackSectReverse.B2 + dataGrM.AddingB -
-                                    (resultPackSectReverse.A1 + resultPackSectReverse.A2 + dataGrM.AddingA)
+                                    resultPackSectReverse.DataContainer.B1 + resultPackSectReverse.DataContainer.B2 + dataGrM.AddingB -
+                                    (resultPackSectReverse.DataContainer.A1 + resultPackSectReverse.DataContainer.A2 + dataGrM.AddingA)
                                     + resultPackSectReverse.ExtraSquare, 1));
 
                             var currentFine =
                                 Math.Abs(Math.Round(
-                                    resultPackSect.B1 + resultPackSect.B2 + dataGrM.AddingB -
-                                    (resultPackSect.A1 + resultPackSect.A2 + dataGrM.AddingA)
+                                    resultPackSect.DataContainer.B1 + resultPackSect.DataContainer.B2 + dataGrM.AddingB -
+                                    (resultPackSect.DataContainer.A1 + resultPackSect.DataContainer.A2 + dataGrM.AddingA)
                                     + resultPackSect.ExtraSquare, 1));
 
                             if (currentFineReverse < currentFine)
@@ -87,11 +87,11 @@ namespace Resettlement
 
                             if (!(currentFine < fine)) continue;
                             fine = currentFine;
-                            finalPlacementTwoFlat[n] = resultPackSect.B1;
+                            finalPlacementTwoFlat[n] = resultPackSect.DataContainer.B1;
                             index1 = i;
-                            finalPlacementTwoFlat[n + 1] = resultPackSect.B2;
+                            finalPlacementTwoFlat[n + 1] = resultPackSect.DataContainer.B2;
                             index2 = j;
-                            finalPlacementOneFlat[n + 1] = resultPackSect.A2;
+                            finalPlacementOneFlat[n + 1] = resultPackSect.DataContainer.A2;
                         }
                     }
                 }

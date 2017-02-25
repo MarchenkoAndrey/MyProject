@@ -2,21 +2,19 @@
 
 namespace Resettlement
 {
-    public class Container
+    public struct DataContainer
     {
-        public double OriginA1 { get; set; }
-
-        public double OriginA2 { get; set; }
-        public double OriginB1 { get; set; }
-        public double OriginB2 { get; set; }
-
         public double A1 { get; set; }
         public double A2 { get; set; }
         public double B1 { get; set; }
         public double B2 { get; set; }
+    }
 
+    public class Container
+    {
+        public DataContainer OriginDataContainer;
+        public DataContainer DataContainer;
         public double Fine { get; set; }
-
         public List<double> ExceedListOneFlat { get; set; }
         public List<double> ExceedListTwoFlat { get; set; }
 

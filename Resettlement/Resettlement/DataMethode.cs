@@ -10,7 +10,6 @@ namespace Resettlement
         public double AddingA { get; private set; }
         public double AddingB { get; private set; }
         public int OptCountFlatOnFloor { get; private set; }
-
         public readonly List<double> ListLenOneFlat;
         public readonly List<double> ListLenTwoFlat;
 

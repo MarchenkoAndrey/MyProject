@@ -7,21 +7,13 @@ namespace Resettlement
 {
     public class InputDataAlg
     {
-        //            var widthOfApartment = InputConstraints.C(valueC.Text.ToString(CultureInfo.InvariantCulture));
-        //            var step = InputConstraints.Q(valueQ.Text.ToString(CultureInfo.InvariantCulture));
-        public List<double> ListSquaresOneFlat;
-        public List<double> ListSquaresTwoFlat;
+//        var widthOfApartment = InputConstraints.C(valueC.Text.ToString(CultureInfo.InvariantCulture));
+//        var step = InputConstraints.Q(valueQ.Text.ToString(CultureInfo.InvariantCulture));
+//        public double SumDelta { get; set; }
 
-        public int CountFloor { get; set; }
-        public double SumDelta { get; set; }
-        public double WallsWidth { get; set; }
-        public double Entryway { get; set; }
-        public double AddingA { get; private set; }
-        public double AddingB { get; private set; }
-
-        public List<double> ListLenOneFlat;
-        public List<double> ListLenTwoFlat;
-
+        public int CountFloor { get; private set; } // Остается для подачи тестов
+        public readonly List<double> ListLenOneFlat;
+        public readonly List<double> ListLenTwoFlat;
         public int OptCountFlat { get; private set; }
         public int OptCountFlatOnFloor { get; private set; }
 
@@ -41,34 +33,25 @@ namespace Resettlement
         #endregion
 
 
-        public InputDataAlg(List<double> list1, List<double> list2, int numFloor)
+        // Исключительно для тестов
+        public InputDataAlg(List<double> list1, List<double> list2, int countFloor)
         {
-            CountFloor = numFloor;
+            CountFloor = countFloor;
             ListLenOneFlat = list1;
             ListLenTwoFlat = list2;
-            WallsWidth = Constraints.WallsWidth;
-            Entryway = Constraints.EntrywayLength;
-            AddingA = 3*WallsWidth + Entryway;
-            AddingB = 2*WallsWidth;
             OptCountFlat = _calculateOptimalNumberFlat(ListLenOneFlat.Count, ListLenTwoFlat.Count,
-                CountFloor);
-            OptCountFlatOnFloor = OptCountFlat/CountFloor;
+                Constraints.CountFloor);
+            OptCountFlatOnFloor = OptCountFlat/Constraints.CountFloor;
         }
 
+        // Прием входных данных из формы или из .txt
         public InputDataAlg()
         {
-            ListSquaresOneFlat =
-                ReadFromFileAndRecordingInputDataInList.ReadFile(FilesDefault.DefaultListOneFlat);
-            ListSquaresTwoFlat =
-                ReadFromFileAndRecordingInputDataInList.ReadFile(FilesDefault.DefaultListTwoFlat);
             CountFloor = Constraints.CountFloor;
-
-            ListLenOneFlat = PreparationSquares.CalculateLengthOfFlat(ListSquaresOneFlat, Constraints.WidthOfApartmentVariants[0]);
-            ListLenTwoFlat = PreparationSquares.CalculateLengthOfFlat(ListSquaresTwoFlat, Constraints.WidthOfApartmentVariants[0]);
-            WallsWidth = Constraints.WallsWidth;
-            Entryway = Constraints.EntrywayLength;
-            AddingA = 3 * WallsWidth + Entryway;
-            AddingB = 2 * WallsWidth;
+            var listSquaresOneFlat = ReadFromFileAndRecordingInputDataInList.ReadFile(FilesDefault.DefaultListOneFlat);
+            var listSquaresTwoFlat = ReadFromFileAndRecordingInputDataInList.ReadFile(FilesDefault.DefaultListTwoFlat);
+            ListLenOneFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresOneFlat, Constraints.WidthOfApartmentVariants[0]);
+            ListLenTwoFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresTwoFlat, Constraints.WidthOfApartmentVariants[0]);
             OptCountFlat = _calculateOptimalNumberFlat(ListLenOneFlat.Count, ListLenTwoFlat.Count,
                 CountFloor);
             OptCountFlatOnFloor = OptCountFlat/CountFloor;
@@ -87,7 +70,7 @@ namespace Resettlement
 
             #endregion
         }
-        //Оптимальное количество квартир в конечной модели 1-го типа
+        //Оптимальное количество квартир в конечной модели одного типа
         private readonly Func<int, int, int, int> _calculateOptimalNumberFlat =
                 (countOneFlat, countTwoFlat, countFloor) =>
                         Math.Min(countOneFlat / countFloor / 2 * 2 * countFloor, countTwoFlat / countFloor / 2 * 2 * countFloor);

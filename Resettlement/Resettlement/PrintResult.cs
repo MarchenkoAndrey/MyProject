@@ -88,10 +88,10 @@ namespace Resettlement
                 var listTwoFlat = new List<double>();
                 foreach (var container in listContainers)
                 {
-                    listOneFlat.Add(container.A1);
-                    listOneFlat.Add(container.A2);
-                    listTwoFlat.Add(container.B1);
-                    listTwoFlat.Add(container.B2);
+                    listOneFlat.Add(container.DataContainer.A1);
+                    listOneFlat.Add(container.DataContainer.A2);
+                    listTwoFlat.Add(container.DataContainer.B1);
+                    listTwoFlat.Add(container.DataContainer.B2);
                 }
 
             for (var numberFloor = 0; numberFloor < countFloor; ++numberFloor)
