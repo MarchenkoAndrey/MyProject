@@ -26,12 +26,10 @@ namespace Resettlement
                 PreparationSquares.FlatsWithTheAdditiveLength(resultDataAfterGrouping.ListResultOneFlat);
             dataAlg.ListLenTwoFlat =
                 PreparationSquares.FlatsWithTheAdditiveLength(resultDataAfterGrouping.ListResultTwoFlat);
-            dataAlg.FineAfterGrouping = resultDataAfterGrouping.Fine;
+            //dataAlg.FineAfterGrouping = resultDataAfterGrouping.Fine;
 
             var myStopWatchDynamic = new Stopwatch();
             myStopWatchDynamic.Start();
-            
-            // var resultDynamicIter = Methode, renurn tree (array containers)
             
             var resultListDynM =
                 DynamicMethodeSect.DynamicMethode(new DataGreedyMethode(dataAlg.ListLenOneFlat, dataAlg.ListLenTwoFlat,
@@ -42,9 +40,8 @@ namespace Resettlement
             var part2 = BackTrackForDynPr.BackTracking(resultListDynM);
 
             // Print Result
-
-            PrintResult.DynamicProgrammingPrintResult(part2, inData.CountFloor, resultDataAfterGrouping.ListExcessOneFlat,
-                resultDataAfterGrouping.ListExcessTwoFlat, resultGreedy_label);
+            // вместе со штрафом группировки по этажам
+            PrintResult.DynamicProgrammingPrintResult(part2, inData.CountFloor, resultDataAfterGrouping, resultGreedy_label);
 
             myStopWatchDynamic.Stop();
             

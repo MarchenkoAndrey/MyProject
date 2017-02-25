@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
@@ -75,11 +76,12 @@ namespace Resettlement
             PrintExceedFlat(data.ListExcessTwoFlat, resultFullSearchLabel, MessagesText.RectanglesBiNotList);
         }
 
-        public static void DynamicProgrammingPrintResult(IEnumerable<Container> listContainers, int countFloor, List<double> exceedlistOneFlat,
-            List<double> exceedListTwoFlat, Label resultGreedyLabel)
+        public static void DynamicProgrammingPrintResult(List<Container> listContainers, int countFloor, ResultDataAfterGrouping resDataAftGrouping, Label resultGreedyLabel)
         {
+
             resultGreedyLabel.Text +=
-                string.Format(MessagesText.ValueFunctionalF, listContainers.First().FineChain)
+                string.Format(MessagesText.ValueFunctionalF,
+                        listContainers.Last().FineChain*countFloor + resDataAftGrouping.Fine)
                     .ToString(CultureInfo.InvariantCulture);
 
             //Превращаем в список для удобного отображения
@@ -101,8 +103,8 @@ namespace Resettlement
                     PrintFloor(listTwoFlat, resultGreedyLabel);
                     PrintStroke(listContainers.Last().ExceedListOneFlat.Count, numberFloor, countFloor, resultGreedyLabel);
             }
-            PrintExceedFlat(exceedlistOneFlat, resultGreedyLabel, MessagesText.RectanglesAiNotList);
-            PrintExceedFlat(exceedListTwoFlat, resultGreedyLabel, MessagesText.RectanglesBiNotList);
+            PrintExceedFlat(resDataAftGrouping.ListExcessOneFlat, resultGreedyLabel, MessagesText.RectanglesAiNotList);
+            PrintExceedFlat(resDataAftGrouping.ListExcessTwoFlat, resultGreedyLabel, MessagesText.RectanglesBiNotList);
         }
 
         private static void PrintStroke(double totalListFlatCount, int numberFloor, int countFloor, Label resultLabel)

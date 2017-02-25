@@ -1,47 +1,58 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.ExceptionServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Resettlement
 {
-//    class GoToCollection : IEnumerable<Container>
-//    {
-//        private Container First;
-//        private Container Last;
-//
+    public class GoToCollection : IEnumerable<Container>
+    {
+        public List<Container> Containers { get; set; }
+        private int Count { get; set; }
+
+        public GoToCollection(DataGreedyMethode data)
+        {
+            Containers = new List<Container> { new Container(data) };
+            Count = 1;
+        }
+
 //        public void Add(Container container)
 //        {
-//            Container temp = new Container(container.Fine);
-//
-//            if (First == null)
-//            {
-//                First = temp;
-//                Last = First;
-//            }
-//            else
-//            {
-//                Last.Next = temp;
-//                Last = Last.Next;
-//            }
+//            Containers.Add(container);
+//            count += 1;
 //        }
-//
-//        public IEnumerator<Container> GetEnumerator()
-//        {
-//            Container temp = First;
-//            do
-//            {
-//                yield return temp;
-//                temp = temp.Next;
-//            } while (temp.ExceedListOneFlat.Count != 0);
-//        }
-//
-//        IEnumerator IEnumerable.GetEnumerator()
-//        {
-//            return GetEnumerator();
-//        }
-//    }
+        
+        public void Adds(List<Container> containers)
+        {
+            Containers.AddRange(containers);
+            Count += 3;
+        }
+
+        public IEnumerator<Container> GetEnumerator()
+        {
+            for (var i = 0; i < Count; ++i)
+            {
+                if (Containers[i].ExceedListOneFlat.Count < 1) yield break;
+                yield return Containers[i];
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public Container this[int index]
+        {
+            get
+            {
+                if(index<0 ||index>Count) throw new IndexOutOfRangeException();
+                return Containers[index];
+            }
+            set
+            {
+                if (index < 0 || index > Count) throw new IndexOutOfRangeException();
+                Containers[index] = value;
+            }
+        }
+    }
 }

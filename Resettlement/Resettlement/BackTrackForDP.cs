@@ -5,7 +5,7 @@ namespace Resettlement
 {
     public static class BackTrackForDynPr
     {
-        public static IEnumerable<Container> BackTracking(IEnumerable<Container> listContainers)
+        public static List<Container> BackTracking(List<Container> listContainers)
         {
             var resultListContainer = new List<Container>();
 

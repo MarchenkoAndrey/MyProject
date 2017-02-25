@@ -155,7 +155,7 @@ namespace Resettlement
 
         [TestMethod]
         [Category("FullSearch")]
-        public void TestFullSearch10()
+        public void TestFullSearch8()
         {
             //tests 10flat
             const int optCountFlat = 6;

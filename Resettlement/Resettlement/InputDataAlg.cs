@@ -14,7 +14,7 @@ namespace Resettlement
 
         public int CountFloor { get; set; }
         public double SumDelta { get; set; }
-        public double Step { get; set; }
+        public double WallsWidth { get; set; }
         public double Entryway { get; set; }
         public double AddingA { get; private set; }
         public double AddingB { get; private set; }
@@ -46,10 +46,10 @@ namespace Resettlement
             CountFloor = numFloor;
             ListLenOneFlat = list1;
             ListLenTwoFlat = list2;
-            Step = Constraints.ThickWallsWidth;
+            WallsWidth = Constraints.WallsWidth;
             Entryway = Constraints.EntrywayLength;
-            AddingA = 3*Step + Entryway;
-            AddingB = 2*Step;
+            AddingA = 3*WallsWidth + Entryway;
+            AddingB = 2*WallsWidth;
             OptCountFlat = _calculateOptimalNumberFlat(ListLenOneFlat.Count, ListLenTwoFlat.Count,
                 CountFloor);
             OptCountFlatOnFloor = OptCountFlat/CountFloor;
@@ -65,10 +65,10 @@ namespace Resettlement
 
             ListLenOneFlat = PreparationSquares.CalculateLengthOfFlat(ListSquaresOneFlat, Constraints.WidthOfApartmentVariants[0]);
             ListLenTwoFlat = PreparationSquares.CalculateLengthOfFlat(ListSquaresTwoFlat, Constraints.WidthOfApartmentVariants[0]);
-            Step = Constraints.ThickWallsWidth;
+            WallsWidth = Constraints.WallsWidth;
             Entryway = Constraints.EntrywayLength;
-            AddingA = 3 * Step + Entryway;
-            AddingB = 2 * Step;
+            AddingA = 3 * WallsWidth + Entryway;
+            AddingB = 2 * WallsWidth;
             OptCountFlat = _calculateOptimalNumberFlat(ListLenOneFlat.Count, ListLenTwoFlat.Count,
                 CountFloor);
             OptCountFlatOnFloor = OptCountFlat/CountFloor;

@@ -16,7 +16,7 @@ namespace Resettlement
 
         public static double Q(string inputValueQ)
         {
-            return inputValueQ == "" ? Constraints.ThickWallsWidth : double.Parse(inputValueQ);
+            return inputValueQ == "" ? Constraints.WallsWidth : double.Parse(inputValueQ);
         }
     }
 }

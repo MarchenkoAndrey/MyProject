@@ -24,6 +24,16 @@ namespace Resettlement
         public int? ParentId { get; set; }
         public double FineChain { get; set; }
 
+        public Container(Container data)
+        {
+            Id = 0;
+            ParentId = null;
+            Fine = 0.0;
+            FineChain = data.FineChain;
+            ExceedListOneFlat = data.ExceedListOneFlat;
+            ExceedListTwoFlat = data.ExceedListTwoFlat;
+        }
+
         public Container(DataGreedyMethode data)
         {
             Id = 0;

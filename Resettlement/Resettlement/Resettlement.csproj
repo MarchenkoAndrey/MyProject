@@ -45,13 +45,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApartureLen.cs" />
-    <Compile Include="Arrangement.cs" />
     <Compile Include="BackTrackForDP.cs" />
     <Compile Include="ComprehensiveSearch.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Container.cs" />
-    <Compile Include="ContainerTree.cs" />
     <Compile Include="DynamicMethodeSect.cs" />
     <Compile Include="DynamicProgramming.cs">
       <SubType>Form</SubType>

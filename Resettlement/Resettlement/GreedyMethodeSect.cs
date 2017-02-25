@@ -52,9 +52,9 @@ namespace Resettlement
                                 case 2:
                                 {
                                     resultPackSectReverse =
-                                        CompALen.Method(
+                                        CompALen.CalculateOptimalPackContainer(
                                             new ApartureLen(choiceOneFlat, t, currentMassiv[j],
-                                                currentMassiv[i]), dataGrM.Step);
+                                                currentMassiv[i]), dataGrM.WallsWidth);
                                     break;
                                 }
                                 
@@ -63,9 +63,9 @@ namespace Resettlement
                                 break;
                             }
                             var resultPackSect =
-                                CompALen.Method(
+                                CompALen.CalculateOptimalPackContainer(
                                     new ApartureLen(choiceOneFlat, t, currentMassiv[i],
-                                        currentMassiv[j]), dataGrM.Step);
+                                        currentMassiv[j]), dataGrM.WallsWidth);
 
                             var currentFineReverse =
                                 Math.Abs(Math.Round(
