@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -185,7 +186,7 @@ namespace Resettlement
             var result = DynamicMethodeSect.DynamicMethode(new DataMethode(list1, list2, optCountFlat));
             var listContainers = BackTrackForDynPr.BackTracking(result);
             
-            Assert.AreEqual(listContainers.Last().FineChain, optFine);
+            Assert.AreEqual(Math.Round(listContainers.Last().FineChain,1), optFine);
             foreach (var container in listContainers)
             {
                 listOneFlat.Add(container.DataContainer.A1);

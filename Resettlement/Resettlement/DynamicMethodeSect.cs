@@ -43,8 +43,8 @@ namespace Resettlement
                                 currentMassiv[j], data.WallsWidth);
 
                             // Претендент на запись выбран. Заполнение претендента
-                            newContainer = FillingData(newContainer, resultPackSect,
-                                coll.Containers.Count, baseContainer.Id);
+                            newContainer = FillingData(newContainer, resultPackSect
+                                , baseContainer.Id);
                            
                             // Проверка валидности его записи
                             // Если записей меньше 3, то записываем
@@ -74,7 +74,7 @@ namespace Resettlement
                                 .Where(z => z.Id == maxFineId)
                                 .Take(1)
                                 .First();
-                            tempThreeContainers[containerWithMaxFine.Id - 1] = newContainer;
+                            tempThreeContainers[tempThreeContainers.IndexOf(containerWithMaxFine)] = newContainer;
 
                             maxFine = tempThreeContainers
                                 .Select(a => a.Fine)
@@ -126,20 +126,22 @@ namespace Resettlement
         }
 
         // Заполнение текущего контейнера данными
-        private static Container FillingData(Container newContainer, ApartureLen result, int id, int parentId)
+        private static Container FillingData(Container newContainer, ApartureLen result, int parentId)
         {
             newContainer.DataContainer.B1 = result.DataContainer.B1;
             newContainer.DataContainer.B2 = result.DataContainer.B2;
             newContainer.DataContainer.A2 = result.DataContainer.A2;
             newContainer.DataContainer.A1 = result.DataContainer.A1;
-            newContainer.Id = id;
+           
             newContainer.ParentId = parentId;
             newContainer.Fine = result.Fine;
-            newContainer.FineChain += result.Fine;
+            newContainer.FineChain += Math.Round(result.Fine,1);
             newContainer.OriginDataContainer.A1 = result.OriginDataContainer.A1;
             newContainer.OriginDataContainer.A2 = result.OriginDataContainer.A2;
             newContainer.OriginDataContainer.B1 = result.OriginDataContainer.B1;
             newContainer.OriginDataContainer.B2 = result.OriginDataContainer.B2;
+            newContainer.Id = Math.Abs(newContainer.OriginDataContainer.GetHashCode() + newContainer.Fine.GetHashCode() * 1039);
+
             return newContainer;
         }
         // Удаление из оставшихся вариантов использованные
