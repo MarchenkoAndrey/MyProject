@@ -6,7 +6,7 @@ namespace Resettlement
 {
     public class GoToCollection : IEnumerable<Container>
     {
-        public List<Container> Containers { get; set; }
+        public List<Container> Containers { get; private set; }
         private int Count { get; set; }
 
         public GoToCollection(DataMethode data)
@@ -18,7 +18,7 @@ namespace Resettlement
         public void Adds(List<Container> containers)
         {
             Containers.AddRange(containers);
-            Count += 3;
+            Count += containers.Count;
         }
 
         public IEnumerator<Container> GetEnumerator()

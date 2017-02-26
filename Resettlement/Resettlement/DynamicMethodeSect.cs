@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using ComputationMethods.GeneralData;
@@ -10,6 +11,10 @@ namespace Resettlement
         public static List<Container> DynamicMethode(DataMethode data)
         {
             var coll = new GoToCollection(data);
+
+            var hash = new HashSet<double>();
+            var dict = new Dictionary<Container, int>();
+
             foreach (var baseContainer in coll)
             {
                 if (baseContainer.ExceedListOneFlat.Count == 0) // условие завершения
@@ -40,12 +45,14 @@ namespace Resettlement
                                 currentMassiv[j], data.WallsWidth);
 
                             // Претендент на запись выбран. Заполнение претендента
-//                            newContainer.ParentId = baseContainer.Id;
                             newContainer = FillingData(newContainer, resultPackSect,
                                 coll.Containers.Count, baseContainer.Id);
 
-                            var hex = newContainer.GetHashCode();
 
+                           
+                            hash.Add(newContainer.GetHashCode());
+                            
+                            dict.Add(newContainer, newContainer.GetHashCode());
                             // Проверка валидности его записи
                             // Если записей меньше 3, то записываем
                             // Иначе сравниваем штраф с текущим наибольшим
@@ -66,7 +73,6 @@ namespace Resettlement
                                 continue;
                             }
                             if (!(newContainer.Fine < maxFine)) continue;
-                            //validate containers
                             if (ValidateToSameContainers(tempThreeContainers, newContainer)) continue;
 
                             //нашли контейнер из 3 с наибольшим штрафом
@@ -101,16 +107,7 @@ namespace Resettlement
         // Проверка на то, что в списке контейнеров tempThreeContainers нет текущего контейнера
         private static bool ValidateToSameContainers(IEnumerable<Container> tempThreeContainers, Container newContainer)
         {
-            return tempThreeContainers.Any(container => Equals(newContainer, container));
-        }
-
-        // Переопределенный метод Equals
-        private static bool Equals(Container obj1, Container obj2)
-        {
-            return (obj1.DataContainer.A1.Equals(obj2.DataContainer.A1) && obj1.DataContainer.A2.Equals(obj2.DataContainer.A2) &&
-                obj1.DataContainer.B1.Equals(obj2.DataContainer.B1) && obj1.Fine.Equals(obj2.Fine)) ||
-                (obj1.DataContainer.A1.Equals(obj2.DataContainer.A2) && obj1.DataContainer.A2.Equals(obj2.DataContainer.A1) &&
-                obj1.DataContainer.B1.Equals(obj2.DataContainer.B2) && obj1.Fine.Equals(obj2.Fine));
+            return tempThreeContainers.Any(container => Equals(newContainer.GetHashCode(), container.GetHashCode()));
         }
 
         // Заполнение текущего контейнера данными
