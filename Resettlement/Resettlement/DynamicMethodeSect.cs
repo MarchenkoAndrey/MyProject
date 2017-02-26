@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using ComputationMethods.GeneralData;
@@ -11,9 +10,7 @@ namespace Resettlement
         public static List<Container> DynamicMethode(DataMethode data)
         {
             var coll = new GoToCollection(data);
-
-            var hash = new HashSet<double>();
-            var dict = new Dictionary<Container, int>();
+            var hash = new HashSet<double>{0.0};
 
             foreach (var baseContainer in coll)
             {
@@ -25,6 +22,7 @@ namespace Resettlement
                 sortedListOneFlat.Remove(choiceOneFlat);
                 var arraySortedTwoApartments = baseContainer.ExceedListTwoFlat.ToArray();
                 var tempThreeContainers = new List<Container>();
+ 
                 var maxFine = double.MinValue;
                 var maxFineId = 0;
 
@@ -47,12 +45,7 @@ namespace Resettlement
                             // Претендент на запись выбран. Заполнение претендента
                             newContainer = FillingData(newContainer, resultPackSect,
                                 coll.Containers.Count, baseContainer.Id);
-
-
                            
-                            hash.Add(newContainer.GetHashCode());
-                            
-                            dict.Add(newContainer, newContainer.GetHashCode());
                             // Проверка валидности его записи
                             // Если записей меньше 3, то записываем
                             // Иначе сравниваем штраф с текущим наибольшим
@@ -82,7 +75,7 @@ namespace Resettlement
                                 .Take(1)
                                 .First();
                             tempThreeContainers[containerWithMaxFine.Id - 1] = newContainer;
-                            
+
                             maxFine = tempThreeContainers
                                 .Select(a => a.Fine)
                                 .Max();
@@ -98,10 +91,32 @@ namespace Resettlement
                 //Удаляет использованные квартиры
                 DeleteExceedFlat(tempThreeContainers);
 
-                coll.Adds(tempThreeContainers);
+                //проверка и удаление по хешсету ветвей
+                var resultOfThinning = ThinningChain(tempThreeContainers, hash); 
 
+                coll.Adds(resultOfThinning.Item1);
+                hash = resultOfThinning.Item2;
             }
             return coll.Containers;
+        }
+
+        private static Tuple<List<Container>, HashSet<double>> ThinningChain(List<Container> tempThreeContainers, HashSet<double> hashSet)
+        {
+            var resList = new List<Container>(tempThreeContainers);
+            foreach (var container in tempThreeContainers)
+            {
+                var currHash = Math.Abs(container.OriginDataContainer.GetHashCode()+container.Fine.GetHashCode()*1039);
+                if (hashSet.Contains(currHash))
+                {
+                    resList.Remove(container);
+                }
+                else
+                {
+                    hashSet.Add(currHash);
+                    container.Id = currHash;
+                }
+            }
+            return new Tuple<List<Container>, HashSet<double>>(resList,hashSet);
         }
 
         // Проверка на то, что в списке контейнеров tempThreeContainers нет текущего контейнера

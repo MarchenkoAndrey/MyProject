@@ -54,7 +54,7 @@ namespace Resettlement
             ExceedListOneFlat = data.ExceedListOneFlat;
             ExceedListTwoFlat = data.ExceedListTwoFlat;
         }
-
+        //Первый контейнер ?
         public Container(DataMethode data)
         {
             Id = 0;

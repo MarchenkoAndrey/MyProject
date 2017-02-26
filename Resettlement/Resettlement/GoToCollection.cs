@@ -7,14 +7,14 @@ namespace Resettlement
     public class GoToCollection : IEnumerable<Container>
     {
         public List<Container> Containers { get; private set; }
-        private int Count { get; set; }
+        public int Count { get; private set; }
 
         public GoToCollection(DataMethode data)
         {
             Containers = new List<Container> { new Container(data) };
             Count = 1;
         }
-        
+
         public void Adds(List<Container> containers)
         {
             Containers.AddRange(containers);
