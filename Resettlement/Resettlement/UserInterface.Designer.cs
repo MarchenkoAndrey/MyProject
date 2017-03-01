@@ -26,6 +26,7 @@
             this.realizat_label = new System.Windows.Forms.Label();
             this.resultFullSearch_label = new System.Windows.Forms.Label();
             this.resultGreedy_label = new System.Windows.Forms.Label();
+            this.resultDynam_label = new System.Windows.Forms.Label();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton3 = new System.Windows.Forms.RadioButton();
@@ -37,11 +38,11 @@
             this.valueQ = new System.Windows.Forms.TextBox();
             this.valueG = new System.Windows.Forms.TextBox();
             this.valueC = new System.Windows.Forms.TextBox();
-            this.generalCase_btn = new System.Windows.Forms.Button();
+            this.dynam_btn = new System.Windows.Forms.Button();
             this.SuspendLayout();
-             
-//             greedy_btn
-             
+            // 
+            // greedy_btn
+            // 
             this.greedy_btn.Location = new System.Drawing.Point(286, 134);
             this.greedy_btn.Name = "greedy_btn";
             this.greedy_btn.Size = new System.Drawing.Size(119, 23);
@@ -49,9 +50,9 @@
             this.greedy_btn.Text = "Heuristic Algorithm";
             this.greedy_btn.UseVisualStyleBackColor = true;
             this.greedy_btn.Click += new System.EventHandler(this.greedy_btn_Click);
-             
-//             fullSearch_btn
-             
+            // 
+            // fullSearch_btn
+            // 
             this.fullSearch_btn.Location = new System.Drawing.Point(422, 134);
             this.fullSearch_btn.Name = "fullSearch_btn";
             this.fullSearch_btn.Size = new System.Drawing.Size(141, 23);
@@ -59,9 +60,19 @@
             this.fullSearch_btn.Text = "Comprehensive Search";
             this.fullSearch_btn.UseVisualStyleBackColor = true;
             this.fullSearch_btn.Click += new System.EventHandler(this.fullSearch_btn_Click);
-             
-//             labelOne
-             
+            // 
+            // dynamCase_btn
+            // 
+            this.dynam_btn.Location = new System.Drawing.Point(286, 166);
+            this.dynam_btn.Name = "dynam_btn";
+            this.dynam_btn.Size = new System.Drawing.Size(277, 23);
+            this.dynam_btn.TabIndex = 33;
+            this.dynam_btn.Text = "MDP";
+            this.dynam_btn.UseVisualStyleBackColor = true;
+            this.dynam_btn.Click += new System.EventHandler(this.dynam_btn_Click);
+            // 
+            // labelOne
+            // 
             this.labelOne.AutoSize = true;
             this.labelOne.Location = new System.Drawing.Point(26, 40);
             this.labelOne.Name = "labelOne";
@@ -135,10 +146,18 @@
             // resultGreedy_label
             // 
             this.resultGreedy_label.AutoSize = true;
-            this.resultGreedy_label.Location = new System.Drawing.Point(604, 152);
+            this.resultGreedy_label.Location = new System.Drawing.Point(654, 152);
             this.resultGreedy_label.Name = "resultGreedy_label";
             this.resultGreedy_label.Size = new System.Drawing.Size(0, 13);
             this.resultGreedy_label.TabIndex = 21;
+            // 
+            // resultDynam_label
+            // 
+            this.resultDynam_label.AutoSize = true;
+            this.resultDynam_label.Location = new System.Drawing.Point(304, 215);
+            this.resultDynam_label.Name = "resultDynam_label";
+            this.resultDynam_label.Size = new System.Drawing.Size(0, 13);
+            this.resultDynam_label.TabIndex = 21;
             // 
             // radioButton1
             // 
@@ -241,22 +260,12 @@
             this.valueC.Size = new System.Drawing.Size(40, 20);
             this.valueC.TabIndex = 27;
             // 
-            // generalCase_btn
-            // 
-            this.generalCase_btn.Location = new System.Drawing.Point(286, 166);
-            this.generalCase_btn.Name = "generalCase_btn";
-            this.generalCase_btn.Size = new System.Drawing.Size(277, 23);
-            this.generalCase_btn.TabIndex = 33;
-            this.generalCase_btn.Text = "General Case";
-            this.generalCase_btn.UseVisualStyleBackColor = true;
-//            this.generalCase_btn.Click += new System.EventHandler(generalCase_btn_Click);
-            // 
             // UserInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1086, 556);
-            this.Controls.Add(this.generalCase_btn);
+            this.Controls.Add(this.dynam_btn);
             this.Controls.Add(this.valueC);
             this.Controls.Add(this.valueG);
             this.Controls.Add(this.valueQ);
@@ -270,6 +279,7 @@
             this.Controls.Add(this.radioButton1);
             this.Controls.Add(this.resultGreedy_label);
             this.Controls.Add(this.resultFullSearch_label);
+            this.Controls.Add(this.resultDynam_label);
             this.Controls.Add(this.realizat_label);
             this.Controls.Add(this.lossesTwo_label);
             this.Controls.Add(this.lossesOne_label);
@@ -289,6 +299,7 @@
 
         private System.Windows.Forms.Button greedy_btn;
         private System.Windows.Forms.Button fullSearch_btn;
+        private System.Windows.Forms.Button dynam_btn;
         private System.Windows.Forms.Label labelOne;
         private System.Windows.Forms.TextBox squareOne_input;
         private System.Windows.Forms.Label labelTwo;
@@ -299,6 +310,7 @@
         private System.Windows.Forms.Label realizat_label;
         protected System.Windows.Forms.Label resultFullSearch_label;
         protected System.Windows.Forms.Label resultGreedy_label;
+        protected System.Windows.Forms.Label resultDynam_label;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -310,6 +322,5 @@
         private System.Windows.Forms.RadioButton radioButton3;
         private System.Windows.Forms.RadioButton radioButton4;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button generalCase_btn;
     }
 }

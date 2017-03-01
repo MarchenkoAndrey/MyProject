@@ -13,7 +13,9 @@ namespace Resettlement
 
             realizat_label.Text = "".ToString(CultureInfo.InvariantCulture);
             lossesOne_label.Text = "".ToString(CultureInfo.InvariantCulture);
-            resultGreedy_label.Text = "".ToString(CultureInfo.InvariantCulture);
+            resultDynam_label.Text = "".ToString(CultureInfo.InvariantCulture);
+
+            resultDynam_label.Text = string.Format(MessagesText.ResultDynamicProgram);
 
             var flatCount = inData.ListLenOneFlat.Count + inData.ListLenTwoFlat.Count;
             realizat_label.Text += string.Format(MessagesText.RealizationForRectangles,flatCount).ToString(CultureInfo.InvariantCulture);
@@ -39,12 +41,12 @@ namespace Resettlement
             var backTrackingResult = BackTrackForDynPr.BackTracking(resultListDynM);
 
             // Print Result ( штраф по этажам и от группировки считаем внутри печати )
-            PrintResult.DynamicProgrammingPrintResult(backTrackingResult, inData.CountFloor, resultDataAfterGrouping, resultGreedy_label);
+            PrintResult.DynamicProgrammingPrintResult(backTrackingResult, inData.CountFloor, resultDataAfterGrouping, resultDynam_label);
             
             myStopWatchDynamic.Stop();
-            resultGreedy_label.Text +=
-                  string.Format(MessagesText.WorkTimeHeuristicAlgoruthm,
-                   myStopWatchDynamic.ElapsedMilliseconds / 1000.0).ToString(CultureInfo.InvariantCulture).ToString(CultureInfo.InvariantCulture);
+            resultDynam_label.Text +=
+                  string.Format(MessagesText.WorkTimeDynamicProgram,
+                   myStopWatchDynamic.ElapsedMilliseconds / 1000.0).ToString(CultureInfo.InvariantCulture);
         }
     }
 }
