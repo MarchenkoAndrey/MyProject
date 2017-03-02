@@ -9,7 +9,7 @@ namespace Resettlement
     {
         public static List<Container> DynamicMethode(DataMethode data)
         {
-            var coll = new GoToCollection(data);
+            var coll = new CollectionContainers(data);
             var hash = new HashSet<double>{0.0};
 
             foreach (var baseContainer in coll)
@@ -43,8 +43,7 @@ namespace Resettlement
                                 currentMassiv[j], data.WallsWidth);
 
                             // Претендент на запись выбран. Заполнение претендента
-                            newContainer = FillingData(newContainer, resultPackSect
-                                , baseContainer.Id);
+                            newContainer = FillingData(newContainer, resultPackSect, baseContainer.Id);
                            
                             // Проверка валидности его записи
                             // Если записей меньше 3, то записываем

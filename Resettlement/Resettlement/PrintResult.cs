@@ -100,13 +100,13 @@ namespace Resettlement
                 PrintFloor(listOneFlat, resultGreedyLabel);
                 resultGreedyLabel.Text += MessagesText.DividingLine;
                 PrintFloor(listTwoFlat, resultGreedyLabel);
-                PrintStroke(listContainers.First().ExceedListOneFlat.Count*2, numberFloor, countFloor, resultGreedyLabel);
+                PrintStroke(listOneFlat.Count, numberFloor, countFloor, resultGreedyLabel);
             }
             PrintExceedFlat(resDataAftGrouping.ListExcessOneFlat, resultGreedyLabel, MessagesText.RectanglesAiNotList);
             PrintExceedFlat(resDataAftGrouping.ListExcessTwoFlat, resultGreedyLabel, MessagesText.RectanglesBiNotList);
         }
 
-        private static void PrintStroke(double totalListFlatCount, int numberFloor, int countFloor, Label resultLabel)
+        private static void PrintStroke(double totalListFlatCount, int numberFloor, int countFloor, Control resultLabel)
         {
             var strokeLength = MessagesText.StrokeLength;
             for (var i = 0; i < totalListFlatCount; ++i)
@@ -121,7 +121,7 @@ namespace Resettlement
         }
 
 
-        private static void PrintFloor(List<double> listFlat, Label resultLabel)
+        private static void PrintFloor(IEnumerable<double> listFlat, Control resultLabel)
         {
             var dividedLine = 0;
             foreach (var i in listFlat)
@@ -136,7 +136,7 @@ namespace Resettlement
             resultLabel.Text += MessagesText.NextLine;
         }
 
-        private static void PrintExceedFlat(List<double> listExceedFlat, Label resultLabel, string rectanglesNotList)
+        private static void PrintExceedFlat(IReadOnlyCollection<double> listExceedFlat, Control resultLabel, string rectanglesNotList)
         {
             if (listExceedFlat.Count==0) return;
             resultLabel.Text += rectanglesNotList;

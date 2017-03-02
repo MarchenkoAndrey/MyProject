@@ -4,13 +4,13 @@ using System.Collections.Generic;
 
 namespace Resettlement
 {
-    public class GoToCollection : IEnumerable<Container>
+    public class CollectionContainers : IEnumerable<Container>
     {
         public List<Container> Containers { get; private set; }
         private int Count { get; set; }
 
         // Инициализация коллекции с первым начальным контейнером
-        public GoToCollection(DataMethode data)
+        public CollectionContainers(DataMethode data)
         {
             Containers = new List<Container> { new Container(data) };
             Count = 1;

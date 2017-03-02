@@ -27,11 +27,5 @@ namespace Resettlement
             var dataCAlg = new InputDataAlg();
             PerformComprehensiveSearch(dataCAlg);
         }
-
-//        private void generalCase_btn_Click(object sender, EventArgs e)
-//        {
-//            var dataGeneralAlg = PreparationBeforeAlgorithm();
-//            
-//        }
     }
 }

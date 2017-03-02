@@ -14,7 +14,6 @@ namespace Resettlement
             realizat_label.Text = "".ToString(CultureInfo.InvariantCulture);
             lossesOne_label.Text = "".ToString(CultureInfo.InvariantCulture);
             resultDynam_label.Text = "".ToString(CultureInfo.InvariantCulture);
-
             resultDynam_label.Text = string.Format(MessagesText.ResultDynamicProgram);
 
             var flatCount = inData.ListLenOneFlat.Count + inData.ListLenTwoFlat.Count;

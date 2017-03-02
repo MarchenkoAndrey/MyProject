@@ -22,7 +22,7 @@ namespace Resettlement
                     Take(1).
                     First();
             }
-            // в правильном порядке
+            // разворачиваем список контейнеров по бэктрекингу. Первый - корень
             resultListContainer.Reverse();
             return resultListContainer;
         }
