@@ -136,7 +136,7 @@ namespace Resettlement
                 totalFine, resultOneFlat.ListExcessFlat, resultTwoFlat.ListExcessFlat);
         }
 
-        private static Tuple<double, List<double>> EqualCountFlat(List<double> listFlat, double fineFlat,
+        private static Tuple<double, List<double>> EqualCountFlat(IReadOnlyList<double> listFlat, double fineFlat,
             List<double> resultListFlat, int countFloor)
         {
             for (var i = countFloor-1; i < listFlat.Count; i += countFloor)

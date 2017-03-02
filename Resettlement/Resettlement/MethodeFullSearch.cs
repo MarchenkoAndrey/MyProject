@@ -39,7 +39,9 @@ namespace Resettlement
 //                        var h = listSquareSectionsTwoBedroomApartment[s] - listSquareSectionsOneBedroomApartment[s];
 //                        currentFineFirstFloor = Math.Round(currentFineFirstFloor + Math.Abs(h), 1);
 //                    }
-				    currentFineFirstFloor = listSquareSectionsOneBedroomApartment.Select((t, s) => listSquareSectionsTwoBedroomApartment[s] - t).Aggregate(currentFineFirstFloor, (current, h) => Math.Round(current + Math.Abs(h), 1));
+				    currentFineFirstFloor =
+				        listSquareSectionsOneBedroomApartment.Select((t, s) => listSquareSectionsTwoBedroomApartment[s] - t)
+				            .Aggregate(currentFineFirstFloor, (current, h) => Math.Round(current + Math.Abs(h), 1));
 
 				    if (!(currentFineFirstFloor < totalOptimalExceedSquare)) continue;
 				    totalOptimalExceedSquare = Math.Round(currentFineFirstFloor, 1);

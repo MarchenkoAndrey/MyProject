@@ -7,7 +7,7 @@ namespace ComputationMethods
 {
     public static class ReadFromFileAndRecordingInputDataInList
 	{
-		public static List<double> ReadFile(string fileName)
+		public static IEnumerable<double> ReadFile(string fileName)
 		{
 		    return
 		        RecordingInputDataInList(
@@ -15,7 +15,7 @@ namespace ComputationMethods
 		                fileName)));
 		}
 
-	    private static List<double> RecordingInputDataInList(string[] inputData)
+	    private static IEnumerable<double> RecordingInputDataInList(IReadOnlyList<string> inputData)
 	    {
 	        return
 	            inputData[0].Split(default(string[]), StringSplitOptions.RemoveEmptyEntries)
