@@ -40,8 +40,8 @@ namespace Resettlement
             ListLenOneFlat = list1;
             ListLenTwoFlat = list2;
             OptCountFlat = _calculateOptimalNumberFlat(ListLenOneFlat.Count, ListLenTwoFlat.Count,
-                Constraints.CountFloor);
-            OptCountFlatOnFloor = OptCountFlat/Constraints.CountFloor;
+                CountFloor);
+            OptCountFlatOnFloor = OptCountFlat / CountFloor;
         }
 
         // Прием входных данных из формы или из .txt

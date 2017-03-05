@@ -6,7 +6,7 @@ namespace Resettlement
 {
     public static class GreedyMethodeSect
     {
-        public static ResultGreedyMethode GreedyMethode(DataMethode dataGrM, double firstOneFlat)
+        public static ResultGreedyMethode GreedyMethode(DataMethode dataGrM, double firstOneFlat, string positionStart)
         {
             var listLenOneFlat = new List<double>(dataGrM.ListLenOneFlat);
             var listLenTwoFlat = new List<double>(dataGrM.ListLenTwoFlat);
@@ -22,10 +22,27 @@ namespace Resettlement
             for (var n = 0; n < dataGrM.OptCountFlatOnFloor; n = n + 2)             // цикл заполнения секций
             {
                 //Если есть ненулевое значение и оно встретилось в первый раз, то записываем его
-                var choiceOneFlat = Math.Abs(firstOneFlat) > 1e-9 && resultGreedy.IsFlagFirstEntry
-                    ? firstOneFlat
-                    : listLenOneFlat[listLenOneFlat.Count/2];
-
+                double choiceOneFlat;
+                switch (positionStart)
+                {
+                    case "First":
+                        choiceOneFlat = Math.Abs(firstOneFlat) > 1e-9 && resultGreedy.IsFlagFirstEntry
+                         ? firstOneFlat
+                         : listLenOneFlat[0];
+                        break;
+                    case "Middle":
+                        choiceOneFlat = Math.Abs(firstOneFlat) > 1e-9 && resultGreedy.IsFlagFirstEntry
+                       ? firstOneFlat
+                       : listLenOneFlat[listLenOneFlat.Count / 2];
+                        break;
+                    case "Penultimate":
+                        choiceOneFlat = Math.Abs(firstOneFlat) > 1e-9 && resultGreedy.IsFlagFirstEntry
+                        ? firstOneFlat
+                        : listLenOneFlat[listLenOneFlat.Count-2];
+                        break;
+                    default:
+                        throw new Exception();
+                }
                 resultGreedy.IsFlagFirstEntry = false;
 
                 var sortedListOneFlat = new List<double>(listLenOneFlat);

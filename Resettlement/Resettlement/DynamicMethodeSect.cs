@@ -18,7 +18,8 @@ namespace Resettlement
                     break;
 
                 var sortedListOneFlat = new List<double>(baseContainer.ExceedListOneFlat);
-                var choiceOneFlat = baseContainer.ExceedListOneFlat[baseContainer.ExceedListOneFlat.Count/2];
+//                var choiceOneFlat = baseContainer.ExceedListOneFlat[baseContainer.ExceedListOneFlat.Count/2];
+                var choiceOneFlat = baseContainer.ExceedListOneFlat[0]; // начинаем с первого
                 sortedListOneFlat.Remove(choiceOneFlat);
                 var arraySortedTwoApartments = baseContainer.ExceedListTwoFlat.ToArray();
                 var childContainers = new List<Container>();
@@ -92,10 +93,11 @@ namespace Resettlement
                 DeleteExceedFlat(childContainers);
 
                 //проверка и удаление по хешсету ветвей
-                var resultOfThinning = ThinningChain(childContainers, hashContainer); 
-
+                var resultOfThinning = ThinningChain(childContainers, hashContainer);
                 collectionContainers.Adds(resultOfThinning.Item1);
                 hashContainer = resultOfThinning.Item2;
+
+//                collectionContainers.Adds(childContainers);
             }
             return collectionContainers.Containers;
         }
@@ -122,7 +124,7 @@ namespace Resettlement
         // Проверка на то, что в списке контейнеров tempThreeContainers нет текущего контейнера
         private static bool ValidateToSameContainers(IEnumerable<Container> childContainers, Container newContainer)
         {
-            return childContainers.Any(container => Equals(newContainer.GetHashCode(), container.GetHashCode()));
+            return childContainers.Any(container => Equals(newContainer.Id, container.Id));
         }
 
         // Заполнение текущего контейнера данными
