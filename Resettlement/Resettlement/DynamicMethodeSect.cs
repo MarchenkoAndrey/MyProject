@@ -96,8 +96,6 @@ namespace Resettlement
                 var resultOfThinning = ThinningChain(childContainers, hashContainer);
                 collectionContainers.Adds(resultOfThinning.Item1);
                 hashContainer = resultOfThinning.Item2;
-
-//                collectionContainers.Adds(childContainers);
             }
             return collectionContainers.Containers;
         }

@@ -5,11 +5,11 @@ namespace Resettlement
 {
     public static class GroupingOnTheFloors
     {
-        private static DataInnerGrouping GeneralMethodGroup(int optCountF, int countFloor, List<double> listLenFlat, bool isOneFlat)
+        private static DataInnerGrouping CalculateGroupingFlat(int optCountFlat, int countFloor, List<double> listLenFlat, bool isOneFlat)
         {
             var dataInGrouping = new DataInnerGrouping();
             
-            if (listLenFlat.Count == optCountF)
+            if (listLenFlat.Count == optCountFlat)
             {
                 var resultTuple = EqualCountFlat(listLenFlat, dataInGrouping.FineFlat,
                     dataInGrouping.ListResultFlat, countFloor);
@@ -17,103 +17,106 @@ namespace Resettlement
                 dataInGrouping.ListResultFlat = resultTuple.Item2;
                 dataInGrouping.TotalFineFlatExcess = 0.0;
             }
-
             else
             {
                 // Если лишних >2, то для однушек удаляем самые маленькие квартиры, для двушек самые большие
-                var exceedValuesCount = listLenFlat.Count - optCountF;
-                var countExceedValuesMoreTwo = exceedValuesCount;
+                var totalExceedValuesCount = listLenFlat.Count - optCountFlat;
+                var countExcessValuesMoreTwo = totalExceedValuesCount;
                 var listAfterConversionTwoValues = new List<double>();
-                if (exceedValuesCount > 2)
+                if (totalExceedValuesCount > 2)
                 {
-                    countExceedValuesMoreTwo -= 2;
+                    countExcessValuesMoreTwo -= 2;
+                    // Флаг разделения ситуаций с однушками и двушками
                     if (isOneFlat)
                     {
-                        for (var index = 0; index < countExceedValuesMoreTwo; ++index)
+                        for (var index = 0; index < listLenFlat.Count; ++index)
                         {
-                            dataInGrouping.ListExcessFlat.Add(listLenFlat[index]);
-                        }
-                        for (var index = countExceedValuesMoreTwo; index < listLenFlat.Count; ++index)
-                        {
-                            listAfterConversionTwoValues.Add(listLenFlat[index]);
+                            if (index < countExcessValuesMoreTwo)
+                                dataInGrouping.ListExcessFlat.Add(listLenFlat[index]);
+                            else
+                                listAfterConversionTwoValues.Add(listLenFlat[index]);
                         }
                     }
                     else
                     {
-                        for (var index = 0; index < listLenFlat.Count - countExceedValuesMoreTwo; ++index)
+                        for (var index = 0; index < listLenFlat.Count; ++index)
                         {
-                            listAfterConversionTwoValues.Add(listLenFlat[index]);
-                        }
-                        for (var index = listLenFlat.Count - countExceedValuesMoreTwo; index < listLenFlat.Count; ++index)
-                        {
-                            dataInGrouping.ListExcessFlat.Add(listLenFlat[index]);
+                            if (index < listLenFlat.Count - countExcessValuesMoreTwo)
+                                listAfterConversionTwoValues.Add(listLenFlat[index]);
+                            else
+                                dataInGrouping.ListExcessFlat.Add(listLenFlat[index]);
                         }
                     }
-                    countExceedValuesMoreTwo = 2; // Если мы заходим в >2, то 100% лишних остается 2
+                    countExcessValuesMoreTwo = 2; // Если мы заходим в >2, то 100% остается в остатке 2.
                 }
 
+                //Todo What this??
                 var listFlatForCalculate = listAfterConversionTwoValues.Count != 0
                     ? listAfterConversionTwoValues
                     : listLenFlat;
 
-                if (countExceedValuesMoreTwo == 1)
+                var listExcessValue = new List<double>();
+                switch (countExcessValuesMoreTwo)
                 {
-                    var listExceedValue = new List<double>();
-                    foreach (var index in listFlatForCalculate)
-                    {
-                        var curData = new TempData();
-                        var currentListFlat = new List<double>(listFlatForCalculate);
-                        currentListFlat.Remove(index);
-                        
-                        var resultTuple = EqualCountFlat(currentListFlat, curData.CurrentFineFlat,
-                            curData.CurrentResultListFlat, countFloor);
-                        curData.CurrentFineFlat = resultTuple.Item1;
-                        curData.CurrentResultListFlat = resultTuple.Item2;
-
-                        if (curData.CurrentFineFlat < dataInGrouping.TotalFineFlatExcess)
+                    case 1:
+                        foreach (var index in listFlatForCalculate)
                         {
-                            dataInGrouping.TotalFineFlatExcess = Math.Round(curData.CurrentFineFlat, 1);
-                            dataInGrouping.ListResultFlat = curData.CurrentResultListFlat;
-                            if (listExceedValue.Count != 0)
-                            {
-                                listExceedValue.RemoveAt(0);
-                            }
-                            listExceedValue.Add(index);
-                        }
-                    }
-                    dataInGrouping.ListExcessFlat.AddRange(listExceedValue);
-                }
-                else // countExceedValuesMoreTwo == 2
-                {
-                    var listExceedValue = new List<double>();
-                    for (var index = 0; index < listFlatForCalculate.Count - 1; ++index)
-                    {
-                        var currentListFlat = new List<double>(listFlatForCalculate);
-                        currentListFlat.Remove(listFlatForCalculate[index]);
-
-                        for (var jndex = index + 1; jndex < listFlatForCalculate.Count; ++jndex)
-                        {
+                            //Todo rename
                             var curData = new TempData();
-                            var currentListFlat1 = new List<double>(currentListFlat);
-                            currentListFlat1.Remove(listFlatForCalculate[jndex]);                   
-                            var res = EqualCountFlat(currentListFlat1, curData.CurrentFineFlat,
+                            var currentListFlat = new List<double>(listFlatForCalculate);
+                            currentListFlat.Remove(index);
+                        
+                            var resultTuple = EqualCountFlat(currentListFlat, curData.CurrentFineFlat,
                                 curData.CurrentResultListFlat, countFloor);
-                            curData.CurrentFineFlat = res.Item1;
-                            curData.CurrentResultListFlat = res.Item2;
+                            curData.CurrentFineFlat = resultTuple.Item1;
+                            curData.CurrentResultListFlat = resultTuple.Item2;
 
-                            if (!(curData.CurrentFineFlat < dataInGrouping.TotalFineFlatExcess)) continue;
-                            dataInGrouping.TotalFineFlatExcess = Math.Round(curData.CurrentFineFlat, 1);
-                            dataInGrouping.ListResultFlat = curData.CurrentResultListFlat;
-                            if (listExceedValue.Count != 0)
+                            if (curData.CurrentFineFlat < dataInGrouping.TotalFineFlatExcess)
                             {
-                                listExceedValue.RemoveAt(0);
-                                listExceedValue.RemoveAt(0);
+                                dataInGrouping.TotalFineFlatExcess = Math.Round(curData.CurrentFineFlat, 1);
+                                dataInGrouping.ListResultFlat = curData.CurrentResultListFlat;
+                                if (listExcessValue.Count != 0)
+                                {
+                                    listExcessValue.RemoveAt(0);
+                                }
+                                listExcessValue.Add(index);
                             }
-                            listExceedValue.Add(listFlatForCalculate[index]);
-                            listExceedValue.Add(listFlatForCalculate[jndex]);
                         }
-                    }
-                    dataInGrouping.ListExcessFlat.AddRange(listExceedValue);
+                        dataInGrouping.ListExcessFlat.AddRange(listExcessValue);
+                        break;
+                   
+                    case 2:
+                        for (var index = 0; index < listFlatForCalculate.Count - 1; ++index)
+                        {
+                            var currentListFlat = new List<double>(listFlatForCalculate);
+                            currentListFlat.Remove(listFlatForCalculate[index]);
+
+                            for (var jndex = index + 1; jndex < listFlatForCalculate.Count; ++jndex)
+                            {
+                                var curData = new TempData();
+                                var currentListFlat1 = new List<double>(currentListFlat);
+                                currentListFlat1.Remove(listFlatForCalculate[jndex]);                   
+                                var res = EqualCountFlat(currentListFlat1, curData.CurrentFineFlat,
+                                    curData.CurrentResultListFlat, countFloor);
+                                curData.CurrentFineFlat = res.Item1;
+                                curData.CurrentResultListFlat = res.Item2;
+
+                                if (curData.CurrentFineFlat < dataInGrouping.TotalFineFlatExcess)
+                                {
+                                    dataInGrouping.TotalFineFlatExcess = Math.Round(curData.CurrentFineFlat, 1);
+                                    dataInGrouping.ListResultFlat = curData.CurrentResultListFlat;
+                                    if (listExcessValue.Count != 0)
+                                    {
+                                        listExcessValue.RemoveAt(0);
+                                        listExcessValue.RemoveAt(0);
+                                    }
+                                    listExcessValue.Add(listFlatForCalculate[index]);
+                                    listExcessValue.Add(listFlatForCalculate[jndex]);
+                                }
+                            }
+                        }
+                        dataInGrouping.ListExcessFlat.AddRange(listExcessValue);
+                        break;
                 }
             }
             return dataInGrouping;
@@ -124,16 +127,21 @@ namespace Resettlement
             data.ListLenOneFlat.Sort();
             data.ListLenTwoFlat.Sort();
 
-            var resultOneFlat = GeneralMethodGroup(data.OptCountFlat, data.CountFloor, data.ListLenOneFlat, true);
-            var resultTwoFlat = GeneralMethodGroup(data.OptCountFlat, data.CountFloor, data.ListLenTwoFlat, false);
-
-            //Todo rewrite!
-            resultOneFlat.FineFlat = Math.Abs(resultOneFlat.FineFlat) < 1e-9 ? resultOneFlat.TotalFineFlatExcess : resultOneFlat.FineFlat;
-            resultTwoFlat.FineFlat = Math.Abs(resultTwoFlat.FineFlat) < 1e-9 ? resultTwoFlat.TotalFineFlatExcess : resultTwoFlat.FineFlat;
-            var totalFine = Math.Round(resultOneFlat.FineFlat + resultTwoFlat.FineFlat, 1);
+            var resultOneFlat = CalculateGroupingFlat(data.OptCountFlat, data.CountFloor, data.ListLenOneFlat, true);
+            var resultTwoFlat = CalculateGroupingFlat(data.OptCountFlat, data.CountFloor, data.ListLenTwoFlat, false);
+            var totalFine = CalculateTotalFine(resultOneFlat, resultTwoFlat);
 
             return new ResultDataAfterGrouping(resultOneFlat.ListResultFlat, resultTwoFlat.ListResultFlat,
                 totalFine, resultOneFlat.ListExcessFlat, resultTwoFlat.ListExcessFlat);
+        }
+
+        private static double CalculateTotalFine(DataInnerGrouping resultOneFlat, DataInnerGrouping resultTwoFlat)
+        {
+            if (resultOneFlat.FineFlat < 0.1)
+                resultOneFlat.FineFlat = resultOneFlat.TotalFineFlatExcess;
+            if (resultTwoFlat.FineFlat < 0.1)
+                resultTwoFlat.FineFlat = resultTwoFlat.TotalFineFlatExcess;
+            return Math.Round(resultOneFlat.FineFlat + resultTwoFlat.FineFlat, 1);
         }
 
         private static Tuple<double, List<double>> EqualCountFlat(IReadOnlyList<double> listFlat, double fineFlat,

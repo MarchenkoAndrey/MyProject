@@ -5,7 +5,7 @@ namespace Resettlement
     public class TempData
     {
         public List<double> CurrentResultListFlat { get; set; }
-        public double CurrentFineFlat;
+        public double CurrentFineFlat { get; set; }
 
         public TempData()
         {

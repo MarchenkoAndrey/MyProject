@@ -25,7 +25,6 @@ namespace Resettlement
             resultGreedyLabel.Text +=
                  string.Format(MessagesText.ValueFunctionalF, data.Fine).ToString(CultureInfo.InvariantCulture);
 
-            
             if (!flagIsNotFinish)
             {
                 for (var numberFloor = 0; numberFloor < countFloor; ++numberFloor)
