@@ -74,7 +74,6 @@
     <Compile Include="SpecificMethods.cs" />
     <Compile Include="StartAndFinishProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TempData.cs" />
     <Compile Include="Tests.cs" />
     <Compile Include="UserInterface.cs">
       <SubType>Form</SubType>
