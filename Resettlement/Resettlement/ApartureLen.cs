@@ -11,7 +11,6 @@ namespace Resettlement
         public DataContainer DataContainer;
         public double ExtraSquare { get; set; }  // штраф за необходимость расстояния для вставки входной двери
         public double Fine { get; set; }
-
         public ApartureLen(double a1, double a2, double b1, double b2)
         {
             DataContainer = new DataContainer

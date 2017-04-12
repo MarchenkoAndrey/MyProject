@@ -11,7 +11,7 @@ namespace ComputationMethods
 		{
 		    return
 		        RecordingInputDataInList(
-		            File.ReadAllLines(Path.Combine(@"D:\MyProject\MyProject\Resettlement\ComputationMethods\Examples",
+		            File.ReadAllLines(Path.Combine(@"D:\MyProject\MyProject\Resettlement\ComputationMethods\TestExamples",
 		                fileName)));
 		}
 

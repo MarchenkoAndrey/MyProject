@@ -22,7 +22,9 @@ namespace Resettlement
                 // Если лишних >2, то для однушек удаляем самые маленькие квартиры, для двушек самые большие
                 var totalExcessValuesCount = listFlat.Count - optCountFlat;
                 var countExcessValuesMoreTwo = totalExcessValuesCount-2; // сколько лишних квартир сверх числа 2.
-                var countExcessValuesLessTwo = totalExcessValuesCount > 2 ? totalExcessValuesCount - countExcessValuesMoreTwo : totalExcessValuesCount;
+                var countExcessValuesLessTwo = totalExcessValuesCount > 2
+                    ? totalExcessValuesCount - countExcessValuesMoreTwo
+                    : totalExcessValuesCount;
                 var listAfterConversionTwoValues = new List<double>();
                 if (countExcessValuesMoreTwo > 0)
                 {
@@ -80,7 +82,6 @@ namespace Resettlement
                                 listExcessValue.Add(index);
                             }
                         }
-                        dataInGrouping.ListExcessFlat.AddRange(listExcessValue);
                         break;
                    
                     case 2:
@@ -93,12 +94,12 @@ namespace Resettlement
                             {
                                 var currentFineFlat = 0.0;
                                 var currentResultListFlat = new List<double>();
-                                var currentListFlat1 = new List<double>(currentListFlat);
-                                currentListFlat1.Remove(listFlatForCalculate[jndex]);                   
-                                var res = EqualCountFlat(currentListFlat1, currentFineFlat,
+                                var currentListFlatCopy = new List<double>(currentListFlat);
+                                currentListFlatCopy.Remove(listFlatForCalculate[jndex]);                   
+                                var resultTuple = EqualCountFlat(currentListFlatCopy, currentFineFlat,
                                     currentResultListFlat, countFloor);
-                                currentFineFlat = res.Item1;
-                                currentResultListFlat = res.Item2;
+                                currentFineFlat = resultTuple.Item1;
+                                currentResultListFlat = resultTuple.Item2;
 
                                 if (currentFineFlat < dataInGrouping.TotalFineFlatExcess)
                                 {
@@ -114,9 +115,9 @@ namespace Resettlement
                                 }
                             }
                         }
-                        dataInGrouping.ListExcessFlat.AddRange(listExcessValue);
                         break;
                 }
+                dataInGrouping.ListExcessFlat.AddRange(listExcessValue);
             }
             return dataInGrouping;
         }

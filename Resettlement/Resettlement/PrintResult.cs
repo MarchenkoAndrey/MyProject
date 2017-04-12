@@ -9,7 +9,7 @@ namespace Resettlement
     public static class PrintResult
     {
         public static void GreedyIterationPrintResult(ResultGreedyMethode data, int countFloor, bool flagIsNotFinish, Label resultGreedyLabel)
-        {
+        {       
             if (flagIsNotFinish)
             {
                 resultGreedyLabel.Text +=
