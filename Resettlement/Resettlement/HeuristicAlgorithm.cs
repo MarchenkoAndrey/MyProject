@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
+using System.IO.Pipes;
 using System.Linq;
+using System.Text;
 using ComputationMethods;
 using ComputationMethods.GeneralData;
 
@@ -31,6 +34,23 @@ namespace Resettlement
             dataAlg.ListLenTwoFlat =
                 PreparationSquares.FlatsWithTheAdditiveLength(resultDataAfterGrouping.ListResultTwoFlat);
             dataAlg.FineAfterGrouping = resultDataAfterGrouping.Fine;
+
+            var str1 = new StringBuilder();
+            var str2 = new StringBuilder();
+            foreach (var elem in dataAlg.ListLenOneFlat)
+            {
+                str1.Append(elem + " ");
+            }
+
+            foreach (var elem in dataAlg.ListLenTwoFlat)
+            {
+                str2.Append(elem + " ");
+            }
+
+            File.WriteAllText(@"C:\Users\marchenko.a\Downloads\Модифицированная Статья\ExampleTwoFirstList.txt", str1.ToString());
+            File.WriteAllText(@"C:\Users\marchenko.a\Downloads\Модифицированная Статья\ExampleTwoSecondList.txt", str2.ToString());
+
+            
 
             var myStopWatchGreedy = new Stopwatch();
             myStopWatchGreedy.Start();
