@@ -49,6 +49,7 @@
     <Compile Include="ComprehensiveSearch.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ConstraintLengthApartureForCS.cs" />
     <Compile Include="Container.cs" />
     <Compile Include="DataContainer.cs" />
     <Compile Include="DynamicMethodeSect.cs" />

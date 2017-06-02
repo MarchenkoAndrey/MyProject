@@ -37,6 +37,7 @@ namespace Resettlement
             fullSearch.ListExcessOneFlat = resultDataAfterGrouping.ListExcessOneFlat;
             fullSearch.ListExcessTwoFlat = resultDataAfterGrouping.ListExcessTwoFlat;
 
+
             PrintResult.FullSearchPrintResult(fullSearch, inData.CountFloor, resultFullSearch_label);
 
             myStopWatch.Stop();

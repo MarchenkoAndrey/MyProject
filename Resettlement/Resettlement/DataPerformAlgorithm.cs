@@ -14,5 +14,12 @@ namespace Resettlement
             ListLenTwoFlat = listLenTwoFlat;
             FineAfterGrouping = 0.0;
         }
+
+        public DataPerformAlgorithm(List<double> listLenOneFlat, List<double> listLenTwoFlat, double fine)
+        {
+            ListLenOneFlat = listLenOneFlat;
+            ListLenTwoFlat = listLenTwoFlat;
+            FineAfterGrouping = fine;
+        }
     }
 }

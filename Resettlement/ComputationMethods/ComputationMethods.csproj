@@ -41,7 +41,6 @@
   <ItemGroup>
     <Compile Include="BuildingPermutationPairs.cs" />
     <Compile Include="Calculate.cs" />
-    <Compile Include="ConstraintLengthApartureForCS.cs" />
     <Compile Include="CreatePermWithOddParam.cs" />
     <Compile Include="GeneralData\Constraints.cs" />
     <Compile Include="GeneralData\ErrorsText.cs" />
