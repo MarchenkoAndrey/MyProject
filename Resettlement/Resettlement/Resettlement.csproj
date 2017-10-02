@@ -70,6 +70,7 @@
     <Compile Include="InputConstraints.cs" />
     <Compile Include="MethodeFullSearch.cs" />
     <Compile Include="PrintResult.cs" />
+    <Compile Include="ResultAddingPlace.cs" />
     <Compile Include="ResultDataAfterGrouping.cs" />
     <Compile Include="ResultGreedyMethode.cs" />
     <Compile Include="SpecificMethods.cs" />

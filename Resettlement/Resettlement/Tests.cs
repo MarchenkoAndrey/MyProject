@@ -82,7 +82,7 @@ namespace Resettlement
             const double startFlat = 0.0;
             var list1 = new List<double> { 3.9, 6.6, 6.6, 7.2 };
             var list2 = new List<double> { 7.5, 7.5, 7.8, 8.1 };
-            var optItem1 = new List<double> { 3.9, 6.6, 6.6, 7.2 };
+            var optItem1 = new List<double> { 6.0, 6.6, 6.6, 7.2 };
             var optItem2 = new List<double> { 8.1, 8.1, 8.7, 7.5 };
             
             var result = GreedyMethodeSect.GreedyMethode(new DataMethode(list1, list2, optCountFlat), startFlat,"Middle");
@@ -160,7 +160,7 @@ namespace Resettlement
             const double optFine = 3.6;
             var list1 = new List<double> { 3.9, 6.6, 6.6, 7.2 };
             var list2 = new List<double> { 7.5, 7.5, 7.8, 8.1 };
-            var optItem1 = new List<double> { 3.9, 6.6, 6.6, 7.2 };
+            var optItem1 = new List<double> { 6.0, 6.6, 6.6, 7.2 };
             var optItem2 = new List<double> { 8.1, 8.1, 8.7, 7.5 };
 
             var result = MethodeFullSearch.FullSearch(new DataPerformAlgorithm(list1, list2), optCountFlat);

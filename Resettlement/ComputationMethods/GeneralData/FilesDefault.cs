@@ -2,8 +2,8 @@
 {
     public static class FilesDefault
     {
-        public const string DefaultListOneFlat = "OneRoom20.txt";
-        public const string DefaultListTwoFlat = "TwoRoom20.txt";
+        public const string DefaultListOneFlat = "OneRoom12.txt";
+        public const string DefaultListTwoFlat = "TwoRoom12.txt";
     }
 }
 

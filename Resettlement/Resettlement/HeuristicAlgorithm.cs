@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
-using System.IO;
-using System.IO.Pipes;
 using System.Linq;
-using System.Text;
 using ComputationMethods;
 using ComputationMethods.GeneralData;
 
@@ -34,7 +31,9 @@ namespace Resettlement
             dataAlg.ListLenTwoFlat =
                 PreparationSquares.FlatsWithTheAdditiveLength(resultDataAfterGrouping.ListResultTwoFlat);
             dataAlg.FineAfterGrouping = resultDataAfterGrouping.Fine;
-
+            
+            //for print in txt-file
+            /*
             var str1 = new StringBuilder();
             var str2 = new StringBuilder();
             foreach (var elem in dataAlg.ListLenOneFlat)
@@ -47,10 +46,9 @@ namespace Resettlement
                 str2.Append(elem + " ");
             }
 
-            File.WriteAllText(@"C:\Users\marchenko.a\Downloads\Модифицированная Статья\ExampleTwoFirstList.txt", str1.ToString());
-            File.WriteAllText(@"C:\Users\marchenko.a\Downloads\Модифицированная Статья\ExampleTwoSecondList.txt", str2.ToString());
-
-            
+           File.WriteAllText(@"C:\Users\marchenko.a\Downloads\Модифицированная Статья\ExampleTwoFirstList.txt", str1.ToString());
+           File.WriteAllText(@"C:\Users\marchenko.a\Downloads\Модифицированная Статья\ExampleTwoSecondList.txt", str2.ToString());
+           */
 
             var myStopWatchGreedy = new Stopwatch();
             myStopWatchGreedy.Start();
@@ -83,7 +81,7 @@ namespace Resettlement
                         totalOptimalResult = resultGreedyIter;
                     }
                     //Вывод результата по итерациям
-                   PrintResult.GreedyIterationPrintResult(resultGreedyIter, inData.CountFloor, true, resultGreedy_label);
+                   //PrintResult.GreedyIterationPrintResult(resultGreedyIter, inData.CountFloor, true, resultGreedy_label);
                     numberIteration++;
                     if(numberIteration>Constraints.NumberOfIteration)
                         resultList.Results.Add(totalOptimalResult);

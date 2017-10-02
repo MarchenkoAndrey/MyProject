@@ -133,6 +133,23 @@ namespace Resettlement
                 }
 
             }
+            //приведение длин для конечного отображения
+            for(var k=0; k<finalPlacementOneFlat.Length; k=k+2)
+            {
+                var resultAddingPlace =
+                  ResultAddingPlace.CalculateAddingPlace(new DataContainer
+                  {
+                      A1 = finalPlacementOneFlat[k],
+                      A2 = finalPlacementOneFlat[k + 1],
+                      B1 = finalPlacementTwoFlat[k],
+                      B2 = finalPlacementTwoFlat[k + 1]
+                  },
+                  0.3);
+                finalPlacementOneFlat[k] = resultAddingPlace.A1;
+                finalPlacementOneFlat[k + 1] = resultAddingPlace.A2;
+            }
+            
+
             return new ResultGreedyMethode(resultGreedy.Fine, finalPlacementOneFlat.ToList(), finalPlacementTwoFlat.ToList(),
                   resultGreedy.NewFirstOneFlat);
         }
