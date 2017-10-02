@@ -27,7 +27,7 @@ namespace Resettlement
 				foreach (var j in permutDataTwoFlat.ListVariantsFlat)
 				{
                     countJ++;
-                    var resultApartLen = ConstraintLengthApartureForCs.LengthAparture(i, j, Constraints.DefaultH, Constraints.EntrywayLength);
+                    var resultApartLen = CreatePlacementForCompSearch.CreatePlacement(i, j, Constraints.DefaultH);
 
 				    if (!(resultApartLen.FineAfterGrouping < totalOptimalExceedSquare)) continue;
 				    totalOptimalExceedSquare = Math.Round(resultApartLen.FineAfterGrouping, 1);

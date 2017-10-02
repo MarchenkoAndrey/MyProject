@@ -88,6 +88,7 @@ namespace Resettlement
         }
 
         // Вычисляет штраф текущего контейнера
+        //Todo здесь апдейтить длины
         public static ApartureLen CalculateOptimalPackContainer(ApartureLen data, double step)
         {
             if (data.DataContainer.B1 - data.DataContainer.A1 < Constraints.ApartureLength)

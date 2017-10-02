@@ -11,7 +11,6 @@ namespace Resettlement
             var listLenOneFlat = new List<double>(dataGrM.ListLenOneFlat);
             var listLenTwoFlat = new List<double>(dataGrM.ListLenTwoFlat);
 
-            //Todo Зачем все эти объявления?? В конструктор
             var resultGreedy = new ResultGreedyMethode();
             var finalPlacementOneFlat = new double[dataGrM.OptCountFlatOnFloor];
             var finalPlacementTwoFlat = new double[dataGrM.OptCountFlatOnFloor];
@@ -50,7 +49,7 @@ namespace Resettlement
                 var fine = double.MaxValue;
 
                 finalPlacementOneFlat[n] = choiceOneFlat;
-                var arraySortedTwoApartments = listLenTwoFlat.ToArray();
+                var arraySortedTwoFlat = listLenTwoFlat.ToArray();
 
                 for (var i = 0; i < listLenTwoFlat.Count; ++i)
                 {
@@ -59,9 +58,9 @@ namespace Resettlement
                         foreach (var t in sortedListOneFlat)
                         {
                             double[] currentMassiv;
-                            Array.Copy(arraySortedTwoApartments,
-                                currentMassiv = new double[arraySortedTwoApartments.Length],
-                                arraySortedTwoApartments.Length);
+                            Array.Copy(arraySortedTwoFlat,
+                                currentMassiv = new double[arraySortedTwoFlat.Length],
+                                arraySortedTwoFlat.Length);
 
                             ApartureLen resultPackSectReverse;
                             switch (dataGrM.OptCountFlatOnFloor-n)
