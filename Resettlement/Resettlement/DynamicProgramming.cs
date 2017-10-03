@@ -39,7 +39,7 @@ namespace Resettlement
             // Backtracking for optimal solution
             var backTrackingResult = BackTrackForDynPr.BackTracking(resultListDynM);
 
-            // Print Result ( штраф по этажам и от группировки считаем внутри печати )
+            // Print Result ( штраф по этажам и от группировки считаем внутри печати, а также приведение площадей)
             PrintResult.DynamicProgrammingPrintResult(backTrackingResult, inData.CountFloor, resultDataAfterGrouping, resultDynam_label);
             
             myStopWatchDynamic.Stop();

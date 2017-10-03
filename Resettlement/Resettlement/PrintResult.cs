@@ -83,15 +83,18 @@ namespace Resettlement
                     .ToString(CultureInfo.InvariantCulture);
 
             //Превращаем в список для удобного отображения
-                var listOneFlat = new List<double>();
-                var listTwoFlat = new List<double>();
-                foreach (var container in listContainers)
-                {
-                    listOneFlat.Add(container.DataContainer.A1);
-                    listOneFlat.Add(container.DataContainer.A2);
-                    listTwoFlat.Add(container.DataContainer.B1);
-                    listTwoFlat.Add(container.DataContainer.B2);
-                }
+            var listOneFlat = new List<double>();
+            var listTwoFlat = new List<double>();
+                
+            foreach (var container in listContainers)
+            {
+                //Приведение длин для конечного отображения
+                var resultAddingPlace = ResultAddingPlace.CalculateAddingPlace(container.DataContainer, 0.3);
+                listOneFlat.Add(resultAddingPlace.A1);
+                listOneFlat.Add(resultAddingPlace.A2);
+                listTwoFlat.Add(container.DataContainer.B1);
+                listTwoFlat.Add(container.DataContainer.B2);
+            }
 
             for (var numberFloor = 0; numberFloor < countFloor; ++numberFloor)
             {
