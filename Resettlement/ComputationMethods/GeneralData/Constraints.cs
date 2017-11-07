@@ -1,4 +1,6 @@
-﻿namespace ComputationMethods.GeneralData
+﻿using System.CodeDom;
+
+namespace ComputationMethods.GeneralData
 {
     public static class Constraints
     {
@@ -28,6 +30,24 @@
 
         public const double AddingA = 3 * WallsWidth + EntrywayLength;
         public const double AddingB = 2 * WallsWidth;
+
+        //ExtendedVersion
+
+        public const bool IsExtendedVersion = true; 
+
+        //балкон
+        public const double LengthBalcony = 2.4;
+        public const double WidthBalcony = 0.9;
+        public const double SquareBalcony = 2.16;
+        //коридор
+        public const double WidthCorridor = 1.5;
+        public const double MinLengthCorridor = 4.5; // 2.7 + 0.9 * 2
+
+        public const double CommonSquareWithEntryway = 4.05; // 2.7 * 1.5
+        public const double MinSquareCorridor = 6.75; // CommonSquareWithEntryway + 2 * 0.9 * 1.5
+
+
+
 
     }
 }

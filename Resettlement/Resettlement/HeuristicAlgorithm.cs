@@ -23,7 +23,9 @@ namespace Resettlement
                 string.Format(MessagesText.RealizationForRectangles, flatCount).ToString(CultureInfo.InvariantCulture);
 //            lossesOne_label.Text += string.Format(MessagesText.SummarizeAdditionLengthForH, inData.SumDelta.ToString(CultureInfo.InvariantCulture));
 
-            var dataAlg = new DataPerformAlgorithm(inData.ListLenOneFlat, inData.ListLenTwoFlat);
+
+            //var dataAlg = new DataPerformAlgorithm(inData.ListLenOneFlat, inData.ListLenTwoFlat);
+            var dataAlg = new DataPerformAlgorithm();
 
             var resultDataAfterGrouping = GroupingOnTheFloors.GroupingFlat(inData);
             dataAlg.ListLenOneFlat =
