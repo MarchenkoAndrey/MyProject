@@ -7,7 +7,7 @@ namespace Resettlement
 {
     public static class DynamicMethodeSect
     {
-        public static List<Container> DynamicMethode(DataMethode data)
+        public static List<Container> DynamicMethode(DataMethode data, bool isVersion)
         {
             var collectionContainers = new CollectionContainers(data);
             var hashContainer = new HashSet<double>{0.0};
@@ -41,7 +41,7 @@ namespace Resettlement
                                 arraySortedTwoApartments.Length);
 
                             var resultPackSect = MethodsForApartureLen.OptimalPackContainer(choiceOneFlat, t, currentMassiv[i],
-                                currentMassiv[j], data.WallsWidth);
+                                currentMassiv[j], data.WallsWidth, isVersion);
 
                             // Претендент на запись выбран. Заполнение претендента
                             newContainer = FillingData(newContainer, resultPackSect, baseContainer.Id);

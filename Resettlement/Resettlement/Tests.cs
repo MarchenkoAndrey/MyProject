@@ -85,7 +85,7 @@ namespace Resettlement
             var optItem1 = new List<double> { 6.0, 6.6, 6.6, 7.2 };
             var optItem2 = new List<double> { 8.1, 8.1, 8.7, 7.5 };
             
-            var result = GreedyMethodeSect.GreedyMethode(new DataMethode(list1, list2, optCountFlat), startFlat,"Middle");
+            var result = GreedyMethodeSect.GreedyMethode(new DataMethode(list1, list2, optCountFlat), startFlat,"Middle", false);
             Assert.AreEqual(result.FinalPlaceOneFlat.Except(optItem1).ToList().Count, 0);
             Assert.AreEqual(result.FinalPlaceTwoFlat.Except(optItem2).ToList().Count, 0);
             Assert.AreEqual(result.Fine, optFine);
@@ -106,7 +106,7 @@ namespace Resettlement
             var optItem1 = new List<double> { 3.9, 6.0, 6.6, 6.6, 6.6, 7.2 };
             var optItem2 = new List<double> { 8.1, 8.7, 8.1, 7.5, 8.1, 7.5 };
 
-            var result = GreedyMethodeSect.GreedyMethode(new DataMethode(list1, list2, optCountFlat), startFlat, "Middle");
+            var result = GreedyMethodeSect.GreedyMethode(new DataMethode(list1, list2, optCountFlat), startFlat, "Middle", false);
             Assert.AreEqual(result.FinalPlaceOneFlat.Except(optItem1).ToList().Count, 0);
             Assert.AreEqual(result.FinalPlaceTwoFlat.Except(optItem2).ToList().Count, 0);
             Assert.AreEqual(result.Fine, optFine);
@@ -127,7 +127,7 @@ namespace Resettlement
             var optItem1 = new List<double> { 3.9, 6.0, 6.6, 6.6, 6.6, 7.2 };
             var optItem2 = new List<double> { 8.1, 8.7, 8.1, 7.5, 8.1, 7.5 };
 
-            var result = GreedyMethodeSect.GreedyMethode(new DataMethode(list1, list2, optCountFlat), startFlat, "Middle");
+            var result = GreedyMethodeSect.GreedyMethode(new DataMethode(list1, list2, optCountFlat), startFlat, "Middle",false);
             Assert.AreEqual(result.FinalPlaceOneFlat.Except(optItem1).ToList().Count, 0);
             Assert.AreEqual(result.FinalPlaceTwoFlat.Except(optItem2).ToList().Count, 0);
             Assert.AreEqual(result.Fine, optFine);
@@ -183,7 +183,7 @@ namespace Resettlement
             var listOneFlat = new List<double>();
             var listTwoFlat = new List<double>();
 
-            var result = DynamicMethodeSect.DynamicMethode(new DataMethode(list1, list2, optCountFlat));
+            var result = DynamicMethodeSect.DynamicMethode(new DataMethode(list1, list2, optCountFlat), false);
             var listContainers = BackTrackForDynPr.BackTracking(result);
             
             Assert.AreEqual(Math.Round(listContainers.Last().FineChain,1), optFine);

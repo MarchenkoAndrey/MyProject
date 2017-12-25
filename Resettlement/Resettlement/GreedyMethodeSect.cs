@@ -6,7 +6,7 @@ namespace Resettlement
 {
     public static class GreedyMethodeSect
     {
-        public static ResultGreedyMethode GreedyMethode(DataMethode dataGrM, double firstOneFlat, string positionStart)
+        public static ResultGreedyMethode GreedyMethode(DataMethode dataGrM, double firstOneFlat, string positionStart, bool isVersion)
         {
             var listLenOneFlat = new List<double>(dataGrM.ListLenOneFlat);
             var listLenTwoFlat = new List<double>(dataGrM.ListLenTwoFlat);
@@ -70,7 +70,7 @@ namespace Resettlement
                                     resultPackSectReverse =
                                         MethodsForApartureLen.CalculateOptimalPackContainer(
                                             new ApartureLen(choiceOneFlat, t, currentMassiv[j],
-                                                currentMassiv[i]), dataGrM.WallsWidth);
+                                                currentMassiv[i]), dataGrM.WallsWidth, isVersion);
                                     break;
                                 }
                                 
@@ -81,8 +81,10 @@ namespace Resettlement
                             var resultPackSect =
                                 MethodsForApartureLen.CalculateOptimalPackContainer(
                                     new ApartureLen(choiceOneFlat, t, currentMassiv[i],
-                                        currentMassiv[j]), dataGrM.WallsWidth);
+                                        currentMassiv[j]), dataGrM.WallsWidth, isVersion);
 
+                            //Todo change expression 2.4 = parameters: p1 p2
+                            /*
                             var currentFineReverse =
                                 Math.Abs(Math.Round(
                                     resultPackSectReverse.DataContainer.B1 + resultPackSectReverse.DataContainer.B2 + dataGrM.AddingB -
@@ -94,7 +96,22 @@ namespace Resettlement
                                     resultPackSect.DataContainer.B1 + resultPackSect.DataContainer.B2 + dataGrM.AddingB -
                                     (resultPackSect.DataContainer.A1 + resultPackSect.DataContainer.A2 + dataGrM.AddingA)
                                     + resultPackSect.ExtraSquare, 1));
+                            */
+                           var currentFineReverse =
+                           Math.Abs(Math.Round(
+                               resultPackSectReverse.DataContainer.B1 - 2.4 + resultPackSectReverse.DataContainer.B2 - 2.4 
+                               + dataGrM.EntrywayPlusCorridor + 2 * dataGrM.WallsWidth -
+                               (resultPackSectReverse.DataContainer.A1 + 2.4 + resultPackSectReverse.DataContainer.A2 + 2.4
+                               + 2 * dataGrM.WallsWidth)
+                               + resultPackSectReverse.ExtraSquare, 1));
 
+                           var currentFine =
+                                Math.Abs(Math.Round(
+                                    resultPackSect.DataContainer.B1 -2.4 + resultPackSect.DataContainer.B2 - 2.4
+                                    + dataGrM.EntrywayPlusCorridor + 2 * dataGrM.WallsWidth -
+                                    (resultPackSect.DataContainer.A1 +2.4 + resultPackSect.DataContainer.A2 + 2.4
+                                    + 2 * dataGrM.WallsWidth)
+                                    + resultPackSect.ExtraSquare, 1));
                             if (currentFineReverse < currentFine)
                             {
                                 currentFine = currentFineReverse;
@@ -134,21 +151,24 @@ namespace Resettlement
 
             }
             //приведение длин для конечного отображения
-            for(var k=0; k<finalPlacementOneFlat.Length; k=k+2)
+            if (!isVersion)
             {
-                var resultAddingPlace =
-                  ResultAddingPlace.CalculateAddingPlace(new DataContainer
-                  {
-                      A1 = finalPlacementOneFlat[k],
-                      A2 = finalPlacementOneFlat[k + 1],
-                      B1 = finalPlacementTwoFlat[k],
-                      B2 = finalPlacementTwoFlat[k + 1]
-                  },
-                  0.3);
-                finalPlacementOneFlat[k] = resultAddingPlace.A1;
-                finalPlacementOneFlat[k + 1] = resultAddingPlace.A2;
+                for (var k = 0; k < finalPlacementOneFlat.Length; k = k + 2)
+                {
+                    //Todo update version
+                    var resultAddingPlace =
+                        ResultAddingPlace.CalculateAddingPlace(new DataContainer
+                        {
+                            A1 = finalPlacementOneFlat[k],
+                            A2 = finalPlacementOneFlat[k + 1],
+                            B1 = finalPlacementTwoFlat[k],
+                            B2 = finalPlacementTwoFlat[k + 1]
+                        },
+                            0.3);
+                    finalPlacementOneFlat[k] = resultAddingPlace.A1;
+                    finalPlacementOneFlat[k + 1] = resultAddingPlace.A2;
+                }
             }
-            
 
             return new ResultGreedyMethode(resultGreedy.Fine, finalPlacementOneFlat.ToList(), finalPlacementTwoFlat.ToList(),
                   resultGreedy.NewFirstOneFlat);

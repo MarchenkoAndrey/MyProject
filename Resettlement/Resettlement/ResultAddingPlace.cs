@@ -18,6 +18,9 @@ namespace Resettlement
             FineContainer = fineContainer;
         }
 
+        //Todo Переделать метод под EXTENDED, если надо
+
+        //Приведение длин для отображения на экране как конечный результат
         public static ResultAddingPlace CalculateAddingPlace(DataContainer container, double step)
         {
             //Считаем длину нижней части секции (lengthA) и верхней части секции (lengthB) у контейнера

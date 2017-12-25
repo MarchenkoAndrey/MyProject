@@ -23,8 +23,6 @@ namespace Resettlement
                 string.Format(MessagesText.RealizationForRectangles, flatCount).ToString(CultureInfo.InvariantCulture);
 //            lossesOne_label.Text += string.Format(MessagesText.SummarizeAdditionLengthForH, inData.SumDelta.ToString(CultureInfo.InvariantCulture));
 
-
-            //var dataAlg = new DataPerformAlgorithm(inData.ListLenOneFlat, inData.ListLenTwoFlat);
             var dataAlg = new DataPerformAlgorithm();
 
             var resultDataAfterGrouping = GroupingOnTheFloors.GroupingFlat(inData);
@@ -52,6 +50,8 @@ namespace Resettlement
            File.WriteAllText(@"C:\Users\marchenko.a\Downloads\Модифицированная Статья\ExampleTwoSecondList.txt", str2.ToString());
            */
 
+            //Todo уже приведено, осталось собрать секцию
+
             var myStopWatchGreedy = new Stopwatch();
             myStopWatchGreedy.Start();
            
@@ -68,7 +68,7 @@ namespace Resettlement
                     var resultGreedyIter =
                         GreedyMethodeSect.GreedyMethode(
                             new DataMethode(dataAlg.ListLenOneFlat, dataAlg.ListLenTwoFlat, inData.OptCountFlatOnFloor),
-                            firstOneFlat,flag);
+                            firstOneFlat,flag, Constraints.VersionExtended);
                     firstOneFlat = resultGreedyIter.NewFirstOneFlat;
                     resultGreedyIter.NumIter = numberIteration;
                     resultGreedyIter.Fine = Math.Round(resultGreedyIter.Fine*inData.CountFloor, 1);

@@ -56,17 +56,17 @@ namespace Resettlement
     public static class MethodsForApartureLen
     {
         // Из имеющихся 4 квартир строит оптимальным образом контейнер
-        public static ApartureLen OptimalPackContainer(double choiceOneFlat, double t, double i, double j, double wallsWidth)
+        public static ApartureLen OptimalPackContainer(double choiceOneFlat, double t, double i, double j, double wallsWidth, bool isVersion)
         {
             var resultPackSect =
                 CalculateOptimalPackContainer(
                     new ApartureLen(choiceOneFlat, t, i,
-                        j), wallsWidth);
+                        j), wallsWidth, isVersion);
 
             var resultPackSectRev =
                 CalculateOptimalPackContainer(
                     new ApartureLen(choiceOneFlat, t, j,
-                        i), wallsWidth);
+                        i), wallsWidth, isVersion);
 
             return CalculateOptimalContainerWithMinFine(new List<ApartureLen>{resultPackSect, resultPackSectRev});
         }
@@ -87,13 +87,14 @@ namespace Resettlement
                 .Take(1).First();
         }
 
-        // Вычисляет штраф текущего контейнера
-        //Todo здесь апдейтить длины
-        public static ApartureLen CalculateOptimalPackContainer(ApartureLen data, double step)
+        // Вычисляет штраф текущего контейнера с учетом ограничения на двери
+        public static ApartureLen CalculateOptimalPackContainer(ApartureLen data, double step, bool isVersion)
         {
+            if (isVersion) return data; // в схеме с коридорами не нужно ограничение на двери
             if (data.DataContainer.B1 - data.DataContainer.A1 < Constraints.ApartureLength)
             {
-                var tempFine1 = Math.Round(Constraints.ApartureLength - (data.DataContainer.B1 - data.DataContainer.A1), 2);
+                var tempFine1 =
+                    Math.Round(Constraints.ApartureLength - (data.DataContainer.B1 - data.DataContainer.A1), 2);
                 if (tempFine1 <= step)
                 {
                     data.DataContainer.B1 += Math.Round(step, 1);
@@ -101,13 +102,14 @@ namespace Resettlement
                 }
                 else
                 {
-                    data.DataContainer.B1 += Math.Round(Math.Ceiling(tempFine1 / step) * step, 1);
-                    data.ExtraSquare += Math.Round(Math.Ceiling(tempFine1 / step) * step, 1);
+                    data.DataContainer.B1 += Math.Round(Math.Ceiling(tempFine1/step)*step, 1);
+                    data.ExtraSquare += Math.Round(Math.Ceiling(tempFine1/step)*step, 1);
                 }
             }
             if (data.DataContainer.B2 - data.DataContainer.A2 < Constraints.ApartureLength)
             {
-                var tempFine2 = Math.Round(Constraints.ApartureLength - (data.DataContainer.B2 - data.DataContainer.A2), 2);
+                var tempFine2 =
+                    Math.Round(Constraints.ApartureLength - (data.DataContainer.B2 - data.DataContainer.A2), 2);
                 if (tempFine2 <= step)
                 {
                     data.DataContainer.B2 += Math.Round(step, 1);
@@ -115,8 +117,8 @@ namespace Resettlement
                 }
                 else
                 {
-                    data.DataContainer.B2 += Math.Round(Math.Ceiling(tempFine2 / step) * step, 1);
-                    data.ExtraSquare += Math.Round(Math.Ceiling(tempFine2 / step) * step, 1);
+                    data.DataContainer.B2 += Math.Round(Math.Ceiling(tempFine2/step)*step, 1);
+                    data.ExtraSquare += Math.Round(Math.Ceiling(tempFine2/step)*step, 1);
                 }
             }
             return data;

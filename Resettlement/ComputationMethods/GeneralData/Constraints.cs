@@ -1,4 +1,5 @@
-﻿using System.CodeDom;
+﻿using System;
+using System.CodeDom;
 
 namespace ComputationMethods.GeneralData
 {
@@ -18,7 +19,7 @@ namespace ComputationMethods.GeneralData
             6
         };
 
-        public const int CountFloor = 2;
+        public const int CountFloor = 1;
 
         public const double WallsWidth = 0.3;
 
@@ -31,14 +32,21 @@ namespace ComputationMethods.GeneralData
         public const double AddingA = 3 * WallsWidth + EntrywayLength;
         public const double AddingB = 2 * WallsWidth;
 
-        //ExtendedVersion
+        /*
+        public enum Version
+        {
+            Base2To2 = 1,
+            Base2To2Extended = 2
+        }
+        */
 
-        public const bool IsExtendedVersion = true; 
+        public const bool VersionExtended = true;
 
         //балкон
         public const double LengthBalcony = 2.4;
         public const double WidthBalcony = 0.9;
         public const double SquareBalcony = 2.16;
+        
         //коридор
         public const double WidthCorridor = 1.5;
         public const double MinLengthCorridor = 4.5; // 2.7 + 0.9 * 2
@@ -46,7 +54,7 @@ namespace ComputationMethods.GeneralData
         public const double CommonSquareWithEntryway = 4.05; // 2.7 * 1.5
         public const double MinSquareCorridor = 6.75; // CommonSquareWithEntryway + 2 * 0.9 * 1.5
 
-
+        public const double SquareAboveCorridorFor2K = 3.78; // 0.9 * 4.2
 
 
     }
