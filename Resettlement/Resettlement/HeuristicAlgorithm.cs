@@ -68,7 +68,7 @@ namespace Resettlement
                     var resultGreedyIter =
                         GreedyMethodeSect.GreedyMethode(
                             new DataMethode(dataAlg.ListLenOneFlat, dataAlg.ListLenTwoFlat, inData.OptCountFlatOnFloor),
-                            firstOneFlat,flag, Constraints.VersionExtended);
+                            firstOneFlat,flag, Constraints.VersionWithBalcony);
                     firstOneFlat = resultGreedyIter.NewFirstOneFlat;
                     resultGreedyIter.NumIter = numberIteration;
                     resultGreedyIter.Fine = Math.Round(resultGreedyIter.Fine*inData.CountFloor, 1);

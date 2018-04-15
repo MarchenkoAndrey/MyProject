@@ -40,12 +40,12 @@ namespace Resettlement
             ListLenTwoFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresTwoFlat, Constraints.WidthOfApartmentVariants[0]);
             
             //Todo create enum versions
-            if (Constraints.VersionExtended) // если это расширенная схема с балконами и коридором
+            if (Constraints.VersionWithBalcony) // если это расширенная схема с балконами и коридором
             {
                 //Вычитаем балконы сразу из исходных площадей. У каждой квартиры предусмотрен балкон
                 var listSquaresOneFlatExtended = DiffBalcony(listSquaresOneFlat);
                 var listSquaresTwoFlatExtended = DiffBalcony(listSquaresTwoFlat);
-                listSquaresTwoFlatExtended = DiffAboveCorridor(listSquaresTwoFlatExtended);
+                //listSquaresTwoFlatExtended = DiffAboveCorridor(listSquaresTwoFlatExtended);
                 ListLenOneFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresOneFlatExtended, Constraints.WidthOfApartmentVariants[0]);
                 ListLenTwoFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresTwoFlatExtended, Constraints.WidthOfApartmentVariants[0]);
             }

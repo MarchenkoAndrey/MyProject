@@ -15,6 +15,7 @@
         protected void InitializeComponent()
         {
             this.greedy_btn = new System.Windows.Forms.Button();
+            this.corridor_btn = new System.Windows.Forms.Button();
             this.fullSearch_btn = new System.Windows.Forms.Button();
             this.labelOne = new System.Windows.Forms.Label();
             this.squareOne_input = new System.Windows.Forms.TextBox();
@@ -50,6 +51,18 @@
             this.greedy_btn.Text = "Heuristic Algorithm";
             this.greedy_btn.UseVisualStyleBackColor = true;
             this.greedy_btn.Click += new System.EventHandler(this.greedy_btn_Click);
+
+            // 
+            // corridor_btn
+            // 
+            this.corridor_btn.Location = new System.Drawing.Point(286, 194);
+            this.corridor_btn.Name = "corridor_btn";
+            this.corridor_btn.Size = new System.Drawing.Size(119, 23);
+            this.corridor_btn.TabIndex = 0;
+            this.corridor_btn.Text = "General Model";
+            this.corridor_btn.UseVisualStyleBackColor = true;
+            this.corridor_btn.Click += new System.EventHandler(this.corridor_btn_Click);
+
             // 
             // fullSearch_btn
             // 
@@ -290,6 +303,7 @@
             this.Controls.Add(this.labelOne);
             this.Controls.Add(this.fullSearch_btn);
             this.Controls.Add(this.greedy_btn);
+            this.Controls.Add(this.corridor_btn);
             this.Name = "UserInterface";
             this.Text = "UserInterface";
             this.ResumeLayout(false);
@@ -298,6 +312,7 @@
         }
 
         private System.Windows.Forms.Button greedy_btn;
+        private System.Windows.Forms.Button corridor_btn;
         private System.Windows.Forms.Button fullSearch_btn;
         private System.Windows.Forms.Button dynam_btn;
         private System.Windows.Forms.Label labelOne;

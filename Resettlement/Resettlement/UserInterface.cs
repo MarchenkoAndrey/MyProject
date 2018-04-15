@@ -22,6 +22,12 @@ namespace Resettlement
             PerformHAlg(dataHAlg);
         }
 
+        private void corridor_btn_Click(object sender, EventArgs e)
+        {
+            var dataGAlg = new InputGeneralDataAlg();
+            //PerformHAlg(dataGAlg);
+        }
+
         private void fullSearch_btn_Click(object sender, EventArgs e)
         {
             var dataCAlg = new InputDataAlg();

@@ -32,29 +32,32 @@ namespace ComputationMethods.GeneralData
         public const double AddingA = 3 * WallsWidth + EntrywayLength;
         public const double AddingB = 2 * WallsWidth;
 
-        /*
-        public enum Version
-        {
-            Base2To2 = 1,
-            Base2To2Extended = 2
-        }
-        */
-
-        public const bool VersionExtended = true;
+        public const bool VersionWithBalcony = true;
 
         //балкон
         public const double LengthBalcony = 2.4;
         public const double WidthBalcony = 0.9;
         public const double SquareBalcony = 2.16;
-        
+
         //коридор
         public const double WidthCorridor = 1.5;
-        public const double MinLengthCorridor = 4.5; // 2.7 + 0.9 * 2
 
+        //коридор_v1(коридор за счет пространства 2к)
+        public const double MinLengthCorridor = 4.5; // 2.7 + 0.9 * 2 (g + min*2)
         public const double CommonSquareWithEntryway = 4.05; // 2.7 * 1.5
         public const double MinSquareCorridor = 6.75; // CommonSquareWithEntryway + 2 * 0.9 * 1.5
 
         public const double SquareAboveCorridorFor2K = 3.78; // 0.9 * 4.2
+        
+        //коридор_v2 (секция коридорного типа)
+        public const double MaxSquareSection = 300;
+        public const double MaxLengthCorridor = 30;
+
+        public const double MinSquareOneApartment = 35;
+        public const double MinSquareTwoApartment = 44;
+
+
+
 
 
     }

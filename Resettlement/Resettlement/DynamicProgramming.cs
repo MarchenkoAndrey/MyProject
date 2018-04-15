@@ -34,7 +34,7 @@ namespace Resettlement
             // Create solution-tree
             var resultListDynM =
                 DynamicMethodeSect.DynamicMethode(new DataMethode(dataAlg.ListLenOneFlat, dataAlg.ListLenTwoFlat,
-                    inData.OptCountFlatOnFloor), Constraints.VersionExtended);
+                    inData.OptCountFlatOnFloor), Constraints.VersionWithBalcony);
 
             // Backtracking for optimal solution
             var backTrackingResult = BackTrackForDynPr.BackTracking(resultListDynM);
