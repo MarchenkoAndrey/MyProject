@@ -32,6 +32,7 @@ namespace Resettlement
                 PreparationSquares.FlatsWithTheAdditiveLength(resultDataAfterGrouping.ListResultTwoFlat);
             dataAlg.FineAfterGrouping = resultDataAfterGrouping.Fine;
             
+
             //for print in txt-file
             /*
             var str1 = new StringBuilder();
@@ -49,9 +50,6 @@ namespace Resettlement
            File.WriteAllText(@"C:\Users\marchenko.a\Downloads\Модифицированная Статья\ExampleTwoFirstList.txt", str1.ToString());
            File.WriteAllText(@"C:\Users\marchenko.a\Downloads\Модифицированная Статья\ExampleTwoSecondList.txt", str2.ToString());
            */
-
-            //Todo вернуть код к первой реализации. Убрать вторую версию к черту.
-
             var myStopWatchGreedy = new Stopwatch();
             myStopWatchGreedy.Start();
            
@@ -68,7 +66,7 @@ namespace Resettlement
                     var resultGreedyIter =
                         GreedyMethodeSect.GreedyMethode(
                             new DataMethode(dataAlg.ListLenOneFlat, dataAlg.ListLenTwoFlat, inData.OptCountFlatOnFloor),
-                            firstOneFlat,flag, Constraints.VersionWithBalcony);
+                            firstOneFlat,flag);
                     firstOneFlat = resultGreedyIter.NewFirstOneFlat;
                     resultGreedyIter.NumIter = numberIteration;
                     resultGreedyIter.Fine = Math.Round(resultGreedyIter.Fine*inData.CountFloor, 1);
@@ -102,7 +100,7 @@ namespace Resettlement
 
     class ResultListGreedyMethode
     {
-        public List<ResultGreedyMethode> Results { get; private set; }
+        public List<ResultGreedyMethode> Results { get; }
         public readonly List<string> PositionStart;
 
         public ResultListGreedyMethode()

@@ -6,7 +6,7 @@ namespace Resettlement
 {
     public static class GreedyMethodeSect
     {
-        public static ResultGreedyMethode GreedyMethode(DataMethode dataGrM, double firstOneFlat, string positionStart, bool isVersion)
+        public static ResultGreedyMethode GreedyMethode(DataMethode dataGrM, double firstOneFlat, string positionStart)
         {
             var listLenOneFlat = new List<double>(dataGrM.ListLenOneFlat);
             var listLenTwoFlat = new List<double>(dataGrM.ListLenTwoFlat);
@@ -70,7 +70,7 @@ namespace Resettlement
                                     resultPackSectReverse =
                                         MethodsForApartureLen.CalculateOptimalPackContainer(
                                             new ApartureLen(choiceOneFlat, t, currentMassiv[j],
-                                                currentMassiv[i]), dataGrM.WallsWidth, isVersion);
+                                                currentMassiv[i]), dataGrM.WallsWidth);
                                     break;
                                 }
                                 
@@ -81,7 +81,7 @@ namespace Resettlement
                             var resultPackSect =
                                 MethodsForApartureLen.CalculateOptimalPackContainer(
                                     new ApartureLen(choiceOneFlat, t, currentMassiv[i],
-                                        currentMassiv[j]), dataGrM.WallsWidth, isVersion);
+                                        currentMassiv[j]), dataGrM.WallsWidth);
 
                             //Todo change expression 2.4 = parameters: p1 p2
                             /*
@@ -151,8 +151,6 @@ namespace Resettlement
 
             }
             //приведение длин для конечного отображения
-            if (!isVersion)
-            {
                 for (var k = 0; k < finalPlacementOneFlat.Length; k = k + 2)
                 {
                     var resultAddingPlace =
@@ -167,8 +165,6 @@ namespace Resettlement
                     finalPlacementOneFlat[k] = resultAddingPlace.A1;
                     finalPlacementOneFlat[k + 1] = resultAddingPlace.A2;
                 }
-            }
-
             return new ResultGreedyMethode(resultGreedy.Fine, finalPlacementOneFlat.ToList(), finalPlacementTwoFlat.ToList(),
                   resultGreedy.NewFirstOneFlat);
         }

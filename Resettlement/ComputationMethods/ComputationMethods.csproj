@@ -45,7 +45,6 @@
     <Compile Include="GeneralData\ErrorsText.cs" />
     <Compile Include="GeneralData\FilesDefault.cs" />
     <Compile Include="GeneralData\MessagesText.cs" />
-    <Compile Include="GeneralData\SpecificConstraints.cs" />
     <Compile Include="PermutationWithoutRepetition.cs" />
     <Compile Include="PreparationSquares.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

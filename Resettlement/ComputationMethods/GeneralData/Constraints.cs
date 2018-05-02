@@ -14,7 +14,7 @@
         };
         public const double StepH = 0.3; // step for rounding of squares
         //todo СДЕЛАТЬ редактируемым полем CountFloor
-        public const int CountFloor = 1;
+        public const int CountFloor = 3;
         public const double WallsWidth = 0.3;
 
         //Constraints for the model of container type
@@ -37,5 +37,6 @@
         //Минимальные площади для квартир
         public const double MinSquareOneApartment = 35;
         public const double MinSquareTwoApartment = 44;
+        public const double MinSquareThreeApartment = 52.00;
     }
 }

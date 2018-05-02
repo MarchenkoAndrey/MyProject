@@ -12,11 +12,11 @@ namespace Resettlement
 //        var step = InputConstraints.Q(valueQ.Text.ToString(CultureInfo.InvariantCulture));
 //        public double SumDelta { get; set; }
 
-        public int CountFloor { get; private set; } // Остается для подачи тестов
+        public int CountFloor { get; } // Остается для подачи тестов
         public readonly List<double> ListLenOneFlat;
         public readonly List<double> ListLenTwoFlat;
-        public int OptCountFlat { get; private set; }
-        public int OptCountFlatOnFloor { get; private set; }
+        public int OptCountFlat { get; }
+        public int OptCountFlatOnFloor { get; }
 
         // Исключительно для тестов
         public InputDataAlg(List<double> list1, List<double> list2, int countFloor)
@@ -39,8 +39,8 @@ namespace Resettlement
             ListLenOneFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresOneFlat, Constraints.WidthFlat[0]);
             ListLenTwoFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresTwoFlat, Constraints.WidthFlat[0]);
             
-            //Todo create enum versions??
-            if (Constraints.VersionWithBalcony) // если это расширенная схема коридорного типа
+            //Todo create enum versions?? Разделить на версии
+            if (!Constraints.VersionWithBalcony) // если это расширенная схема коридорного типа
             {
                 //Вычитаем балконы сразу из исходных площадей. У каждой квартиры предусмотрен балкон!
                 var listSquaresOneFlatExtended = DiffBalcony(listSquaresOneFlat);

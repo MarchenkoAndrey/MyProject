@@ -56,17 +56,17 @@ namespace Resettlement
     public static class MethodsForApartureLen
     {
         // Из имеющихся 4 квартир строит оптимальным образом контейнер
-        public static ApartureLen OptimalPackContainer(double choiceOneFlat, double t, double i, double j, double wallsWidth, bool isVersion)
+        public static ApartureLen OptimalPackContainer(double choiceOneFlat, double t, double i, double j, double wallsWidth)
         {
             var resultPackSect =
                 CalculateOptimalPackContainer(
                     new ApartureLen(choiceOneFlat, t, i,
-                        j), wallsWidth, isVersion);
+                        j), wallsWidth);
 
             var resultPackSectRev =
                 CalculateOptimalPackContainer(
                     new ApartureLen(choiceOneFlat, t, j,
-                        i), wallsWidth, isVersion);
+                        i), wallsWidth);
 
             return CalculateOptimalContainerWithMinFine(new List<ApartureLen>{resultPackSect, resultPackSectRev});
         }
@@ -88,9 +88,8 @@ namespace Resettlement
         }
 
         // Вычисляет штраф текущего контейнера с учетом ограничения на двери
-        public static ApartureLen CalculateOptimalPackContainer(ApartureLen data, double step, bool isVersion)
+        public static ApartureLen CalculateOptimalPackContainer(ApartureLen data, double step)
         {
-            if (isVersion) return data; // в схеме с коридорами не нужно ограничение на двери
             if (data.DataContainer.B1 - data.DataContainer.A1 < Constraints.ApartureLength)
             {
                 var tempFine1 =

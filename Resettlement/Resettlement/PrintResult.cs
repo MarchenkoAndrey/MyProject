@@ -19,7 +19,7 @@ namespace Resettlement
             {
                 resultGreedyLabel.Text += MessagesText.NextLine;
                 resultGreedyLabel.Text +=
-                    MessagesText.TotalResultHeuristicAlgorithm.ToString(CultureInfo.InvariantCulture);
+                    MessagesText.ResultTotalHeuristicAlgorithm.ToString(CultureInfo.InvariantCulture);
             }
 
             resultGreedyLabel.Text +=

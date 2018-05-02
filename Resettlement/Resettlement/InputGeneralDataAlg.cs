@@ -41,12 +41,13 @@ namespace Resettlement
             int countFlatOnFloor = countFlat / countFloor; // Количество квартир на этаже
 
             if (countFlat < 12)
-                MessageBox.Show("Мало данных. Невозможно построить 3-этажный дом");
+                //Todo высчитать лишнюю площадь
+                MessageBox.Show(MessagesText.TooLittleData);
 
             if (countFloor < 3)
                 countFloor = 3;
-            if(countFloor>5)
-                MessageBox.Show("Мы не строим небоскребы. Уменьшите количество исходных данных");
+            if (countFloor > 5)
+                MessageBox.Show(string.Format(MessagesText.TooMuchData, Math.Ceiling(sum - 2000.0)));
 
             //Метод по разбивке квартир по этажам на примерно равные группы
             var res = GroupFlatOnFlours(listAllSquaresAfterCast, countFloor);
