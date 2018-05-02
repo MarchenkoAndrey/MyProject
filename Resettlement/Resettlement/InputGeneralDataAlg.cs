@@ -63,16 +63,16 @@ namespace Resettlement
             var r4 = res[3].Sum();
             //var r5 = res[4].Sum();
 
-            ListLenOneFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresOneFlat, Constraints.WidthOfApartmentVariants[0]);
-            ListLenTwoFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresTwoFlat, Constraints.WidthOfApartmentVariants[0]);
+            ListLenOneFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresOneFlat, Constraints.WidthFlat[0]);
+            ListLenTwoFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresTwoFlat, Constraints.WidthFlat[0]);
             
             //Вычитаем балконы сразу из исходных площадей. У каждой квартиры предусмотрен балкон
             var listSquaresOneFlatExtended = DiffBalcony(listSquaresOneFlat);
             var listSquaresTwoFlatExtended = DiffBalcony(listSquaresTwoFlat);
            
             //listSquaresTwoFlatExtended = DiffAboveCorridor(listSquaresTwoFlatExtended);
-            ListLenOneFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresOneFlatExtended, Constraints.WidthOfApartmentVariants[0]);
-            ListLenTwoFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresTwoFlatExtended, Constraints.WidthOfApartmentVariants[0]);
+            ListLenOneFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresOneFlatExtended, Constraints.WidthFlat[0]);
+            ListLenTwoFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresTwoFlatExtended, Constraints.WidthFlat[0]);
         }
 
         //Метод вычитания балкона из площади. Балкон у каждой квартиры

@@ -14,7 +14,7 @@ namespace ComputationMethods
 
         public static List<double> FlatsWithTheAdditiveLength(IEnumerable<double> squareOfAppartments)
 		{
-            return squareOfAppartments.Select(i => Math.Round(Math.Ceiling(i / Constraints.DefaultH) * Constraints.DefaultH, 1)).ToList();
+            return squareOfAppartments.Select(i => Math.Round(Math.Ceiling(i / Constraints.StepH) * Constraints.StepH, 1)).ToList();
 		}
 
 		public static double DeltaSquaresOfFlats(List<double> lengthOfApartments, List<double> lengthApartmentsWithAdditive)

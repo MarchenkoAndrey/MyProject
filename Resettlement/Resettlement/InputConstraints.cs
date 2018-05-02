@@ -11,7 +11,7 @@ namespace Resettlement
 
         public static double C(string inputValueC)
         {
-            return inputValueC == "" ? Constraints.WidthOfApartmentVariants[2] : double.Parse(inputValueC);
+            return inputValueC == "" ? Constraints.WidthFlat[2] : double.Parse(inputValueC);
         }
 
         public static double Q(string inputValueQ)

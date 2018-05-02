@@ -36,8 +36,8 @@ namespace Resettlement
             var listSquaresOneFlat = ReadFromFileAndRecordingInputDataInList.ReadFile(FilesDefault.DefaultListOneFlat);
             var listSquaresTwoFlat = ReadFromFileAndRecordingInputDataInList.ReadFile(FilesDefault.DefaultListTwoFlat);
            
-            ListLenOneFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresOneFlat, Constraints.WidthOfApartmentVariants[0]);
-            ListLenTwoFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresTwoFlat, Constraints.WidthOfApartmentVariants[0]);
+            ListLenOneFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresOneFlat, Constraints.WidthFlat[0]);
+            ListLenTwoFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresTwoFlat, Constraints.WidthFlat[0]);
             
             //Todo create enum versions??
             if (Constraints.VersionWithBalcony) // если это расширенная схема коридорного типа
@@ -46,8 +46,8 @@ namespace Resettlement
                 var listSquaresOneFlatExtended = DiffBalcony(listSquaresOneFlat);
                 var listSquaresTwoFlatExtended = DiffBalcony(listSquaresTwoFlat);
                 
-                ListLenOneFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresOneFlatExtended, Constraints.WidthOfApartmentVariants[0]);
-                ListLenTwoFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresTwoFlatExtended, Constraints.WidthOfApartmentVariants[0]);
+                ListLenOneFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresOneFlatExtended, Constraints.WidthFlat[0]);
+                ListLenTwoFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresTwoFlatExtended, Constraints.WidthFlat[0]);
             }
             
             OptCountFlat = _calculateOptimalNumberFlat(ListLenOneFlat.Count, ListLenTwoFlat.Count,
