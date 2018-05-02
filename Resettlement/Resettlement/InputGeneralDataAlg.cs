@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
 using System.Linq;
+using System.Windows.Forms;
 using ComputationMethods;
 using ComputationMethods.GeneralData;
 
@@ -18,13 +18,13 @@ namespace Resettlement
 
         public InputGeneralDataAlg()
         {
-            //Высчитать рекомендованное количество этажей самому
-            
             var listSquaresOneFlat = ReadFromFileAndRecordingInputDataInList.ReadFile(FilesDefault.DefaultListOneFlat);
             var listSquaresTwoFlat = ReadFromFileAndRecordingInputDataInList.ReadFile(FilesDefault.DefaultListTwoFlat);
 
             var listSquaresGeneral = new List<double>(listSquaresOneFlat);
             listSquaresGeneral.AddRange(listSquaresTwoFlat);
+
+            //Todo работа с лишними квартирами
 
             //Приведение к миниально допустимым площадям
             var listAllSquaresAfterCast = CastToMinimalSquare(listSquaresOneFlat, listSquaresTwoFlat);
@@ -39,9 +39,13 @@ namespace Resettlement
             //Количество квартир на этаже
             int countFlatOnFloor = countFlat / countFloor; // Количество квартир на этаже
 
-            
+            if (countFlat < 12)
+                MessageBox.Show("Мало данных. Невозможно построить 3-этажный дом");
+
+            if (countFloor < 3)
+                countFloor = 3;
             if(countFloor>5)
-                throw new Exception("Мы не строим небоскребы. Уменьшите количество исходных данных");
+                MessageBox.Show("Мы не строим небоскребы. Уменьшите количество исходных данных");
 
             //Метод по разбивке квартир по этажам на примерно равные группы
             var res = GroupFlatOnFlours(listAllSquaresAfterCast, countFloor);
@@ -88,10 +92,8 @@ namespace Resettlement
             listFlat.Sort();
 
             //Поиск аномалий. Исключение аномалий из сортировки. Ручное управление ими
-            var findAnomal = listFlat.Where(a => a > Constraints.MinSquareTwoApartment).ToList();
-            var averageAnomal = findAnomal.Sum() / findAnomal.Count;
-            var resultAnomal = findAnomal.Where(a => a > averageAnomal + 2).ToList();
-            
+            var listAnomaly = AnomalySearch.FindAnomaly(listFlat, countFloor);
+
             var passSortList =
                 new List<double>(listFlat.GetRange(listFlat.Count - countFloor, countFloor).ToList());
             listFlat.RemoveRange(listFlat.Count - countFloor, countFloor);
