@@ -42,7 +42,6 @@
     <Compile Include="BuildingPermutationPairs.cs" />
     <Compile Include="CreatePermWithOddParam.cs" />
     <Compile Include="GeneralData\Constraints.cs" />
-    <Compile Include="GeneralData\ErrorsText.cs" />
     <Compile Include="GeneralData\FilesDefault.cs" />
     <Compile Include="GeneralData\MessagesText.cs" />
     <Compile Include="PermutationWithoutRepetition.cs" />

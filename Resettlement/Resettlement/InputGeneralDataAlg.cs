@@ -41,7 +41,6 @@ namespace Resettlement
             int countFlatOnFloor = countFlat / countFloor; // Количество квартир на этаже
 
             if (countFlat < 12)
-                //Todo высчитать лишнюю площадь
                 MessageBox.Show(MessagesText.TooLittleData);
 
             if (countFloor < 3)
