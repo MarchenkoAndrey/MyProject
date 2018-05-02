@@ -155,7 +155,6 @@ namespace Resettlement
             {
                 for (var k = 0; k < finalPlacementOneFlat.Length; k = k + 2)
                 {
-                    //Todo update version
                     var resultAddingPlace =
                         ResultAddingPlace.CalculateAddingPlace(new DataContainer
                         {

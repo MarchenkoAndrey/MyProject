@@ -39,13 +39,13 @@ namespace Resettlement
             ListLenOneFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresOneFlat, Constraints.WidthOfApartmentVariants[0]);
             ListLenTwoFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresTwoFlat, Constraints.WidthOfApartmentVariants[0]);
             
-            //Todo create enum versions
-            if (Constraints.VersionWithBalcony) // если это расширенная схема с балконами и коридором
+            //Todo create enum versions??
+            if (Constraints.VersionWithBalcony) // если это расширенная схема коридорного типа
             {
-                //Вычитаем балконы сразу из исходных площадей. У каждой квартиры предусмотрен балкон
+                //Вычитаем балконы сразу из исходных площадей. У каждой квартиры предусмотрен балкон!
                 var listSquaresOneFlatExtended = DiffBalcony(listSquaresOneFlat);
                 var listSquaresTwoFlatExtended = DiffBalcony(listSquaresTwoFlat);
-                //listSquaresTwoFlatExtended = DiffAboveCorridor(listSquaresTwoFlatExtended);
+                
                 ListLenOneFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresOneFlatExtended, Constraints.WidthOfApartmentVariants[0]);
                 ListLenTwoFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresTwoFlatExtended, Constraints.WidthOfApartmentVariants[0]);
             }
@@ -59,16 +59,9 @@ namespace Resettlement
                 (countOneFlat, countTwoFlat, countFloor) =>
                         Math.Min(countOneFlat / countFloor / 2 * 2 * countFloor, countTwoFlat / countFloor / 2 * 2 * countFloor);
         
-        //Метод вычитания балкона из площади. Балкон у каждой квартиры, кроме первого этажа????
         public static List<double> DiffBalcony(List<double> sourceList)
         {
             return sourceList.Select(a => Math.Round(a - Constraints.SquareBalcony, 3)).ToList();
         }
-        // Метод вычитания площади 2к квартиры над коридором (коридор жестко закреплен)
-        public static List<double> DiffAboveCorridor(List<double> twoFlatList)
-        {
-            return twoFlatList.Select(a => Math.Round(a - Constraints.SquareAboveCorridorFor2K, 3)).ToList();
-        }
-
     }
 }

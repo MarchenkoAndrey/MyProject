@@ -76,7 +76,6 @@
     <Compile Include="ResultAddingPlace.cs" />
     <Compile Include="ResultDataAfterGrouping.cs" />
     <Compile Include="ResultGreedyMethode.cs" />
-    <Compile Include="SpecificMethods.cs" />
     <Compile Include="StartAndFinishProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests.cs" />

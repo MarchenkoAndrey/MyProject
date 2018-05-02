@@ -18,7 +18,7 @@ namespace Resettlement
             FineContainer = fineContainer;
         }
 
-        //Todo Переделать метод под EXTENDED, если надо
+        //Todo Переделать метод под v2(двушки+коридор в секции), если надо
 
         //Приведение длин для отображения на экране как конечный результат
         public static ResultAddingPlace CalculateAddingPlace(DataContainer container, double step)

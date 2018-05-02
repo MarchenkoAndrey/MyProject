@@ -50,7 +50,7 @@ namespace Resettlement
            File.WriteAllText(@"C:\Users\marchenko.a\Downloads\Модифицированная Статья\ExampleTwoSecondList.txt", str2.ToString());
            */
 
-            //Todo уже приведено, осталось собрать секцию
+            //Todo вернуть код к первой реализации. Убрать вторую версию к черту.
 
             var myStopWatchGreedy = new Stopwatch();
             myStopWatchGreedy.Start();

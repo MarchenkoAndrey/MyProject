@@ -24,7 +24,8 @@ namespace Resettlement
             var listSquaresGeneral = new List<double>(listSquaresOneFlat);
             listSquaresGeneral.AddRange(listSquaresTwoFlat);
 
-            //Todo работа с лишними квартирами
+            //Todo работа с лишними квартирами, где отсекаем? Как обрабатываем?
+            //Todo Выкидываем самые мелкие однокомнатные, с соответствующим выводом квартир, которые не попали в итоговую модель
 
             //Приведение к миниально допустимым площадям
             var listAllSquaresAfterCast = CastToMinimalSquare(listSquaresOneFlat, listSquaresTwoFlat);
