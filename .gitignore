@@ -25,6 +25,7 @@ $RECYCLE.BIN/
 *.mdf
 *.ldf
 *.vshost.exe.manifest
+*.vs/
 bin
 obj
 

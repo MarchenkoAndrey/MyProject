@@ -29,7 +29,7 @@ namespace Resettlement
             //Приведение к миниально допустимым площадям
             var listAllSquaresAfterCast = CastToMinimalSquare(listSquaresOneFlat, listSquaresTwoFlat);
             //Вычисление штрафа приведения
-            var fine = listAllSquaresAfterCast.Sum() - listSquaresGeneral.Sum();
+            var fine = Math.Round(listAllSquaresAfterCast.Sum() - listSquaresGeneral.Sum(),2);
             //Суммарная площадь
             var sum = listAllSquaresAfterCast.Sum();
             //Количество квартир
@@ -41,10 +41,13 @@ namespace Resettlement
 
             
             if(countFloor>5)
-                throw new Exception("Превышен лимит");
+                throw new Exception("Мы не строим небоскребы. Уменьшите количество исходных данных");
 
-            //Метод по разбивке на варианты по этажам
-            var res = GroupFlatOnFlours(listAllSquaresAfterCast, countFlatOnFloor, countFloor);
+            //Метод по разбивке квартир по этажам на примерно равные группы
+            var res = GroupFlatOnFlours(listAllSquaresAfterCast, countFloor);
+            
+            //Самый крупную группу оставляем на последний этаж, чтобы там за счет коридора в углу построить секцию
+
 
             //Выравниваем площади за счет добавок
             //Todo 1.Поправить инициализацию лишних r, 2. Выровнять площадь на этажах
@@ -53,7 +56,7 @@ namespace Resettlement
             var r2 = res[1].Sum();
             var r3 = res[2].Sum();
             var r4 = res[3].Sum();
-            var r5 = res[4].Sum();
+            //var r5 = res[4].Sum();
 
             ListLenOneFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresOneFlat, Constraints.WidthOfApartmentVariants[0]);
             ListLenTwoFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresTwoFlat, Constraints.WidthOfApartmentVariants[0]);
@@ -75,98 +78,59 @@ namespace Resettlement
         // Метод приведения площади квартир к минимальному значению
         public static List<double> CastToMinimalSquare(List<double> oneFlat, List<double> twoFlat)
         {
-            var generalList = oneFlat.Select(elem => elem < Constraints.MinSquareOneApartment ? Constraints.MinSquareOneApartment : elem).ToList();
-            generalList.AddRange(twoFlat.Select(elem => elem < Constraints.MinSquareTwoApartment ? Constraints.MinSquareTwoApartment : elem).ToList());
+            var generalList = oneFlat.Select(elem => elem < Constraints.MinSquareOneApartment ? Constraints.MinSquareOneApartment : Math.Round(elem,2)).ToList();
+            generalList.AddRange(twoFlat.Select(elem => elem < Constraints.MinSquareTwoApartment ? Constraints.MinSquareTwoApartment : Math.Round(elem, 2)).ToList());
             return generalList;
         }
-        //Метод по разбивке на равные части (Задача разбиения Жадный алгоритм)
-        //Todo Сортирнуть каждый и сопоставить и добавку
-        public static List<List<double>> GroupFlatOnFlours(List<double> listFlat, int countFlatOnFloor, int countFloor)
+        //Метод по разбивке квартир по этажам на равные части с учетом аномалий
+        public static List<List<double>> GroupFlatOnFlours(List<double> listFlat, int countFloor)
         {
+            listFlat.Sort();
+
+            //Поиск аномалий. Исключение аномалий из сортировки. Ручное управление ими
+            var findAnomal = listFlat.Where(a => a > Constraints.MinSquareTwoApartment).ToList();
+            var averageAnomal = findAnomal.Sum() / findAnomal.Count;
+            var resultAnomal = findAnomal.Where(a => a > averageAnomal + 2).ToList();
+            
+            var passSortList =
+                new List<double>(listFlat.GetRange(listFlat.Count - countFloor, countFloor).ToList());
+            listFlat.RemoveRange(listFlat.Count - countFloor, countFloor);
+
             var f1 = new List<double>();
             var f2 = new List<double>();
             var f3 = new List<double>();
             var f4 = new List<double>();
             var f5 = new List<double>();
 
-            listFlat.Sort();
+            var fineBring = 0.0;
 
-            switch (countFloor)
+            for (var l = 0; l < listFlat.Count; l+=countFloor)
             {
-                case 2:
-                    for (var i = listFlat.Count - 1; i >= 0; i--)
-                    {
-                        if (f1.Sum() < f2.Sum())
-                            f1.Add(listFlat[i]);
-                        else
-                        {
-                            f2.Add(listFlat[i]);
-                        }
-                    }
-                    return new List<List<double>> { f1, f2 };
+                var cur = listFlat.GetRange(l, countFloor);
+                var max = cur.Max();
+                for (var i = 0; i<cur.Count; ++i)
+                {
+                    fineBring += Math.Round(fineBring + (max - cur[i]), 2);
+                    cur[i] = max;
+                }
 
-                case 3:
-                    for (var i = listFlat.Count - 1; i >= 0; i--)
-                    {
-                        if (f1.Sum() < f2.Sum())
-                            f1.Add(listFlat[i]);
-                        else if (f2.Sum() < f3.Sum())
-                        {
-                            f2.Add(listFlat[i]);
-                        }
-                        else
-                        {
-                            f3.Add(listFlat[i]);
-                        }
-                    }
-                    return new List<List<double>> { f1, f2, f3 };
+                f1.Add(max);
+                f2.Add(max);
+                f3.Add(max);
+                if (countFloor <= 3) continue;
+                f4.Add(max);
+                if (countFloor > 4)
+                {
+                    f5.Add(max);
+                }
+            }
 
-                case 4:
-                    for (var i = listFlat.Count - 1; i >= 0; i--)
-                    {
-                        if (f1.Sum() < f2.Sum())
-                            f1.Add(listFlat[i]);
-                        else if (f2.Sum() < f3.Sum())
-                        {
-                            f2.Add(listFlat[i]);
-                        }
-                        else if (f3.Sum() < f4.Sum())
-                        {
-                            f3.Add(listFlat[i]);
-                        }
-                        else
-                        {
-                            f4.Add(listFlat[i]);
-                        }
-                    }
-                    return new List<List<double>> { f1, f2, f3, f4 };
-                case 5:
-                    for (var i = listFlat.Count - 1; i >= 0; i--)
-                    {
-                        if (f1.Sum() < f2.Sum())
-                            f1.Add(listFlat[i]);
-                        else if (f2.Sum() < f3.Sum())
-                        {
-                            f2.Add(listFlat[i]);
-                        }
-                        else if (f3.Sum() < f4.Sum())
-                        {
-                            f3.Add(listFlat[i]);
-                        }
-                        else if (f4.Sum() < f5.Sum())
-                        {
-                            f4.Add(listFlat[i]);
-                        }
-                        else
-                        {
-                            f5.Add(listFlat[i]);
-                        }
-                    }
-                    return new List<List<double>> { f1, f2, f3, f4, f5};
+            //Здесь у меня уже есть нужные списки без учета аномалий.
 
-                default:
-                    return new List<List<double>> {listFlat};
-            }   
+            int u = 1;
+
+
+            return new List<List<double>>();
         }
     }
 }

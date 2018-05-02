@@ -46,6 +46,8 @@
   <ItemGroup>
     <Compile Include="ApartureLen.cs" />
     <Compile Include="BackTrackForDP.cs" />
+    <Compile Include="AnomalySearch.cs" />
+    <Compile Include="GroupingFlatOnFloorsGreedy.cs" />
     <Compile Include="ComprehensiveSearch.cs">
       <SubType>Form</SubType>
     </Compile>
