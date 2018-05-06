@@ -8,21 +8,21 @@ namespace Resettlement
 {
     partial class UserInterface
     {
-        private void PerformComprehensiveSearch(InputDataAlg inData)
+        private void PerformComprehensiveSearch(InputSectionDataAlg inSectionData)
         {
-            ValidateConditions.Validate(inData, false);
+            ValidateConditions.Validate(inSectionData, false);
 
             realizat_label.Text = "".ToString(CultureInfo.InvariantCulture);
             lossesOne_label.Text = "".ToString(CultureInfo.InvariantCulture);
             resultFullSearch_label.Text = "".ToString(CultureInfo.InvariantCulture);
 
-            var flatCount = inData.ListLenOneFlat.Count + inData.ListLenTwoFlat.Count;
+            var flatCount = inSectionData.ListLenOneFlat.Count + inSectionData.ListLenTwoFlat.Count;
             realizat_label.Text += string.Format(MessagesText.RealizationForRectangles, flatCount).ToString(CultureInfo.InvariantCulture);
 //            lossesOne_label.Text += string.Format(MessagesText.SummarizeAdditionLengthForH, inData.SumDelta.ToString(CultureInfo.InvariantCulture));
 
             var dataAlg = new DataPerformAlgorithm();
 
-            var resultDataAfterGrouping = GroupingOnTheFloors.GroupingFlat(inData);
+            var resultDataAfterGrouping = GroupingOnTheFloors.GroupingFlat(inSectionData);
             dataAlg.ListLenOneFlat = PreparationSquares.FlatsWithTheAdditiveLength(resultDataAfterGrouping.ListResultOneFlat);
             dataAlg.ListLenTwoFlat = PreparationSquares.FlatsWithTheAdditiveLength(resultDataAfterGrouping.ListResultTwoFlat);
             dataAlg.FineAfterGrouping = resultDataAfterGrouping.Fine;
@@ -30,15 +30,15 @@ namespace Resettlement
             var myStopWatch = new Stopwatch();
             myStopWatch.Start();
 
-            var fullSearch = MethodeFullSearch.FullSearch(dataAlg, inData.OptCountFlatOnFloor);
+            var fullSearch = MethodeFullSearch.FullSearch(dataAlg, inSectionData.OptCountFlatOnFloor);
 
-            fullSearch.Fine = Math.Round(fullSearch.Fine * inData.CountFloor, 1);
+            fullSearch.Fine = Math.Round(fullSearch.Fine * inSectionData.CountFloor, 1);
             fullSearch.Fine = Math.Round(fullSearch.Fine + dataAlg.FineAfterGrouping, 1);
             fullSearch.ListExcessOneFlat = resultDataAfterGrouping.ListExcessOneFlat;
             fullSearch.ListExcessTwoFlat = resultDataAfterGrouping.ListExcessTwoFlat;
 
 
-            PrintResult.FullSearchPrintResult(fullSearch, inData.CountFloor, resultFullSearch_label);
+            PrintResult.FullSearchPrintResult(fullSearch, inSectionData.CountFloor, resultFullSearch_label);
 
             myStopWatch.Stop();
             resultFullSearch_label.Text += MessagesText.NextLine;

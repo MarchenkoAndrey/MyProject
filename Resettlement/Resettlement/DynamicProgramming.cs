@@ -7,22 +7,22 @@ namespace Resettlement
 {
     partial class UserInterface
     {
-        private void PerformDAlg(InputDataAlg inData)
+        private void PerformDAlg(InputSectionDataAlg inSectionData)
         {
-            ValidateConditions.Validate(inData, true);
+            ValidateConditions.Validate(inSectionData, true);
 
             realizat_label.Text = "".ToString(CultureInfo.InvariantCulture);
             lossesOne_label.Text = "".ToString(CultureInfo.InvariantCulture);
             resultDynam_label.Text = "".ToString(CultureInfo.InvariantCulture);
             resultDynam_label.Text = string.Format(MessagesText.ResultDynamicProgram);
 
-            var flatCount = inData.ListLenOneFlat.Count + inData.ListLenTwoFlat.Count;
+            var flatCount = inSectionData.ListLenOneFlat.Count + inSectionData.ListLenTwoFlat.Count;
             realizat_label.Text += string.Format(MessagesText.RealizationForRectangles,flatCount).ToString(CultureInfo.InvariantCulture);
 //            lossesOne_label.Text += string.Format(MessagesText.SummarizeAdditionLengthForH, inData.SumDelta.ToString(CultureInfo.InvariantCulture));
 
             var dataAlg = new DataPerformAlgorithm();
 
-            var resultDataAfterGrouping = GroupingOnTheFloors.GroupingFlat(inData);
+            var resultDataAfterGrouping = GroupingOnTheFloors.GroupingFlat(inSectionData);
             dataAlg.ListLenOneFlat =
                 PreparationSquares.FlatsWithTheAdditiveLength(resultDataAfterGrouping.ListResultOneFlat);
             dataAlg.ListLenTwoFlat =
@@ -34,13 +34,13 @@ namespace Resettlement
             // Create solution-tree
             var resultListDynM =
                 DynamicMethodeSect.DynamicMethode(new DataMethode(dataAlg.ListLenOneFlat, dataAlg.ListLenTwoFlat,
-                    inData.OptCountFlatOnFloor));
+                    inSectionData.OptCountFlatOnFloor));
 
             // Backtracking for optimal solution
             var backTrackingResult = BackTrackForDynPr.BackTracking(resultListDynM);
 
             // Print Result ( штраф по этажам и от группировки считаем внутри печати, а также приведение площадей)
-            PrintResult.DynamicProgrammingPrintResult(backTrackingResult, inData.CountFloor, resultDataAfterGrouping, resultDynam_label);
+            PrintResult.DynamicProgrammingPrintResult(backTrackingResult, inSectionData.CountFloor, resultDataAfterGrouping, resultDynam_label);
             
             myStopWatchDynamic.Stop();
             resultDynam_label.Text +=

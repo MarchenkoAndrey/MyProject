@@ -122,13 +122,13 @@ namespace Resettlement
             return dataInGrouping;
         }
 
-        public static ResultDataAfterGrouping GroupingFlat(InputDataAlg data)
+        public static ResultDataAfterGrouping GroupingFlat(InputSectionDataAlg sectionData)
         {         
-            data.ListLenOneFlat.Sort();
-            data.ListLenTwoFlat.Sort();
+            sectionData.ListLenOneFlat.Sort();
+            sectionData.ListLenTwoFlat.Sort();
 
-            var resultCalculateOneFlat = CalculateGroupingFlat(data.OptCountFlat, data.CountFloor, data.ListLenOneFlat, true);
-            var resultCalculateTwoFlat = CalculateGroupingFlat(data.OptCountFlat, data.CountFloor, data.ListLenTwoFlat, false);
+            var resultCalculateOneFlat = CalculateGroupingFlat(sectionData.OptCountFlat, sectionData.CountFloor, sectionData.ListLenOneFlat, true);
+            var resultCalculateTwoFlat = CalculateGroupingFlat(sectionData.OptCountFlat, sectionData.CountFloor, sectionData.ListLenTwoFlat, false);
             var totalFine = CalculateTotalFine(resultCalculateOneFlat, resultCalculateTwoFlat);
 
             return new ResultDataAfterGrouping(resultCalculateOneFlat.ListResultFlat, resultCalculateTwoFlat.ListResultFlat,

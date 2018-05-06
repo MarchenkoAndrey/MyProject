@@ -7,7 +7,7 @@ using ComputationMethods.GeneralData;
 
 namespace Resettlement
 {
-    public class InputGeneralDataAlg
+    public class InputCorridorDataAlg
     {
         //        var widthOfApartment = InputConstraints.C(valueC.Text.ToString(CultureInfo.InvariantCulture));
         //        var step = InputConstraints.Q(valueQ.Text.ToString(CultureInfo.InvariantCulture));
@@ -16,7 +16,7 @@ namespace Resettlement
         public readonly List<double> ListLenOneFlat;
         public readonly List<double> ListLenTwoFlat;
 
-        public InputGeneralDataAlg()
+        public InputCorridorDataAlg()
         {
             var listSquaresOneFlat = ReadFromFileAndRecordingInputDataInList.ReadFile(FilesDefault.DefaultListOneFlat);
             var listSquaresTwoFlat = ReadFromFileAndRecordingInputDataInList.ReadFile(FilesDefault.DefaultListTwoFlat);

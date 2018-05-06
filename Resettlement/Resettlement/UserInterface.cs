@@ -12,25 +12,25 @@ namespace Resettlement
         
         private void dynam_btn_Click(object sender, EventArgs e)
         {
-            var dataDAlg = new InputDataAlg();
+            var dataDAlg = new InputSectionDataAlg();
             PerformDAlg(dataDAlg);
         }
 
         private void greedy_btn_Click(object sender, EventArgs e)
         {
-            var dataHAlg = new InputDataAlg();
+            var dataHAlg = new InputSectionDataAlg();
             PerformHAlg(dataHAlg);
         }
 
         private void corridor_btn_Click(object sender, EventArgs e)
         {
-            var dataGAlg = new InputGeneralDataAlg();
+            var dataGAlg = new InputCorridorDataAlg();
             //PerformHAlg(dataGAlg);
         }
 
         private void fullSearch_btn_Click(object sender, EventArgs e)
         {
-            var dataCAlg = new InputDataAlg();
+            var dataCAlg = new InputSectionDataAlg();
             PerformComprehensiveSearch(dataCAlg);
         }
     }

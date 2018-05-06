@@ -10,22 +10,22 @@ namespace Resettlement
 {
     partial class UserInterface
     {
-        private void PerformHAlg(InputDataAlg inData)
+        private void PerformHAlg(InputSectionDataAlg inSectionData)
         {
-            ValidateConditions.Validate(inData, true);
+            ValidateConditions.Validate(inSectionData, true);
 
             realizat_label.Text = "".ToString(CultureInfo.InvariantCulture);
             lossesOne_label.Text = "".ToString(CultureInfo.InvariantCulture);
             resultGreedy_label.Text = "".ToString(CultureInfo.InvariantCulture);
 
-            var flatCount = inData.ListLenOneFlat.Count + inData.ListLenTwoFlat.Count;
+            var flatCount = inSectionData.ListLenOneFlat.Count + inSectionData.ListLenTwoFlat.Count;
             realizat_label.Text +=
                 string.Format(MessagesText.RealizationForRectangles, flatCount).ToString(CultureInfo.InvariantCulture);
 //            lossesOne_label.Text += string.Format(MessagesText.SummarizeAdditionLengthForH, inData.SumDelta.ToString(CultureInfo.InvariantCulture));
 
             var dataAlg = new DataPerformAlgorithm();
 
-            var resultDataAfterGrouping = GroupingOnTheFloors.GroupingFlat(inData);
+            var resultDataAfterGrouping = GroupingOnTheFloors.GroupingFlat(inSectionData);
             dataAlg.ListLenOneFlat =
                 PreparationSquares.FlatsWithTheAdditiveLength(resultDataAfterGrouping.ListResultOneFlat);
             dataAlg.ListLenTwoFlat =
@@ -65,11 +65,11 @@ namespace Resettlement
                 {
                     var resultGreedyIter =
                         GreedyMethodeSect.GreedyMethode(
-                            new DataMethode(dataAlg.ListLenOneFlat, dataAlg.ListLenTwoFlat, inData.OptCountFlatOnFloor),
+                            new DataMethode(dataAlg.ListLenOneFlat, dataAlg.ListLenTwoFlat, inSectionData.OptCountFlatOnFloor),
                             firstOneFlat,flag);
                     firstOneFlat = resultGreedyIter.NewFirstOneFlat;
                     resultGreedyIter.NumIter = numberIteration;
-                    resultGreedyIter.Fine = Math.Round(resultGreedyIter.Fine*inData.CountFloor, 1);
+                    resultGreedyIter.Fine = Math.Round(resultGreedyIter.Fine*inSectionData.CountFloor, 1);
                     resultGreedyIter.Fine = Math.Round(resultGreedyIter.Fine + dataAlg.FineAfterGrouping, 1);
                     resultGreedyIter.ListLenExceedOneFlat = resultDataAfterGrouping.ListExcessOneFlat;
                     resultGreedyIter.ListLenExceedTwoFlat = resultDataAfterGrouping.ListExcessTwoFlat;
@@ -89,7 +89,7 @@ namespace Resettlement
         }
 
         myStopWatchGreedy.Stop();
-            PrintResult.GreedyIterationPrintResult(resultList.Results.OrderBy(a => a.Fine).First(), inData.CountFloor,
+            PrintResult.GreedyIterationPrintResult(resultList.Results.OrderBy(a => a.Fine).First(), inSectionData.CountFloor,
                 false, resultGreedy_label);
 
             resultGreedy_label.Text +=

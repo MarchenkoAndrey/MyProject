@@ -20,7 +20,7 @@ namespace Resettlement
             var optItem1 = new List<double> { 4.8, 6.6, 6.6, 7.2 };
             var optItem2 = new List<double> { 7.5, 7.5, 8.1, 8.7 };
 
-            var result = GroupingOnTheFloors.GroupingFlat(new InputDataAlg(list1, list2, countFloor));
+            var result = GroupingOnTheFloors.GroupingFlat(new InputSectionDataAlg(list1, list2, countFloor));
 
             Assert.AreEqual(result.ListResultOneFlat.Except(optItem1).ToList().Count, 0);
             Assert.AreEqual(result.ListResultTwoFlat.Except(optItem2).ToList().Count, 0);
@@ -40,7 +40,7 @@ namespace Resettlement
             var optItem3 = new List<double> { 4.8 };
             var optItem4 = new List<double> { 7.2 };
 
-            var result = GroupingOnTheFloors.GroupingFlat(new InputDataAlg(list1, list2, countFloor));
+            var result = GroupingOnTheFloors.GroupingFlat(new InputSectionDataAlg(list1, list2, countFloor));
 
             Assert.AreEqual(result.ListResultOneFlat.Except(optItem1).ToList().Count, 0);
             Assert.AreEqual(result.ListResultTwoFlat.Except(optItem2).ToList().Count, 0);
@@ -62,7 +62,7 @@ namespace Resettlement
             var optItem3 = new List<double> { 3.3, 3.9, 4.8 };
             var optItem4 = new List<double> { 7.2, 8.4, 8.7 };
 
-            var result = GroupingOnTheFloors.GroupingFlat(new InputDataAlg(list1, list2, countFloor));
+            var result = GroupingOnTheFloors.GroupingFlat(new InputSectionDataAlg(list1, list2, countFloor));
 
             Assert.AreEqual(result.ListResultOneFlat.Except(optItem1).ToList().Count, 0);
             Assert.AreEqual(result.ListResultTwoFlat.Except(optItem2).ToList().Count, 0);
