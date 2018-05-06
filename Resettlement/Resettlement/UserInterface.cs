@@ -24,7 +24,7 @@ namespace Resettlement
 
         private void corridor_btn_Click(object sender, EventArgs e)
         {
-            var dataGAlg = new InputCorridorDataAlg();
+            var dataGAlg = new PrepareDataCorridorModel();
             //PerformHAlg(dataGAlg);
         }
 
