@@ -13,10 +13,11 @@ namespace Resettlement
         //        var step = InputConstraints.Q(valueQ.Text.ToString(CultureInfo.InvariantCulture));
         //        public double SumDelta { get; set; }
 
+        /*
         public List<double> ListSquares { get; set; }
         public List<double> ListExcessSquares { get; set; }
         public List<double> ListLengthFlat { get; set; }
-
+        */
 
         public PrepareDataCorridorModel()
         {
@@ -25,39 +26,38 @@ namespace Resettlement
             var listSquaresOneFlat = ReadFromFileAndRecordingInputDataInList.ReadFile(FilesDefault.DefaultListOneFlat);
             var listSquaresTwoFlat = ReadFromFileAndRecordingInputDataInList.ReadFile(FilesDefault.DefaultListTwoFlat);
 
-            //Todo работа с лишними квартирами, где отсекаем? Как обрабатываем?
-            //Todo Выкидываем самые мелкие однокомнатные, с соответствующим выводом квартир, которые не попали в итоговую модель
-
             var listOne = Flat.Initialize(listSquaresOneFlat, FlatType.OneFlat);
             var listTwo = Flat.Initialize(listSquaresTwoFlat, FlatType.TwoFlat);
 
-            var listSquares = new List<Flat>(listOne);
-            listSquares.AddRange(listTwo);
+            building.Flats.AddRange(listOne);
+            building.Flats.AddRange(listTwo);
 
+            //Исходное количество квартир
+            building.InputCountFlat = building.Flats.Count;
+            //todo ввод с экрана
+            building.CountFloor = 3;
+            
             //Приведение к минимально допустимым площадям
-            Flat.CastToMinimalSquare(listSquares);
+            Flat.CastToMinimalSquare(building.Flats);
+
+            //Отсечение лишних квартир (самые мелкие однокомнатные)
+            building = SeverExcessFlats.ToSeverExcessFlats(building);
 
             //Вычисление штрафа приведения
-            var f = Math.Round(
-                Flat.CalculateSumCastSquares(listSquares) -
-                Flat.CalculateSumInputSquares(listSquares), 2);
+            building.Fine.CastToMin = Math.Round(
+                Flat.CalculateSumCastSquares(building.Flats) -
+                Flat.CalculateSumInputSquares(building.Flats), 2);
+            //Площадь после приведения
+            building.SumSquareAfterCastToMin =
+                Math.Round(Flat.CalculateSumCastSquares(building.Flats), 2);
 
-            //Суммарная площадь
-            building.SumSquare =
-                Math.Round(Flat.CalculateSumCastSquares(listSquares), 2);
-
-            //Количество квартир
-            building.CountFlat = listSquares.Count;
-
-            //todo ввод с экрана
-            building.CountFloor = 4;
-
+            building.CountFlat = building.Flats.Count;
             if (building.CountFlat < 12)
                 MessageBox.Show(MessagesText.TooLittleData);
 
             //Метод по разбивке квартир по этажам на примерно равные группы
 
-            var res = GroupFlatOnFlours(listSquares, building.CountFloor);
+            var res = GroupFlatOnFlours(building.Flats, building.CountFloor);
             
             //Самый крупную группу оставляем на последний этаж, чтобы там за счет коридора в углу построить секцию
 

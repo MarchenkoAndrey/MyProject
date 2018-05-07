@@ -48,6 +48,7 @@
     <Compile Include="BackTrackForDP.cs" />
     <Compile Include="AnomalySearch.cs" />
     <Compile Include="Building.cs" />
+    <Compile Include="Fine.cs" />
     <Compile Include="Flat.cs" />
     <Compile Include="FlatType.cs" />
     <Compile Include="GroupingFlatOnFloorsGreedy.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="ResultAddingPlace.cs" />
     <Compile Include="ResultDataAfterGrouping.cs" />
     <Compile Include="ResultGreedyMethode.cs" />
+    <Compile Include="SeverExcessFlats.cs" />
     <Compile Include="StartAndFinishProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests.cs" />
