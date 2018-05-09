@@ -51,6 +51,7 @@
     <Compile Include="Fine.cs" />
     <Compile Include="Flat.cs" />
     <Compile Include="FlatType.cs" />
+    <Compile Include="Floor.cs" />
     <Compile Include="GroupingFlatOnFloorsGreedy.cs" />
     <Compile Include="ComprehensiveSearch.cs">
       <SubType>Form</SubType>

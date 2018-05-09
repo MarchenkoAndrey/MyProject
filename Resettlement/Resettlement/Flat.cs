@@ -1,22 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ComputationMethods.GeneralData;
 
 namespace Resettlement
 {
     public class Flat
     {
+        public int Id { get; set; }
         public double InputSquare { get; set; }
         public double CastSquare { get; set; }
         public FlatType Type { get; set; }
         public double Fine { get; set; }
 
-        public static List<Flat> Initialize(List<double> listSquares, FlatType type)
+        public static List<Flat> Initialize(List<double> listSquares, FlatType type, List<double> listSquares2, FlatType type2)
         {
             var list = new List<Flat>();
+            var i = 1;
             foreach (var elem in listSquares)
             {
-                list.Add(new Flat {Fine = 0, InputSquare = elem, CastSquare = elem, Type = type});
+                list.Add(new Flat {Id = i, Fine = 0, InputSquare = elem, CastSquare = elem, Type = type});
+                i++;
+            }
+
+            foreach (var elem in listSquares2)
+            {
+                list.Add(new Flat { Id = i, Fine = 0, InputSquare = elem, CastSquare = elem, Type = type2 });
+                i++;
             }
 
             return list;
@@ -77,6 +87,15 @@ namespace Resettlement
                 result.Add(elem.CastSquare);
             }
             return result;
+        }
+        //Метод вычитания балкона из площади каждой квартиры
+        public static List<Flat> DiffBalcony(List<Flat> sourceList)
+        {
+            foreach (var elem in sourceList)
+            {
+                elem.CastSquare = Math.Round(elem.CastSquare - Constraints.SquareBalcony, 3);
+            }
+            return sourceList;
         }
     }
 }

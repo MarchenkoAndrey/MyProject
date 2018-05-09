@@ -26,11 +26,8 @@ namespace Resettlement
             var listSquaresOneFlat = ReadFromFileAndRecordingInputDataInList.ReadFile(FilesDefault.DefaultListOneFlat);
             var listSquaresTwoFlat = ReadFromFileAndRecordingInputDataInList.ReadFile(FilesDefault.DefaultListTwoFlat);
 
-            var listOne = Flat.Initialize(listSquaresOneFlat, FlatType.OneFlat);
-            var listTwo = Flat.Initialize(listSquaresTwoFlat, FlatType.TwoFlat);
 
-            building.Flats.AddRange(listOne);
-            building.Flats.AddRange(listTwo);
+            building.Flats.AddRange(Flat.Initialize(listSquaresOneFlat, FlatType.OneFlat, listSquaresTwoFlat, FlatType.TwoFlat));
 
             //Исходное количество квартир
             building.InputCountFlat = building.Flats.Count;
@@ -48,16 +45,18 @@ namespace Resettlement
                 Flat.CalculateSumCastSquares(building.Flats) -
                 Flat.CalculateSumInputSquares(building.Flats), 2);
             //Площадь после приведения
-            building.SumSquareAfterCastToMin =
+            building.SumSquare =
                 Math.Round(Flat.CalculateSumCastSquares(building.Flats), 2);
 
             building.CountFlat = building.Flats.Count;
             if (building.CountFlat < 12)
                 MessageBox.Show(MessagesText.TooLittleData);
 
+            building.Flats = Flat.DiffBalcony(building.Flats);
+
             //Метод по разбивке квартир по этажам на примерно равные группы
 
-            var res = GroupFlatOnFlours(building.Flats, building.CountFloor);
+            var res = SplitFlatsOnFlours(building);
             
             //Самый крупную группу оставляем на последний этаж, чтобы там за счет коридора в углу построить секцию
 
@@ -73,34 +72,20 @@ namespace Resettlement
 
             //ListLenOneFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresOneFlat, Constraints.WidthFlat[0]);
             //ListLenTwoFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresTwoFlat, Constraints.WidthFlat[0]);
-            
-            //Вычитаем балконы сразу из исходных площадей. У каждой квартиры предусмотрен балкон
-            var listSquaresOneFlatExtended = DiffBalcony(listSquaresOneFlat);
-            var listSquaresTwoFlatExtended = DiffBalcony(listSquaresTwoFlat);
-           
-            //listSquaresTwoFlatExtended = DiffAboveCorridor(listSquaresTwoFlatExtended);
-            //ListLenOneFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresOneFlatExtended, Constraints.WidthFlat[0]);
-            //ListLenTwoFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresTwoFlatExtended, Constraints.WidthFlat[0]);
-        }
-
-        //Метод вычитания балкона из площади. Балкон у каждой квартиры
-        public static List<double> DiffBalcony(List<double> sourceList)
-        {
-            return sourceList.Select(a => Math.Round(a - Constraints.SquareBalcony, 3)).ToList();
         }
 
         //Метод по разбивке квартир по этажам на равные части с учетом аномалий
-        public static List<List<double>> GroupFlatOnFlours(List<Flat> listFlat, int countFloor)
+        public static List<List<double>> SplitFlatsOnFlours(Building building)
         {
-            var listSquares = Flat.ReceiveListSquares(listFlat);
+            var listSquares = Flat.ReceiveListSquares(building.Flats);
             listSquares.Sort();
 
             //Поиск аномалий. Исключение аномалий из сортировки. Ручное управление ими
-            var listAnomaly = AnomalySearch.FindAnomaly(listSquares, countFloor);
+            var listAnomaly = AnomalySearch.FindAnomaly(listSquares, building.CountFloor);
 
             var passSortList =
-                new List<double>(listSquares.GetRange(listSquares.Count - countFloor, countFloor).ToList());
-            listSquares.RemoveRange(listSquares.Count - countFloor, countFloor);
+                new List<double>(listSquares.GetRange(listSquares.Count - building.CountFloor, building.CountFloor).ToList());
+            listSquares.RemoveRange(listSquares.Count - building.CountFloor, building.CountFloor);
 
             var f1 = new List<double>();
             var f2 = new List<double>();
@@ -110,9 +95,9 @@ namespace Resettlement
 
             var fineBring = 0.0;
 
-            for (var l = 0; l < listSquares.Count; l+=countFloor)
+            for (var l = 0; l < listSquares.Count; l+= building.CountFloor)
             {
-                var cur = listSquares.GetRange(l, countFloor);
+                var cur = listSquares.GetRange(l, building.CountFloor);
                 var max = cur.Max();
                 for (var i = 0; i<cur.Count; ++i)
                 {
@@ -123,9 +108,9 @@ namespace Resettlement
                 f1.Add(max);
                 f2.Add(max);
                 f3.Add(max);
-                if (countFloor <= 3) continue;
+                if (building.CountFloor <= 3) continue;
                 f4.Add(max);
-                if (countFloor > 4)
+                if (building.CountFloor > 4)
                 {
                     f5.Add(max);
                 }

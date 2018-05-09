@@ -25,7 +25,6 @@
         public const double AddingB = 2 * WallsWidth;
 
         //Constraints for the model of corridor type
-        public const bool VersionWithBalcony = true;
         public const double MaxSquareSection = 500;
         //балкон
         public const double LengthBalcony = 2.4;
