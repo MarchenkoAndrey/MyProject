@@ -37,7 +37,7 @@ namespace Resettlement
             //Приведение к минимально допустимым площадям
             Flat.CastToMinimalSquare(building.Flats);
 
-            //Отсечение лишних квартир (самые мелкие однокомнатные)
+            //Отсечение лишних квартир по площади (самые мелкие однокомнатные)
             building = SeverExcessFlats.ToSeverExcessFlats(building);
 
             //Вычисление штрафа приведения
@@ -73,36 +73,31 @@ namespace Resettlement
             //ListLenOneFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresOneFlat, Constraints.WidthFlat[0]);
             //ListLenTwoFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresTwoFlat, Constraints.WidthFlat[0]);
         }
-        //Todo на каждом этаже одинаковое количество квартир?
         //Метод по разбивке квартир по этажам на равные части
         public static List<Floor> SplitFlatsOnFlours(Building building)
         {
-            var listSquares = Flat.ReceiveListSquares(building.Flats);
-            listSquares.Sort();
+            var listFlats = building.Flats.OrderBy(a => a.CastSquare).ToList();
+            
+            //исключаем из выравнивателя группу самых крупных квартир для дальнейшего анализа. Размер группы - количество этажей
+            var listExcessFlats = SeverBiggerFlats.ToDefineBiggerFlats(listFlats, building.CountFloor);
+            listFlats = SeverBiggerFlats.ToDeleteBiggerFlats(listFlats, listExcessFlats);
 
-            //todo исключаем из выравнивателя группу самых крупных квартир для дальнейшего анализа
-            var passSortList =
-                new List<double>(listSquares.GetRange(listSquares.Count - building.CountFloor, building.CountFloor).ToList());
-            listSquares.RemoveRange(listSquares.Count - building.CountFloor, building.CountFloor);
-
-            var f1 = new List<double>();
-            var f2 = new List<double>();
-            var f3 = new List<double>();
-            var f4 = new List<double>();
-            var f5 = new List<double>();
-
-            var fineBring = 0.0;
-
-            for (var l = 0; l < listSquares.Count; l+= building.CountFloor)
+            for (var l = 0; l < listFlats.Count; l+= building.CountFloor)
             {
-                var cur = listSquares.GetRange(l, building.CountFloor);
-                var max = cur.Max();
-                for (var i = 0; i<cur.Count; ++i)
+                var cur = listFlats.GetRange(l, building.CountFloor);
+                var max = cur.Select(b => b.CastSquare).Max();
+
+                foreach (var elem in cur)
                 {
-                    fineBring += Math.Round(fineBring + (max - cur[i]), 2);
-                    cur[i] = max;
+                    elem.Fine += Math.Round(max - elem.CastSquare, 2);
+                    elem.CastSquare = max;
+
+                    //добавлять на этажи
+                    //Todo работа со словарем
+                    //building.Floors1.Keys = 1;
                 }
 
+                /*
                 f1.Add(max);
                 f2.Add(max);
                 f3.Add(max);
@@ -112,14 +107,11 @@ namespace Resettlement
                 {
                     f5.Add(max);
                 }
+                */
             }
 
-            //списки площадей без учета аномалий
-
-
-
-            int u = 1;
-
+            //готовы ровные этажи без учета оставшихся лишних квартир
+            //var k = Flat.ReceiveListSquares(listFlats);
 
             return new List<Floor>();
         }

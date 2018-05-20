@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="ApartureLen.cs" />
     <Compile Include="BackTrackForDP.cs" />
+    <Compile Include="SeverBiggerFlats.cs" />
     <Compile Include="Building.cs" />
     <Compile Include="Fine.cs" />
     <Compile Include="Flat.cs" />
