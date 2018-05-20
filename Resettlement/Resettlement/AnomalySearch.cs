@@ -6,53 +6,45 @@ namespace Resettlement
 {
     public class Anomaly
     {
-        public double Value { get; set; }
+        public Flat Flat { get; set; }
         public string Reason { get; set; }
-        public Anomaly(double value, string reason)
+        public Anomaly(Flat flat, string reason)
         {
-            Value = value;
+            Flat = flat;
             Reason = reason;
         }
     }
 
     public class AnomalySearch
     {
-        //Todo 1. Лишние однушки. 2. Выпирающие двушки
-
-        public static List<Anomaly> FindAnomaly(List<double> listFlat, int countFloor)
+        public static List<Anomaly> FindAnomaly(List<Flat> listFlat)
         {
-            var hypothesis1 = FindAnomalyWithOneFlat(listFlat, countFloor);
-            var hypothesis2 = FindAnomalyWithBiggerTwoFlat(listFlat, countFloor);
+            var listSquares = Flat.ReceiveListSquares(listFlat);
+            listSquares.Sort();
 
-            return new List<Anomaly>(hypothesis1);
-        }
+            var hyp1 = FindBiggerFlat(listSquares);
 
-        public static List<Anomaly> FindAnomalyWithOneFlat(List<double> listFlat, int countFloor)
-        {
-            var countOneFlat = listFlat
-                .Where(a => a < Constraints.MinSquareTwoApartment)
-                .ToList()
-                .Count;
-
-            var diff = countOneFlat % countFloor;
-            if (diff == 0)
+            //по площадям ищем квартиры
+            var cur = new List<Flat>();
+            foreach (var elem in hyp1)
             {
-                //Нет однушек или однушки четко пилятся поровну по этажам
-                return new List<Anomaly>();
+               cur = listFlat.Where(a => Equals(a.CastSquare, elem)).Take(1).ToList();
             }
 
-            //Todo вычленение аномалий из списка
-            var an = new Anomaly(listFlat[0],"ExceedOneFlat");
-
-            return new List<Anomaly>();
+            //по квартирам строим список аномалий
+            var result = new List<Anomaly>();
+            foreach (var elem in cur)
+            {
+                result.Add(new Anomaly(elem, MessagesText.AnomalyBiggerFlat));
+            }
+            return result;
         }
-
-        public static List<Anomaly> FindAnomalyWithBiggerTwoFlat(List<double> listFlat, int countFloor)
+        public static List<double> FindBiggerFlat(List<double> listFlat)
         {
-            var findAnomal = listFlat.Where(a => a > Constraints.MinSquareTwoApartment).ToList();
+            var findAnomal = listFlat.Where(a => a > Constraints.MinSquareTwoApartment-Constraints.SquareBalcony).ToList();
             var averageAnomal = findAnomal.Sum() / findAnomal.Count;
             var resultAnomal = findAnomal.Where(a => a > averageAnomal + 2).ToList();
-            return new List<Anomaly>();
+            return new List<double>(resultAnomal);
         }
     }
 }

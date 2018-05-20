@@ -49,7 +49,7 @@ namespace Resettlement
                 Math.Round(Flat.CalculateSumCastSquares(building.Flats), 2);
 
             building.CountFlat = building.Flats.Count;
-            if (building.CountFlat < 12)
+            if (building.CountFlat < 4 * building.CountFloor)
                 MessageBox.Show(MessagesText.TooLittleData);
 
             building.Flats = Flat.DiffBalcony(building.Flats);
@@ -64,10 +64,10 @@ namespace Resettlement
             //Выравниваем площади за счет добавок
             //Todo 1.Поправить инициализацию лишних r, 2. Выровнять площадь на этажах
 
-            var r1 = res[0].Sum();
-            var r2 = res[1].Sum();
-            var r3 = res[2].Sum();
-            var r4 = res[3].Sum();
+            //var r1 = res[0].Sum();
+            //var r2 = res[1].Sum();
+            //var r3 = res[2].Sum();
+            //var r4 = res[3].Sum();
             //var r5 = res[4].Sum();
 
             //ListLenOneFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresOneFlat, Constraints.WidthFlat[0]);
@@ -75,13 +75,13 @@ namespace Resettlement
         }
 
         //Метод по разбивке квартир по этажам на равные части с учетом аномалий
-        public static List<List<double>> SplitFlatsOnFlours(Building building)
+        public static List<Floor> SplitFlatsOnFlours(Building building)
         {
             var listSquares = Flat.ReceiveListSquares(building.Flats);
             listSquares.Sort();
 
             //Поиск аномалий. Исключение аномалий из сортировки. Ручное управление ими
-            var listAnomaly = AnomalySearch.FindAnomaly(listSquares, building.CountFloor);
+            var listAnomaly = AnomalySearch.FindAnomaly(building.Flats);
 
             var passSortList =
                 new List<double>(listSquares.GetRange(listSquares.Count - building.CountFloor, building.CountFloor).ToList());
@@ -121,7 +121,7 @@ namespace Resettlement
             int u = 1;
 
 
-            return new List<List<double>>();
+            return new List<Floor>();
         }
     }
 }

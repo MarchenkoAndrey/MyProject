@@ -27,7 +27,8 @@
         public const string ResultDynamicProgram = "Result of MDP:\r\n";
 
         //Messages for the model of corridor type
-        public const string TooLittleData = "Слишком мало данных. Невозможно построить 3-этажный дом";
+        public const string TooLittleData = "Слишком мало данных. Невозможно построить дом";
         public const string TooMuchData = "Слишком много данных для построения одного дома. Удалите варианты суммарной площадью {0} м2";
+        public const string AnomalyBiggerFlat = "Слишком большая площадь квартиры";
     }
 }
