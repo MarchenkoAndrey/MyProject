@@ -32,7 +32,7 @@ namespace Resettlement
             //Исходное количество квартир
             building.InputCountFlat = building.Flats.Count;
             //todo ввод с экрана
-            building.CountFloor = 3;
+            building.CountFloor = 4;
             
             //Приведение к минимально допустимым площадям
             Flat.CastToMinimalSquare(building.Flats);
@@ -73,16 +73,14 @@ namespace Resettlement
             //ListLenOneFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresOneFlat, Constraints.WidthFlat[0]);
             //ListLenTwoFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresTwoFlat, Constraints.WidthFlat[0]);
         }
-
-        //Метод по разбивке квартир по этажам на равные части с учетом аномалий
+        //Todo на каждом этаже одинаковое количество квартир?
+        //Метод по разбивке квартир по этажам на равные части
         public static List<Floor> SplitFlatsOnFlours(Building building)
         {
             var listSquares = Flat.ReceiveListSquares(building.Flats);
             listSquares.Sort();
 
-            //Поиск аномалий. Исключение аномалий из сортировки. Ручное управление ими
-            var listAnomaly = AnomalySearch.FindAnomaly(building.Flats);
-
+            //todo исключаем из выравнивателя группу самых крупных квартир для дальнейшего анализа
             var passSortList =
                 new List<double>(listSquares.GetRange(listSquares.Count - building.CountFloor, building.CountFloor).ToList());
             listSquares.RemoveRange(listSquares.Count - building.CountFloor, building.CountFloor);
@@ -116,7 +114,9 @@ namespace Resettlement
                 }
             }
 
-            //Здесь у меня уже есть нужные списки без учета аномалий.
+            //списки площадей без учета аномалий
+
+
 
             int u = 1;
 
