@@ -74,7 +74,7 @@ namespace Resettlement
             //ListLenTwoFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresTwoFlat, Constraints.WidthFlat[0]);
         }
         //Метод по разбивке квартир по этажам на равные части
-        public static List<Floor> SplitFlatsOnFlours(Building building)
+        public static Dictionary<int, List<Flat>> SplitFlatsOnFlours(Building building)
         {
             var listFlats = building.Flats.OrderBy(a => a.CastSquare).ToList();
             
@@ -82,38 +82,41 @@ namespace Resettlement
             var listExcessFlats = SeverBiggerFlats.ToDefineBiggerFlats(listFlats, building.CountFloor);
             listFlats = SeverBiggerFlats.ToDeleteBiggerFlats(listFlats, listExcessFlats);
 
+            // словарь этаж - список квартир 
+            var listFlatsOnFloor = new Dictionary<int, List<Flat>>();
+            for (var i = 1; i <= building.CountFloor; ++i)
+            {
+                listFlatsOnFloor[i] = new List<Flat>();
+            }
+
             for (var l = 0; l < listFlats.Count; l+= building.CountFloor)
             {
+
                 var cur = listFlats.GetRange(l, building.CountFloor);
                 var max = cur.Select(b => b.CastSquare).Max();
 
+                int number = 1;
                 foreach (var elem in cur)
                 {
                     elem.Fine += Math.Round(max - elem.CastSquare, 2);
                     elem.CastSquare = max;
 
-                    //добавлять на этажи
-                    //Todo работа со словарем
-                    //building.Floors1.Keys = 1;
+                    //добавление на этажи
+                    listFlatsOnFloor[number].Add(elem);
+                    number++;
                 }
-
-                /*
-                f1.Add(max);
-                f2.Add(max);
-                f3.Add(max);
-                if (building.CountFloor <= 3) continue;
-                f4.Add(max);
-                if (building.CountFloor > 4)
-                {
-                    f5.Add(max);
-                }
-                */
+            }
+            //Todo добавить не учтенные квартиры, чем меньше площадь - тем ниже этаж
+            //Todo Код написан так, что квартир точное количество
+            //Todo добавить группировку аномальных. Поработать здесь с ними перед записью в список.
+            int f = building.CountFloor;
+            foreach (var elem in listExcessFlats)
+            {
+                listFlatsOnFloor[f].Add(elem);
+                f--;
             }
 
-            //готовы ровные этажи без учета оставшихся лишних квартир
-            //var k = Flat.ReceiveListSquares(listFlats);
-
-            return new List<Floor>();
+            return listFlatsOnFloor;
         }
     }
 }
