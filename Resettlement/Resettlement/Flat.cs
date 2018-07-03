@@ -78,8 +78,8 @@ namespace Resettlement
             return result;
         }
         
-        //получение списка площадей из списка квартир
-        public static List<double> ReceiveListSquares(List<Flat> list)
+        //получение списка приведенных площадей из списка квартир
+        public static List<double> ReceiveListCastSquares(List<Flat> list)
         {
             var result = new List<double>();
             foreach (var elem in list)

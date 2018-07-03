@@ -13,12 +13,6 @@ namespace Resettlement
         //        var step = InputConstraints.Q(valueQ.Text.ToString(CultureInfo.InvariantCulture));
         //        public double SumDelta { get; set; }
 
-        /*
-        public List<double> ListSquares { get; set; }
-        public List<double> ListExcessSquares { get; set; }
-        public List<double> ListLengthFlat { get; set; }
-        */
-
         public PrepareDataCorridorModel()
         {
             var building = new Building();
@@ -37,7 +31,7 @@ namespace Resettlement
             //Приведение к минимально допустимым площадям
             Flat.CastToMinimalSquare(building.Flats);
 
-            //Отсечение лишних квартир по площади (самые мелкие однокомнатные)
+            //Отсечение лишних (секция 500 м2) квартир по площади (самые мелкие однокомнатные)
             building = SeverExcessFlats.ToSeverExcessFlats(building);
 
             //Вычисление штрафа приведения

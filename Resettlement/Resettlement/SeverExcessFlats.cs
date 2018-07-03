@@ -1,19 +1,23 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using ComputationMethods.GeneralData;
 
 namespace Resettlement
 {
     public class SeverExcessFlats
     {
-        //Todo учет лестничной клетки
         public static Building ToSeverExcessFlats(Building building)
         {
-            var listSquares = Flat.ReceiveListSquares(building.Flats);
-            while (listSquares.Sum() > Constraints.MaxSquareSection * building.CountFloor)
+            building.Flats = building.Flats.OrderBy(a => a.InputSquare).ToList();
+            var listSquares = Flat.ReceiveListCastSquares(building.Flats);
+            // Общая нежилая площадь = Лестничная клетка + корридор
+            var generalSquare = Math.Round(Constraints.EntrywayLength * Constraints.WidthFlat[4] + Constraints.MaxSquareCorridor,2); 
+
+            while (listSquares.Sum() > (Constraints.MaxSquareSection - generalSquare) * building.CountFloor)
             {
-                building.FlatsExcess.Add(building.Flats.OrderBy(a => a.InputSquare).First());
-                building.Flats.Remove(building.Flats.OrderBy(a => a.InputSquare).First());
-                listSquares.Remove(listSquares.Min());
+                building.FlatsExcess.Add(building.Flats.First());
+                building.Flats.Remove(building.Flats.First());
+                listSquares.Remove(listSquares.First());
             }
             return building;
         }
