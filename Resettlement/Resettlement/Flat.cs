@@ -9,6 +9,8 @@ namespace Resettlement
         public int Id { get; set; }
         public double InputSquare { get; set; }
         public double CastSquare { get; set; }
+
+        public double BalconySquare { get; set; }
         public FlatType Type { get; set; }
         public double Fine { get; set; }
 
@@ -18,13 +20,13 @@ namespace Resettlement
             var i = 1;
             foreach (var elem in listSquares1)
             {
-                list.Add(new Flat {Id = i, Fine = 0, InputSquare = elem, CastSquare = elem, Type = type1});
+                list.Add(new Flat {Id = i, Fine = 0, InputSquare = elem, CastSquare = elem, BalconySquare = Constraints.SquareBalcony, Type = type1});
                 i++;
             }
 
             foreach (var elem in listSquares2)
             {
-                list.Add(new Flat { Id = i, Fine = 0, InputSquare = elem, CastSquare = elem, Type = type2 });
+                list.Add(new Flat { Id = i, Fine = 0, InputSquare = elem, CastSquare = elem, BalconySquare = Constraints.SquareBalcony, Type = type2 });
                 i++;
             }
 
@@ -92,7 +94,7 @@ namespace Resettlement
         {
             foreach (var elem in sourceList)
             {
-                elem.CastSquare = Math.Round(elem.CastSquare - Constraints.SquareBalcony, 3);
+                elem.CastSquare = Math.Round(elem.CastSquare - elem.BalconySquare, 3);
             }
             return sourceList;
         }
