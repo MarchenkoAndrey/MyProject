@@ -31,8 +31,7 @@ namespace Resettlement
             //Приведение к минимально допустимым площадям
             Flat.CastToMinimalSquare(building.Flats);
 
-            //Отсечение лишних (секция 500 м2) квартир по площади (самые мелкие однокомнатные)
-            //Todo оставить ровное количество квартир по этажам!!! в MVP сойдет
+            //Отсечение лишних квартир
             building = SeverExcessFlats.ToSeverExcessFlats(building);
 
             //Вычисление штрафа приведения

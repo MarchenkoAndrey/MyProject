@@ -37,11 +37,11 @@ namespace Resettlement
             listExcessFlats = listExcessFlats.OrderBy(a => a.CastSquare).ToList();
             var list = Flat.ReceiveListCastSquares(listExcessFlats);
             //определение правильной группировки
-            var strategyOfGrouping = new Dictionary<int, double>
+            var strategyOfGrouping = new Dictionary<char, double>
             {
-                [1] = list.Last() * list.Count * 0.95,
-                [2] = list.Last() + list[list.Count - 2] * (list.Count - 1),
-                [3] = list.Last() * 2 + list[list.Count - 3] * (list.Count - 2)
+                ['A'] = list.Last() * list.Count * 0.95,
+                ['B'] = list.Last() + list[list.Count - 2] * (list.Count - 1),
+                ['C'] = list.Last() * 2 + list[list.Count - 3] * (list.Count - 2)
             };
             //Вычисление максимального
             var max = listExcessFlats.Last().CastSquare;
@@ -49,14 +49,14 @@ namespace Resettlement
             var max_2 = listExcessFlats[listExcessFlats.Count - 3].CastSquare;
             switch (strategyOfGrouping.OrderBy(a=>a.Value).First().Key)
             {
-                case 1:
+                case 'A':
                     foreach (var elem in listExcessFlats)
                     {
                         elem.Fine += Math.Round(max - elem.CastSquare, 2);
                         elem.CastSquare = max;
                     }
                     break;
-                case 2:
+                case 'B':
                     //группа без самой большой
                     for (var i = 0; i < listExcessFlats.Count - 1; i++)
                     {
@@ -64,7 +64,7 @@ namespace Resettlement
                         listExcessFlats[i].CastSquare = max_1;
                     }
                     break;
-                case 3:
+                case 'C':
                     //первая группа
                     for (var i = 0; i < listExcessFlats.Count - 2; i++)
                     {
