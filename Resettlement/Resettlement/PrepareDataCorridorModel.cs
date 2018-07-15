@@ -32,6 +32,7 @@ namespace Resettlement
             Flat.CastToMinimalSquare(building.Flats);
 
             //Отсечение лишних (секция 500 м2) квартир по площади (самые мелкие однокомнатные)
+            //Todo оставить ровное количество квартир по этажам!!! в MVP сойдет
             building = SeverExcessFlats.ToSeverExcessFlats(building);
 
             //Вычисление штрафа приведения
@@ -41,7 +42,7 @@ namespace Resettlement
             //Площадь после приведения
             building.SumSquare =
                 Math.Round(Flat.CalculateSumCastSquares(building.Flats), 2);
-
+            
             building.CountFlat = building.Flats.Count;
             if (building.CountFlat < 4 * building.CountFloor)
                 MessageBox.Show(MessagesText.TooLittleData);
@@ -52,32 +53,22 @@ namespace Resettlement
 
             var res = SplitFlatsOnFlours(building);
             
-            //Самый крупную группу оставляем на последний этаж, чтобы там за счет коридора в углу построить секцию
-
-
             //Выравниваем площади за счет добавок
             //Todo 1.Поправить инициализацию лишних r, 2. Выровнять площадь на этажах
-
-            //var r1 = res[0].Sum();
-            //var r2 = res[1].Sum();
-            //var r3 = res[2].Sum();
-            //var r4 = res[3].Sum();
-            //var r5 = res[4].Sum();
-
-            //ListLenOneFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresOneFlat, Constraints.WidthFlat[0]);
-            //ListLenTwoFlat = PreparationSquares.CalculateLengthOfFlat(listSquaresTwoFlat, Constraints.WidthFlat[0]);
         }
+        
         //Метод по разбивке квартир по этажам на равные части
         public static Dictionary<int, List<Flat>> SplitFlatsOnFlours(Building building)
         {
             var listFlats = building.Flats.OrderBy(a => a.CastSquare).ToList();
             
             //исключаем из выравнивателя группу самых крупных квартир для дальнейшего анализа. Размер группы - количество этажей
-            var listExcessFlats = SeverBiggerFlats.ToDefineBiggerFlats(listFlats, building.CountFloor);
-            listFlats = SeverBiggerFlats.ToDeleteBiggerFlats(listFlats, listExcessFlats);
+            var listExcessFlats = HandlerBiggerFlats.ToDefineBiggerFlats(listFlats, building.CountFloor);
+            listFlats = HandlerBiggerFlats.ToDeleteBiggerFlats(listFlats, listExcessFlats);
 
-            // словарь этаж - список квартир 
+            // словарь: [этаж - список квартир] 
             var listFlatsOnFloor = new Dictionary<int, List<Flat>>();
+            // инициализация словаря
             for (var i = 1; i <= building.CountFloor; ++i)
             {
                 listFlatsOnFloor[i] = new List<Flat>();
@@ -85,11 +76,10 @@ namespace Resettlement
 
             for (var l = 0; l < listFlats.Count; l+= building.CountFloor)
             {
-
                 var cur = listFlats.GetRange(l, building.CountFloor);
                 var max = cur.Select(b => b.CastSquare).Max();
 
-                int number = 1;
+                var number = 1;
                 foreach (var elem in cur)
                 {
                     elem.Fine += Math.Round(max - elem.CastSquare, 2);
@@ -100,16 +90,18 @@ namespace Resettlement
                     number++;
                 }
             }
-            //Todo добавить не учтенные квартиры, чем меньше площадь - тем ниже этаж
-            //Todo Код написан так, что квартир точное количество
-            //Todo добавить группировку аномальных. Поработать здесь с ними перед записью в список.
-            int f = building.CountFloor;
+
+            //группировка аномальных
+            listExcessFlats = HandlerBiggerFlats.ToGroupBiggerFlats(listExcessFlats);
+            //добавление аномальных квартир (большие наверх)
+            //Самые крупные квартиры оставляем на последние этажи, чтобы там за счет коридора в углу построить секцию
+            var numberFloor = 1;
             foreach (var elem in listExcessFlats)
             {
-                listFlatsOnFloor[f].Add(elem);
-                f--;
+                listFlatsOnFloor[numberFloor].Add(elem);
+                numberFloor++;
             }
-
+            
             return listFlatsOnFloor;
         }
     }

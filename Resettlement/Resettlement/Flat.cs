@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using ComputationMethods.GeneralData;
 
 namespace Resettlement
@@ -13,13 +12,13 @@ namespace Resettlement
         public FlatType Type { get; set; }
         public double Fine { get; set; }
 
-        public static List<Flat> Initialize(List<double> listSquares, FlatType type, List<double> listSquares2, FlatType type2)
+        public static List<Flat> Initialize(List<double> listSquares1, FlatType type1, List<double> listSquares2, FlatType type2)
         {
             var list = new List<Flat>();
             var i = 1;
-            foreach (var elem in listSquares)
+            foreach (var elem in listSquares1)
             {
-                list.Add(new Flat {Id = i, Fine = 0, InputSquare = elem, CastSquare = elem, Type = type});
+                list.Add(new Flat {Id = i, Fine = 0, InputSquare = elem, CastSquare = elem, Type = type1});
                 i++;
             }
 
