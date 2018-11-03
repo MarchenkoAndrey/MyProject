@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using ComputationMethods.GeneralData;
 
-namespace Resettlement
+namespace Resettlement.CorridorModel
 {
     public class Flat
     {
@@ -12,6 +12,7 @@ namespace Resettlement
 
         public double BalconySquare { get; set; }
         public FlatType Type { get; set; }
+        public double Width { get; set; }
         public double Fine { get; set; }
 
         public static List<Flat> Initialize(List<double> listSquares1, FlatType type1, List<double> listSquares2, FlatType type2)
@@ -20,13 +21,13 @@ namespace Resettlement
             var i = 1;
             foreach (var elem in listSquares1)
             {
-                list.Add(new Flat {Id = i, Fine = 0, InputSquare = elem, CastSquare = elem, BalconySquare = Constraints.SquareBalcony, Type = type1});
+                list.Add(new Flat {Id = i, Fine = 0, Width=0, InputSquare = elem, CastSquare = elem, BalconySquare = Constraints.SquareBalcony, Type = type1});
                 i++;
             }
 
             foreach (var elem in listSquares2)
             {
-                list.Add(new Flat { Id = i, Fine = 0, InputSquare = elem, CastSquare = elem, BalconySquare = Constraints.SquareBalcony, Type = type2 });
+                list.Add(new Flat { Id = i, Fine = 0, Width = 0, InputSquare = elem, CastSquare = elem, BalconySquare = Constraints.SquareBalcony, Type = type2 });
                 i++;
             }
 

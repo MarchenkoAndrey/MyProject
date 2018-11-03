@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Resettlement
+namespace Resettlement.CorridorModel
 {
+    /// <summary>
+    ///     Класс для обработки аномалий
+    /// </summary>
     public class HandlerBiggerFlats
     {
         public static List<Flat> ToDefineBiggerFlats(List<Flat> listFlats, int countFloor)

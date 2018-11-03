@@ -2,7 +2,7 @@
 using System.Linq;
 using ComputationMethods.GeneralData;
 
-namespace Resettlement
+namespace Resettlement.CorridorModel
 {
     public class SeverExcessFlats
     {

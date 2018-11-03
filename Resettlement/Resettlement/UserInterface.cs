@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using Resettlement.CorridorModel;
 
 namespace Resettlement
 {
@@ -24,8 +25,9 @@ namespace Resettlement
 
         private void corridor_btn_Click(object sender, EventArgs e)
         {
-            var dataGAlg = new PrepareDataCorridorModel();
-            //PerformHAlg(dataGAlg);
+            var buildingPrepared = PrepareCorridorModel.ToPrepareCorridorModel();
+            var buildingCreated = PerformCorridorModel.ToPerformCorridorModel(buildingPrepared);
+            PrintCorridorModel.ToPrintCorridorModel(buildingCreated);
         }
 
         private void fullSearch_btn_Click(object sender, EventArgs e)
