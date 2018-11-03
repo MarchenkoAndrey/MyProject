@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Resettlement.CorridorModel.Models;
 
 namespace Resettlement.CorridorModel
 {
@@ -9,10 +10,10 @@ namespace Resettlement.CorridorModel
         public static Building ToPerformCorridorModel(Building building)
         {
             //1. Группировка квартир по этажам
-            var res = SplitFlatsOnFlours(building);
+            var listFloors = SplitFlatsOnFlours(building);
 
             //2. Расстановка секции
-
+            var finalBuilding = CreateFinalBuilding(listFloors);
 
             return new Building();
         }
@@ -24,6 +25,8 @@ namespace Resettlement.CorridorModel
             //Todo V2 Anomaly = исключаем из выравнивателя группу самых крупных квартир для дальнейшего анализа. Размер группы - количество этажей
             //var listExcessFlats = HandlerBiggerFlats.ToDefineBiggerFlats(listFlats, building.CountFloor);
             //listFlats = HandlerBiggerFlats.ToDeleteBiggerFlats(listFlats, listExcessFlats);
+
+            var floor = new Floor();
 
             // словарь [этаж - список квартир] для разделения на равные группы площадей
             var listFlatsOnFloor = new Dictionary<int, List<Flat>>();
@@ -64,6 +67,17 @@ namespace Resettlement.CorridorModel
             */
 
             return listFlatsOnFloor;
+        }
+
+        private static List<Floor> CreateFinalBuilding(Dictionary<int, List<Flat>> listFloors)
+        {
+
+            foreach (var floor in listFloors)
+            {
+                var list = floor.Value;
+            }
+
+            return new List<Floor>();
         }
     }
 }

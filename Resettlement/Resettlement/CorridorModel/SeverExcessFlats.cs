@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Linq;
 using ComputationMethods.GeneralData;
+using Resettlement.CorridorModel.Models;
 
 namespace Resettlement.CorridorModel
 {
-    public class SeverExcessFlats
+    public static class SeverExcessFlats
     {
         /// <summary>
         ///     Отсечение лишних квартир. Два правила:

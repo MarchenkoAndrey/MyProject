@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using ComputationMethods;
 using ComputationMethods.GeneralData;
+using Resettlement.CorridorModel.Models;
 
 namespace Resettlement.CorridorModel
 {
@@ -24,6 +25,7 @@ namespace Resettlement.CorridorModel
             building.InputCountFlat = building.Flats.Count;
             //todo ввод с экрана
             building.CountFloor = 4;
+            building.Floors = Floor.CreateFloors(building.CountFloor);
             
             //Приведение к минимально допустимым площадям
             Flat.CastToMinimalSquare(building.Flats);
