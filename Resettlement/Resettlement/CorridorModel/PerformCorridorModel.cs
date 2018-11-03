@@ -12,42 +12,31 @@ namespace Resettlement.CorridorModel
             //1. Группировка квартир по этажам
             var listFloors = SplitFlatsOnFlours(building);
 
-            //2. Расстановка секции
+            //2. Расстановка квартир в секции
             var finalBuilding = CreateFinalBuilding(listFloors);
 
             return new Building();
         }
 
-        private static Dictionary<int, List<Flat>> SplitFlatsOnFlours(Building building)
+        private static Building SplitFlatsOnFlours(Building building)
         {
             var listFlats = building.Flats.OrderBy(a => a.CastSquare).ToList();
 
-            //Todo V2 Anomaly = исключаем из выравнивателя группу самых крупных квартир для дальнейшего анализа. Размер группы - количество этажей
+            /*Todo V2 Anomaly = исключаем из выравнивателя группу самых крупных квартир для дальнейшего анализа. Размер группы - количество этажей
             //var listExcessFlats = HandlerBiggerFlats.ToDefineBiggerFlats(listFlats, building.CountFloor);
-            //listFlats = HandlerBiggerFlats.ToDeleteBiggerFlats(listFlats, listExcessFlats);
+            //listFlats = HandlerBiggerFlats.ToDeleteBiggerFlats(listFlats, listExcessFlats);*/
 
-            var floor = new Floor();
-
-            // словарь [этаж - список квартир] для разделения на равные группы площадей
-            var listFlatsOnFloor = new Dictionary<int, List<Flat>>();
-            // инициализация словаря
-            for (var i = 1; i <= building.CountFloor; ++i)
-            {
-                listFlatsOnFloor[i] = new List<Flat>();
-            }
             for (var j = 0; j < listFlats.Count; j += building.CountFloor)
             {
-                var cur = listFlats.GetRange(j, building.CountFloor);
-                var max = cur.Select(b => b.CastSquare).Max();
+                var group = listFlats.GetRange(j, building.CountFloor);
+                var max = group.Select(b => b.CastSquare).Max();
 
                 var number = 1;
-                foreach (var elem in cur)
+                foreach (var flat in group)
                 {
-                    elem.Fine += Math.Round(max - elem.CastSquare, 2);
-                    elem.CastSquare = max;
-
-                    //добавление на этажи
-                    listFlatsOnFloor[number].Add(elem);
+                    flat.Fine += Math.Round(max - flat.CastSquare, 2);
+                    flat.CastSquare = max;
+                    Floor.AddFlat(building, flat, number);
                     number++;
                 }
             }
@@ -63,19 +52,13 @@ namespace Resettlement.CorridorModel
             {
                 listFlatsOnFloor[numberFloor].Add(elem);
                 numberFloor++;
-            }
-            */
+            }*/
 
-            return listFlatsOnFloor;
+            return building;
         }
 
-        private static List<Floor> CreateFinalBuilding(Dictionary<int, List<Flat>> listFloors)
+        private static List<Floor> CreateFinalBuilding(Building building)
         {
-
-            foreach (var floor in listFloors)
-            {
-                var list = floor.Value;
-            }
 
             return new List<Floor>();
         }

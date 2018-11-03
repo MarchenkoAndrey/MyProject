@@ -29,7 +29,7 @@ namespace Resettlement.CorridorModel.Models
         /// </summary>
         public double Fine { get; set; }
 
-        public Floor()
+        private Floor()
         {
             Number = 0;
             Flats = new List<Flat>();
@@ -46,6 +46,11 @@ namespace Resettlement.CorridorModel.Models
                 floors.Add(new Floor { Number = i + 1 });
             }
             return floors;
+        }
+
+        public static void AddFlat(Building building, Flat flat, int numberFloor)
+        {
+            building.Floors[numberFloor - 1].Flats.Add(flat);
         }
     }
 }
