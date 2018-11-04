@@ -59,8 +59,39 @@ namespace Resettlement.CorridorModel
 
         private static List<Floor> CreateFinalBuilding(Building building)
         {
+            var flats = building.Floors[0].Flats;
+            flats.RemoveRange(1,7);
+
+            MakeSubsets(flats, new bool[flats.Count], 0);
 
             return new List<Floor>();
+        }
+
+        static void Evaluate(List<Flat> flats, bool[] subset)
+        {
+            var delta = 0.0;
+            for (int i = 0; i < subset.Length; i++)
+                if (subset[i]) delta += flats[i].CastSquare;
+                else delta -= flats[i].CastSquare;
+            foreach (var e in subset)
+                Console.Write(e ? 1 : 0);
+            Console.Write(" ");
+            if (Math.Abs(delta) > 5.0)
+                Console.Write("OK");
+            Console.WriteLine();
+        }
+
+        static void MakeSubsets(List<Flat> flats, bool[] subset, int position)
+        {
+            if (position == subset.Length)
+            {
+                Evaluate(flats,subset);
+                return;
+            }
+            subset[position] = false;
+            MakeSubsets(flats, subset, position + 1);
+            subset[position] = true;
+            MakeSubsets(flats, subset, position + 1);
         }
     }
 }
