@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms.VisualStyles;
 using Resettlement.CorridorModel.Models;
 
 namespace Resettlement.CorridorModel
@@ -60,38 +61,53 @@ namespace Resettlement.CorridorModel
         private static List<Floor> CreateFinalBuilding(Building building)
         {
             var flats = building.Floors[0].Flats;
-            flats.RemoveRange(1,7);
+            //flats.RemoveRange(1,5);
+            var average = flats.Select(a=>a.CastSquare).Sum() * 0.525; //пополам + 5% 
+            var total = new bool[flats.Count];
+            var optimal= 0.0;
+            var result = new List<Tuple<double, bool[]>>();
+            MakeSubsets(flats, new bool[flats.Count], 0, average, total, optimal, ref result);
 
-            MakeSubsets(flats, new bool[flats.Count], 0);
+            optimal += optimal;
 
             return new List<Floor>();
         }
 
-        static void Evaluate(List<Flat> flats, bool[] subset)
+        static Tuple<double,bool[]> Evaluate(List<Flat> flats, bool[] subset, double average,  bool[] total, double optimal)
         {
-            var delta = 0.0;
+            var sum = 0.0;
             for (int i = 0; i < subset.Length; i++)
-                if (subset[i]) delta += flats[i].CastSquare;
-                else delta -= flats[i].CastSquare;
-            foreach (var e in subset)
-                Console.Write(e ? 1 : 0);
-            Console.Write(" ");
-            if (Math.Abs(delta) > 5.0)
-                Console.Write("OK");
-            Console.WriteLine();
-        }
+            {
+                if (subset[i]) sum += flats[i].CastSquare;
+                //else sum -= flats[i].CastSquare;
+            }
 
-        static void MakeSubsets(List<Flat> flats, bool[] subset, int position)
+            if (Math.Abs(average - sum) < 5.0)
+            {
+                optimal = sum;
+                total = subset;
+
+                return new Tuple<double,bool[]>(optimal,total);
+            }
+
+            return new Tuple<double, bool[]>(0, new[] {true});
+        }
+    
+        static void MakeSubsets(List<Flat> flats, bool[] subset, int position, double average, bool[] total, double optimal, ref List<Tuple<double, bool[]>> result)
         {
             if (position == subset.Length)
             {
-                Evaluate(flats,subset);
+                total = new bool[flats.Count];
+                var res = Evaluate(flats, subset, average, total, optimal);
+                //if (res.Item2.Length>1)
+                
+                result.Add(res);
                 return;
             }
             subset[position] = false;
-            MakeSubsets(flats, subset, position + 1);
+            MakeSubsets(flats, subset, position + 1,average, total, optimal, ref result);
             subset[position] = true;
-            MakeSubsets(flats, subset, position + 1);
+            MakeSubsets(flats, subset, position + 1, average, total, optimal, ref result);
         }
     }
 }
