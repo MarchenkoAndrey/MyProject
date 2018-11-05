@@ -60,53 +60,18 @@ namespace Resettlement.CorridorModel
 
         private static List<Floor> CreateFinalBuilding(Building building)
         {
+            //поиск оптимального разбиения на W1 и W2
             var flats = building.Floors[0].Flats;
-            //flats.RemoveRange(1,5);
-            var average = flats.Select(a=>a.CastSquare).Sum() * 0.525; //пополам + 5% 
+            var optimalSubset = SearchOptimalSubsets.ToSearchOptimalSubsets(flats);
+
+            //наполнение всех секций дома
             
-            var result = new List<Tuple<double, bool[]>>();
-            MakeSubsets(flats, new bool[flats.Count], 0, average, ref result);
 
             return new List<Floor>();
         }
 
-        static Tuple<double,bool[]> Evaluate(List<Flat> flats, bool[] subset, double average)
-        {
-            var sum = 0.0;
-            for (int i = 0; i < subset.Length; i++)
-            {
-                if (subset[i]) sum += flats[i].CastSquare;
-            }
-
-            if (Math.Abs(average - sum) < 5.0)
-            {
-                var optimal = sum;
-                bool[] total;
-                Array.Copy(subset,
-                    total = new bool[subset.Length],
-                    subset.Length);
-
-                return new Tuple<double,bool[]>(optimal, total);
-            }
-
-            return new Tuple<double, bool[]>(0, new[] {true});
-        }
+        
     
-        static void MakeSubsets(List<Flat> flats, bool[] subset, int position, double average, ref List<Tuple<double, bool[]>> result)
-        {
-            if (position == subset.Length)
-            {
-                var res = Evaluate(flats, subset, average);
-                if (res.Item2.Length > 1)
-                {
-                    result.Add(res);
-                }
-                return;
-            }
-            subset[position] = false;
-            MakeSubsets(flats, subset, position + 1,average, ref result);
-            subset[position] = true;
-            MakeSubsets(flats, subset, position + 1, average, ref result);
-        }
+        
     }
 }
