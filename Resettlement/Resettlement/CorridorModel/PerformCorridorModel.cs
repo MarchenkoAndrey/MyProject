@@ -81,9 +81,12 @@ namespace Resettlement.CorridorModel
             if (Math.Abs(average - sum) < 5.0)
             {
                 var optimal = sum;
-                //var total = ;
+                bool[] total;
+                Array.Copy(subset,
+                    total = new bool[subset.Length],
+                    subset.Length);
 
-                return new Tuple<double,bool[]>(optimal, subset);
+                return new Tuple<double,bool[]>(optimal, total);
             }
 
             return new Tuple<double, bool[]>(0, new[] {true});
