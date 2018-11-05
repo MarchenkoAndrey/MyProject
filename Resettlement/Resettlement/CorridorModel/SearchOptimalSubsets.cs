@@ -10,11 +10,13 @@ namespace Resettlement.CorridorModel
         {
             var average = flats.Select(a => a.CastSquare).Sum() / 2.0;
             var optimalVariants = new List<Tuple<double, bool[]>>();
-            MakeSubsets(flats, new bool[flats.Count], 0, average, ref optimalVariants);
 
+            //Todo 1. придумать как добавить Entryway
+            //Todo 2. добавить валидацию на >1 True и >1 False (из-за ограничения на минимум 2 квартиры), там где EntryWay, должны быть 3 квартиры
+            //Todo 3. добавить в статью обоснование полного перебора, сказать что случаи с 15 квартирами в секции быть не может из-за 500м2
+            MakeSubsets(flats, new bool[flats.Count], 0, average, ref optimalVariants);
             //Сортировка оптимальных вариантов по сумме
             optimalVariants.Sort((x, y) => x.Item1.CompareTo(y.Item1));
-            
             //Возвращаем оптимальный
             return optimalVariants.First(a => a.Item1 >= average);
         }
