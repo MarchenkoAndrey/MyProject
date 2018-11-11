@@ -22,10 +22,6 @@ namespace Resettlement.CorridorModel
         {
             var listFlats = building.Flats.OrderBy(a => a.CastSquare).ToList();
 
-            /*Todo V2 Anomaly = исключаем из выравнивателя группу самых крупных квартир для дальнейшего анализа. Размер группы - количество этажей
-            //var listExcessFlats = HandlerBiggerFlats.ToDefineBiggerFlats(listFlats, building.CountFloor);
-            //listFlats = HandlerBiggerFlats.ToDeleteBiggerFlats(listFlats, listExcessFlats);*/
-
             for (var j = 0; j < listFlats.Count; j += building.CountFloor)
             {
                 var group = listFlats.GetRange(j, building.CountFloor);
@@ -40,19 +36,6 @@ namespace Resettlement.CorridorModel
                     number++;
                 }
             }
-
-            /*Todo V2 Anomaly 
-            //группировка аномальных
-            //listExcessFlats = HandlerBiggerFlats.ToGroupBiggerFlats(listExcessFlats);
-            //добавление аномальных квартир (большие наверх)
-            //Самые крупные квартиры оставляем на последние этажи, чтобы там за счет коридора в углу построить секцию
-
-            var numberFloor = 1;
-            foreach (var elem in listExcessFlats)
-            {
-                listFlatsOnFloor[numberFloor].Add(elem);
-                numberFloor++;
-            }*/
 
             //добавление лестничной клетки на каждый этаж 
             Floor.AddEntryway(building, Flat.CreateEntryway(building));
