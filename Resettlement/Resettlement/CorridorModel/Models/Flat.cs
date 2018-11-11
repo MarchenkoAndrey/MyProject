@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ComputationMethods.GeneralData;
+using Resettlement.CorridorModel.Models;
 
 namespace Resettlement.CorridorModel
 {
@@ -90,7 +91,7 @@ namespace Resettlement.CorridorModel
             }
             return result;
         }
-        //Метод вычитания балкона из площади каждой квартиры
+        //Вычитание балкона из площади каждой квартиры
         public static List<Flat> DiffBalcony(List<Flat> sourceList)
         {
             foreach (var elem in sourceList)
@@ -98,6 +99,21 @@ namespace Resettlement.CorridorModel
                 elem.CastSquare = Math.Round(elem.CastSquare - elem.BalconySquare, 3);
             }
             return sourceList;
+        }
+
+        //Создание лестничной клетки
+        public static Flat CreateEntryway(Building building)
+        {
+            return new Flat
+            {
+                Id = building.CountFlat+1,
+                InputSquare = 0,
+                CastSquare = 16,
+                BalconySquare = 0,
+                Type = FlatType.Entryway,
+                Width = 0,
+                Fine = 0
+            };
         }
     }
 }

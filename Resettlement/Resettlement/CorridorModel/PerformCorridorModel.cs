@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms.VisualStyles;
 using Resettlement.CorridorModel.Models;
 
 namespace Resettlement.CorridorModel
@@ -54,6 +53,9 @@ namespace Resettlement.CorridorModel
                 listFlatsOnFloor[numberFloor].Add(elem);
                 numberFloor++;
             }*/
+
+            //добавление лестничной клетки на каждый этаж 
+            Floor.AddEntryway(building, Flat.CreateEntryway(building));
 
             return building;
         }

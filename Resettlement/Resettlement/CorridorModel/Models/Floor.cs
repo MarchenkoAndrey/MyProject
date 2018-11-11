@@ -52,5 +52,15 @@ namespace Resettlement.CorridorModel.Models
         {
             building.Floors[numberFloor - 1].Flats.Add(flat);
         }
+
+        //добавляем лестничную клетку на каждый этаж
+        public static void AddEntryway(Building building, Flat entryway)
+        {
+            for (var numberFloor = 1; numberFloor <= building.CountFloor; ++numberFloor)
+            {
+                building.Floors[numberFloor - 1].Flats.Add(entryway);
+            }
+        }
+
     }
 }

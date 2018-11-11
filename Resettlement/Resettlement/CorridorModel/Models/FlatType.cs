@@ -1,8 +1,9 @@
-﻿namespace Resettlement
+﻿namespace Resettlement.CorridorModel.Models
 {
     public enum FlatType
     {
         OneFlat,
-        TwoFlat
+        TwoFlat,
+        Entryway
     }
 }
