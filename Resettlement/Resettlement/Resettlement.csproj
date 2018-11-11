@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="ApartureLen.cs" />
     <Compile Include="BackTrackForDP.cs" />
+    <Compile Include="CorridorModel\FillBuilding.cs" />
     <Compile Include="CorridorModel\HandlerBiggerFlats.cs" />
     <Compile Include="CorridorModel\Models\Building.cs" />
     <Compile Include="CorridorModel\Models\Fine.cs" />
@@ -54,7 +55,7 @@
     <Compile Include="CorridorModel\Models\Floor.cs" />
     <Compile Include="CorridorModel\PerformCorridorModel.cs" />
     <Compile Include="CorridorModel\PrintCorridorModel.cs" />
-    <Compile Include="CorridorModel\SearchOptimalSubsets.cs" />
+    <Compile Include="CorridorModel\SearchOptimalSubset.cs" />
     <Compile Include="GroupingFlatOnFloorsGreedy.cs" />
     <Compile Include="ComprehensiveSearch.cs">
       <SubType>Form</SubType>

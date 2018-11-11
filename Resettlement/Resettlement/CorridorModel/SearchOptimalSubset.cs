@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Resettlement.CorridorModel
 {
-    public static class SearchOptimalSubsets
+    public static class SearchOptimalSubset
     {
         public static Tuple<double,bool[]> ToSearchOptimalSubset(List<Flat> flats)
         {

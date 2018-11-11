@@ -106,7 +106,7 @@ namespace Resettlement.CorridorModel
         {
             return new Flat
             {
-                Id = building.CountFlat+1,
+                Id = building.InputCountFlat + 1,
                 InputSquare = 0,
                 CastSquare = 16,
                 BalconySquare = 0,

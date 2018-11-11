@@ -47,10 +47,10 @@ namespace Resettlement.CorridorModel
         {
             //поиск оптимального разбиения на W1 и W2
             var flats = building.Floors[0].Flats;
-            var optimalSubset = SearchOptimalSubsets.ToSearchOptimalSubset(flats);
+            var optimalSubset = SearchOptimalSubset.ToSearchOptimalSubset(flats);
 
-            //наполнение всех секций дома
-            
+            //наполнение дома
+            FillBuilding.ToFillBuilding(building,optimalSubset.Item2);
 
             return new List<Floor>();
         }
