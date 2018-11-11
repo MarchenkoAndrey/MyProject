@@ -6,27 +6,25 @@ namespace Resettlement.CorridorModel
 {
     public static class SearchOptimalSubsets
     {
-        public static Tuple<double,bool[]> ToSearchOptimalSubsets(List<Flat> flats)
+        public static Tuple<double,bool[]> ToSearchOptimalSubset(List<Flat> flats)
         {
             var average = flats.Select(a => a.CastSquare).Sum() / 2.0;
-            var optimalVariants = new List<Tuple<double, bool[]>>();
+            var subsets = new List<Tuple<double, bool[]>>();
 
-            //Todo 2. добавить валидацию на >1 True и >1 False (из-за ограничения на минимум 2 квартиры), там где EntryWay, должны быть 3 квартиры
             //Todo 3. добавить в статью обоснование полного перебора, сказать что случаи с 15 квартирами в секции быть не может из-за 500м2
-            MakeSubsets(flats, new bool[flats.Count], 0, average, ref optimalVariants);
-            //Сортировка оптимальных вариантов по сумме
-            optimalVariants.Sort((x, y) => x.Item1.CompareTo(y.Item1));
-            //Возвращаем оптимальный
-            return optimalVariants.First(a => a.Item1 >= average);
+            MakeSubsets(flats, new bool[flats.Count], 0, average, ref subsets);
+            if (subsets == null) throw new Exception();
+            
+            return ValidateSubsetFinder(subsets, average);
         }
-
+        
         //рекурсивная генерация подмножеств
-        static void MakeSubsets(List<Flat> flats, bool[] subset, int position, double average, ref List<Tuple<double, bool[]>> optimalVariants)
+        private static void MakeSubsets(List<Flat> flats, bool[] subset, int position, double average, ref List<Tuple<double, bool[]>> optimalVariants)
         {
             if (position == subset.Length)
             {
                 var res = Evaluate(flats, subset, average);
-                //если результат непустой -> сохраним
+                //пустой результат не сохраняем
                 if (res.Item2.Length > 1)
                 {
                     optimalVariants.Add(res);
@@ -40,10 +38,10 @@ namespace Resettlement.CorridorModel
         }
         
         //оценка текущего подмножества на оптимальность
-        static Tuple<double, bool[]> Evaluate(List<Flat> flats, bool[] subset, double average)
+        private static Tuple<double, bool[]> Evaluate(List<Flat> flats, bool[] subset, double average)
         {
             var sum = 0.0;
-            for (int i = 0; i < subset.Length; i++)
+            for (var i = 0; i < subset.Length; i++)
             {
                 if (subset[i]) sum += flats[i].CastSquare;
             }
@@ -60,6 +58,40 @@ namespace Resettlement.CorridorModel
             }
 
             return new Tuple<double, bool[]>(0, new[] { true });
+        }
+
+        //Поиск и валидация найденного решения
+        //Валидация на >1 True и >1 False (из-за ограничения на минимум 2 квартиры в ряду), там где Entryway, должны быть 3 квартиры
+        private static Tuple<double, bool[]> ValidateSubsetFinder(List<Tuple<double, bool[]>> subsets, double average)
+        {
+            subsets.Sort((x, y) => x.Item1.CompareTo(y.Item1));
+            var optimalSubset = subsets.First(a => a.Item1 >= average);
+            var state = false;
+            while (!state)
+            {
+                optimalSubset = subsets.First(a => a.Item1 >= average);
+                //entryway - последняя в списке
+                var entryway = optimalSubset.Item2[optimalSubset.Item2.Length - 1];
+                var w1 = entryway ? -1 : 0;
+                var w2 = entryway ? 0 : -1;
+
+                var dict = new Dictionary<bool, int>
+                {
+                    {true, w1},
+                    {false, w2}
+                };
+                foreach (var i in optimalSubset.Item2)
+                    dict[i] += 1;
+
+                if (dict.Values.Contains(0) || dict.Values.Contains(1))
+                {
+                    subsets.Remove(optimalSubset);
+                }
+                else
+                    state = true;
+            }
+
+            return optimalSubset;
         }
     }
 }

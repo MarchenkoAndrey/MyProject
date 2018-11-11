@@ -47,7 +47,7 @@ namespace Resettlement.CorridorModel
         {
             //поиск оптимального разбиения на W1 и W2
             var flats = building.Floors[0].Flats;
-            var optimalSubset = SearchOptimalSubsets.ToSearchOptimalSubsets(flats);
+            var optimalSubset = SearchOptimalSubsets.ToSearchOptimalSubset(flats);
 
             //наполнение всех секций дома
             
