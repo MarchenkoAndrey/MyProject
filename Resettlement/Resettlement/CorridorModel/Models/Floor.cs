@@ -22,6 +22,16 @@ namespace Resettlement.CorridorModel.Models
         /// </summary>
         public List<Flat> FlatsW2 { get; set; }
 
+        /// <summary>
+        ///     Ширина нижней части секции
+        /// </summary>
+        public double W1 { get; set; }
+        
+        /// <summary>
+        ///     Ширина верхней части секции
+        /// </summary>
+        public double W2 { get; set; }
+
         public double SumLivingSquare { get; set; }
 
         /// <summary>
@@ -35,6 +45,8 @@ namespace Resettlement.CorridorModel.Models
             Flats = new List<Flat>();
             FlatsW1 = new List<Flat>();
             FlatsW2 = new List<Flat>();
+            W1 = 0;
+            W2 = 0;
             SumLivingSquare = 0;
             Fine = 0;
         }

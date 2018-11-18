@@ -11,6 +11,9 @@ namespace Resettlement.CorridorModel.Models
         public int CountFloor { get; set; }
         public int InputCountFlat { get; set; }
         public int CountFlat { get; set; }
+
+        public double W1 { get; set; }
+        public double W2 { get; set; }
         public double SumSquare { get; set; }
         public Fine Fine { get; set; }
 
@@ -22,6 +25,8 @@ namespace Resettlement.CorridorModel.Models
             Floors = new List<Floor>();
             CountFloor = 0;
             CountFlat = 0;
+            W1 = 0;
+            W2 = 0;
             SumSquare = 0.0;
             Fine = new Fine {CastToMin = 0.0};
         }

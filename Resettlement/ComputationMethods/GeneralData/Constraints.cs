@@ -35,8 +35,8 @@
         public const double MaxLengthCorridor = 30;
         public const double MaxSquareCorridor = MinWidthCorridor * MaxLengthCorridor;
         //Минимальные площади для квартир
-        public const double MinSquareOneApartment = 35;
-        public const double MinSquareTwoApartment = 44;
+        public const double MinSquareOneFlat = 35;
+        public const double MinSquareTwoFlat = 44;
         public const double MinSquareThreeApartment = 52.00;
     }
 }

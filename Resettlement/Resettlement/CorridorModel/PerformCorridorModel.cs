@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Resettlement.CorridorModel.Models;
 
@@ -15,7 +14,7 @@ namespace Resettlement.CorridorModel
             //2. Расстановка квартир в секции
             var finalBuilding = CreateFinalBuilding(listFloors);
 
-            return new Building();
+            return finalBuilding;
         }
 
         private static Building SplitFlatsOnFlours(Building building)
@@ -30,7 +29,7 @@ namespace Resettlement.CorridorModel
                 var number = 1;
                 foreach (var flat in group)
                 {
-                    flat.Fine += Math.Round(max - flat.CastSquare, 2);
+                    //flat.Fine += Math.Round(max - flat.CastSquare, 2);
                     flat.CastSquare = max;
                     Floor.AddFlat(building, flat, number);
                     number++;
@@ -43,7 +42,7 @@ namespace Resettlement.CorridorModel
             return building;
         }
 
-        private static List<Floor> CreateFinalBuilding(Building building)
+        private static Building CreateFinalBuilding(Building building)
         {
             //поиск оптимального разбиения на W1 и W2
             var flats = building.Floors[0].Flats;
@@ -52,7 +51,7 @@ namespace Resettlement.CorridorModel
             //наполнение дома
             FillBuilding.ToFillBuilding(building,optimalSubset.Item2);
 
-            return new List<Floor>();
+            return building;
         }
 
         

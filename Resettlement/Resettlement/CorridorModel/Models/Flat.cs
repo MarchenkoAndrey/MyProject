@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using ComputationMethods.GeneralData;
-using Resettlement.CorridorModel.Models;
 
-namespace Resettlement.CorridorModel
+namespace Resettlement.CorridorModel.Models
 {
     public class Flat
     {
-        public int Id { get; set; }
-        public double InputSquare { get; set; }
+        public int Id { get; private set; }
+        public double InputSquare { get; private set; }
         public double CastSquare { get; set; }
 
         public double BalconySquare { get; set; }
         public FlatType Type { get; set; }
-        public double Width { get; set; }
+        //public double Width { get; set; }
         public double Fine { get; set; }
 
         public static List<Flat> Initialize(List<double> listSquares1, FlatType type1, List<double> listSquares2, FlatType type2)
@@ -22,13 +21,13 @@ namespace Resettlement.CorridorModel
             var i = 1;
             foreach (var elem in listSquares1)
             {
-                list.Add(new Flat {Id = i, Fine = 0, Width=0, InputSquare = elem, CastSquare = elem, BalconySquare = Constraints.SquareBalcony, Type = type1});
+                list.Add(new Flat {Id = i, Fine = 0, InputSquare = elem, CastSquare = elem, BalconySquare = Constraints.SquareBalcony, Type = type1});
                 i++;
             }
 
             foreach (var elem in listSquares2)
             {
-                list.Add(new Flat { Id = i, Fine = 0, Width = 0, InputSquare = elem, CastSquare = elem, BalconySquare = Constraints.SquareBalcony, Type = type2 });
+                list.Add(new Flat { Id = i, Fine = 0, InputSquare = elem, CastSquare = elem, BalconySquare = Constraints.SquareBalcony, Type = type2 });
                 i++;
             }
 
@@ -42,18 +41,18 @@ namespace Resettlement.CorridorModel
                 {
                     if (elem.Type==FlatType.OneFlat)
                     {
-                        if (elem.CastSquare < Constraints.MinSquareOneApartment)
+                        if (elem.CastSquare < Constraints.MinSquareOneFlat)
                         {
-                            elem.Fine = Math.Round(Constraints.MinSquareOneApartment - elem.CastSquare, 2);
-                            elem.CastSquare = Constraints.MinSquareOneApartment;
+                            //elem.Fine = Math.Round(Constraints.MinSquareOneFlat - elem.CastSquare, 2);
+                            elem.CastSquare = Constraints.MinSquareOneFlat;
                         }
                     }
                     else
                     {
-                        if (elem.CastSquare < Constraints.MinSquareTwoApartment)
+                        if (elem.CastSquare < Constraints.MinSquareTwoFlat)
                         {
-                            elem.Fine = Math.Round(Constraints.MinSquareTwoApartment - elem.CastSquare, 2);
-                            elem.CastSquare = Constraints.MinSquareTwoApartment;
+                            //elem.Fine = Math.Round(Constraints.MinSquareTwoFlat - elem.CastSquare, 2);
+                            elem.CastSquare = Constraints.MinSquareTwoFlat;
                         }
                     }
                 }    
@@ -111,7 +110,6 @@ namespace Resettlement.CorridorModel
                 CastSquare = 16,
                 BalconySquare = 0,
                 Type = FlatType.Entryway,
-                Width = 0,
                 Fine = 0
             };
         }
