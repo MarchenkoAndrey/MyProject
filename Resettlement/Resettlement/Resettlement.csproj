@@ -49,7 +49,6 @@
     <Compile Include="CorridorModel\FillBuilding.cs" />
     <Compile Include="CorridorModel\HandlerBiggerFlats.cs" />
     <Compile Include="CorridorModel\Models\Building.cs" />
-    <Compile Include="CorridorModel\Models\Fine.cs" />
     <Compile Include="CorridorModel\Models\Flat.cs" />
     <Compile Include="CorridorModel\Models\FlatType.cs" />
     <Compile Include="CorridorModel\Models\Floor.cs" />

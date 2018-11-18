@@ -34,9 +34,12 @@ namespace Resettlement.CorridorModel
             building = SeverExcessFlats.ToSeverExcessFlats(building);
 
             //Вычисление штрафа приведения
+            /*
             building.Fine.CastToMin = Math.Round(
                 Flat.CalculateSumCastSquares(building.Flats) -
                 Flat.CalculateSumInputSquares(building.Flats), 2);
+            */
+
             //Площадь после приведения
             building.SumSquare =
                 Math.Round(Flat.CalculateSumCastSquares(building.Flats), 2);

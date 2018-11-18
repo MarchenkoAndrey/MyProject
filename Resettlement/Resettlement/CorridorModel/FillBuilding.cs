@@ -10,12 +10,13 @@ namespace Resettlement.CorridorModel
     {
         public static void ToFillBuilding(Building building, bool[] position)
         {
-            
             foreach (var floor in building.Floors)
             {
                 ToFillFloor(building, floor, position);
+                floor.Fine = floor.FlatsW1.Select(a => a.Fine).Sum() + floor.FlatsW2.Select(a => a.Fine).Sum();
             }
-            //ToFillFloor(building.Floors[0], position);
+
+            building.Fine = building.Floors.Select(a => a.Fine).Sum();
         }
 
         private static void ToFillFloor(Building building,Floor floor, bool[] position)
@@ -40,24 +41,30 @@ namespace Resettlement.CorridorModel
             var sumSquaresW1 = SumSquares(listW1);
             var sumSquaresW2 = SumSquares(listW2);
 
-            // перебор w1 и w2 и расчет разницы их длин
             var optimalDiffLength = double.MaxValue;
-            var optimalW1 = 0.0;
-            var optimalW2 = 0.0;
-            
-            foreach (var w1 in Constraints.WidthFlat)
+            var optimalW1 = building.W1;
+            var optimalW2 = building.W2;
+
+            // если это не первый этаж, то w1 и w2 уже известны
+            // перебор w1 и w2 и расчет разницы их длин
+            if (optimalW1 < 1)
             {
-                foreach (var w2 in Constraints.WidthFlat)
+                foreach (var w1 in Constraints.WidthFlat)
                 {
-                    if (optimalDiffLength > Math.Abs(sumSquaresW2 / w2 - sumSquaresW1 / w1))
+                    foreach (var w2 in Constraints.WidthFlat)
                     {
-                        optimalDiffLength = Math.Abs(sumSquaresW2 / w2 - sumSquaresW1 / w1);
-                        optimalW1 = w1;
-                        optimalW2 = w2;
+                        if (optimalDiffLength > Math.Abs(sumSquaresW2 / w2 - sumSquaresW1 / w1))
+                        {
+                            optimalDiffLength = Math.Abs(sumSquaresW2 / w2 - sumSquaresW1 / w1);
+                            optimalW1 = w1;
+                            optimalW2 = w2;
+                        }
                     }
                 }
+                //записываем оптимальные w1 и w2
+                building.W1 = optimalW1;
+                building.W2 = optimalW2;
             }
-
             // в переборе подмножеств, мы брали случайное значение Entryway, теперь же нужно его пересчитать
             // 1. Меняем предыдущее значение площади Entryway на правильное
             // 2. Пересчитываем суммы, пересчитываем разницу площадей
@@ -77,12 +84,16 @@ namespace Resettlement.CorridorModel
             else
                 listW2[listW2.Count - 1].CastSquare += Math.Round(optimalDiffLength * optimalW2, 2);
 
-            //записываем оптимальные w1 и w2 в списки
-            building.W1 = optimalW1;
-            building.W2 = optimalW2;
-
             // Посчитать Fine для каждой квартиры
+            foreach (var flat in listW1)
+            {
+                flat.Fine = Math.Round(flat.CastSquare + flat.BalconySquare - flat.InputSquare, 2);
+            }
 
+            foreach (var flat in listW2)
+            {
+                flat.Fine = Math.Round(flat.CastSquare + flat.BalconySquare - flat.InputSquare, 2);
+            }
 
             //final
             floor.FlatsW1 = listW1;
